@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { cx } from "../../utils/cx";
-import Stat from "../../components/Stat/Stat";
-import Toggle from "../../components/Toggle/Toggle";
-import ProgressRing from "../../components/ProgressRing/ProgressRing";
+import Stat from "../../primitives/Stat/Stat";
+import Toggle from "../../primitives/Toggle/Toggle";
+import ProgressRing from "../../primitives/ProgressRing/ProgressRing";
 import "./ThermostatPanel.scss";
 
 // --- Domain model -----------------------------------------------------------

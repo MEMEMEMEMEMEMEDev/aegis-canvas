@@ -1,11 +1,11 @@
 import { useMemo, useState } from "react";
 import { cx } from "../../utils/cx";
-import Button from "../../components/Button/Button";
-import Stat from "../../components/Stat/Stat";
-import Toggle from "../../components/Toggle/Toggle";
-import ProgressRing from "../../components/ProgressRing/ProgressRing";
-import MetaTag from "../../components/MetaTag/MetaTag";
-import ShaderSurface from "../../components/ShaderSurface/ShaderSurface";
+import Button from "../../primitives/Button/Button";
+import Stat from "../../primitives/Stat/Stat";
+import Toggle from "../../primitives/Toggle/Toggle";
+import ProgressRing from "../../primitives/ProgressRing/ProgressRing";
+import MetaTag from "../../families/hud/MetaTag/MetaTag";
+import ShaderSurface from "../../primitives/ShaderSurface/ShaderSurface";
 import { CHART_AREA, CHART_BARS, SPARKLINE } from "../../shaders/effects";
 import "./AdminConsole.scss";
 

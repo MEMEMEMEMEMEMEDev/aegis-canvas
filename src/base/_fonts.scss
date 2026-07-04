@@ -1,0 +1,46 @@
+// =============================================================================
+// Fuentes self-hosted (WOFF2).  Se emiten como parte del foundation, así que
+// CUALQUIER app que consuma el design system las obtiene sin llamar a Google.
+//
+// Licencias: Inter, JetBrains Mono y Noto Sans JP son SIL Open Font License
+// (OFL) — libres de incrustar y redistribuir. Ver src/fonts/OFL.txt.
+//
+// Noto Sans JP está SUBSETEADO a los glifos CJK usados en el repo (~9KB/peso).
+// Si usas kanji/kana nuevos, re-subsetea (ver src/fonts/README.md).
+//
+// `font-display: swap` → el texto se muestra al toque con la fuente de sistema
+// y cambia a la web font al cargar (sin bloqueo de render).
+// =============================================================================
+
+// --- Inter (sans) -----------------------------------------------------------
+@each $weight in (400, 500, 600, 700) {
+  @font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    src: url("../fonts/inter-#{$weight}.woff2") format("woff2");
+  }
+}
+
+// --- JetBrains Mono (mono) --------------------------------------------------
+@each $weight in (400, 500, 700) {
+  @font-face {
+    font-family: "JetBrains Mono";
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    src: url("../fonts/jetbrains-mono-#{$weight}.woff2") format("woff2");
+  }
+}
+
+// --- Noto Sans JP (CJK, subseteado) -----------------------------------------
+@each $weight in (400, 500, 700) {
+  @font-face {
+    font-family: "Noto Sans JP";
+    font-style: normal;
+    font-weight: $weight;
+    font-display: swap;
+    src: url("../fonts/noto-sans-jp-#{$weight}.woff2") format("woff2");
+  }
+}

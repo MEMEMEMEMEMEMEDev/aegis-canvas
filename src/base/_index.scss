@@ -1,6 +1,7 @@
 // =============================================================================
-// Base barrel  —  emits the reset followed by global element styles.
+// Base barrel  —  @font-face self-hosted, luego reset y estilos globales.
 // =============================================================================
 
+@use "fonts";
 @use "reset";
 @use "global";

@@ -1,7 +1,7 @@
-import HudPanel from "../../components/HudPanel/HudPanel";
-import MetaTag from "../../components/MetaTag/MetaTag";
-import Numeral from "../../components/Numeral/Numeral";
-import Button from "../../components/Button/Button";
+import HudPanel from "../../families/hud/HudPanel/HudPanel";
+import MetaTag from "../../families/hud/MetaTag/MetaTag";
+import Numeral from "../../families/hud/Numeral/Numeral";
+import Button from "../../primitives/Button/Button";
 import "./EtherLanding.scss";
 
 const PALETTE = ["#7BA7AF", "#E2E4D2", "#455957"];

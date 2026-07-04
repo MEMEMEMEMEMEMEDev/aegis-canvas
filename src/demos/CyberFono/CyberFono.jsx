@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { cx } from "../../utils/cx";
-import Stat from "../../components/Stat/Stat";
-import Toggle from "../../components/Toggle/Toggle";
-import ProgressRing from "../../components/ProgressRing/ProgressRing";
-import ShaderSurface from "../../components/ShaderSurface/ShaderSurface";
+import Stat from "../../primitives/Stat/Stat";
+import Toggle from "../../primitives/Toggle/Toggle";
+import ProgressRing from "../../primitives/ProgressRing/ProgressRing";
+import ShaderSurface from "../../primitives/ShaderSurface/ShaderSurface";
 import { GLYPH_RAIN, SCAN_BAR, CIRCUIT } from "../../shaders/effects";
 import "./CyberFono.scss";
 

@@ -1,5 +1,5 @@
 import { cx } from "../../utils/cx";
-import ShaderSurface from "../../components/ShaderSurface/ShaderSurface";
+import ShaderSurface from "../../primitives/ShaderSurface/ShaderSurface";
 import { PLATE_SCAN } from "../../shaders/effects";
 import "./LaborPlate.scss";
 
