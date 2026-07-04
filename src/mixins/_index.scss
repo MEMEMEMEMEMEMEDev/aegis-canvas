@@ -1,0 +1,8 @@
+// =============================================================================
+// Mixins barrel  —  `@use "@ahroi/foundation/mixins" as m;`
+// =============================================================================
+
+@forward "media";
+@forward "typography";
+@forward "layout";
+@forward "a11y";

@@ -1,0 +1,51 @@
+// =============================================================================
+// "Ether" theme  —  derived from the inspiration card resources/1-idea-concepto.png
+// (空灵感 / ethereal). A calm, atmospheric dark-teal scheme. Three source colors
+// are expanded into the full semantic contract with sass:color.
+// =============================================================================
+
+@use "sass:color";
+@use "sass:map";
+@use "../tokens";
+
+$teal: #7ba7af; // mid teal  — the accent
+$sage: #e2e4d2; // pale sage — the text
+$slate: #455957; // dark slate teal — the surfaces base
+
+@mixin ether {
+  color-scheme: dark;
+
+  // Surfaces — a dark teal stack built off $slate.
+  --ds-surface-sunken: #{color.scale($slate, $lightness: -46%, $saturation: -6%)};
+  --ds-surface-base: #{color.scale($slate, $lightness: -33%)};
+  --ds-surface-raised: #{color.scale($slate, $lightness: -19%)};
+  --ds-surface-overlay: #{color.scale($slate, $lightness: -10%)};
+
+  // Text — sage fading into the surface.
+  --ds-text: #{$sage};
+  --ds-text-muted: #{color.mix($sage, $slate, 64%)};
+  --ds-text-subtle: #{color.mix($sage, $slate, 42%)};
+  --ds-text-inverse: #{color.scale($slate, $lightness: -42%)};
+
+  // Borders — translucent teal so the grid texture reads through.
+  --ds-border-subtle: #{color.change($teal, $alpha: 0.14)};
+  --ds-border: #{color.change($teal, $alpha: 0.26)};
+  --ds-border-strong: #{color.change($teal, $alpha: 0.44)};
+
+  // Accent.
+  --ds-accent: #{$teal};
+  --ds-accent-hover: #{color.scale($teal, $lightness: 16%)};
+  --ds-accent-subtle: #{color.change($teal, $alpha: 0.14)};
+  --ds-accent-contrast: #{color.scale($slate, $lightness: -44%)};
+
+  // Status (slightly brightened to read on dark).
+  --ds-success: #{map.get(tokens.$success, 400)};
+  --ds-warning: #{map.get(tokens.$warning, 400)};
+  --ds-danger: #{map.get(tokens.$danger, 400)};
+  --ds-info: #{map.get(tokens.$info, 400)};
+
+  // Effects.
+  --ds-focus-ring: #{$teal};
+  --ds-shadow-color: rgba(7, 12, 11, 0.5);
+  --ds-backdrop: rgba(12, 18, 17, 0.62);
+}

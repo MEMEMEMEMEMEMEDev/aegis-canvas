@@ -1,0 +1,69 @@
+// =============================================================================
+// Responsive media-query mixins  (mobile-first)
+//
+//   @use "@ahroi/foundation/mixins" as m;
+//   .card { padding: 1rem; @include m.up(md) { padding: 2rem; } }
+//   @include m.down(sm) { ... }            // below sm
+//   @include m.between(md, xl) { ... }     // md ≤ width < xl
+// =============================================================================
+
+@use "sass:map";
+@use "../tokens";
+
+$_bp: tokens.$breakpoints;
+
+@function _bp($name) {
+  @if not map.has-key($_bp, $name) {
+    @error "Unknown breakpoint `#{$name}`. Available: #{map.keys($_bp)}.";
+  }
+  @return map.get($_bp, $name);
+}
+
+// min-width: at this breakpoint and up
+@mixin up($name) {
+  $min: _bp($name);
+  @if $min == 0 {
+    @content;
+  } @else {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+}
+
+// max-width: below this breakpoint (exclusive)
+@mixin down($name) {
+  @media (max-width: (_bp($name) - 0.02px)) {
+    @content;
+  }
+}
+
+// between two breakpoints: [min, max)
+@mixin between($min, $max) {
+  @media (min-width: _bp($min)) and (max-width: (_bp($max) - 0.02px)) {
+    @content;
+  }
+}
+
+// alias: most common case is "up"
+@mixin media($name) {
+  @include up($name) {
+    @content;
+  }
+}
+
+// honor user motion preference
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+// target only fine pointers (mouse) vs coarse (touch)
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+// =============================================================================
+// Themes barrel (TOOLS only)  —  `@use "@ahroi/foundation/themes" as theme;`
+// Exposes the theme mixins so a scoped subtree can re-apply a theme if needed.
+// Does NOT emit CSS — use the root entry (`@use "@ahroi/foundation"`) for that.
+// =============================================================================
+
+@forward "light";
+@forward "dark";
+@forward "static";

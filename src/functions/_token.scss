@@ -1,0 +1,43 @@
+// =============================================================================
+// Token accessors  —  safe map lookups with helpful errors.
+// =============================================================================
+
+@use "sass:map";
+@use "../tokens";
+
+// Generic: read a key from any token map, erroring clearly if missing.
+@function get($map, $key) {
+  @if not map.has-key($map, $key) {
+    @error "Unknown token key `#{$key}`. Available: #{map.keys($map)}.";
+  }
+  @return map.get($map, $key);
+}
+
+// Convenience accessors for the common scales.
+@function space($key) {
+  @return get(tokens.$space, $key);
+}
+@function radius($key) {
+  @return get(tokens.$radius, $key);
+}
+@function font-size($key) {
+  @return get(tokens.$font-size, $key);
+}
+@function font-weight($key) {
+  @return get(tokens.$font-weight, $key);
+}
+@function line-height($key) {
+  @return get(tokens.$line-height, $key);
+}
+@function shadow($key) {
+  @return get(tokens.$shadow, $key);
+}
+@function duration($key) {
+  @return get(tokens.$duration, $key);
+}
+@function easing($key) {
+  @return get(tokens.$easing, $key);
+}
+@function z($key) {
+  @return get(tokens.$z-index, $key);
+}

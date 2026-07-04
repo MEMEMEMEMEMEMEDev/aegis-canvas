@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.sass-cache/
+*.css.map
+preview/preview.css
+
+*storybook.log
+storybook-static

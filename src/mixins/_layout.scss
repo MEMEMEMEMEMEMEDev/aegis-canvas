@@ -1,0 +1,45 @@
+// =============================================================================
+// Layout mixins
+// =============================================================================
+
+@use "../tokens";
+@use "../functions" as fn;
+
+// Centered, max-width content column with fluid gutters.
+@mixin container($max: tokens.$container-max) {
+  width: 100%;
+  max-width: $max;
+  margin-inline: auto;
+  padding-inline: tokens.$gutter;
+}
+
+// Flexbox shorthand.
+@mixin flex($dir: row, $align: stretch, $justify: flex-start, $gap: 0) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $justify;
+  @if $gap != 0 {
+    gap: fn.space($gap);
+  }
+}
+
+// Center a child both axes.
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Auto-fit responsive grid (no media queries needed).
+@mixin grid-auto($min: 16rem, $gap: "lg") {
+  display: grid;
+  gap: fn.space($gap);
+  grid-template-columns: repeat(auto-fit, minmax(min($min, 100%), 1fr));
+}
+
+// Cover the nearest positioned ancestor.
+@mixin absolute-fill {
+  position: absolute;
+  inset: 0;
+}

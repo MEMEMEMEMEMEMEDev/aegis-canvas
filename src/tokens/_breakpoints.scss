@@ -1,0 +1,13 @@
+// =============================================================================
+// Breakpoint tokens  (mobile-first; consumed by mixins/_media.scss)
+// Inherited from the v1 _vars.scss so existing layouts keep their thresholds.
+// =============================================================================
+
+$breakpoints: (
+  "xs": 0,
+  "sm": 480px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1440px,
+  "2xl": 1920px,
+);

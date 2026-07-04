@@ -1,0 +1,23 @@
+// =============================================================================
+// Unit helpers
+// =============================================================================
+
+@use "sass:math";
+
+$root-font-size: 16px !default;
+
+// px → rem  (accepts unitless or px). e.g. rem(24) -> 1.5rem
+@function rem($value) {
+  @if math.is-unitless($value) {
+    $value: $value * 1px;
+  }
+  @return math.div($value, $root-font-size) * 1rem;
+}
+
+// strip a unit:  strip(1.5rem) -> 1.5
+@function strip($value) {
+  @if math.is-unitless($value) {
+    @return $value;
+  }
+  @return math.div($value, ($value * 0 + 1));
+}

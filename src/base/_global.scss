@@ -1,0 +1,104 @@
+// =============================================================================
+// Base element styles  —  built entirely on the theme custom properties.
+// =============================================================================
+
+html {
+  font-size: 100%; // 16px base; honors user zoom
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-md);
+  line-height: var(--ds-leading-normal);
+  color: var(--ds-text);
+  background-color: var(--ds-surface-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition:
+    background-color var(--ds-duration-base) var(--ds-ease-standard),
+    color var(--ds-duration-base) var(--ds-ease-standard);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--ds-font-display);
+  font-weight: var(--ds-font-weight-semibold);
+  line-height: var(--ds-leading-tight);
+  letter-spacing: var(--ds-tracking-tight);
+}
+
+h1 {
+  font-size: var(--ds-font-size-4xl);
+}
+h2 {
+  font-size: var(--ds-font-size-3xl);
+}
+h3 {
+  font-size: var(--ds-font-size-2xl);
+}
+h4 {
+  font-size: var(--ds-font-size-xl);
+}
+
+a {
+  color: var(--ds-accent);
+  text-decoration: none;
+  transition: color var(--ds-duration-fast) var(--ds-ease-standard);
+}
+
+a:hover {
+  color: var(--ds-accent-hover);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--ds-font-mono);
+  font-size: 0.9em;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--ds-border-subtle);
+}
+
+::selection {
+  background: var(--ds-accent);
+  color: var(--ds-accent-contrast);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ds-focus-ring);
+  outline-offset: 2px;
+}
+
+// Shared overlay root: stacks above app content. Lives at <body> level so
+// portaled overlays escape any transformed/clipped ancestor (see overlay/).
+[data-ds-overlay-root] {
+  position: relative;
+  z-index: var(--ds-z-overlay);
+}
+
+// Themed scrollbars (WebKit + Firefox).
+* {
+  scrollbar-color: var(--ds-border-strong) transparent;
+  scrollbar-width: thin;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--ds-border-strong);
+  border-radius: var(--ds-radius-pill);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}

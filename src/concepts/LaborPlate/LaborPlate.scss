@@ -1,0 +1,270 @@
+@use "../../abstracts" as ds;
+
+// Industrial spec-plate: two interlocking panels cut along a single notch.
+// The light + dark clip-paths are exact complements: light = top band + left
+// column (an L), dark = right column + bottom band (the mirror L). They share
+// one inner corner, so the boundary reads as one clean continuous cut.
+$seam-light: polygon(0% 0%, 100% 0%, 100% 30%, 58% 30%, 58% 68%, 0% 68%);
+$seam-dark: polygon(58% 30%, 100% 30%, 100% 100%, 0% 100%, 0% 68%, 58% 68%);
+
+.ds-plate {
+  // The plate sizes its own typography off its width (container query units),
+  // so it looks identical at any scale instead of collapsing to min font-sizes.
+  container-type: inline-size;
+  --_pad: 4.5cqw;
+
+  position: relative;
+  width: 100%;
+  max-width: 32rem;
+  margin-inline: auto;
+  aspect-ratio: 1.66 / 1;
+  border-radius: ds.radius("lg");
+  overflow: hidden;                 // rounds the panels' square corners
+  background: var(--ds-border);     // hairline shows as the seam kerf
+  font-family: var(--ds-font-sans);
+  color: var(--ds-text);
+  isolation: isolate;
+
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  &__jp {
+    font-family: "Noto Sans JP", var(--ds-font-sans);
+  }
+
+  // --- The two interlocking panels -----------------------------------------
+  &__light,
+  &__dark {
+    position: absolute;
+    inset: 0;
+  }
+  &__light {
+    clip-path: $seam-light;
+    background: var(--ds-surface-base);
+    color: var(--ds-text);
+    animation: ds-plate-in-l 0.7s var(--ds-ease-decelerate) both;
+  }
+  &__dark {
+    clip-path: $seam-dark;
+    background: var(--ds-text);
+    color: var(--ds-surface-base);
+    animation: ds-plate-in-r 0.7s var(--ds-ease-decelerate) 0.12s both;
+  }
+  &__fx {
+    z-index: 0;
+    opacity: 0.9;
+  }
+
+  // --- Light content (top band + left column) ------------------------------
+  &__id {
+    position: absolute;
+    top: var(--_pad);
+    left: var(--_pad);
+    animation: ds-plate-rise 0.6s ds.easing("decelerate") 0.3s both;
+  }
+  &__title {
+    margin: 0;
+    font-size: 9cqw;
+    font-weight: var(--ds-font-weight-bold);
+    letter-spacing: var(--ds-tracking-tight);
+    line-height: 0.95;
+  }
+  &__sub {
+    margin: 0.5em 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    font-size: 2.5cqw;
+    line-height: 1.25;
+    color: var(--ds-text-muted);
+  }
+
+  &__field {
+    position: absolute;
+    left: var(--_pad);
+    top: 41%;
+    width: 47%;
+    padding: 2cqw 2.4cqw;
+    border: 1px solid var(--ds-border-strong);
+    border-radius: ds.radius("sm");
+    display: flex;
+    flex-direction: column;
+    gap: 1cqw;
+    animation: ds-plate-rise 0.6s ds.easing("decelerate") 0.4s both;
+  }
+  &__field-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1.4cqw;
+    font-size: 2.8cqw;
+  }
+  &__field-key {
+    flex: none;
+    font-family: "Noto Sans JP", var(--ds-font-sans);
+    color: var(--ds-text-subtle);
+  }
+  &__field-val {
+    min-width: 0;
+    flex: 1 1 auto;
+    font-family: "Noto Sans JP", var(--ds-font-mono);
+    font-weight: var(--ds-font-weight-medium);
+    letter-spacing: var(--ds-tracking-tight);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__badge {
+    position: absolute;
+    top: var(--_pad);
+    right: var(--_pad);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1em;
+    padding: 1.4cqw 2.6cqw;
+    border: 1.5px solid var(--ds-text);
+    border-radius: ds.radius("md");
+    font-size: 3cqw;
+    line-height: 1;
+    animation: ds-plate-rise 0.6s ds.easing("decelerate") 0.48s both;
+  }
+  &__badge-sub {
+    font-family: var(--ds-font-mono);
+    font-size: 1.9cqw;
+    letter-spacing: var(--ds-tracking-widest);
+    color: var(--ds-text-muted);
+  }
+
+  // --- Dark content (right column + bottom band) ---------------------------
+  &__corner,
+  &__finger,
+  &__brand,
+  &__rcep {
+    position: absolute;
+    z-index: 1;
+  }
+  &__corner {
+    top: 34%;
+    right: var(--_pad);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2em;
+    text-align: right;
+    animation: ds-plate-rise 0.6s ds.easing("decelerate") 0.52s both;
+  }
+  &__ce {
+    font-size: 3.6cqw;
+    font-weight: var(--ds-font-weight-medium);
+    letter-spacing: var(--ds-tracking-wide);
+  }
+  &__code {
+    font-family: var(--ds-font-mono);
+    font-size: 2.2cqw;
+    color: color-mix(in srgb, var(--ds-surface-base) 60%, transparent);
+  }
+
+  &__finger {
+    top: 53%;
+    right: var(--_pad);
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: 2.5cqw;
+    color: color-mix(in srgb, var(--ds-surface-base) 78%, transparent);
+    animation: ds-plate-rise 0.6s ds.easing("decelerate") 0.56s both;
+  }
+  &__finger-mark { font-size: 0.7em; }
+
+  &__brand {
+    left: var(--_pad);
+    bottom: var(--_pad);
+    max-width: 56%;
+    animation: ds-plate-rise 0.6s ds.easing("decelerate") 0.6s both;
+  }
+  &__brand-name {
+    display: block;
+    font-size: 4.6cqw;
+    font-weight: var(--ds-font-weight-bold);
+    letter-spacing: var(--ds-tracking-tight);
+    margin-bottom: 0.35em;
+  }
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--ds-font-mono);
+    font-size: 2cqw;
+    line-height: 1.5;
+    letter-spacing: var(--ds-tracking-wide);
+    color: color-mix(in srgb, var(--ds-surface-base) 55%, transparent);
+  }
+
+  &__rcep {
+    right: var(--_pad);
+    bottom: var(--_pad);
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--ds-font-mono);
+    font-size: 3cqw;
+    letter-spacing: var(--ds-tracking-wide);
+    animation: ds-plate-rise 0.6s ds.easing("decelerate") 0.64s both;
+  }
+  &__rcep-dot {
+    width: 1.1em;
+    height: 1.1em;
+    border-radius: 50%;
+    border: 1.5px solid var(--ds-surface-base);
+  }
+
+  // --- One-shot sheen sweep — combines with the panel + shader timing -------
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 42%,
+      color-mix(in srgb, var(--ds-accent) 16%, transparent) 50%,
+      transparent 58%
+    );
+    transform: translateX(-130%);
+    animation: ds-plate-sheen 1.6s var(--ds-ease-standard) 0.5s both;
+  }
+}
+
+@keyframes ds-plate-in-l {
+  from { opacity: 0; transform: translateX(-5%); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ds-plate-in-r {
+  from { opacity: 0; transform: translateX(5%); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ds-plate-rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ds-plate-sheen {
+  to { transform: translateX(130%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-plate__light,
+  .ds-plate__dark,
+  .ds-plate__id,
+  .ds-plate__field,
+  .ds-plate__badge,
+  .ds-plate__corner,
+  .ds-plate__finger,
+  .ds-plate__brand,
+  .ds-plate__rcep,
+  .ds-plate::after {
+    animation: none;
+  }
+}

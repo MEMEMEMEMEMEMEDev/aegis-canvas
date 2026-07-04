@@ -1,0 +1,59 @@
+// =============================================================================
+// Primitive palette  —  raw, theme-agnostic color scales (SCSS only).
+// These are NEVER used directly in components. Themes map them to semantic
+// CSS custom properties (see themes/). Swap a hue here and every theme updates.
+// =============================================================================
+
+// --- Neutrals (the backbone: surfaces, text, borders) -----------------------
+$neutral: (
+  0: #ffffff,
+  50: #f7f8fa,
+  100: #eceef2,
+  200: #dde0e7,
+  300: #c3c8d4,
+  400: #9aa1b2,
+  500: #6f7689,
+  600: #4f5566,
+  700: #3a3f4d,
+  800: #262a34,
+  900: #181b22,
+  950: #0f1116,
+  1000: #07080b,
+);
+
+// --- Accent (single swappable hue — calm slate-blue, intentionally neutral) --
+$accent: (
+  50: #eef4ff,
+  100: #d9e6ff,
+  200: #b3ccff,
+  300: #84aaff,
+  400: #5b86f5,
+  500: #3d66e0,
+  600: #2f4fc4,
+  700: #283f9c,
+  800: #25377a,
+  900: #1f2d5f,
+  950: #131a38,
+);
+
+// --- Status hues ------------------------------------------------------------
+$success: (
+  400: #34d399,
+  500: #10b981,
+  600: #059669,
+);
+$warning: (
+  400: #fbbf24,
+  500: #f59e0b,
+  600: #d97706,
+);
+$danger: (
+  400: #f87171,
+  500: #ef4444,
+  600: #dc2626,
+);
+$info: (
+  400: #38bdf8,
+  500: #0ea5e9,
+  600: #0284c7,
+);

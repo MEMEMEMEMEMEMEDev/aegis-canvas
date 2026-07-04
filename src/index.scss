@@ -1,0 +1,25 @@
+// =============================================================================
+// @ahroi/foundation
+// -----------------------------------------------------------------------------
+// Full foundation stylesheet. Include this ONCE per app (in the shell/host MFE):
+//
+//     @use "@ahroi/foundation";
+//
+// For component-scoped SCSS in any MFE, import only the TOOLS (no CSS output):
+//
+//     @use "@ahroi/foundation/mixins" as m;
+//     @use "@ahroi/foundation/functions" as fn;
+//     @use "@ahroi/foundation/tokens" as t;
+//
+// Authoring is SCSS (maps, mixins, functions). Theming is runtime via CSS
+// custom properties, so light/dark switch instantly with no recompile.
+// =============================================================================
+
+// --- Tools: re-exported so `@use "@ahroi/foundation" as f` also exposes them ---
+@forward "functions";
+@forward "tokens";
+@forward "mixins";
+
+// --- Emitted CSS (order matters: tokens/theme first, then base element styles) ---
+@use "themes/apply"; // :root design tokens + light/dark theme contract
+@use "base"; // modern reset + base element styles built on the theme

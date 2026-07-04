@@ -1,0 +1,61 @@
+// =============================================================================
+// Static tokens  —  theme-independent design tokens exposed as CSS custom
+// properties so every MFE consumes them the same way (var(--ds-space-md)…).
+// =============================================================================
+
+@use "sass:map";
+@use "../tokens";
+
+@mixin static-tokens {
+  // Font families
+  --ds-font-sans: #{tokens.$font-sans};
+  --ds-font-mono: #{tokens.$font-mono};
+  --ds-font-display: #{tokens.$font-display};
+
+  // Type scale
+  @each $key, $value in tokens.$font-size {
+    --ds-font-size-#{$key}: #{$value};
+  }
+  @each $key, $value in tokens.$font-weight {
+    --ds-font-weight-#{$key}: #{$value};
+  }
+  @each $key, $value in tokens.$line-height {
+    --ds-leading-#{$key}: #{$value};
+  }
+  @each $key, $value in tokens.$letter-spacing {
+    --ds-tracking-#{$key}: #{$value};
+  }
+
+  // Spacing
+  @each $key, $value in tokens.$space {
+    --ds-space-#{$key}: #{$value};
+  }
+
+  // Radii
+  @each $key, $value in tokens.$radius {
+    --ds-radius-#{$key}: #{$value};
+  }
+
+  // Elevation
+  @each $key, $value in tokens.$shadow {
+    --ds-shadow-#{$key}: #{$value};
+  }
+
+  // Motion
+  @each $key, $value in tokens.$duration {
+    --ds-duration-#{$key}: #{$value};
+  }
+  @each $key, $value in tokens.$easing {
+    --ds-ease-#{$key}: #{$value};
+  }
+
+  // Stacking
+  @each $key, $value in tokens.$z-index {
+    --ds-z-#{$key}: #{$value};
+  }
+
+  // Layout
+  --ds-container-max: #{tokens.$container-max};
+  --ds-container-prose: #{tokens.$container-prose};
+  --ds-gutter: #{tokens.$gutter};
+}

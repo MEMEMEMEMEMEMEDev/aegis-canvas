@@ -1,0 +1,12 @@
+// =============================================================================
+// Tokens barrel  —  `@use "@ahroi/foundation/tokens" as t;`
+// Exposes every primitive/scale map. No CSS output.
+// =============================================================================
+
+@forward "palette";
+@forward "typography";
+@forward "spacing";
+@forward "radii";
+@forward "shadows";
+@forward "motion";
+@forward "breakpoints";

@@ -1,0 +1,76 @@
+@use "../../abstracts" as ds;
+
+.ds-button {
+  @include ds.focus-ring;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("2xs");
+  font-family: var(--ds-font-sans);
+  font-weight: var(--ds-font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  border-radius: var(--ds-radius-pill);
+  cursor: pointer;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    border-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    transform var(--ds-duration-fast) var(--ds-ease-standard);
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &__icon {
+    display: inline-flex;
+  }
+
+  // --- Sizes ---
+  &--sm {
+    font-size: var(--ds-font-size-sm);
+    padding: ds.space("2xs") ds.space("md");
+  }
+  &--md {
+    font-size: var(--ds-font-size-md);
+    padding: ds.space("xs") ds.space("lg");
+  }
+  &--lg {
+    font-size: var(--ds-font-size-lg);
+    padding: ds.space("sm") ds.space("xl");
+  }
+
+  &--full {
+    width: 100%;
+  }
+
+  // --- Variants ---
+  &--solid {
+    background: var(--ds-accent);
+    color: var(--ds-accent-contrast);
+    @include ds.hover {
+      background: var(--ds-accent-hover);
+    }
+  }
+  &--outline {
+    background: transparent;
+    color: var(--ds-accent);
+    border: 1px solid var(--ds-accent);
+    @include ds.hover {
+      background: var(--ds-accent-subtle);
+    }
+  }
+  &--ghost {
+    background: transparent;
+    color: var(--ds-text);
+    @include ds.hover {
+      background: var(--ds-surface-sunken);
+    }
+  }
+}

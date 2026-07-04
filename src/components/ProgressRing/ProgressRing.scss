@@ -1,0 +1,35 @@
+@use "../../abstracts" as ds;
+
+.ds-ring {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+
+  svg {
+    display: block;
+  }
+
+  &__track {
+    stroke: var(--ds-border);
+  }
+
+  &__bar {
+    stroke: var(--ds-accent);
+    transition: stroke-dashoffset var(--ds-duration-slow) var(--ds-ease-standard);
+  }
+
+  &__label {
+    position: absolute;
+    font-family: var(--ds-font-mono);
+    font-size: var(--ds-font-size-2xs);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-text);
+  }
+
+  @include ds.reduced-motion {
+    &__bar {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+// =============================================================================
+// Theme application  —  emits the actual :root custom properties.
+//
+// Strategy:
+//   • Static tokens + light theme are the default at :root.
+//   • System preference (prefers-color-scheme) flips to dark automatically…
+//   • …unless the user explicitly forced a theme via <html data-theme="…">.
+//
+// Toggle in JS:  document.documentElement.dataset.theme = "dark" | "light";
+// Remove the attribute to fall back to the system preference.
+// =============================================================================
+
+@use "light" as l;
+@use "dark" as d;
+@use "ether" as e;
+@use "fono" as f;
+@use "static" as s;
+
+:root {
+  @include s.static-tokens;
+  @include l.light;
+}
+
+// Explicit override wins over system preference.
+:root[data-theme="dark"] {
+  @include d.dark;
+}
+
+// "Ether" — opt-in atmospheric theme (always explicit, never auto).
+:root[data-theme="ether"] {
+  @include e.ether;
+}
+
+// "Fono" — opt-in warm control-panel theme (always explicit, never auto).
+:root[data-theme="fono"] {
+  @include f.fono;
+}
+
+// Follow the OS when no explicit light override is set.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    @include d.dark;
+  }
+}
