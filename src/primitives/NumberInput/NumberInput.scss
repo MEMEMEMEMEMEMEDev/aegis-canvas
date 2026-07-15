@@ -1,0 +1,79 @@
+@use "../../abstracts" as ds;
+
+.ds-number {
+  @include ds.control-surface;
+  display: inline-flex;
+  align-items: stretch;
+  padding: 0; // the steppers reach the edges; sizing lives on the inner input
+  overflow: hidden;
+
+  &__control {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    font: inherit;
+    font-family: var(--ds-font-mono);
+    color: inherit;
+    text-align: center;
+    background: none;
+    border: none;
+    outline: none;
+
+    &::placeholder {
+      color: var(--ds-text-subtle);
+    }
+  }
+
+  &__step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    padding: 0 ds.space("sm");
+    border: none;
+    background: none;
+    color: var(--ds-text-muted);
+    cursor: pointer;
+    transition:
+      color var(--ds-duration-fast) var(--ds-ease-standard),
+      background-color var(--ds-duration-fast) var(--ds-ease-standard);
+
+    &:first-child {
+      border-right: 1px solid var(--ds-border-subtle);
+    }
+    &:last-child {
+      border-left: 1px solid var(--ds-border-subtle);
+    }
+
+    @include ds.hover {
+      &:not(:disabled) {
+        color: var(--ds-text);
+        background: var(--ds-surface-sunken);
+      }
+    }
+
+    &:disabled {
+      color: var(--ds-text-subtle);
+      cursor: not-allowed;
+    }
+  }
+
+  &.is-disabled &__control {
+    color: var(--ds-text-muted);
+    cursor: not-allowed;
+  }
+
+  // --- Sizes (vertical rhythm via the input's padding) ---
+  &--sm .ds-number__control {
+    font-size: var(--ds-font-size-sm);
+    padding: var(--ds-space-2xs) var(--ds-space-2xs);
+  }
+  &--md .ds-number__control {
+    font-size: var(--ds-font-size-md);
+    padding: var(--ds-space-xs) var(--ds-space-2xs);
+  }
+  &--lg .ds-number__control {
+    font-size: var(--ds-font-size-lg);
+    padding: var(--ds-space-sm) var(--ds-space-2xs);
+  }
+}

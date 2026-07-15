@@ -1,0 +1,57 @@
+@use "../../abstracts" as ds;
+
+.ds-select {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+
+  &__control {
+    @include ds.control-surface;
+    appearance: none;
+    cursor: pointer;
+    padding-right: calc(var(--ds-space-xl) + var(--ds-space-2xs));
+
+    // placeholder state (value=""): muted like input placeholders
+    &:has(option[value=""]:checked) {
+      color: var(--ds-text-subtle);
+    }
+  }
+
+  &__chevron {
+    position: absolute;
+    right: var(--ds-space-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    color: var(--ds-text-muted);
+    pointer-events: none;
+    transition: color var(--ds-duration-fast) var(--ds-ease-standard);
+  }
+
+  &.is-disabled &__chevron {
+    color: var(--ds-text-subtle);
+  }
+
+  &.is-invalid &__control {
+    border-color: var(--ds-danger);
+
+    &:focus {
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--ds-danger) 30%, transparent);
+    }
+  }
+
+  // --- Sizes (padding-right stays reserved for the chevron) ---
+  &--sm .ds-select__control {
+    @include ds.control-size("sm");
+    padding-right: calc(var(--ds-space-lg) + var(--ds-space-2xs));
+  }
+  &--md .ds-select__control {
+    @include ds.control-size("md");
+    padding-right: calc(var(--ds-space-xl) + var(--ds-space-2xs));
+  }
+  &--lg .ds-select__control {
+    @include ds.control-size("lg");
+    padding-right: calc(var(--ds-space-xl) + var(--ds-space-xs));
+  }
+}

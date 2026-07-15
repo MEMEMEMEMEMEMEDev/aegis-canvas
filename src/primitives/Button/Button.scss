@@ -2,6 +2,7 @@
 
 .ds-button {
   @include ds.focus-ring;
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -32,6 +33,25 @@
     display: inline-flex;
   }
 
+  &__content {
+    display: inline-flex;
+    align-items: center;
+    gap: ds.space("2xs");
+  }
+
+  // Loading: spinner overlays the (hidden) content so the width doesn't jump.
+  &__spinner {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--loading &__content {
+    opacity: 0;
+  }
+
   // --- Sizes ---
   &--sm {
     font-size: var(--ds-font-size-sm);
@@ -48,6 +68,19 @@
 
   &--full {
     width: 100%;
+  }
+
+  // Square button for a lone icon (requires aria-label on the element).
+  &--icon-only {
+    &.ds-button--sm {
+      padding: ds.space("2xs");
+    }
+    &.ds-button--md {
+      padding: ds.space("xs");
+    }
+    &.ds-button--lg {
+      padding: ds.space("sm");
+    }
   }
 
   // --- Variants ---
@@ -71,6 +104,13 @@
     color: var(--ds-text);
     @include ds.hover {
       background: var(--ds-surface-sunken);
+    }
+  }
+  &--danger {
+    background: var(--ds-danger);
+    color: var(--ds-accent-contrast);
+    @include ds.hover {
+      background: color-mix(in srgb, var(--ds-danger) 85%, black);
     }
   }
 }
