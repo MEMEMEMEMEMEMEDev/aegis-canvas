@@ -1,12 +1,16 @@
-# @ahroi/foundation
+# aegis-canvas · `@ahroi/foundation`
 
-Base SCSS compartida por todos los MFEs. **Autoría en SCSS** (maps, mixins,
-funciones) + **theming en runtime con CSS custom properties** → el cambio
-claro/oscuro es instantáneo, sin recompilar y sin JS pesado.
+Design system multi-estilo de **Marcelo Huenchupan**, consumible por cualquier
+app. **Autoría en SCSS** (maps, mixins, funciones) + **theming en runtime con CSS
+custom properties `--ds-*`** → el cambio de tema (claro/oscuro/ether/fono) es
+instantáneo, sin recompilar y sin JS pesado.
 
-> Por ahora vive dentro del monorepo del portafolio. Está estructurado como
-> paquete independiente (`@ahroi/foundation`) para extraerse luego a su propio
-> repo y consumirse como **dependencia privada** desde cada MFE.
+> Repo independiente (extraído de `plataforma` con historial). Se consume hoy vía
+> `file:` (symlink local) desde las apps; a futuro se publicará a un registry npm.
+>
+> **Modelo mental:** *Estilo = Tema (piel, `--ds-*`) + Familia (forma de los
+> componentes)*. Capas: **`primitives/`** (universales) · **`families/`**
+> (lenguajes visuales, p. ej. `hud`) · **`demos/`** (fuera de la API pública).
 
 ## Uso
 
@@ -50,15 +54,23 @@ Sin atributo, respeta `prefers-color-scheme` del sistema automáticamente.
 
 ```
 src/
-  index.scss        Entry full (reset + tokens + tema). Incluir 1× por app.
+  index.js          Barrel del NÚCLEO (primitivos + shaders + utils + overlay)
+  index.scss        Entry full (reset + tokens + tema + fuentes). Incluir 1× por app.
+  primitives/       Componentes universales: Button, Card, Stack, Modal, Toggle,
+                    Stat, ProgressRing, ShaderSurface (.jsx + .scss + .stories)
+  families/         Lenguajes visuales. hud/ (HudPanel, MetaTag, Numeral) →
+                    import "@ahroi/foundation/hud". Cada familia con su barrel.
+  demos/            Composiciones de referencia (fuera de la API pública)
   tokens/           Primitivas SCSS: palette, type, spacing, radii, shadow,
                     motion, breakpoints. (sin CSS, solo maps)
   themes/           Contrato semántico → CSS custom properties (--ds-*)
                     light / dark / static + apply (emite :root)
   functions/        rem(), space(), font-size(), shadow()… accesores seguros
-  mixins/           up()/down()/between(), text(), container(), grid-auto(),
-                    focus-ring(), visually-hidden()…
-  base/             reset moderno + estilos de elementos sobre el tema
+  mixins/           up()/down()/between(), text(), container(), grid-auto()…
+  base/             reset moderno + estilos de elementos + @font-face
+  fonts/            Fuentes self-hosted WOFF2 (Inter, JetBrains Mono, Noto JP)
+  shaders/          Runtime de shaders 2D (useShader, effects)
+  overlay/          Portal + overlayRoot (modales que escapan de padres atrapados)
 preview/            Galería de tokens (abrir preview/index.html)
 ```
 
@@ -77,9 +89,10 @@ MFEs federados.
 
 ## Componentes + Storybook
 
-Los componentes React viven en `src/components/` y consumen la fundación vía
-`@use "../../abstracts" as ds;` (functions + mixins + tokens en un solo import).
-Se documentan con **Storybook 10** (builder Vite), 100% local y open source.
+Los componentes React viven en `src/primitives/` (y las familias en
+`src/families/`) y consumen la fundación vía `@use "../../abstracts" as ds;`
+(functions + mixins + tokens en un solo import). Se documentan con **Storybook 10**
+(builder Vite), 100% local y open source.
 
 ```bash
 npm run storybook        # dev en http://localhost:6006 (toolbar con toggle de tema)
