@@ -1,25 +1,9 @@
 // =============================================================================
-// @ahroi/foundation
-// -----------------------------------------------------------------------------
-// Full foundation stylesheet. Include this ONCE per app (in the shell/host MFE):
+// @ahroi/foundation — entry SCSS. Incluir UNA vez por app (shell/host).
+// Emite: tema (--ds-*) + base (reset/global). Los componentes NO importan esto;
+// usan @use "../../abstracts" as ds; (solo herramientas, sin CSS).
 //
-//     @use "@ahroi/foundation";
-//
-// For component-scoped SCSS in any MFE, import only the TOOLS (no CSS output):
-//
-//     @use "@ahroi/foundation/mixins" as m;
-//     @use "@ahroi/foundation/functions" as fn;
-//     @use "@ahroi/foundation/tokens" as t;
-//
-// Authoring is SCSS (maps, mixins, functions). Theming is runtime via CSS
-// custom properties, so light/dark switch instantly with no recompile.
+// v2 — reconstrucción desde cero. Las capas se rellenan a medida que se diseñan.
 // =============================================================================
-
-// --- Tools: re-exported so `@use "@ahroi/foundation" as f` also exposes them ---
-@forward "functions";
-@forward "tokens";
-@forward "mixins";
-
-// --- Emitted CSS (order matters: tokens/theme first, then base element styles) ---
-@use "themes/apply"; // :root design tokens + light/dark theme contract
-@use "base"; // modern reset + base element styles built on the theme
+@use "themes";
+@use "base";

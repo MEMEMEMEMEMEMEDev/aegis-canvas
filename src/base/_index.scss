@@ -1,7 +1,3 @@
-// =============================================================================
-// Base barrel  —  @font-face self-hosted, luego reset y estilos globales.
-// =============================================================================
-
-@use "fonts";
-@use "reset";
-@use "global";
+// Capa 3 — reset moderno + estilos globales de elementos, SOLO sobre vars --ds-*.
+// (Aquí también vivirán los @font-face self-hosted cuando se elijan las fuentes.)
+// v2 — por diseñar.

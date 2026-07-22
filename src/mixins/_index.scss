@@ -1,9 +1,3 @@
-// =============================================================================
-// Mixins barrel  —  `@use "@ahroi/foundation/mixins" as m;`
-// =============================================================================
-
-@forward "media";
-@forward "typography";
-@forward "layout";
-@forward "a11y";
-@forward "controls";
+// Herramientas de composición: media queries (up/down/between), focus-ring,
+// visually-hidden, hover, superficies de controles…
+// v2 — por diseñar.

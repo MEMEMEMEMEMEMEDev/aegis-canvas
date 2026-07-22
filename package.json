@@ -1,7 +1,7 @@
 {
   "name": "@ahroi/foundation",
-  "version": "0.3.0",
-  "description": "Design system: núcleo (tokens SCSS + theming por CSS vars, primitivos universales, runtime de shaders) + familias de componentes. Consumible por cualquier app.",
+  "version": "0.1.0",
+  "description": "Design system v2 (reconstrucción desde cero): tokens SCSS + theming por CSS vars (--ds-*), primitivos universales y familias de componentes. Consumible por cualquier app.",
   "license": "UNLICENSED",
   "private": true,
   "type": "module",
@@ -12,7 +12,6 @@
       "style": "./src/index.scss",
       "default": "./src/index.js"
     },
-    "./hud": "./src/families/hud/index.js",
     "./css": "./dist/foundation.css",
     "./abstracts": "./src/_abstracts.scss",
     "./tokens": "./src/tokens/_index.scss",

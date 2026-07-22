@@ -1,12 +1,5 @@
-// =============================================================================
-// Abstracts barrel  —  one import for component SCSS (tools only, no CSS).
-//
-//   @use "../../abstracts" as ds;
-//   .thing { padding: ds.space("md"); @include ds.up(md) { ... } }
-//
-// (When this package is extracted, swap relative paths for "@ahroi/foundation".)
-// =============================================================================
-
+// Barrel de herramientas para SCSS de componentes (sin emitir CSS):
+//   @use "../../abstracts" as ds;   →   ds.space("md"), @include ds.focus-ring…
+@forward "tokens";
 @forward "functions";
 @forward "mixins";
-@forward "tokens";

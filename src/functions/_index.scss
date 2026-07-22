@@ -1,6 +1,3 @@
-// =============================================================================
-// Functions barrel  —  `@use "@ahroi/foundation/functions" as fn;`
-// =============================================================================
-
-@forward "units";
-@forward "token";
+// Accesores seguros a los maps de tokens/: rem(), space(), font-size()…
+// Fallan en compile-time si la clave no existe (mejor que un CSS silencioso).
+// v2 — por diseñar.
