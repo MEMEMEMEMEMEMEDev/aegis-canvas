@@ -10,7 +10,7 @@ instantáneo, sin recompilar y sin JS pesado.
 >
 > **Modelo mental:** *Estilo = Tema (piel, `--ds-*`) + Familia (forma de los
 > componentes)*. Capas: **`primitives/`** (universales) · **`families/`**
-> (lenguajes visuales, p. ej. `hud`) · **`demos/`** (fuera de la API pública).
+> (lenguajes visuales, p. ej. `hud`).
 
 ## Uso
 
@@ -56,11 +56,14 @@ Sin atributo, respeta `prefers-color-scheme` del sistema automáticamente.
 src/
   index.js          Barrel del NÚCLEO (primitivos + shaders + utils + overlay)
   index.scss        Entry full (reset + tokens + tema + fuentes). Incluir 1× por app.
-  primitives/       Componentes universales: Button, Card, Stack, Modal, Toggle,
-                    Stat, ProgressRing, ShaderSurface (.jsx + .scss + .stories)
+  primitives/       Componentes universales (.jsx + .scss + .stories):
+                    Button, Card, Stack, Modal, Toggle, Stat, ProgressRing,
+                    ShaderSurface, Spinner · formularios: Field, Input,
+                    SearchInput, Textarea, Select, Dropdown, Checkbox,
+                    Radio/RadioGroup, NumberInput
   families/         Lenguajes visuales. hud/ (HudPanel, MetaTag, Numeral) →
                     import "@ahroi/foundation/hud". Cada familia con su barrel.
-  demos/            Composiciones de referencia (fuera de la API pública)
+  forms/            validators.js (composables, mensajes es) + useField hook
   tokens/           Primitivas SCSS: palette, type, spacing, radii, shadow,
                     motion, breakpoints. (sin CSS, solo maps)
   themes/           Contrato semántico → CSS custom properties (--ds-*)
@@ -71,7 +74,6 @@ src/
   fonts/            Fuentes self-hosted WOFF2 (Inter, JetBrains Mono, Noto JP)
   shaders/          Runtime de shaders 2D (useShader, effects)
   overlay/          Portal + overlayRoot (modales que escapan de padres atrapados)
-preview/            Galería de tokens (abrir preview/index.html)
 ```
 
 ### Convención de tokens
@@ -95,13 +97,14 @@ Los componentes React viven en `src/primitives/` (y las familias en
 (builder Vite), 100% local y open source.
 
 ```bash
-npm run storybook        # dev en http://localhost:6006 (toolbar con toggle de tema)
+npm run storybook        # dev en http://localhost:6007 (toolbar con toggle de tema)
 npm run build-storybook  # build estático → storybook-static/ (sírvelo tú mismo)
 ```
 
-Componentes iniciales: `Button`, `Card`, `Stack` + vitrina `Foundation/Colors`.
-La toolbar de Storybook trae un selector de tema (☀ Light / ☾ Dark / ⚙ System)
-que aplica `data-theme` al `<html>`, igual que en producción.
+Cada componente tiene su story en `Components/`; la vitrina integradora del
+arsenal de formularios vive en `Foundation/Forms`. La toolbar de Storybook trae
+un selector de tema (☀ Light / ☾ Dark / ⚙ System) que aplica `data-theme` al
+`<html>`, igual que en producción.
 
 > Telemetría de Storybook **desactivada** (`core.disableTelemetry`). El addon
 > de testing con navegador (`addon-vitest`) requiere `npx playwright install
@@ -112,7 +115,5 @@ que aplica `data-theme` al `<html>`, igual que en producción.
 ```bash
 npm run build          # compila src/index.scss → dist/foundation.css
 npm run build:min      # versión minificada
-npm run preview:build  # compila la galería de tokens (HTML standalone)
-npm run preview        # watch del preview mientras iteras
 npm run storybook      # Storybook dev
 ```

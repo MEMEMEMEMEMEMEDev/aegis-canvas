@@ -27,9 +27,7 @@
   "scripts": {
     "build": "sass --no-source-map --style=expanded src/index.scss dist/foundation.css",
     "build:min": "sass --no-source-map --style=compressed src/index.scss dist/foundation.min.css",
-    "preview": "sass --no-source-map --watch preview/preview.scss:preview/preview.css",
-    "preview:build": "sass --no-source-map preview/preview.scss preview/preview.css",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6007 --ci",
     "build-storybook": "storybook build"
   },
   "peerDependencies": {
