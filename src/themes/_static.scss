@@ -1,0 +1,39 @@
+// Tokens independientes del tema/marca, expuestos como vars para consumo
+// uniforme entre MFEs.
+@use "sass:map";
+@use "../tokens" as t;
+
+@mixin emit {
+  // Tipografía
+  --ds-font-sans: #{t.$font-sans};
+  --ds-font-display: #{t.$font-display};
+  --ds-font-mono: #{t.$font-mono};
+  @each $k, $v in t.$font-sizes {
+    --ds-font-size-#{$k}: #{$v};
+  }
+  @each $k, $v in t.$font-weights {
+    --ds-font-weight-#{$k}: #{$v};
+  }
+  @each $k, $v in t.$leading {
+    --ds-leading-#{$k}: #{$v};
+  }
+
+  // Espaciado y forma
+  @each $k, $v in t.$spacing {
+    --ds-space-#{$k}: #{$v};
+  }
+  @each $k, $v in t.$radii {
+    --ds-radius-#{$k}: #{$v};
+  }
+
+  // Movimiento
+  @each $k, $v in t.$durations {
+    --ds-duration-#{$k}: #{$v};
+  }
+  --ds-ease-standard: #{map.get(t.$easings, "standard")};
+  --ds-ease-out: #{map.get(t.$easings, "out")};
+
+  // Capas
+  --ds-z-raised: 10;
+  --ds-z-overlay: 1000;
+}

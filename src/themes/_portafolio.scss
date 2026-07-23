@@ -1,0 +1,64 @@
+// Marca PORTAFOLIO — dark-first. Piel "mesozoica": basalto, hueso, ámbar.
+// Ambos modos implementan LAS MISMAS claves (el contrato --ds-*); los
+// componentes jamás ven la paleta cruda.
+@use "../functions" as fn;
+
+@mixin dark {
+  --ds-surface-sunken: #{fn.palette("basalt", 900)};
+  --ds-surface-base: #{fn.palette("basalt", 850)};
+  --ds-surface-raised: #{fn.palette("basalt", 800)};
+  --ds-surface-overlay: #{fn.palette("basalt", 700)};
+
+  --ds-text: #{fn.palette("bone", 100)};
+  --ds-text-muted: #{fn.palette("bone", 400)};
+  --ds-text-subtle: #{fn.palette("bone", 500)};
+  --ds-text-inverse: #{fn.palette("basalt", 900)};
+
+  --ds-border-subtle: #{fn.palette("basalt", 700)};
+  --ds-border: #{fn.palette("basalt", 600)};
+  --ds-border-strong: #{fn.palette("basalt", 400)};
+
+  --ds-accent: #{fn.palette("amber", 400)};
+  --ds-accent-hover: #{fn.palette("amber", 300)};
+  --ds-accent-subtle: rgb(242 163 60 / 0.12);
+  --ds-accent-contrast: #16110a;
+
+  --ds-success: #{fn.palette("fern", 400)};
+  --ds-warning: #{fn.palette("amber", 300)};
+  --ds-danger: #{fn.palette("oxide", 400)};
+  --ds-info: #{fn.palette("sky", 400)};
+
+  --ds-focus-ring: #{fn.palette("amber", 400)};
+  --ds-shadow-md: 0 8px 24px rgb(0 0 0 / 0.45);
+  --ds-shadow-lg: 0 20px 48px rgb(0 0 0 / 0.55);
+}
+
+@mixin light {
+  --ds-surface-sunken: #{fn.palette("bone", 200)};
+  --ds-surface-base: #{fn.palette("bone", 100)};
+  --ds-surface-raised: #fbf8f0;
+  --ds-surface-overlay: #ffffff;
+
+  --ds-text: #{fn.palette("basalt", 900)};
+  --ds-text-muted: #{fn.palette("bone", 600)};
+  --ds-text-subtle: #{fn.palette("bone", 500)};
+  --ds-text-inverse: #{fn.palette("bone", 100)};
+
+  --ds-border-subtle: #{fn.palette("bone", 200)};
+  --ds-border: #{fn.palette("bone", 300)};
+  --ds-border-strong: #{fn.palette("bone", 400)};
+
+  --ds-accent: #{fn.palette("amber", 500)};
+  --ds-accent-hover: #{fn.palette("amber", 600)};
+  --ds-accent-subtle: rgb(217 130 10 / 0.14);
+  --ds-accent-contrast: #ffffff;
+
+  --ds-success: #{fn.palette("fern", 500)};
+  --ds-warning: #{fn.palette("amber", 500)};
+  --ds-danger: #{fn.palette("oxide", 500)};
+  --ds-info: #{fn.palette("sky", 500)};
+
+  --ds-focus-ring: #{fn.palette("amber", 500)};
+  --ds-shadow-md: 0 8px 24px rgb(33 31 25 / 0.14);
+  --ds-shadow-lg: 0 20px 48px rgb(33 31 25 / 0.2);
+}

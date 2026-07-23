@@ -1,0 +1,34 @@
+// Escalas crudas — NUNCA directo en componentes (se consumen vía themes/).
+// Paleta "mesozoica": basalto (rocas oscuras), hueso (claros cálidos),
+// ámbar (fósil, el acento), óxido/helecho/cielo (estados).
+$palette: (
+  "basalt": (
+    900: #0b0e11,
+    850: #10141a,
+    800: #151b22,
+    700: #1c242d,
+    600: #27313c,
+    500: #35414e,
+    400: #4d5a68,
+  ),
+  "bone": (
+    100: #f2eee4,
+    200: #e6dfcf,
+    300: #d4cab2,
+    400: #a89e86,
+    500: #857b64,
+    600: #635c4a,
+    700: #37332a,
+    800: #211f19,
+  ),
+  "amber": (
+    300: #ffc46b,
+    400: #f2a33c,
+    500: #d9820a,
+    600: #9c5f00,
+    700: #6e4300,
+  ),
+  "oxide": (400: #e4573d, 500: #b83a24),
+  "fern": (400: #7fb069, 500: #55793f),
+  "sky": (400: #5b9bd5, 500: #33689b),
+);

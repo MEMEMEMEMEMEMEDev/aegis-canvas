@@ -1,0 +1,30 @@
+// Estilos globales, SOLO sobre el contrato --ds-*.
+body {
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-md);
+  color: var(--ds-text);
+  background: var(--ds-surface-base);
+}
+
+::selection {
+  background: var(--ds-accent);
+  color: var(--ds-accent-contrast);
+}
+
+a {
+  color: var(--ds-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--ds-font-mono);
+}
+
+// Raíz de overlays del sistema (ver overlay/overlayRoot.js).
+[data-ds-overlay-root] {
+  position: relative;
+  z-index: var(--ds-z-overlay);
+}

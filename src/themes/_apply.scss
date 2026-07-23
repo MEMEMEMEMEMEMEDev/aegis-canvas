@@ -1,0 +1,16 @@
+// Emisión del contrato. La marca portafolio es DARK-FIRST: oscuro por
+// defecto, claro solo si el usuario lo fuerza con data-theme="light".
+// (Otras marcas podrán aplicar otra política en su propio _apply.)
+@use "static";
+@use "portafolio";
+
+:root {
+  @include static.emit;
+  @include portafolio.dark;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  @include portafolio.light;
+  color-scheme: light;
+}

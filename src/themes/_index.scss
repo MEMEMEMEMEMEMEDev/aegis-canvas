@@ -1,5 +1,2 @@
-// Capa 2 — CONTRATO SEMÁNTICO → CSS custom properties (--ds-*).
-// Cada tema es un mixin con las MISMAS claves (solo cambian valores);
-// _apply emite :root (default + estáticos) y :root[data-theme="…"].
-// Cambio de tema en runtime: document.documentElement.dataset.theme = "…".
-// v2 — por diseñar.
+// Capa 2 — contrato semántico → CSS custom properties (--ds-*).
+@use "apply";

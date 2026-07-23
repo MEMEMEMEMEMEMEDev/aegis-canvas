@@ -1,0 +1,110 @@
+@use "../../../abstracts" as ds;
+
+.meso-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 190px;
+
+  &__trigger {
+    --meso-cut: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ds.space("sm");
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    background: var(--ds-surface-sunken);
+    border: 1px solid var(--ds-border);
+    color: var(--ds-text);
+    font-size: var(--ds-font-size-sm);
+    text-align: left;
+    cursor: pointer;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - var(--meso-cut)),
+      calc(100% - var(--meso-cut)) 100%,
+      0 100%
+    );
+    transition: border-color var(--ds-duration-fast) var(--ds-ease-standard);
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      &:not(:disabled) {
+        border-color: var(--ds-border-strong);
+      }
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+  }
+
+  &.is-open &__trigger {
+    border-color: var(--ds-accent);
+  }
+
+  &__value--placeholder {
+    color: var(--ds-text-subtle);
+  }
+
+  &__caret {
+    flex: none;
+    color: var(--ds-text-subtle);
+    transition: transform var(--ds-duration-fast) var(--ds-ease-standard);
+  }
+
+  &.is-open &__caret {
+    transform: rotate(180deg);
+    color: var(--ds-accent);
+  }
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: var(--ds-z-raised);
+    margin: 0;
+    padding: ds.space("2xs");
+    list-style: none;
+    background: var(--ds-surface-overlay);
+    border: 1px solid var(--ds-border-strong);
+    border-top: 2px solid var(--ds-accent); // veta
+    outline: none;
+    max-height: 280px;
+    overflow-y: auto;
+  }
+
+  &__option {
+    display: grid;
+    gap: 1px;
+    padding: 0.5rem 0.65rem;
+    font-size: var(--ds-font-size-sm);
+    cursor: pointer;
+
+    &.is-active {
+      background: var(--ds-accent-subtle);
+      box-shadow: inset 2px 0 0 var(--ds-accent);
+    }
+
+    &.is-selected &-label::after {
+      content: "◆";
+      margin-left: 0.5em;
+      font-size: 0.7em;
+      color: var(--ds-accent);
+    }
+
+    &[aria-disabled] {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__option-desc {
+    font-size: var(--ds-font-size-xs);
+    color: var(--ds-text-subtle);
+  }
+}

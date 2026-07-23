@@ -1,3 +1,53 @@
-// Accesores seguros a los maps de tokens/: rem(), space(), font-size()…
-// Fallan en compile-time si la clave no existe (mejor que un CSS silencioso).
-// v2 — por diseñar.
+// Accesores seguros a los maps de tokens/ — fallan en compile-time si la
+// clave no existe (mejor que un CSS silenciosamente roto).
+@use "sass:map";
+@use "sass:math";
+@use "../tokens" as t;
+
+@function rem($px) {
+  @return math.div($px, 16) * 1rem;
+}
+
+@function palette($name, $tone) {
+  $family: map.get(t.$palette, $name);
+  @if not $family {
+    @error "palette(): familia desconocida '#{$name}'.";
+  }
+  $value: map.get($family, $tone);
+  @if not $value {
+    @error "palette(): tono desconocido '#{$tone}' en '#{$name}'.";
+  }
+  @return $value;
+}
+
+@function -get($map, $key, $fn) {
+  $value: map.get($map, $key);
+  @if not $value {
+    @error "#{$fn}(): clave desconocida '#{$key}'.";
+  }
+  @return $value;
+}
+
+@function space($key) {
+  @return -get(t.$spacing, $key, "space");
+}
+
+@function font-size($key) {
+  @return -get(t.$font-sizes, $key, "font-size");
+}
+
+@function radius($key) {
+  @return -get(t.$radii, $key, "radius");
+}
+
+@function duration($key) {
+  @return -get(t.$durations, $key, "duration");
+}
+
+@function easing($key) {
+  @return -get(t.$easings, $key, "easing");
+}
+
+@function breakpoint($key) {
+  @return -get(t.$breakpoints, $key, "breakpoint");
+}

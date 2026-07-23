@@ -1,0 +1,56 @@
+@use "../../../abstracts" as ds;
+
+.meso-panel {
+  --meso-cut: 16px;
+  position: relative;
+  background: var(--ds-surface-raised);
+  border: 1px solid var(--ds-border);
+  padding: ds.space("lg");
+  clip-path: polygon(
+    var(--meso-cut) 0,
+    100% 0,
+    100% calc(100% - var(--meso-cut)),
+    calc(100% - var(--meso-cut)) 100%,
+    0 100%,
+    0 var(--meso-cut)
+  );
+
+  // Veta superior de ámbar
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ds-accent), transparent 65%);
+  }
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: ds.space("md");
+    margin-bottom: ds.space("md");
+    padding-bottom: ds.space("sm");
+    border-bottom: 1px solid var(--ds-border-subtle);
+  }
+
+  &__label {
+    @include ds.meta-text;
+    display: inline-flex;
+    align-items: center;
+    gap: ds.space("xs");
+    color: var(--ds-text-muted);
+
+    &::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      background: var(--ds-accent);
+    }
+  }
+
+  &__meta {
+    @include ds.meta-text;
+    color: var(--ds-text-subtle);
+  }
+}

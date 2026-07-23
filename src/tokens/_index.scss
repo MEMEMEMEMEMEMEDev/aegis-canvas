@@ -1,4 +1,7 @@
 // Capa 1 — PRIMITIVAS (solo maps SCSS, cero CSS).
-// Escalas crudas: palette, type, spacing, radii, shadows, motion, breakpoints.
-// Nunca se usan directo en componentes: se consumen vía functions/ y themes/.
-// v2 — por diseñar.
+@forward "palette";
+@forward "type";
+@forward "spacing";
+@forward "radii";
+@forward "motion";
+@forward "breakpoints";

@@ -23,11 +23,8 @@ const preview = {
         title: "Theme",
         icon: "circlehollow",
         items: [
+          { value: "dark", icon: "moon", title: "Dark (default de marca)" },
           { value: "light", icon: "sun", title: "Light" },
-          { value: "dark", icon: "moon", title: "Dark" },
-          { value: "ether", icon: "paintbrush", title: "Ether" },
-          { value: "fono", icon: "component", title: "Fono" },
-          { value: "system", icon: "browser", title: "System" },
         ],
         dynamicTitle: true,
       },

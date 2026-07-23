@@ -1,3 +1,3 @@
-// Capa 3 — reset moderno + estilos globales de elementos, SOLO sobre vars --ds-*.
-// (Aquí también vivirán los @font-face self-hosted cuando se elijan las fuentes.)
-// v2 — por diseñar.
+// Capa 3 — reset + globales sobre el contrato.
+@use "reset";
+@use "global";

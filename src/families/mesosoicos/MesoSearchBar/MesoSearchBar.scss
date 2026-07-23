@@ -1,0 +1,62 @@
+@use "../../../abstracts" as ds;
+
+.meso-search {
+  --meso-cut: 8px;
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  padding-inline: ds.space("sm");
+  background: var(--ds-surface-sunken);
+  border: 1px solid var(--ds-border);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--meso-cut)),
+    calc(100% - var(--meso-cut)) 100%,
+    0 100%
+  );
+  transition: border-color var(--ds-duration-fast) var(--ds-ease-standard);
+
+  &:focus-within {
+    border-color: var(--ds-accent);
+    background: var(--ds-surface-base);
+  }
+
+  &__icon {
+    flex: none;
+    color: var(--ds-text-subtle);
+  }
+
+  &:focus-within &__icon {
+    color: var(--ds-accent);
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding-block: 0.55rem;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--ds-text);
+    font-size: var(--ds-font-size-sm);
+
+    &::placeholder {
+      color: var(--ds-text-subtle);
+    }
+
+    // mata la X nativa de type=search (la estética la maneja la familia)
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+  }
+
+  &__kbd {
+    @include ds.meta-text;
+    flex: none;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--ds-border-strong);
+    color: var(--ds-text-subtle);
+    background: var(--ds-surface-raised);
+  }
+}

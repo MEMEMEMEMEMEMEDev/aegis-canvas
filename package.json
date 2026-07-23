@@ -12,6 +12,7 @@
       "style": "./src/index.scss",
       "default": "./src/index.js"
     },
+    "./mesosoicos": "./src/families/mesosoicos/index.js",
     "./css": "./dist/foundation.css",
     "./abstracts": "./src/_abstracts.scss",
     "./tokens": "./src/tokens/_index.scss",

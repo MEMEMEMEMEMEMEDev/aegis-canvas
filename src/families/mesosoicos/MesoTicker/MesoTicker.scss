@@ -1,0 +1,47 @@
+@use "../../../abstracts" as ds;
+
+.meso-ticker {
+  overflow: hidden;
+  white-space: nowrap;
+  border-block: 1px solid var(--ds-border-subtle);
+  background: var(--ds-surface-sunken);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+
+  &__track {
+    display: flex;
+    width: max-content;
+    animation: meso-ticker-scroll 36s linear infinite;
+  }
+
+  &__group {
+    display: flex;
+    margin: 0;
+    padding: ds.space("xs") 0;
+    list-style: none;
+  }
+
+  &__item {
+    @include ds.meta-text;
+    color: var(--ds-text-subtle);
+    padding-inline: ds.space("lg");
+
+    &::after {
+      content: "◆";
+      margin-left: ds.space("xl");
+      color: var(--ds-accent);
+      opacity: 0.55;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__track {
+      animation: none;
+    }
+  }
+}
+
+@keyframes meso-ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
