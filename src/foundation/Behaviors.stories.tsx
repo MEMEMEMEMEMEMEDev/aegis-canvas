@@ -1,14 +1,23 @@
 import { useRef } from "react";
+import type { KeyboardEvent } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useDisclosure } from "../behaviors/useDisclosure";
 import { useDismiss } from "../behaviors/useDismiss";
 import { useListNavigation } from "../behaviors/useListNavigation";
 
-export default {
+const meta: Meta = {
   title: "Foundation/Behaviors",
   parameters: { layout: "centered" },
 };
+export default meta;
 
-const ITEMS = [
+interface KernelItem {
+  value: string;
+  label: string;
+  disabled?: boolean;
+}
+
+const ITEMS: KernelItem[] = [
   { value: "deploy", label: "Deploy" },
   { value: "logs", label: "Ver logs" },
   { value: "rollback", label: "Rollback", disabled: true },
@@ -22,15 +31,15 @@ const ITEMS = [
  * typeahead (escribe "es"…), Enter selecciona, Escape/click-fuera cierra.
  * La estética que se le ponga encima (la que sea de rara) hereda esto gratis.
  */
-export const MenuKernel = {
+export const MenuKernel: StoryObj = {
   render: () => <KernelDemo />,
 };
 
 function KernelDemo() {
   const { isOpen, toggle, close } = useDisclosure();
-  const nav = useListNavigation({ items: ITEMS });
-  const triggerRef = useRef(null);
-  const listRef = useRef(null);
+  const nav = useListNavigation<KernelItem>({ items: ITEMS });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   useDismiss({
     active: isOpen,
@@ -41,15 +50,16 @@ function KernelDemo() {
     },
   });
 
-  const select = (i) => {
-    if (i < 0 || ITEMS[i].disabled) return;
+  const select = (i: number) => {
+    const item = ITEMS[i];
+    if (!item || item.disabled) return;
     close();
     triggerRef.current?.focus();
     // eslint-disable-next-line no-alert
-    alert(`Seleccionado: ${ITEMS[i].label}`);
+    alert(`Seleccionado: ${item.label}`);
   };
 
-  const onKeyDown = (e) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
       nav.move(1);

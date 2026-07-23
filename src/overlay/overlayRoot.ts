@@ -5,9 +5,9 @@
  * overflow (el clásico "containing block" que atrapa position:fixed).
  * El tema fluye igual porque las --ds-* viven en :root.
  */
-export function getOverlayRoot() {
+export function getOverlayRoot(): HTMLElement | null {
   if (typeof document === "undefined") return null;
-  let node = document.querySelector("[data-ds-overlay-root]");
+  let node = document.querySelector<HTMLElement>("[data-ds-overlay-root]");
   if (!node) {
     node = document.createElement("div");
     node.setAttribute("data-ds-overlay-root", "");

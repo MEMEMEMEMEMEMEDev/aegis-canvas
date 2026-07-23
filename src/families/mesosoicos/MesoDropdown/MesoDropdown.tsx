@@ -1,4 +1,5 @@
 import { useId, useRef } from "react";
+import type { KeyboardEvent } from "react";
 import { useControllableState } from "../../../behaviors/useControllableState";
 import { useDisclosure } from "../../../behaviors/useDisclosure";
 import { useDismiss } from "../../../behaviors/useDismiss";
@@ -6,18 +7,30 @@ import { useListNavigation } from "../../../behaviors/useListNavigation";
 import { cx } from "../../../utils/cx";
 import "./MesoDropdown.scss";
 
+export interface MesoDropdownOption {
+  value: string;
+  label: string;
+  description?: string;
+  disabled?: boolean;
+}
+
+export interface MesoDropdownProps {
+  options?: MesoDropdownOption[];
+  /** Controlado. */
+  value?: string;
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+  placeholder?: string;
+  /** Obligatorio si no hay <Field>/label externo. */
+  ariaLabel?: string;
+  disabled?: boolean;
+  className?: string;
+}
+
 /**
  * Dropdown MESOSOICOS (patrón listbox, todo desde el kernel de behaviors):
  * flechas con wrap saltando disabled, Home/End, typeahead, Enter/Espacio
  * selecciona, Escape/click-fuera cierra y devuelve el foco.
- *
- * @param {object} props
- * @param {Array<{value: string, label: string, description?: string, disabled?: boolean}>} props.options
- * @param {string} [props.value]          controlado
- * @param {string} [props.defaultValue]
- * @param {(value: string) => void} [props.onChange]
- * @param {string} [props.placeholder="Seleccionar…"]
- * @param {string} [props.ariaLabel]      obligatorio si no hay <Field>/label externo
  */
 export default function MesoDropdown({
   options = [],
@@ -28,17 +41,17 @@ export default function MesoDropdown({
   ariaLabel,
   disabled = false,
   className,
-}) {
+}: MesoDropdownProps) {
   const baseId = useId();
-  const [selected, setSelected] = useControllableState({
+  const [selected, setSelected] = useControllableState<string>({
     value,
     defaultValue,
     onChange,
   });
-  const { isOpen, open, close, toggle } = useDisclosure();
-  const nav = useListNavigation({ items: options });
-  const triggerRef = useRef(null);
-  const listRef = useRef(null);
+  const { isOpen, open, close } = useDisclosure();
+  const nav = useListNavigation<MesoDropdownOption>({ items: options });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   useDismiss({
     active: isOpen,
@@ -59,7 +72,7 @@ export default function MesoDropdown({
     requestAnimationFrame(() => listRef.current?.focus());
   };
 
-  const commit = (index) => {
+  const commit = (index: number) => {
     const option = options[index];
     if (!option || option.disabled) return;
     setSelected(option.value);
@@ -67,7 +80,7 @@ export default function MesoDropdown({
     triggerRef.current?.focus();
   };
 
-  const onKeyDown = (e) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key === "ArrowDown") {
       e.preventDefault();
       nav.move(1);

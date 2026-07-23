@@ -10,9 +10,9 @@
     ".": {
       "sass": "./src/index.scss",
       "style": "./src/index.scss",
-      "default": "./src/index.js"
+      "default": "./src/index.ts"
     },
-    "./mesosoicos": "./src/families/mesosoicos/index.js",
+    "./mesosoicos": "./src/families/mesosoicos/index.ts",
     "./css": "./dist/foundation.css",
     "./abstracts": "./src/_abstracts.scss",
     "./tokens": "./src/tokens/_index.scss",
@@ -27,6 +27,7 @@
   "scripts": {
     "build": "sass --no-source-map --style=expanded src/index.scss dist/foundation.css",
     "build:min": "sass --no-source-map --style=compressed src/index.scss dist/foundation.min.css",
+    "typecheck": "tsc --noEmit",
     "storybook": "storybook dev -p 6007 --ci",
     "build-storybook": "storybook build"
   },
@@ -35,20 +36,23 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^5.2.1",
+    "@storybook/addon-a11y": "^10.4.6",
+    "@storybook/addon-docs": "^10.4.6",
+    "@storybook/addon-mcp": "^0.6.0",
+    "@storybook/addon-vitest": "^10.4.6",
+    "@storybook/react-vite": "^10.4.6",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitest/browser-playwright": "^4.1.9",
+    "@vitest/coverage-v8": "^4.1.9",
+    "playwright": "^1.61.0",
+    "prop-types": "^15.8.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "sass": "^1.90.0",
     "storybook": "^10.4.6",
-    "@storybook/react-vite": "^10.4.6",
-    "@chromatic-com/storybook": "^5.2.1",
-    "@storybook/addon-vitest": "^10.4.6",
-    "@storybook/addon-a11y": "^10.4.6",
-    "@storybook/addon-docs": "^10.4.6",
-    "@storybook/addon-mcp": "^0.6.0",
-    "prop-types": "^15.8.1",
-    "vitest": "^4.1.9",
-    "playwright": "^1.61.0",
-    "@vitest/browser-playwright": "^4.1.9",
-    "@vitest/coverage-v8": "^4.1.9"
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.9"
   }
 }

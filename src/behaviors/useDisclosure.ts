@@ -1,17 +1,30 @@
 import { useCallback } from "react";
 import { useControllableState } from "./useControllableState";
 
+export interface UseDisclosureOptions {
+  /** Estado controlado. */
+  open?: boolean;
+  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+export interface DisclosureApi {
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
+}
+
 /**
  * Estado abierto/cerrado con API explícita — motor de menús, popovers,
  * modales, acordeones… Controlable desde fuera vía `open`/`onOpenChange`.
- *
- * @param {object} opts
- * @param {boolean} [opts.open]         estado controlado
- * @param {boolean} [opts.defaultOpen=false]
- * @param {(open: boolean) => void} [opts.onOpenChange]
  */
-export function useDisclosure({ open, defaultOpen = false, onOpenChange } = {}) {
-  const [isOpen, setOpen] = useControllableState({
+export function useDisclosure({
+  open,
+  defaultOpen = false,
+  onOpenChange,
+}: UseDisclosureOptions = {}): DisclosureApi {
+  const [isOpen = false, setOpen] = useControllableState<boolean>({
     value: open,
     defaultValue: defaultOpen,
     onChange: onOpenChange,

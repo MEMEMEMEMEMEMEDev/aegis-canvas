@@ -1,11 +1,29 @@
 import { createContext, useContext, useId } from "react";
+import type { ReactNode } from "react";
 import { cx } from "../../utils/cx";
 
-const FieldContext = createContext(null);
+export interface FieldContextValue {
+  id?: string;
+  invalid?: boolean;
+  disabled?: boolean;
+  required?: boolean;
+  describedBy?: string;
+}
+
+const FieldContext = createContext<FieldContextValue | null>(null);
 
 /** Contexto crudo del Field envolvente (o null si no hay). */
-export function useFieldContext() {
+export function useFieldContext(): FieldContextValue | null {
   return useContext(FieldContext);
+}
+
+/** Props DOM listas para esparcir en cualquier control nativo. */
+export interface FieldControlProps {
+  id?: string;
+  disabled?: boolean;
+  required?: boolean;
+  "aria-invalid"?: "true";
+  "aria-describedby"?: string;
 }
 
 /**
@@ -15,7 +33,7 @@ export function useFieldContext() {
  * Es lo que hace que CUALQUIER control puesto dentro de <Field> quede
  * accesible sin cablear nada a mano.
  */
-export function useFieldProps(overrides = {}) {
+export function useFieldProps(overrides: FieldContextValue = {}): FieldControlProps {
   const ctx = useFieldContext() ?? {};
   const invalid = overrides.invalid ?? ctx.invalid;
   const disabled = overrides.disabled ?? ctx.disabled;
@@ -29,16 +47,21 @@ export function useFieldProps(overrides = {}) {
   };
 }
 
+export interface FieldProps {
+  label?: string;
+  hint?: string;
+  /** Si existe, el campo queda aria-invalid y el error reemplaza al hint. */
+  error?: string | null;
+  required?: boolean;
+  disabled?: boolean;
+  id?: string;
+  className?: string;
+  children?: ReactNode;
+}
+
 /**
  * Envoltorio de campo: label + control + hint o error (excluyentes; el error
  * gana y se anuncia con role="alert"). Cablea ids y aria vía contexto.
- *
- * @param {object} props
- * @param {string} [props.label]
- * @param {string} [props.hint]
- * @param {string} [props.error]  si existe, el campo queda aria-invalid
- * @param {boolean} [props.required]
- * @param {boolean} [props.disabled]
  */
 export default function Field({
   label,
@@ -49,7 +72,7 @@ export default function Field({
   id: idProp,
   className,
   children,
-}) {
+}: FieldProps) {
   const autoId = useId();
   const id = idProp ?? `ds-field-${autoId}`;
   const hintId = hint ? `${id}-hint` : undefined;

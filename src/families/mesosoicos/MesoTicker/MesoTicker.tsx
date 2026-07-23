@@ -1,15 +1,21 @@
+import type { ComponentPropsWithoutRef } from "react";
 import { cx } from "../../../utils/cx";
 import "./MesoTicker.scss";
+
+export interface MesoTickerProps extends ComponentPropsWithoutRef<"div"> {
+  items?: string[];
+}
 
 /**
  * Cinta deslizante MESOSOICOS (marquee de estratos). Decorativa: se marca
  * aria-hidden y con prefers-reduced-motion queda estática.
- *
- * @param {object} props
- * @param {string[]} props.items
  */
-export default function MesoTicker({ items = [], className, ...rest }) {
-  const group = (hidden) => (
+export default function MesoTicker({
+  items = [],
+  className,
+  ...rest
+}: MesoTickerProps) {
+  const group = (hidden: boolean) => (
     <ul className="meso-ticker__group" aria-hidden={hidden || undefined}>
       {items.map((item, i) => (
         <li key={`${item}-${i}`} className="meso-ticker__item">

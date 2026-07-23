@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import MesoButton from "./MesoButton/MesoButton";
 import MesoPanel from "./MesoPanel/MesoPanel";
 import MesoTag from "./MesoTag/MesoTag";
@@ -7,12 +8,13 @@ import MesoSearchBar from "./MesoSearchBar/MesoSearchBar";
 import MesoDropdown from "./MesoDropdown/MesoDropdown";
 import MesoTicker from "./MesoTicker/MesoTicker";
 
-export default {
+const meta: Meta = {
   title: "Families/Mesosoicos",
   parameters: { layout: "padded" },
 };
+export default meta;
 
-export const Botones = {
+export const Botones: StoryObj = {
   render: () => (
     <div style={{ display: "flex", gap: "var(--ds-space-sm)", flexWrap: "wrap", alignItems: "center" }}>
       <MesoButton>Iniciar misión</MesoButton>
@@ -28,7 +30,7 @@ export const Botones = {
   ),
 };
 
-export const SearchBar = {
+export const SearchBar: StoryObj = {
   render: () => (
     <div style={{ maxWidth: 380 }}>
       {/* eslint-disable-next-line no-alert */}
@@ -37,12 +39,12 @@ export const SearchBar = {
   ),
 };
 
-export const Dropdown = {
+export const Dropdown: StoryObj = {
   render: () => <DropdownDemo />,
 };
 
 function DropdownDemo() {
-  const [era, setEra] = useState();
+  const [era, setEra] = useState<string | undefined>();
   return (
     <div style={{ minHeight: 260, maxWidth: 280 }}>
       <MesoDropdown
@@ -62,7 +64,7 @@ function DropdownDemo() {
 }
 
 /** Panel + stats + tags + ticker: la familia completa en composición. */
-export const Vitrina = {
+export const Vitrina: StoryObj = {
   render: () => (
     <div style={{ display: "grid", gap: "var(--ds-space-lg)", maxWidth: 560 }}>
       <MesoPanel label="Excavación 07" meta="ACTIVA">

@@ -1,16 +1,21 @@
 import { forwardRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { cx } from "../../utils/cx";
 import { useFieldProps } from "../Field/Field";
+import type { ControlSize } from "../types";
+
+export interface InputProps
+  extends Omit<ComponentPropsWithoutRef<"input">, "size"> {
+  size?: ControlSize;
+  /** Fuerza estado inválido sin Field. */
+  invalid?: boolean;
+}
 
 /**
  * Núcleo headless de input de texto: input nativo + wiring automático de
  * accesibilidad cuando vive dentro de <Field>. Sin opinión visual.
- *
- * @param {object} props
- * @param {"sm"|"md"|"lg"} [props.size="md"]
- * @param {boolean} [props.invalid]  fuerza estado inválido sin Field
  */
-const Input = forwardRef(function Input(
+const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   { size = "md", invalid, disabled, required, id, className, ...rest },
   ref,
 ) {

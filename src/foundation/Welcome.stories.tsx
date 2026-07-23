@@ -1,13 +1,16 @@
-export default {
+import type { Meta, StoryObj } from "@storybook/react-vite";
+
+const meta: Meta = {
   title: "Foundation/Welcome",
   parameters: { layout: "centered" },
 };
+export default meta;
 
 /**
  * Placeholder de la reconstrucción v2. Mantiene Storybook operativo
  * mientras el sistema se rediseña desde cero, capa por capa.
  */
-export const Reset = {
+export const Reset: StoryObj = {
   render: () => (
     <div style={{ maxWidth: 520, fontFamily: "system-ui, sans-serif", lineHeight: 1.6 }}>
       <h1 style={{ marginTop: 0 }}>aegis-canvas · v2</h1>

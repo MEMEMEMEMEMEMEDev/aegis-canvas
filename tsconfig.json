@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    // TypeScript 7 (tsgo). Solo type-checking: transpilan Vite (Storybook)
+    // y babel (apps consumidoras); por eso noEmit.
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "types": [],
+
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}

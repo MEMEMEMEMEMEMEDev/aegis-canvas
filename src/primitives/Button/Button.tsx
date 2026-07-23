@@ -1,18 +1,25 @@
 import { forwardRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { cx } from "../../utils/cx";
+import type { ControlSize } from "../types";
+
+export type ButtonVariant = "solid" | "outline" | "ghost" | "danger";
+
+export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
+  variant?: ButtonVariant;
+  size?: ControlSize;
+  /** Deshabilita y marca aria-busy. */
+  loading?: boolean;
+  /** Botón cuadrado solo-icono (poner aria-label). */
+  iconOnly?: boolean;
+}
 
 /**
  * Núcleo headless de botón: semántica, estados y API estable.
  * SIN opinión visual — las clases BEM (ds-button, ds-button--*) son los
  * ganchos que cada familia/marca viste después.
- *
- * @param {object} props
- * @param {"solid"|"outline"|"ghost"|"danger"} [props.variant="solid"]
- * @param {"sm"|"md"|"lg"} [props.size="md"]
- * @param {boolean} [props.loading=false]  deshabilita y marca aria-busy
- * @param {boolean} [props.iconOnly=false] botón cuadrado solo-icono (poner aria-label)
  */
-const Button = forwardRef(function Button(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   {
     variant = "solid",
     size = "md",
