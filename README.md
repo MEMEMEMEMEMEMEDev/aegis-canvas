@@ -22,6 +22,11 @@ CSS custom properties `--ds-*`** → cambio de tema instantáneo, sin recompilar
   entre MFEs federados.
 - **Cambio de tema en JS**: `document.documentElement.dataset.theme = "…"`;
   sin atributo, sigue `prefers-color-scheme` del sistema.
+- **Headless-first**: el comportamiento (estado, teclado, ARIA, foco) vive en
+  `behaviors/` (hooks) y en núcleos de componente SIN opinión visual; las
+  familias/marcas visten las clases BEM después. Permite estéticas radicales
+  sin re-resolver accesibilidad, y hace cada componente **100% controlable por
+  props/eventos** — requisito para que agentes de AI manejen la UI.
 - **Componentes**: React `.jsx` + `.scss` + `.stories.jsx` por carpeta, clases
   BEM `ds-x__el--mod`, SCSS vía `@use "../../abstracts" as ds;` (functions +
   mixins + tokens en un import, sin emitir CSS).
@@ -41,8 +46,12 @@ src/
   functions/        Accesores seguros a tokens      — por diseñar
   mixins/           Herramientas de composición     — por diseñar
   base/             Reset + globales (+ @font-face) — por diseñar
-  primitives/       Componentes universales         — vacío
+  behaviors/        Hooks headless: useControllableState, useDisclosure,
+                    useDismiss, useListNavigation (teclado/typeahead)
+  primitives/       Núcleos headless: Button, Field, Input…
   families/         Lenguajes visuales              — vacío
+  overlay/          Portal + overlayRoot (overlays que escapan de padres atrapados)
+  utils/            cx()
   foundation/       Stories de documentación (Storybook)
 ```
 
