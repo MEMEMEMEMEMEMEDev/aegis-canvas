@@ -14,3 +14,7 @@ storybook-static
 .design-sync/*.log
 .ds-sync/
 ds-bundle/
+
+# refs/ — referencias visuales (material de terceros, no se redistribuye)
+refs/*
+!refs/README.md

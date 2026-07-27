@@ -16,6 +16,7 @@
       "default": "./src/index.ts"
     },
     "./mesosoicos": "./src/families/mesosoicos/index.ts",
+    "./proto": "./src/families/proto/index.ts",
     "./css": "./dist/foundation.css",
     "./abstracts": "./src/_abstracts.scss",
     "./tokens": "./src/tokens/_index.scss",
