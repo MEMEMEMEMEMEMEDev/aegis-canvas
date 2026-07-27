@@ -1,0 +1,27 @@
+.tebeo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.25rem 0.7rem;
+  border: var(--tebeo-line) solid var(--tebeo-ink);
+  border-radius: 999px;
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+
+  &--paper {
+    background: var(--tebeo-card);
+    color: var(--tebeo-ink);
+  }
+  &--ink {
+    background: var(--tebeo-ink);
+    color: var(--tebeo-card);
+  }
+  &--sun {
+    background: var(--tebeo-sun);
+    color: var(--tebeo-ink);
+  }
+}

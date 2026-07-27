@@ -1,0 +1,63 @@
+// =============================================================================
+// TEBEO v2 — set "neo-retro sticker" (ver refs/4-referencia.png):
+// papel crema + tinta negra + amarillo sol, bordes gruesos, radios grandes,
+// display ultra pesada en mayúsculas, badges/stickers. Flat total.
+//
+// Fuentes self-hosted (src/fonts/README.md):
+//   Display: Archivo Black · OFL 1.1     Cuerpo/UI: Space Grotesk · OFL 1.1
+//
+// La familia es una ISLA CLARA dentro de la marca dark portafolio, por eso
+// emite su mini-contrato scoped en .tebeo-scope (no toca :root).
+// Los componentes lo importan vía TSX (import "../tebeo.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Archivo Black";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/archivo-black/archivo-black-v23-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/space-grotesk/space-grotesk-v22-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/space-grotesk/space-grotesk-v22-latin_latin-ext-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../fonts/space-grotesk/space-grotesk-v22-latin_latin-ext-700.woff2") format("woff2");
+}
+
+.tebeo-scope {
+  // --- Mini-contrato de la familia ---
+  --tebeo-paper: #e9e5d8; // fondo página
+  --tebeo-card: #f6f3e8; // superficie de tarjetas
+  --tebeo-ink: #131311; // tinta: texto, bordes, bloques
+  --tebeo-ink-soft: #4a4a42; // texto secundario
+  --tebeo-sun: #f2d43d; // ÚNICO acento
+  --tebeo-sun-deep: #e0be1d; // acento hover
+  --tebeo-line: 2px; // grosor de borde firma
+  --tebeo-radius: 18px; // radio tarjetas
+  --tebeo-radius-lg: 28px; // radio marcos grandes
+  --tebeo-font-display: "Archivo Black", "Arial Black", sans-serif;
+  --tebeo-font-body: "Space Grotesk", system-ui, sans-serif;
+
+  // El foco dentro de la isla clara es tinta, no ámbar.
+  --ds-focus-ring: var(--tebeo-ink);
+
+  background: var(--tebeo-paper);
+  color: var(--tebeo-ink);
+  font-family: var(--tebeo-font-body);
+}

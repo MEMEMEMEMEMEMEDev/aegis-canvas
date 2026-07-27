@@ -1,0 +1,69 @@
+@use "../../../abstracts" as ds;
+
+.tebeo-marquee {
+  overflow: hidden;
+  border-block: var(--tebeo-line) solid var(--tebeo-ink);
+  padding-block: ds.space("sm");
+
+  &--ink {
+    background: var(--tebeo-ink);
+    color: var(--tebeo-card);
+  }
+  &--sun {
+    background: var(--tebeo-sun);
+    color: var(--tebeo-ink);
+  }
+  &--paper {
+    background: var(--tebeo-paper);
+    color: var(--tebeo-ink);
+  }
+
+  &__track {
+    display: flex;
+    width: max-content;
+    animation: tebeo-marquee-roll var(--pm-speed, 22s) linear infinite;
+  }
+  &--reverse &__track {
+    animation-direction: reverse;
+  }
+  &:hover &__track {
+    animation-play-state: paused;
+  }
+
+  &__run {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--tebeo-font-display);
+    font-size: clamp(1.1rem, 2.6vw, 1.8rem);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+
+    em {
+      font-style: normal;
+      margin-inline: 0.8em;
+      color: var(--tebeo-sun);
+      font-size: 0.7em;
+    }
+  }
+  &--sun &__item em {
+    color: var(--tebeo-card);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__track {
+      animation: none;
+    }
+  }
+}
+
+@keyframes tebeo-marquee-roll {
+  to {
+    translate: -50% 0;
+  }
+}

@@ -1,0 +1,54 @@
+@use "../../../abstracts" as ds;
+
+.tebeo-tabbar {
+  display: flex;
+  gap: 4px;
+  padding: 6px;
+  background: var(--tebeo-ink);
+  border-radius: 999px;
+
+  &__item {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+    padding: 0.45rem 0.6rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--tebeo-card);
+    font-family: var(--tebeo-font-body);
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-bold);
+    cursor: pointer;
+    transition:
+      background-color var(--ds-duration-fast) var(--ds-ease-standard),
+      color var(--ds-duration-fast) var(--ds-ease-standard);
+
+    &:focus-visible {
+      outline: 2px solid var(--tebeo-sun);
+      outline-offset: 2px;
+    }
+
+    @include ds.hover {
+      color: var(--tebeo-sun);
+    }
+
+    &.is-active {
+      background: var(--tebeo-sun);
+      color: var(--tebeo-ink);
+    }
+  }
+
+  &__icon {
+    font-size: 1.05em;
+    line-height: 1;
+  }
+
+  // En espacios angostos solo el activo muestra etiqueta.
+  &--compact &__item:not(.is-active) &__label,
+  &--compact &__item:not(.is-active) .tebeo-tabbar__label {
+    display: none;
+  }
+}

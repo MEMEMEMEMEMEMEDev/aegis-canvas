@@ -1,0 +1,33 @@
+.tebeo-headline {
+  margin: 0;
+  font-family: var(--tebeo-font-display);
+  font-weight: 400; // Archivo Black solo trae un peso (ya es black)
+  text-transform: uppercase;
+  line-height: 0.94;
+  letter-spacing: -0.005em;
+  color: var(--tebeo-ink);
+  text-wrap: balance;
+
+  &--hero {
+    font-size: clamp(2.6rem, 7.5vw, 5.5rem);
+  }
+  &--section {
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  }
+
+  // Palabra destacada: <em> dentro del titular = tinta hueca.
+  em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--tebeo-ink);
+  }
+
+  // Sobre banda de tinta (CTA final): crema.
+  &--inverse {
+    color: var(--tebeo-card);
+
+    em {
+      -webkit-text-stroke-color: var(--tebeo-card);
+    }
+  }
+}

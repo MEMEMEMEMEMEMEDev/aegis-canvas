@@ -1,0 +1,80 @@
+@use "../../../abstracts" as ds;
+
+.tebeo-sticker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--tebeo-ink);
+
+  @include ds.focus-ring;
+
+  &__ring {
+    position: absolute;
+    inset: 0;
+    animation: tebeo-sticker-spin 14s linear infinite;
+
+    text {
+      font-family: var(--tebeo-font-body);
+      font-weight: var(--ds-font-weight-bold);
+      font-size: 8.4px; // unidades del viewBox
+      letter-spacing: 0.18em;
+      fill: currentColor;
+    }
+  }
+
+  // Disco central de tinta (~55% del diámetro).
+  &__core {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 55%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--tebeo-ink);
+    color: var(--tebeo-card);
+    font-family: var(--tebeo-font-body);
+    font-weight: var(--ds-font-weight-bold);
+    font-size: var(--ds-font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    padding: 8%;
+    transition:
+      background-color var(--ds-duration-fast) var(--ds-ease-standard),
+      color var(--ds-duration-fast) var(--ds-ease-standard),
+      scale var(--ds-duration-fast) var(--ds-ease-out);
+  }
+
+  @at-root button#{&} {
+    cursor: pointer;
+
+    @include ds.hover {
+      .tebeo-sticker__core {
+        background: var(--tebeo-sun);
+        color: var(--tebeo-ink);
+        scale: 1.06;
+      }
+    }
+    &:active .tebeo-sticker__core {
+      scale: 0.97;
+    }
+  }
+}
+
+@keyframes tebeo-sticker-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tebeo-sticker__ring {
+    animation: none;
+  }
+}

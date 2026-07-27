@@ -1,0 +1,37 @@
+.tebeo-rotator {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+
+  &__word {
+    display: inline-block;
+    animation: tebeo-rotator-in 380ms var(--ds-ease-out);
+  }
+
+  // Voz "hueca": misma tinta hueca que el <em> del headline.
+  &--hollow &__word {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--tebeo-ink);
+  }
+
+  // Voz "marcador": subrayado grueso de sol.
+  &--sun &__word {
+    background: linear-gradient(transparent 62%, var(--tebeo-sun) 62%);
+    padding-inline: 0.06em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__word {
+      animation: none;
+    }
+  }
+}
+
+@keyframes tebeo-rotator-in {
+  from {
+    translate: 0 105%;
+  }
+  to {
+    translate: 0 0;
+  }
+}

@@ -1,0 +1,78 @@
+@use "../../../abstracts" as ds;
+
+.tebeo-card {
+  display: flex;
+  flex-direction: column;
+  border: var(--tebeo-line) solid var(--tebeo-ink);
+  border-radius: var(--tebeo-radius);
+  background: var(--tebeo-card);
+  color: var(--tebeo-ink);
+  overflow: hidden;
+
+  &--sun {
+    background: var(--tebeo-sun);
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ds.space("md");
+    padding: ds.space("sm") ds.space("md");
+    border-bottom: var(--tebeo-line) solid var(--tebeo-ink);
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--tebeo-font-body);
+    font-size: var(--ds-font-size-sm);
+    font-weight: var(--ds-font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  // Puntitos de ventana en cápsula de tinta.
+  &__dots {
+    display: inline-flex;
+    gap: 5px;
+    padding: 6px 10px;
+    background: var(--tebeo-ink);
+    border-radius: 999px;
+
+    i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--tebeo-card);
+    }
+    i:last-child {
+      background: var(--tebeo-sun);
+    }
+  }
+
+  &__body {
+    padding: ds.space("md");
+    font-size: var(--ds-font-size-sm);
+    line-height: var(--ds-leading-snug);
+    color: var(--tebeo-ink-soft);
+
+    > :first-child {
+      margin-top: 0;
+    }
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &--sun &__body {
+    color: var(--tebeo-ink);
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    gap: ds.space("xs");
+    padding: 0 ds.space("md") ds.space("md");
+    margin-top: auto;
+  }
+}

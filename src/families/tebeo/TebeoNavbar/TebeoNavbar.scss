@@ -1,0 +1,74 @@
+@use "../../../abstracts" as ds;
+
+.tebeo-navbar {
+  display: flex;
+  align-items: center;
+  gap: ds.space("lg");
+  padding: ds.space("xs") ds.space("xs") ds.space("xs") ds.space("lg");
+  background: var(--tebeo-ink);
+  color: var(--tebeo-card);
+  border-radius: 999px;
+
+  &__brand {
+    font-family: var(--tebeo-font-body);
+    font-weight: var(--ds-font-weight-bold);
+    font-size: var(--ds-font-size-lg);
+    letter-spacing: -0.02em;
+
+    &::after {
+      content: "✦";
+      margin-left: 0.2em;
+      color: var(--tebeo-sun);
+      font-size: 0.7em;
+      vertical-align: super;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: ds.space("md");
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    font-size: var(--ds-font-size-sm);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--tebeo-card);
+    text-decoration: none;
+    padding: 0.35rem 0.2rem;
+    border-radius: 4px;
+    transition: color var(--ds-duration-fast) var(--ds-ease-standard);
+
+    &:focus-visible {
+      outline: 2px solid var(--tebeo-sun);
+      outline-offset: 2px;
+    }
+
+    @include ds.hover {
+      color: var(--tebeo-sun);
+    }
+    &.is-active {
+      color: var(--tebeo-sun);
+      text-decoration: underline;
+      text-underline-offset: 0.4em;
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  &__cta {
+    margin-left: auto;
+    flex-shrink: 0;
+
+    // Dentro de la cápsula el botón no necesita borde de tinta.
+    .tebeo-button {
+      border-color: var(--tebeo-card);
+    }
+  }
+
+  &__links + &__cta {
+    margin-left: 0;
+  }
+}

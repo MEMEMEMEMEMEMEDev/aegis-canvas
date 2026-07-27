@@ -1,0 +1,123 @@
+@use "../../../abstracts" as ds;
+
+// Píldora de tinta: flat, borde firma, sin sombras. El hover es un
+// desplazamiento seco de 2px (juguete mecánico, no glow).
+.tebeo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("xs");
+  border: var(--tebeo-line) solid var(--tebeo-ink);
+  border-radius: 999px;
+  font-family: var(--tebeo-font-body);
+  font-weight: var(--ds-font-weight-bold);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    translate var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  &:active:not(:disabled) {
+    translate: 0 2px;
+  }
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  &.is-loading {
+    opacity: 0.7;
+  }
+
+  // --- Tamaños ---
+  &.ds-button--sm {
+    font-size: var(--ds-font-size-xs);
+    padding: 0.3rem 0.9rem;
+  }
+  &.ds-button--md {
+    font-size: var(--ds-font-size-sm);
+    padding: 0.5rem 1.3rem;
+  }
+  &.ds-button--lg {
+    font-size: var(--ds-font-size-md);
+    padding: 0.7rem 1.8rem;
+  }
+  &.ds-button--icon-only {
+    padding: 0.5rem;
+    aspect-ratio: 1;
+  }
+
+  // --- Variantes ---
+  &.ds-button--solid {
+    background: var(--tebeo-ink);
+    color: var(--tebeo-card);
+
+    &.tebeo-button--sun {
+      background: var(--tebeo-sun);
+      color: var(--tebeo-ink);
+    }
+
+    @include ds.hover {
+      &:not(:disabled) {
+        background: var(--tebeo-sun);
+        color: var(--tebeo-ink);
+      }
+      &.tebeo-button--sun:not(:disabled) {
+        background: var(--tebeo-sun-deep);
+      }
+    }
+  }
+
+  &.ds-button--outline {
+    background: transparent;
+    color: var(--tebeo-ink);
+
+    @include ds.hover {
+      &:not(:disabled) {
+        background: var(--tebeo-ink);
+        color: var(--tebeo-card);
+      }
+    }
+
+    // Sobre banda de tinta (CTA final): borde y texto crema.
+    &.tebeo-button--inverse {
+      border-color: var(--tebeo-card);
+      color: var(--tebeo-card);
+
+      @include ds.hover {
+        &:not(:disabled) {
+          background: var(--tebeo-card);
+          color: var(--tebeo-ink);
+        }
+      }
+    }
+  }
+
+  &.ds-button--ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--tebeo-ink-soft);
+
+    @include ds.hover {
+      &:not(:disabled) {
+        color: var(--tebeo-ink);
+        border-color: var(--tebeo-ink);
+      }
+    }
+  }
+
+  &.ds-button--danger {
+    background: var(--ds-danger);
+    border-color: var(--tebeo-ink);
+    color: #fff;
+
+    @include ds.hover {
+      &:not(:disabled) {
+        filter: brightness(1.1);
+      }
+    }
+  }
+}
