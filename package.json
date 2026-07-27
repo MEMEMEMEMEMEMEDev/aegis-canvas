@@ -4,6 +4,9 @@
   "description": "Design system v2 (reconstrucción desde cero): tokens SCSS + theming por CSS vars (--ds-*), primitivos universales y familias de componentes. Consumible por cualquier app.",
   "license": "UNLICENSED",
   "private": true,
+  "publishConfig": {
+    "types": "dist/types/_ds-entry.d.ts"
+  },
   "type": "module",
   "sass": "src/index.scss",
   "exports": {

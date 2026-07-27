@@ -1,0 +1,17 @@
+{
+  "projectId": "315c6751-27bb-4f42-88ab-569cd32abc09",
+  "shape": "storybook",
+  "storybookConfigDir": ".storybook",
+  "storybookStatic": ".design-sync/sb-reference",
+  "pkg": "@ahroi/foundation",
+  "entry": "./.design-sync/.cache/dist-js/index.js",
+  "cssEntry": "./.design-sync/.cache/dist-js/foundation-full.css",
+  "buildCmd": "npm run build && node .design-sync/build-entry.mjs",
+  "provider": { "component": "PreviewSurface" },
+  "readmeHeader": ".design-sync/conventions.md",
+  "titleMap": {
+    "Mesosoicos": null,
+    "Behaviors": null,
+    "Welcome": null
+  }
+}
