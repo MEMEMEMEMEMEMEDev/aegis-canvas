@@ -1,0 +1,30 @@
+.koi-brush {
+  display: inline-block;
+  margin: 0;
+  font-family: var(--koi-font-brush);
+  font-weight: 400;
+  line-height: 1.05;
+  rotate: var(--kb-tilt, -3deg);
+  text-wrap: balance;
+
+  &--snow {
+    color: var(--koi-snow);
+  }
+  &--sun {
+    color: var(--koi-sun);
+  }
+  &--ink {
+    color: var(--koi-ink);
+  }
+
+  &--hero {
+    font-size: clamp(2.8rem, 8vw, 6rem);
+  }
+  &--title {
+    font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+  }
+  &--word {
+    font-size: 1em;
+    rotate: var(--kb-tilt, -3deg);
+  }
+}

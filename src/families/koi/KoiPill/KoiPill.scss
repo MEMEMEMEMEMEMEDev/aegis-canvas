@@ -1,0 +1,38 @@
+@use "../koi-tools" as koi;
+
+.koi-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-family: var(--koi-font-ui);
+  font-size: var(--ds-font-size-xs);
+  font-weight: var(--ds-font-weight-medium);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+
+  &--glass {
+    @include koi.glass;
+    color: var(--koi-snow);
+  }
+  &--snow {
+    background: var(--koi-snow);
+    border: 1px solid var(--koi-snow);
+    color: var(--koi-ink);
+  }
+  &--sun {
+    background: var(--koi-sun);
+    border: 1px solid var(--koi-sun);
+    color: var(--koi-snow);
+  }
+  &--gold {
+    background: var(--koi-gold);
+    border: 1px solid var(--koi-gold);
+    color: var(--koi-ink);
+  }
+
+  &__icon {
+    line-height: 1;
+  }
+}

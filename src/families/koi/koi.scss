@@ -1,0 +1,103 @@
+// =============================================================================
+// KOI — familia "festival nocturno" (refs/5 y 6): vidrio esmerilado oscuro
+// flotando sobre arte vivo, índigo profundo, disco solar rojo (hinomaru),
+// dorado linterna, radios enormes y caligrafía brush sobre UI geométrica.
+//
+// Fuentes self-hosted (src/fonts/README.md):
+//   Brush: Permanent Marker · Apache 2.0    UI: Poppins · OFL 1.1
+//
+// KOI es una isla OSCURA-VIDRIO: emite su mini-contrato scoped en .koi-scope.
+// Los componentes lo importan vía TSX (import "../koi.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Permanent Marker";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/permanent-marker/permanent-marker-v16-latin-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/poppins/poppins-v24-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/poppins/poppins-v24-latin_latin-ext-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../../fonts/poppins/poppins-v24-latin_latin-ext-600.woff2") format("woff2");
+}
+
+.koi-scope {
+  // --- Mini-contrato de la familia ---
+  --koi-night: #10162e; // fondo base
+  --koi-deep: #0b1023; // fondo hundido
+  --koi-indigo: #1d2749; // superficie media
+  --koi-blue: #2f6fd8; // blob frío
+  --koi-violet: #6b4df0; // blob violeta
+  --koi-sun: #f04a2f; // hinomaru
+  --koi-gold: #f6b83c; // linterna
+  --koi-snow: #faf7f2; // blanco cálido
+  --koi-ink: #0d0d12; // tinta sobre snow
+  --koi-line: rgb(255 255 255 / 0.16); // hairline de vidrio
+  --koi-glass: rgb(13 16 35 / 0.55); // vidrio estándar
+  --koi-glass-strong: rgb(9 11 26 / 0.78); // vidrio denso
+  --koi-radius: 22px;
+  --koi-radius-lg: 34px;
+  --koi-font-brush: "Permanent Marker", "Comic Sans MS", cursive;
+  --koi-font-ui: "Poppins", system-ui, sans-serif;
+
+  // Foco dorado sobre fondo nocturno.
+  --ds-focus-ring: var(--koi-gold);
+
+  background: var(--koi-night);
+  color: var(--koi-snow);
+  font-family: var(--koi-font-ui);
+}
+
+// Escenario: noche con blobs de festival y escamas seigaiha sutiles.
+// Úsese en el contenedor de página (junto a .koi-scope).
+.koi-scene {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 40% 30% at 82% 8%, rgb(240 74 47 / 0.28) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 35% at 12% 22%, rgb(47 111 216 / 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgb(107 77 240 / 0.3) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 30% at 30% 88%, rgb(246 184 60 / 0.16) 0%, transparent 70%),
+    var(--koi-night);
+
+  // Escamas (seigaiha aproximado con arcos repetidos).
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      repeating-radial-gradient(
+        circle at 25% 100%,
+        transparent 0 18px,
+        rgb(255 255 255 / 0.045) 18px 19px,
+        transparent 19px 38px
+      ),
+      repeating-radial-gradient(
+        circle at 75% 0%,
+        transparent 0 18px,
+        rgb(255 255 255 / 0.035) 18px 19px,
+        transparent 19px 38px
+      );
+    background-size: 90px 90px;
+    pointer-events: none;
+  }
+}

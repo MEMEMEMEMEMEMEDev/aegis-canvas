@@ -1,0 +1,46 @@
+@use "../../../abstracts" as ds;
+
+.koi-date {
+  display: inline-flex;
+  align-items: center;
+  gap: ds.space("md");
+  padding: ds.space("sm") ds.space("lg");
+  border-radius: var(--koi-radius);
+  background: var(--koi-snow);
+  color: var(--koi-ink);
+  box-shadow: 0 14px 34px rgb(0 0 0 / 0.3);
+
+  &__lines {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-medium);
+    line-height: 1.35;
+    color: rgb(13 13 18 / 0.75);
+  }
+
+  &__divider {
+    width: 1px;
+    align-self: stretch;
+    background: rgb(13 13 18 / 0.2);
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__over {
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-medium);
+    color: rgb(13 13 18 / 0.6);
+  }
+
+  &__big {
+    font-size: var(--ds-font-size-3xl);
+    font-weight: var(--ds-font-weight-semibold);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+}

@@ -1,0 +1,104 @@
+@use "../../../abstracts" as ds;
+
+.koi-card {
+  position: relative;
+  display: block;
+  border-radius: var(--koi-radius-lg);
+  border: 1px solid var(--koi-line);
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--koi-snow);
+  background: var(--koi-indigo);
+  transition:
+    translate var(--ds-duration-base) var(--ds-ease-out),
+    box-shadow var(--ds-duration-base) var(--ds-ease-out),
+    border-color var(--ds-duration-base) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    translate: 0 -4px;
+    border-color: rgb(255 255 255 / 0.35);
+    box-shadow: 0 24px 48px rgb(0 0 0 / 0.45);
+
+    .koi-card__visual > :first-child {
+      scale: 1.05;
+    }
+  }
+
+  &--wide {
+    aspect-ratio: 16 / 9;
+  }
+  &--tall {
+    aspect-ratio: 9 / 16;
+  }
+
+  &__visual {
+    position: absolute;
+    inset: 0;
+
+    > :first-child {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: scale var(--ds-duration-slow) var(--ds-ease-out);
+    }
+  }
+
+  // Velo para legibilidad del texto.
+  &__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      200deg,
+      rgb(9 11 26 / 0.55) 0%,
+      transparent 40% 62%,
+      rgb(9 11 26 / 0.6) 100%
+    );
+    pointer-events: none;
+  }
+
+  &__head {
+    position: absolute;
+    top: ds.space("md");
+    right: ds.space("md");
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: ds.space("2xs");
+    text-align: right;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--koi-font-ui);
+    font-weight: var(--ds-font-weight-semibold);
+    font-size: var(--ds-font-size-lg);
+    line-height: var(--ds-leading-tight);
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.5);
+  }
+
+  // Tall: título en vertical por el borde derecho, píldora abajo.
+  &--tall &__head {
+    top: ds.space("md");
+    right: ds.space("sm");
+    bottom: ds.space("md");
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  &--tall &__title {
+    writing-mode: vertical-rl;
+    font-size: var(--ds-font-size-xl);
+    letter-spacing: 0.04em;
+  }
+
+  &__extra {
+    position: absolute;
+    left: ds.space("md");
+    bottom: ds.space("md");
+    display: flex;
+    gap: ds.space("2xs");
+    flex-wrap: wrap;
+  }
+}

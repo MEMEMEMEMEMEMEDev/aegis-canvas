@@ -1,0 +1,185 @@
+@use "../../../abstracts" as ds;
+
+// Idea de portafolio KOI ("festival nocturno") — solo layout responsive;
+// la piel la ponen los componentes de la familia.
+.kdp {
+  min-height: 100vh;
+  padding-bottom: ds.space("2xl");
+
+  &__section {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding-inline: ds.space("lg");
+
+    @include ds.down("sm") {
+      padding-inline: ds.space("md");
+    }
+  }
+
+  &__nav {
+    position: sticky;
+    top: ds.space("sm");
+    z-index: 10;
+  }
+
+  // --- Hero: panel de arte con piezas flotando encima ---
+  &__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
+    gap: ds.space("lg");
+    align-items: stretch;
+    padding-block: ds.space("xl");
+
+    @include ds.down("lg") {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__stage {
+    position: relative;
+    min-height: 460px;
+    border-radius: var(--koi-radius-lg);
+    border: 1px solid var(--koi-line);
+    overflow: hidden;
+
+    > :first-child {
+      position: absolute;
+      inset: 0;
+    }
+
+    @include ds.down("sm") {
+      min-height: 380px;
+    }
+  }
+  &__badge {
+    position: absolute;
+    left: ds.space("lg");
+    bottom: ds.space("lg");
+    z-index: 2;
+  }
+  &__play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    z-index: 2;
+  }
+  &__sun {
+    position: absolute;
+    top: -46px;
+    right: 12%;
+    z-index: 1;
+  }
+  &__vertical {
+    position: absolute;
+    top: ds.space("lg");
+    right: ds.space("md");
+    z-index: 2;
+    writing-mode: vertical-rl;
+
+    @include ds.down("sm") {
+      display: none;
+    }
+  }
+
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    gap: ds.space("md");
+
+    @include ds.down("lg") {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+
+      > * {
+        flex: 1 1 260px;
+      }
+    }
+  }
+  &__hud {
+    display: flex;
+    gap: ds.space("2xs");
+    flex-wrap: wrap;
+  }
+
+  &__stats {
+    padding-block: ds.space("md") ds.space("2xl");
+  }
+
+  // --- Bento de proyectos ---
+  &__block-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ds.space("md");
+    flex-wrap: wrap;
+    margin-bottom: ds.space("lg");
+  }
+  &__bento {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: ds.space("md");
+
+    @include ds.down("lg") {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @include ds.down("sm") {
+      grid-template-columns: 1fr;
+    }
+  }
+  // La tarjeta ancha ocupa dos columnas.
+  &__bento-wide {
+    grid-column: span 2;
+
+    @include ds.down("sm") {
+      grid-column: span 1;
+    }
+  }
+
+  // --- CTA final ---
+  &__cta {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: ds.space("lg");
+    text-align: center;
+    padding: ds.space("3xl") ds.space("lg");
+    margin-top: ds.space("2xl");
+    border-radius: var(--koi-radius-lg);
+    border: 1px solid var(--koi-line);
+    background: var(--koi-glass);
+    backdrop-filter: blur(14px);
+    overflow: hidden;
+  }
+  &__cta-sun {
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    translate: -50% 0;
+    z-index: 0;
+    opacity: 0.9;
+  }
+  &__cta > :not(.kdp__cta-sun) {
+    position: relative;
+    z-index: 1;
+  }
+  &__cta-actions {
+    display: flex;
+    gap: ds.space("sm");
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: ds.space("md");
+    flex-wrap: wrap;
+    padding-top: ds.space("xl");
+    font-size: var(--ds-font-size-xs);
+    color: rgb(250 247 242 / 0.55);
+  }
+}

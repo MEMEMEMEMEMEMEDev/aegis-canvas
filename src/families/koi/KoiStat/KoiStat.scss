@@ -1,0 +1,31 @@
+@use "../../../abstracts" as ds;
+@use "../koi-tools" as koi;
+
+.koi-stat {
+  display: flex;
+  gap: ds.space("2xl");
+  flex-wrap: wrap;
+  margin: 0;
+  padding: ds.space("md") ds.space("lg");
+  border-radius: var(--koi-radius);
+  @include koi.glass;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__label {
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-regular);
+    color: rgb(250 247 242 / 0.6);
+  }
+
+  &__value {
+    margin: 0;
+    font-size: var(--ds-font-size-2xl);
+    font-weight: var(--ds-font-weight-semibold);
+    line-height: 1.1;
+  }
+}

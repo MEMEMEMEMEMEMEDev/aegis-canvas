@@ -1,0 +1,9 @@
+// Herramientas SCSS de la familia KOI (no emiten CSS por sí solas).
+
+// Panel de vidrio esmerilado — la superficie firma de la familia.
+@mixin glass($bg: var(--koi-glass)) {
+  background: #{$bg};
+  border: 1px solid var(--koi-line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}

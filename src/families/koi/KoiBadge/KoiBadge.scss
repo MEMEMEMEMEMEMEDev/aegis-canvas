@@ -1,0 +1,54 @@
+@use "../../../abstracts" as ds;
+
+.koi-badge {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: ds.space("2xs");
+  padding: ds.space("lg") ds.space("xl");
+  background: var(--koi-snow);
+  color: var(--koi-ink);
+  border-radius: 36px 42px 38px 44px; // nube: esquinas infladas desiguales
+  rotate: -2deg;
+  box-shadow: 0 18px 44px rgb(0 0 0 / 0.35);
+
+  &__eyebrow {
+    font-family: var(--koi-font-ui);
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-medium);
+    color: rgb(13 13 18 / 0.65);
+  }
+
+  &__title {
+    font-family: var(--koi-font-brush);
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+    line-height: 1;
+  }
+
+  &__sub {
+    font-family: var(--koi-font-ui);
+    font-weight: var(--ds-font-weight-semibold);
+    font-size: var(--ds-font-size-md);
+  }
+
+  &__seal {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--koi-sun);
+    color: var(--koi-snow);
+    rotate: 12deg;
+    box-shadow: 0 0 22px rgb(240 74 47 / 0.5);
+
+    svg {
+      width: 70%;
+      height: 70%;
+    }
+  }
+}
