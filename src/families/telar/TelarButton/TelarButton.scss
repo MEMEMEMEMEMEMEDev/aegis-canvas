@@ -1,0 +1,117 @@
+@use "../../../abstracts" as ds;
+@use "../telar-tools" as telar;
+
+.telar-button {
+  --telar-step: 5px; // escalón más fino en botones
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border: 1px solid transparent;
+  font-family: var(--telar-font-mono);
+  font-weight: var(--ds-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  user-select: none;
+  @include telar.steps;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    filter var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  &:active:not(:disabled) {
+    translate: 0 1px;
+  }
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  &.is-loading {
+    opacity: 0.7;
+  }
+
+  // --- Tamaños (densos) ---
+  &.ds-button--sm {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.7rem;
+  }
+  &.ds-button--md {
+    font-size: var(--ds-font-size-xs);
+    padding: 0.45rem 1rem;
+  }
+  &.ds-button--lg {
+    font-size: var(--ds-font-size-sm);
+    padding: 0.65rem 1.4rem;
+  }
+  &.ds-button--icon-only {
+    padding: 0.45rem;
+    aspect-ratio: 1;
+  }
+
+  // --- Variantes ---
+  &.ds-button--solid {
+    background: var(--telar-cream);
+    color: var(--telar-ink);
+
+    &.telar-button--fucsia {
+      background: var(--telar-fucsia);
+      color: var(--telar-cream);
+    }
+    &.telar-button--cobre {
+      background: var(--telar-cobre);
+    }
+    &.telar-button--verde {
+      background: var(--telar-verde);
+    }
+    &.telar-button--sol {
+      background: var(--telar-sol);
+    }
+
+    @include ds.hover {
+      &:not(:disabled) {
+        filter: brightness(1.12);
+      }
+    }
+  }
+
+  &.ds-button--outline {
+    background: transparent;
+    border-color: var(--telar-line);
+    color: var(--telar-cream);
+    clip-path: none; // el borde manda; sin escalones para no cortar el trazo
+
+    @include ds.hover {
+      &:not(:disabled) {
+        border-color: var(--telar-cream);
+        background: var(--telar-panel-raised);
+      }
+    }
+  }
+
+  &.ds-button--ghost {
+    background: transparent;
+    color: var(--telar-cream-soft);
+    clip-path: none;
+
+    @include ds.hover {
+      &:not(:disabled) {
+        color: var(--telar-cream);
+        background: var(--telar-panel-raised);
+      }
+    }
+  }
+
+  &.ds-button--danger {
+    background: var(--telar-fucsia);
+    color: var(--telar-cream);
+
+    @include ds.hover {
+      &:not(:disabled) {
+        filter: brightness(1.15);
+      }
+    }
+  }
+}

@@ -1,0 +1,204 @@
+@use "../../../abstracts" as ds;
+
+// TELAR.OS — portafolio denso de UNA pantalla (en desktop): status bar,
+// rejilla de paneles y ticker. Solo layout; la piel es de los componentes.
+.td {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  gap: ds.space("xs");
+  padding: ds.space("xs");
+
+  // --- Status bar ---
+  &__status {
+    display: flex;
+    align-items: center;
+    gap: ds.space("md");
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--telar-line);
+    background: var(--telar-panel);
+    font-family: var(--telar-font-mono);
+    font-size: var(--ds-font-size-xs);
+  }
+  &__brand {
+    font-weight: var(--ds-font-weight-bold);
+    letter-spacing: 0.1em;
+    color: var(--telar-cream);
+
+    em {
+      font-style: normal;
+      color: var(--telar-cobre);
+    }
+  }
+  &__status-stripe {
+    flex: 1;
+    max-width: 220px;
+  }
+  &__status-right {
+    display: flex;
+    align-items: center;
+    gap: ds.space("md");
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+
+  // --- Rejilla principal ---
+  &__grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: min-content;
+    gap: ds.space("xs");
+    align-content: stretch;
+  }
+  &__hero {
+    grid-column: span 7;
+    grid-row: span 2;
+  }
+  &__proyectos {
+    grid-column: span 5;
+    grid-row: span 2;
+  }
+  &__stack {
+    grid-column: span 4;
+  }
+  &__stats {
+    grid-column: span 4;
+  }
+  &__contacto {
+    grid-column: span 4;
+  }
+
+  @include ds.down("lg") {
+    &__hero,
+    &__proyectos {
+      grid-column: span 12;
+      grid-row: auto;
+    }
+    &__stack,
+    &__stats,
+    &__contacto {
+      grid-column: span 6;
+    }
+  }
+  @include ds.down("sm") {
+    &__stack,
+    &__stats,
+    &__contacto {
+      grid-column: span 12;
+    }
+  }
+
+  // --- Interior del hero ---
+  &__name {
+    margin: 0;
+    font-family: var(--telar-font-display);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    color: var(--telar-cream);
+    text-transform: uppercase;
+  }
+  &__role {
+    margin: ds.space("xs") 0 0;
+    font-size: var(--ds-font-size-sm);
+    color: var(--telar-cream-soft);
+  }
+  &__hero-actions {
+    display: flex;
+    gap: ds.space("xs");
+    flex-wrap: wrap;
+    margin-top: ds.space("md");
+  }
+  &__hero-tags {
+    display: flex;
+    gap: ds.space("2xs");
+    flex-wrap: wrap;
+    margin-top: ds.space("md");
+  }
+
+  // --- Lista de proyectos densa ---
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: center;
+    gap: ds.space("sm");
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid var(--telar-line);
+    font-family: var(--telar-font-mono);
+    font-size: var(--ds-font-size-sm);
+    color: var(--telar-cream);
+    text-decoration: none;
+    transition: background-color var(--ds-duration-fast) var(--ds-ease-standard);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    @include ds.hover {
+      background: var(--telar-panel-raised);
+
+      .td__row-name {
+        color: var(--telar-sol);
+      }
+      .td__row-arrow {
+        translate: 3px 0;
+        color: var(--telar-sol);
+      }
+    }
+  }
+  &__row-index {
+    font-size: var(--ds-font-size-xs);
+    color: var(--telar-cream-soft);
+  }
+  &__row-name {
+    font-family: var(--telar-font-display);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: color var(--ds-duration-fast) var(--ds-ease-standard);
+  }
+  &__row-meta {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--telar-cream-soft);
+  }
+  &__row-arrow {
+    transition:
+      translate var(--ds-duration-fast) var(--ds-ease-out),
+      color var(--ds-duration-fast) var(--ds-ease-standard);
+  }
+
+  // --- Widgets ---
+  &__chips {
+    display: flex;
+    gap: ds.space("2xs");
+    flex-wrap: wrap;
+  }
+  &__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: ds.space("sm") ds.space("md");
+  }
+  &__contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: ds.space("2xs");
+    align-items: stretch;
+
+    .telar-button {
+      width: 100%;
+    }
+  }
+  &__contact-note {
+    margin: ds.space("xs") 0 0;
+    font-size: var(--ds-font-size-xs);
+    color: var(--telar-cream-soft);
+  }
+}

@@ -1,0 +1,40 @@
+// Herramientas SCSS de la familia TELAR (no emiten CSS por sí solas).
+
+// Esquinas escalonadas (chakana): recorta las 4 esquinas con una escalera de
+// 2 peldaños de tamaño --telar-step. La geometría firma — nunca border-radius.
+@mixin steps {
+  clip-path: polygon(
+    0 calc(var(--telar-step) * 2),
+    var(--telar-step) calc(var(--telar-step) * 2),
+    var(--telar-step) var(--telar-step),
+    calc(var(--telar-step) * 2) var(--telar-step),
+    calc(var(--telar-step) * 2) 0,
+    calc(100% - var(--telar-step) * 2) 0,
+    calc(100% - var(--telar-step) * 2) var(--telar-step),
+    calc(100% - var(--telar-step)) var(--telar-step),
+    calc(100% - var(--telar-step)) calc(var(--telar-step) * 2),
+    100% calc(var(--telar-step) * 2),
+    100% calc(100% - var(--telar-step) * 2),
+    calc(100% - var(--telar-step)) calc(100% - var(--telar-step) * 2),
+    calc(100% - var(--telar-step)) calc(100% - var(--telar-step)),
+    calc(100% - var(--telar-step) * 2) calc(100% - var(--telar-step)),
+    calc(100% - var(--telar-step) * 2) 100%,
+    calc(var(--telar-step) * 2) 100%,
+    calc(var(--telar-step) * 2) calc(100% - var(--telar-step)),
+    var(--telar-step) calc(100% - var(--telar-step)),
+    var(--telar-step) calc(100% - var(--telar-step) * 2),
+    0 calc(100% - var(--telar-step) * 2)
+  );
+}
+
+// Franja tejida: los cuatro hilados en bandas verticales repetidas.
+@mixin weave($w: 9px) {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--telar-fucsia) 0 #{$w},
+    var(--telar-cobre) #{$w} #{$w * 2},
+    var(--telar-sol) #{$w * 2} #{$w * 3},
+    var(--telar-verde) #{$w * 3} #{$w * 4},
+    var(--telar-cream) #{$w * 4} #{$w * 5}
+  );
+}

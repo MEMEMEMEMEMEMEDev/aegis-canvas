@@ -1,0 +1,38 @@
+.telar-clock {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-family: var(--telar-font-mono);
+
+  &__time {
+    font-size: var(--ds-font-size-sm);
+    font-weight: var(--ds-font-weight-bold);
+    color: var(--telar-cream);
+    font-variant-numeric: tabular-nums;
+
+    em {
+      font-style: normal;
+      color: var(--telar-sol);
+      animation: telar-clock-blink 1s steps(2, jump-none) infinite;
+    }
+  }
+
+  &__label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--telar-cream-soft);
+  }
+}
+
+@keyframes telar-clock-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .telar-clock__time em {
+    animation: none;
+  }
+}

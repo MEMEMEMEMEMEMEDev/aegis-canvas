@@ -1,0 +1,26 @@
+.telar-type {
+  display: inline;
+  color: var(--telar-verde);
+
+  &__cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    background: var(--telar-verde);
+    animation: telar-type-blink 1s steps(2, jump-none) infinite;
+  }
+}
+
+@keyframes telar-type-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .telar-type__cursor {
+    animation: none;
+  }
+}

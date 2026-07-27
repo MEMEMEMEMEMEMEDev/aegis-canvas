@@ -1,0 +1,24 @@
+@use "../telar-tools" as telar;
+
+.telar-stripe {
+  display: block;
+  width: 100%;
+  @include telar.weave(9px);
+  background-size: 45px 100%;
+
+  &--animated {
+    animation: telar-stripe-run 1.4s linear infinite;
+  }
+}
+
+@keyframes telar-stripe-run {
+  to {
+    background-position-x: 45px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .telar-stripe--animated {
+    animation: none;
+  }
+}

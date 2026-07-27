@@ -1,0 +1,90 @@
+@use "../../../abstracts" as ds;
+@use "../telar-tools" as telar;
+
+.telar-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--telar-panel);
+  border: 1px solid var(--telar-line);
+  @include telar.steps;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: ds.space("xs");
+    padding: 0.45rem 0.9rem;
+    border-bottom: 1px solid var(--telar-line);
+  }
+
+  &__glyph {
+    font-size: var(--ds-font-size-sm);
+    line-height: 1;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--telar-font-mono);
+    font-size: var(--ds-font-size-xs);
+    font-weight: var(--ds-font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  &__dots {
+    display: inline-flex;
+    gap: 4px;
+    margin-left: auto;
+
+    i {
+      width: 6px;
+      height: 6px;
+      background: var(--telar-line);
+    }
+    i:nth-child(1) {
+      background: var(--telar-fucsia);
+    }
+    i:nth-child(2) {
+      background: var(--telar-sol);
+    }
+    i:nth-child(3) {
+      background: var(--telar-verde);
+    }
+  }
+
+  &__weave {
+    display: block;
+    height: 5px;
+    @include telar.weave(8px);
+  }
+
+  &__body {
+    flex: 1;
+    min-height: 0;
+    padding: ds.space("sm") 0.9rem;
+    font-family: var(--telar-font-mono);
+    font-size: var(--ds-font-size-sm);
+    line-height: var(--ds-leading-snug);
+    color: var(--telar-cream-soft);
+
+    &--flush {
+      padding: 0;
+    }
+  }
+
+  // Barras entintadas por hilado.
+  @each $tone, $ink in (
+    "fucsia": var(--telar-fucsia),
+    "cobre": var(--telar-cobre),
+    "verde": var(--telar-verde),
+    "sol": var(--telar-sol)
+  ) {
+    &--#{$tone} &__bar {
+      background: #{$ink};
+      color: var(--telar-ink);
+
+      .telar-panel__dots i {
+        background: rgb(23 17 13 / 0.4);
+      }
+    }
+  }
+}

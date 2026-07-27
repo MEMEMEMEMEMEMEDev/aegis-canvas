@@ -1,0 +1,50 @@
+.telar-ticker {
+  overflow: hidden;
+  border-block: 1px solid var(--telar-line);
+  background: var(--telar-panel);
+  padding-block: 0.35rem;
+
+  &__track {
+    display: flex;
+    width: max-content;
+    animation: telar-ticker-roll var(--tt-speed, 24s) linear infinite;
+  }
+  &:hover &__track {
+    animation-play-state: paused;
+  }
+
+  &__run {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--telar-font-mono);
+    font-size: var(--ds-font-size-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--telar-cream-soft);
+    white-space: nowrap;
+
+    em {
+      font-style: normal;
+      margin-inline: 1em;
+      color: var(--telar-cobre);
+      font-size: 0.8em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__track {
+      animation: none;
+    }
+  }
+}
+
+@keyframes telar-ticker-roll {
+  to {
+    translate: -50% 0;
+  }
+}

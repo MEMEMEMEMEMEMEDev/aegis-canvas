@@ -1,0 +1,37 @@
+.telar-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
+  &__value {
+    font-family: var(--telar-font-display);
+    font-weight: 800;
+    font-size: var(--ds-font-size-2xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+
+    &--cream {
+      color: var(--telar-cream);
+    }
+    &--fucsia {
+      color: var(--telar-fucsia);
+    }
+    &--cobre {
+      color: var(--telar-cobre);
+    }
+    &--verde {
+      color: var(--telar-verde);
+    }
+    &--sol {
+      color: var(--telar-sol);
+    }
+  }
+
+  &__label {
+    font-family: var(--telar-font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--telar-cream-soft);
+  }
+}

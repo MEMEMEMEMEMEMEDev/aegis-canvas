@@ -1,0 +1,81 @@
+// =============================================================================
+// TELAR — familia "neo-andina digital": la geometría del telar llevada a un
+// OS denso. Lana oscura de fondo, colores de hilado vibrantes (fucsia, cobre,
+// verde cobre, sol), esquinas ESCALONADAS tipo chakana (nunca curvas), franjas
+// tejidas como divisores y tipografía mono de terminal + display con carácter.
+// Pensada para UI cargada en espacio pequeño: portafolio de una pantalla.
+//
+// Fuentes self-hosted (src/fonts/README.md):
+//   Display: Bricolage Grotesque · OFL 1.1    Terminal: IBM Plex Mono · OFL 1.1
+//
+// Isla oscura-cálida: mini-contrato scoped en .telar-scope.
+// Los componentes lo importan vía TSX (import "../telar.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/bricolage-grotesque/bricolage-grotesque-v9-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../../fonts/bricolage-grotesque/bricolage-grotesque-v9-latin_latin-ext-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("../../fonts/bricolage-grotesque/bricolage-grotesque-v9-latin_latin-ext-800.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/ibm-plex-mono/ibm-plex-mono-v20-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/ibm-plex-mono/ibm-plex-mono-v20-latin_latin-ext-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../fonts/ibm-plex-mono/ibm-plex-mono-v20-latin_latin-ext-700.woff2") format("woff2");
+}
+
+.telar-scope {
+  // --- Mini-contrato de la familia ---
+  --telar-loom: #17110d; // lana oscura (fondo)
+  --telar-panel: #221a14; // panel
+  --telar-panel-raised: #2b211a; // panel elevado / hover
+  --telar-cream: #f2e7d2; // hueso / texto
+  --telar-cream-soft: rgb(242 231 210 / 0.62);
+  --telar-ink: #17110d; // texto sobre colores
+  --telar-fucsia: #e0316e; // hilados
+  --telar-cobre: #f2762e;
+  --telar-verde: #23b598;
+  --telar-sol: #f5b52e;
+  --telar-line: #40332a; // hairline
+  --telar-step: 7px; // tamaño del escalón chakana
+
+  --ds-focus-ring: var(--telar-sol);
+
+  background: var(--telar-loom);
+  color: var(--telar-cream);
+  font-family: var(--telar-font-mono);
+
+  --telar-font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --telar-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
