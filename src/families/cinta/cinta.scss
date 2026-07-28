@@ -1,0 +1,61 @@
+// =============================================================================
+// CINTA — familia "cassette-futurismo" (ver refs/9-referencia.png):
+// hardware de audio analógico imaginario — chasis crema con tornillos,
+// botones de transporte pastel, cassettes con stickers de colores,
+// pantallas NOW PLAYING, reglas de sintonía y recibos de specs. Papel
+// arena, ámbar, coral y cielo sobre tinta cálida. Cada proyecto es un
+// CASSETTE que se inserta y se reproduce.
+//
+// Fuentes self-hosted (src/fonts/README.md):
+//   Display: Audiowide · OFL 1.1 (techno redondeado, muy Teenage Engineering)
+//   Cuerpo/specs: Space Mono · OFL 1.1 (mono retro con personalidad)
+//
+// Isla CLARA-CÁLIDA dentro de la marca dark → mini-contrato en .cinta-scope.
+// Los componentes lo importan vía TSX (import "../cinta.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Audiowide";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/audiowide/audiowide-v22-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/space-mono/space-mono-v17-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../fonts/space-mono/space-mono-v17-latin_latin-ext-700.woff2") format("woff2");
+}
+
+.cinta-scope {
+  // --- Mini-contrato de la familia ---
+  --cinta-sand: #e9dcb4; // papel arena de fondo
+  --cinta-cream: #f5efdc; // cara de los dispositivos
+  --cinta-amber: #f0b12e; // bloque ámbar (bandas, botón play)
+  --cinta-coral: #ef8578; // acento salmón
+  --cinta-sky: #7fa9d9; // acento cielo
+  --cinta-ink: #2b251a; // tinta cálida
+  --cinta-ink-soft: #7a7057; // texto secundario
+  --cinta-screen: #262017; // vidrio oscuro de la pantalla NOW PLAYING
+  --cinta-line: 2px; // borde firma
+  --cinta-radius: 12px; // radio de controles
+  --cinta-radius-lg: 22px; // radio de chasis
+  --cinta-font-display: "Audiowide", "Arial Rounded MT Bold", sans-serif;
+  --cinta-font-mono: "Space Mono", ui-monospace, monospace;
+
+  // Foco de tinta sobre la isla clara.
+  --ds-focus-ring: var(--cinta-ink);
+
+  background: var(--cinta-sand);
+  color: var(--cinta-ink);
+  font-family: var(--cinta-font-mono);
+}

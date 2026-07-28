@@ -1,0 +1,71 @@
+.cinta-scale {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+// Regla serigrafiada: tick mayor cada cinco menores, en dos alturas.
+.cinta-scale__ticks {
+  position: relative;
+  height: 1rem;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--cinta-ink) 0 1.5px,
+      transparent 1.5px 9px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--cinta-ink) 0 1.5px,
+      transparent 1.5px 45px
+    );
+  background-size:
+    100% 55%,
+    100% 100%;
+  background-position: bottom left, bottom left;
+  background-repeat: no-repeat;
+}
+
+.cinta-scale__needle {
+  position: absolute;
+  top: -0.25rem;
+  bottom: -0.15rem;
+  left: var(--cs-pos, 0%);
+  width: 3px;
+  translate: -50% 0;
+  background: var(--cinta-coral);
+  border-radius: 2px;
+  transition: left var(--ds-duration-slow) var(--ds-ease-out);
+
+  // Cabeza de la aguja.
+  &::before {
+    content: "";
+    position: absolute;
+    top: -0.32rem;
+    left: 50%;
+    translate: -50% 0;
+    width: 0.55rem;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: var(--cinta-coral);
+    border: var(--cinta-line) solid var(--cinta-ink);
+  }
+}
+
+.cinta-scale__marks {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--cinta-font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cinta-ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta-scale__needle {
+    transition: none;
+  }
+}

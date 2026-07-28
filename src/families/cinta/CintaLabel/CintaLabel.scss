@@ -1,0 +1,76 @@
+@use "../../../abstracts" as ds;
+@use "../cinta-tools" as ct;
+
+// Recibo de specs: cartón claro, tipografía de ticket.
+.cinta-label {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: 6px;
+  background: var(--cinta-cream);
+  padding: ds.space("md");
+  font-family: var(--cinta-font-mono);
+  min-width: 0;
+}
+
+.cinta-label__big {
+  font-family: var(--cinta-font-display);
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+  line-height: 1;
+  border-bottom: var(--cinta-line) solid var(--cinta-ink);
+  padding-bottom: 0.35rem;
+}
+
+.cinta-label__heading {
+  @include ct.spec-label;
+}
+
+.cinta-label__rows {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.cinta-label__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.4rem 0;
+  border-top: 1px solid rgb(43 37 26 / 0.35);
+
+  dt {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cinta-ink-soft);
+  }
+  dd {
+    margin: 0;
+    font-size: var(--ds-font-size-sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+}
+
+.cinta-label__footer {
+  border-top: 1px solid rgb(43 37 26 / 0.35);
+  padding-top: 0.5rem;
+}
+
+// Las dos perforaciones de carrete del pie del recibo.
+.cinta-label__holes {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.2rem 0.4rem 0;
+
+  span {
+    width: 1.1rem;
+    aspect-ratio: 1;
+    border: 3px solid var(--cinta-ink);
+    border-radius: 999px;
+    background: radial-gradient(circle, var(--cinta-ink) 0 22%, transparent 25%);
+  }
+}

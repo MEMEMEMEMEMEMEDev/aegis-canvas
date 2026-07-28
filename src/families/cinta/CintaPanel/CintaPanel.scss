@@ -1,0 +1,77 @@
+@use "../../../abstracts" as ds;
+@use "../cinta-tools" as ct;
+
+.cinta-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: var(--cinta-radius-lg);
+  padding: ds.space("lg");
+  min-width: 0;
+}
+
+.cinta-panel--cream {
+  background: var(--cinta-cream);
+}
+.cinta-panel--sand {
+  background: var(--cinta-sand);
+}
+.cinta-panel--amber {
+  background: var(--cinta-amber);
+}
+
+// Tornillo en cruz: circulito con aspa, como todo chasis honesto.
+.cinta-panel__screw {
+  position: absolute;
+  width: 0.8rem;
+  aspect-ratio: 1;
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: 999px;
+  background:
+    linear-gradient(45deg, transparent 43%, var(--cinta-ink) 43% 57%, transparent 57%),
+    linear-gradient(-45deg, transparent 43%, var(--cinta-ink) 43% 57%, transparent 57%);
+  opacity: 0.85;
+
+  &--tl {
+    top: 0.55rem;
+    left: 0.55rem;
+  }
+  &--tr {
+    top: 0.55rem;
+    right: 0.55rem;
+  }
+  &--bl {
+    bottom: 0.55rem;
+    left: 0.55rem;
+  }
+  &--br {
+    bottom: 0.55rem;
+    right: 0.55rem;
+  }
+}
+
+.cinta-panel__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: var(--cinta-line) solid var(--cinta-ink);
+  padding-bottom: 0.45rem;
+
+  @include ct.spec-label;
+}
+
+.cinta-panel__end {
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.cinta-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  flex: 1;
+  min-width: 0;
+}

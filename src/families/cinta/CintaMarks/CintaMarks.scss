@@ -1,0 +1,55 @@
+.cinta-marks {
+  display: inline-flex;
+  gap: 0.12em;
+  font-family: var(--cinta-font-mono);
+  font-weight: 700;
+  line-height: 1;
+
+  span {
+    display: inline-block;
+  }
+
+  &.is-running span {
+    animation: cinta-marks-run 1.3s infinite var(--ds-ease-standard);
+  }
+}
+
+.cinta-marks--ink {
+  color: var(--cinta-ink);
+}
+.cinta-marks--coral {
+  color: var(--cinta-coral);
+}
+.cinta-marks--amber {
+  color: var(--cinta-amber);
+}
+.cinta-marks--sky {
+  color: var(--cinta-sky);
+}
+
+.cinta-marks--left {
+  scale: -1 1;
+}
+.cinta-marks--up {
+  rotate: -90deg;
+}
+.cinta-marks--down {
+  rotate: 90deg;
+}
+
+@keyframes cinta-marks-run {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+  }
+  25% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta-marks.is-running span {
+    animation: none;
+  }
+}

@@ -1,0 +1,57 @@
+@use "../../../abstracts" as ds;
+
+.cinta-transport {
+  display: inline-flex;
+  gap: ds.space("sm");
+}
+
+// Tecla redonda de walkman: pastel, canto inferior grueso, y la activa
+// queda HUNDIDA (es un botón con memoria mecánica, no un toggle de web).
+.cinta-transport__key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  aspect-ratio: 1;
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-bottom-width: 5px;
+  border-radius: 999px;
+  font-family: var(--cinta-font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cinta-ink);
+  cursor: pointer;
+  transition:
+    translate var(--ds-duration-fast) var(--ds-ease-standard),
+    border-bottom-width var(--ds-duration-fast) var(--ds-ease-standard),
+    filter var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  &--amber {
+    background: var(--cinta-amber);
+  }
+  &--sky {
+    background: var(--cinta-sky);
+  }
+  &--coral {
+    background: var(--cinta-coral);
+  }
+
+  @include ds.hover {
+    &:not(:disabled):not(.is-active) {
+      filter: brightness(1.06);
+    }
+  }
+
+  &:active:not(:disabled),
+  &.is-active {
+    translate: 0 3px;
+    border-bottom-width: var(--cinta-line);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

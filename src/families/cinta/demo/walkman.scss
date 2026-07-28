@@ -1,0 +1,137 @@
+@use "../../../abstracts" as ds;
+@use "../cinta-tools" as ct;
+
+// =============================================================================
+// Demo CINTA — "Walkman": el portafolio como reproductor de cassettes.
+// Cada proyecto es una cinta del mixtape: la insertas, suena, giran los
+// carretes, y al terminar pasa sola a la siguiente. Un mundo más para el
+// multiverso.
+// =============================================================================
+
+.wk {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.wk__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: ds.space("md");
+  border-bottom: var(--cinta-line) solid var(--cinta-ink);
+  padding-bottom: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+.wk__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  font-family: var(--cinta-font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 4vw, 2.3rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.wk__logo-dot {
+  color: var(--cinta-coral);
+}
+
+.wk__sub {
+  @include ct.spec-label;
+
+  color: var(--cinta-coral);
+}
+
+.wk__top-fin {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+}
+
+.wk__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(14rem, 1fr);
+  gap: ds.space("lg");
+  align-items: start;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.wk__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+}
+
+.wk__chips {
+  display: flex;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+.wk__shelf-head {
+  @include ct.spec-label;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+.wk__tapes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: ds.space("lg");
+  margin-top: ds.space("md");
+}
+
+// Banda ámbar de advertencia del pie, con su rayado de peligro.
+.wk__banda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: var(--cinta-radius-lg);
+  background: var(--cinta-amber);
+  padding: ds.space("lg");
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 1.4rem;
+    border-right: var(--cinta-line) solid var(--cinta-ink);
+
+    @include ct.stripes;
+  }
+}
+
+.wk__banda-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 30rem;
+  padding-left: 1.4rem;
+}
+
+.wk__banda-txt {
+  margin: 0;
+  font-size: var(--ds-font-size-xs);
+  line-height: 1.6;
+}

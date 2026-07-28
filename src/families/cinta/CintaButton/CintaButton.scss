@@ -1,0 +1,113 @@
+@use "../../../abstracts" as ds;
+
+// Tecla de hardware: el canto inferior de 5px es el "cuerpo" físico;
+// al pulsar, la tecla baja y el canto se come la diferencia.
+.cinta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("xs");
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-bottom-width: 5px;
+  border-radius: var(--cinta-radius);
+  font-family: var(--cinta-font-mono);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    border-bottom-width var(--ds-duration-fast) var(--ds-ease-standard),
+    translate var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  &:active:not(:disabled) {
+    translate: 0 3px;
+    border-bottom-width: var(--cinta-line);
+  }
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  &.is-loading {
+    opacity: 0.7;
+  }
+
+  // --- Tamaños ---
+  &.ds-button--sm {
+    font-size: var(--ds-font-size-xs);
+    padding: 0.3rem 0.85rem;
+  }
+  &.ds-button--md {
+    font-size: var(--ds-font-size-xs);
+    padding: 0.55rem 1.3rem;
+  }
+  &.ds-button--lg {
+    font-size: var(--ds-font-size-sm);
+    padding: 0.75rem 1.75rem;
+  }
+  &.ds-button--icon-only {
+    padding: 0.55rem;
+    aspect-ratio: 1;
+  }
+
+  // --- Caras (solid) ---
+  &.ds-button--solid {
+    color: var(--cinta-ink);
+    background: var(--cinta-cream);
+
+    &.cinta-button--amber {
+      background: var(--cinta-amber);
+    }
+    &.cinta-button--coral {
+      background: var(--cinta-coral);
+    }
+    &.cinta-button--sky {
+      background: var(--cinta-sky);
+    }
+
+    @include ds.hover {
+      &:not(:disabled) {
+        filter: brightness(1.05) saturate(1.1);
+      }
+    }
+  }
+
+  &.ds-button--outline {
+    background: transparent;
+    color: var(--cinta-ink);
+
+    @include ds.hover {
+      &:not(:disabled) {
+        background: var(--cinta-cream);
+      }
+    }
+  }
+
+  &.ds-button--ghost {
+    background: transparent;
+    border-color: transparent;
+    border-bottom-width: var(--cinta-line);
+    color: var(--cinta-ink-soft);
+
+    @include ds.hover {
+      &:not(:disabled) {
+        color: var(--cinta-ink);
+        border-color: var(--cinta-ink);
+      }
+    }
+  }
+
+  &.ds-button--danger {
+    background: var(--cinta-coral);
+    color: var(--cinta-ink);
+
+    @include ds.hover {
+      &:not(:disabled) {
+        filter: brightness(0.96);
+      }
+    }
+  }
+}

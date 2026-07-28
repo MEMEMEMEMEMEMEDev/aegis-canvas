@@ -1,0 +1,42 @@
+@use "../cinta-tools" as ct;
+
+.cinta-tag {
+  @include ct.spec-label;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: 7px;
+  padding: 0.2rem 0.55rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cinta-tag--ink {
+  background: var(--cinta-ink);
+  color: var(--cinta-cream);
+}
+.cinta-tag--amber {
+  background: var(--cinta-amber);
+}
+.cinta-tag--coral {
+  background: var(--cinta-coral);
+}
+.cinta-tag--sky {
+  background: var(--cinta-sky);
+}
+
+.cinta-tag--hazard {
+  background: var(--cinta-amber);
+}
+
+.cinta-tag__stripes {
+  width: 1.1rem;
+  align-self: stretch;
+  margin: -0.2rem 0 -0.2rem -0.55rem;
+  border-right: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: 5px 0 0 5px;
+
+  @include ct.stripes;
+}

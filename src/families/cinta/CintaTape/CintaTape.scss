@@ -1,0 +1,167 @@
+@use "../../../abstracts" as ds;
+
+// Cassette: cuerpo de tinta con sticker de color y ventana de carretes.
+// Los carretes son círculos con borde discontinuo → sprockets dentados
+// que giran de verdad cuando la cinta suena.
+.cinta-tape {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: var(--cinta-radius);
+  background: var(--cinta-ink);
+  padding: 0.55rem 0.55rem 0.8rem;
+  text-align: left;
+  cursor: default;
+  transition:
+    translate var(--ds-duration-fast) var(--ds-ease-standard),
+    box-shadow var(--ds-duration-fast) var(--ds-ease-standard);
+
+  // Como botón (insertable):
+  @at-root button#{&} {
+    cursor: pointer;
+    font: inherit;
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      translate: 0 -3px;
+    }
+  }
+
+  &.is-selected {
+    box-shadow: 0 0 0 3px var(--cinta-ink);
+    translate: 0 -3px;
+  }
+}
+
+.cinta-tape__sticker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-radius: calc(var(--cinta-radius) - 5px);
+  padding: 0.6rem 0.7rem;
+  min-width: 0;
+}
+
+.cinta-tape--amber .cinta-tape__sticker {
+  background: var(--cinta-amber);
+}
+.cinta-tape--coral .cinta-tape__sticker {
+  background: var(--cinta-coral);
+}
+.cinta-tape--sky .cinta-tape__sticker {
+  background: var(--cinta-sky);
+}
+.cinta-tape--cream .cinta-tape__sticker {
+  background: var(--cinta-cream);
+}
+
+.cinta-tape__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.cinta-tape__side {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.3rem;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: 4px;
+  background: var(--cinta-ink);
+  color: var(--cinta-cream);
+  font-family: var(--cinta-font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cinta-tape__titles {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cinta-tape__title {
+  font-family: var(--cinta-font-mono);
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cinta-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cinta-tape__meta {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: rgb(43 37 26 / 0.7);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Ventana: dos sprockets y la cinta tendida entre ellos.
+.cinta-tape__window {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: var(--cinta-line) solid var(--cinta-ink);
+  border-radius: 999px;
+  background: var(--cinta-cream);
+  padding: 0.3rem 0.55rem;
+}
+
+.cinta-tape__reel {
+  width: 1.7rem;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border: 3px dashed var(--cinta-ink);
+  border-radius: 999px;
+  background: var(--cinta-sand);
+}
+
+.cinta-tape.is-playing .cinta-tape__reel {
+  animation: cinta-reel-spin 1.6s linear infinite;
+}
+
+.cinta-tape__ribbon {
+  flex: 1;
+  height: 0.55rem;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    transparent 0 28%,
+    var(--cinta-ink) 28% 72%,
+    transparent 72%
+  );
+}
+
+// Pie del cassette: los dos tornillos inferiores.
+.cinta-tape__feet {
+  display: block;
+  height: 0.32rem;
+  margin: 0.55rem 0.3rem 0;
+  background: radial-gradient(circle, var(--cinta-cream) 0 1.6px, transparent 2px) left center /
+      0.6rem 100% no-repeat,
+    radial-gradient(circle, var(--cinta-cream) 0 1.6px, transparent 2px) right center / 0.6rem
+      100% no-repeat;
+}
+
+@keyframes cinta-reel-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta-tape.is-playing .cinta-tape__reel {
+    animation: none;
+  }
+}

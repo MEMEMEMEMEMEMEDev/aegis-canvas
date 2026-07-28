@@ -1,0 +1,19 @@
+// Herramientas SCSS de la familia CINTA (no emiten CSS por sí solas).
+
+// Franja de peligro: el rayado diagonal de las esquinas del póster.
+@mixin stripes($color: var(--cinta-ink), $gap: 7px) {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #{$color} 0 3px,
+    transparent 3px #{$gap}
+  );
+}
+
+// Rótulo de spec: mono en mayúsculas con aire de serigrafía.
+@mixin spec-label {
+  font-family: var(--cinta-font-mono);
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
