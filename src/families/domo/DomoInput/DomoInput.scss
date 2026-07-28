@@ -1,0 +1,45 @@
+@use "../../../abstracts" as ds;
+
+// Pozo de instrumento: superficie apenas más clara que el papel, borde
+// hairline en reposo → tinta plena al foco (nada de glow).
+.domo-input {
+  width: 100%;
+  border: var(--domo-line) solid var(--domo-hairline);
+  border-radius: var(--domo-radius);
+  background: var(--domo-well);
+  color: var(--domo-ink);
+  font-family: var(--domo-font);
+  transition: border-color var(--ds-duration-fast) var(--ds-ease-standard);
+
+  &::placeholder {
+    color: var(--domo-ink-soft);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--domo-ink);
+  }
+
+  &.is-invalid {
+    border-color: var(--domo-alert);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  // --- Tamaños (clases del núcleo) ---
+  &.ds-input--sm {
+    font-size: var(--ds-font-size-xs);
+    padding: 0.4rem 0.75rem;
+  }
+  &.ds-input--md {
+    font-size: var(--ds-font-size-sm);
+    padding: 0.6rem 0.9rem;
+  }
+  &.ds-input--lg {
+    font-size: var(--ds-font-size-md);
+    padding: 0.8rem 1.1rem;
+  }
+}

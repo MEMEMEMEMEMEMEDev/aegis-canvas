@@ -1,0 +1,85 @@
+// Interferencia monocroma: dos capas fantasma (attr(data-text)) recortadas
+// en franjas horizontales que se desfasan un instante y desaparecen. El 90%
+// del tiempo el texto está quieto — la ráfaga es corta, como un parpadeo
+// de sistema.
+.domo-glitch {
+  position: relative;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &::before {
+    color: var(--domo-ink);
+    clip-path: polygon(0 12%, 100% 12%, 100% 38%, 0 38%);
+    animation: domo-glitch-a 4s infinite steps(1);
+  }
+  &::after {
+    color: var(--domo-ink-soft);
+    clip-path: polygon(0 58%, 100% 58%, 100% 86%, 0 86%);
+    animation: domo-glitch-b 4s infinite steps(1);
+  }
+
+  &.is-intense::before {
+    animation-duration: 0.9s;
+  }
+  &.is-intense::after {
+    animation-duration: 0.7s;
+  }
+}
+
+@keyframes domo-glitch-a {
+  0%,
+  91%,
+  100% {
+    opacity: 0;
+    translate: 0 0;
+  }
+  92% {
+    opacity: 1;
+    translate: 0.09em 0;
+  }
+  94% {
+    opacity: 1;
+    translate: -0.07em 0.02em;
+  }
+  96% {
+    opacity: 0;
+    translate: 0 0;
+  }
+}
+
+@keyframes domo-glitch-b {
+  0%,
+  93%,
+  100% {
+    opacity: 0;
+    translate: 0 0;
+  }
+  94% {
+    opacity: 1;
+    translate: -0.09em 0;
+  }
+  96% {
+    opacity: 1;
+    translate: 0.06em -0.02em;
+  }
+  98% {
+    opacity: 0;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .domo-glitch::before,
+  .domo-glitch::after {
+    animation: none;
+    opacity: 0;
+  }
+}

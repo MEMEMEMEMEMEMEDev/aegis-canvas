@@ -1,0 +1,78 @@
+@use "../../../abstracts" as ds;
+
+// Píldora de tinta fija (como la referencia): el estado NO cambia el color,
+// lo cuentan la perilla que se desliza y el texto que cambia de lado.
+.domo-toggle {
+  --dt-w: 4.25rem;
+  --dt-h: 1.85rem;
+  --dt-pad: 0.25rem;
+  --dt-knob: calc(var(--dt-h) - 2 * var(--dt-pad));
+
+  position: relative;
+  width: var(--dt-w);
+  height: var(--dt-h);
+  flex-shrink: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--domo-ink);
+  color: var(--domo-well);
+  font-family: var(--domo-font);
+  cursor: pointer;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}
+
+.domo-toggle__text {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  transition: opacity var(--ds-duration-fast) var(--ds-ease-standard);
+
+  &--on {
+    left: 0.65rem;
+    opacity: 0;
+  }
+  &--off {
+    right: 0.6rem;
+    opacity: 1;
+  }
+}
+
+.domo-toggle__knob {
+  position: absolute;
+  top: var(--dt-pad);
+  left: var(--dt-pad);
+  width: var(--dt-knob);
+  height: var(--dt-knob);
+  border-radius: 999px;
+  background: var(--domo-well);
+  transition: translate var(--ds-duration-base) var(--ds-ease-out);
+}
+
+.domo-toggle.is-on {
+  .domo-toggle__text--on {
+    opacity: 1;
+  }
+  .domo-toggle__text--off {
+    opacity: 0;
+  }
+  .domo-toggle__knob {
+    translate: calc(var(--dt-w) - var(--dt-knob) - 2 * var(--dt-pad)) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .domo-toggle__knob,
+  .domo-toggle__text {
+    transition: none;
+  }
+}

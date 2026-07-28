@@ -1,0 +1,119 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// Demo DOMO — "Brief de proyecto": formulario de UNA sola vista con estética
+// de panel de control (refs/7-referencia.png). Nada de scroll: lo secundario
+// vive en el DomoSheet y el estado lo narra la línea DomoStatus.
+// =============================================================================
+
+.df {
+  min-height: 100vh;
+  padding: clamp(1rem, 4vw, 3rem);
+  display: grid;
+  place-items: start center;
+}
+
+// El "dispositivo": todo el formulario dentro de un marco de instrumento.
+.df__device {
+  width: min(46rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: var(--domo-radius-lg);
+  padding: clamp(1.25rem, 3.5vw, 2.25rem);
+}
+
+.df__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.df__ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--domo-ink-soft);
+
+  &::before {
+    content: "";
+    width: 0.5rem;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: var(--domo-ink);
+    animation: df-pulse 2.2s infinite var(--ds-ease-standard);
+  }
+}
+
+.df__title {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+// La cápsula-héroe de la referencia: stepper + narración + gauge.
+.df__hero {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: ds.space("lg");
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: var(--domo-radius-lg);
+  padding: ds.space("md") ds.space("lg");
+}
+
+.df__hero-status {
+  flex: 1;
+  min-width: 11rem;
+  color: var(--domo-ink-soft);
+}
+
+.df__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: ds.space("lg");
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.df__choices {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("xs");
+}
+
+.df__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: ds.space("sm");
+  border-top: var(--domo-line) solid var(--domo-hairline);
+  padding-top: ds.space("lg");
+}
+
+@keyframes df-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .df__ai::before {
+    animation: none;
+  }
+}

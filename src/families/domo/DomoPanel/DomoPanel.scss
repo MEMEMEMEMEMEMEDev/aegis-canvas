@@ -1,0 +1,45 @@
+@use "../../../abstracts" as ds;
+
+// Módulo de tablero: borde fino, radio grande, mismo papel que el fondo
+// (la referencia separa por línea, nunca por sombra ni por color).
+.domo-panel {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: var(--domo-radius-lg);
+  padding: ds.space("lg");
+  min-width: 0;
+}
+
+.domo-panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ds.space("sm");
+}
+
+.domo-panel__title {
+  margin: 0;
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.domo-panel__status {
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+}
+
+.domo-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  min-width: 0;
+}
+
+.domo-panel__foot {
+  border-top: var(--domo-line) solid var(--domo-hairline);
+  padding-top: ds.space("md");
+}

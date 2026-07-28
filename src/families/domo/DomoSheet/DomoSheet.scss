@@ -1,0 +1,124 @@
+@use "../../../abstracts" as ds;
+
+.domo-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  // Desktop: diálogo centrado en vez de hoja pegada abajo.
+  @include ds.up("md") {
+    align-items: center;
+    padding: ds.space("xl");
+  }
+}
+
+.domo-sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(26 28 25 / 0.45);
+  animation: domo-sheet-fade var(--ds-duration-base) var(--ds-ease-out);
+}
+
+.domo-sheet__panel {
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  max-height: min(85dvh, 40rem);
+  display: flex;
+  flex-direction: column;
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: var(--domo-radius-lg) var(--domo-radius-lg) 0 0;
+  padding: ds.space("lg");
+  gap: ds.space("md");
+  animation: domo-sheet-rise var(--ds-duration-base) var(--ds-ease-out);
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  @include ds.up("md") {
+    border-radius: var(--domo-radius-lg);
+  }
+}
+
+.domo-sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+}
+
+.domo-sheet__title {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.domo-sheet__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  aspect-ratio: 1;
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--domo-ink);
+  font-family: var(--domo-font);
+  cursor: pointer;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    background: var(--domo-ink);
+    color: var(--domo-well);
+  }
+}
+
+.domo-sheet__body {
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+}
+
+.domo-sheet__foot {
+  border-top: var(--domo-line) solid var(--domo-hairline);
+  padding-top: ds.space("md");
+}
+
+@keyframes domo-sheet-rise {
+  from {
+    translate: 0 2rem;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes domo-sheet-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .domo-sheet__backdrop,
+  .domo-sheet__panel {
+    animation: none;
+  }
+}

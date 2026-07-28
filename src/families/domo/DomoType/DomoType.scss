@@ -1,0 +1,25 @@
+.domo-type {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.55;
+  min-height: 1.55em; // no salta cuando aún no hay caracteres
+  white-space: pre-wrap;
+}
+
+.domo-type__cursor {
+  display: inline-block;
+  margin-left: 0.05em;
+  animation: domo-type-blink 0.9s steps(1) infinite;
+}
+
+@keyframes domo-type-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .domo-type__cursor {
+    animation: none;
+  }
+}

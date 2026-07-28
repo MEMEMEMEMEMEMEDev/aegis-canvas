@@ -1,0 +1,75 @@
+@use "../../../abstracts" as ds;
+
+// Cápsula de diálogo con la AI: pozo claro, borde que se entinta cuando
+// el campo tiene foco (:focus-within), envío circular sólido.
+.domo-prompt {
+  display: flex;
+  align-items: center;
+  gap: ds.space("xs");
+  width: 100%;
+  max-width: 28rem;
+  border: var(--domo-line) solid var(--domo-hairline);
+  border-radius: 999px;
+  background: var(--domo-well);
+  padding: 0.3rem 0.3rem 0.3rem 1.1rem;
+  transition: border-color var(--ds-duration-fast) var(--ds-ease-standard);
+
+  &:focus-within {
+    border-color: var(--domo-ink);
+  }
+}
+
+.domo-prompt__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: var(--domo-ink);
+  font-family: var(--domo-font);
+  font-size: var(--ds-font-size-sm);
+  padding: 0.35rem 0;
+
+  &::placeholder {
+    color: var(--domo-ink-soft);
+  }
+  &:focus-visible {
+    outline: none; // el estado de foco lo lleva la cápsula (:focus-within)
+  }
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+.domo-prompt__send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: 999px;
+  background: var(--domo-ink);
+  color: var(--domo-well);
+  font-family: var(--domo-font);
+  font-size: var(--ds-font-size-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    opacity var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    &:not(:disabled) {
+      background: transparent;
+      color: var(--domo-ink);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}

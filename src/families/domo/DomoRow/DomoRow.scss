@@ -1,0 +1,53 @@
+@use "../../../abstracts" as ds;
+
+.domo-rows {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.domo-row {
+  display: flex;
+  align-items: center;
+  gap: ds.space("md");
+  padding: 0.7rem 0;
+  font-size: var(--ds-font-size-sm);
+
+  & + & {
+    border-top: var(--domo-line) solid var(--domo-hairline);
+  }
+
+  &.is-active {
+    font-weight: 700;
+  }
+}
+
+.domo-row__cells {
+  display: grid;
+  grid-template-columns: var(--domo-row-template, 1fr auto);
+  gap: ds.space("md");
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.domo-row__cell {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.domo-row__control {
+  flex-shrink: 0;
+}
+
+// En pantallas chicas la plantilla completa no cabe: las celdas
+// secundarias se ocultan y queda rótulo + control (patrón lista móvil).
+@include ds.down("sm") {
+  .domo-row__cell:nth-child(n + 3) {
+    display: none;
+  }
+}

@@ -1,0 +1,130 @@
+@use "../../../abstracts" as ds;
+
+// Borde fingido con doble recorte: la capa exterior es tinta clipada, la
+// interior repite el polígono 1.5px más adentro. Los tamaños de corte en px
+// hacen que ambas capas queden concéntricas a ojo.
+.domo-cut {
+  // Chaflán parejo en las cuatro esquinas.
+  --dc-shape: polygon(
+    14px 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% calc(100% - 14px),
+    calc(100% - 14px) 100%,
+    14px 100%,
+    0 calc(100% - 14px),
+    0 14px
+  );
+
+  background: var(--domo-ink);
+  clip-path: var(--dc-shape);
+  padding: var(--domo-line);
+  min-width: 0;
+}
+
+.domo-cut--blade {
+  // Filo asimétrico: tajos grandes arriba-derecha y abajo-izquierda.
+  --dc-shape: polygon(
+    0 0,
+    calc(100% - 34px) 0,
+    100% 34px,
+    100% 100%,
+    34px 100%,
+    0 calc(100% - 34px)
+  );
+}
+
+.domo-cut--notch {
+  // Muesca rectangular en el canto superior + chaflán abajo-derecha.
+  --dc-shape: polygon(
+    0 0,
+    30% 0,
+    calc(30% + 12px) 12px,
+    calc(70% - 12px) 12px,
+    70% 0,
+    100% 0,
+    100% calc(100% - 22px),
+    calc(100% - 22px) 100%,
+    0 100%
+  );
+}
+
+.domo-cut__inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  background: var(--domo-paper);
+  clip-path: var(--dc-shape);
+  padding: ds.space("lg");
+  min-width: 0;
+
+  // Tics de esquina ⌐ ⌐ (HUD): dentro del recorte, en diagonal opuesta.
+  &.is-marked::before,
+  &.is-marked::after {
+    content: "";
+    position: absolute;
+    width: 0.6rem;
+    height: 0.6rem;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  &.is-marked::before {
+    top: 0.55rem;
+    left: 0.55rem;
+    border-top: var(--domo-line) solid currentColor;
+    border-left: var(--domo-line) solid currentColor;
+  }
+  &.is-marked::after {
+    bottom: 0.55rem;
+    right: 0.55rem;
+    border-bottom: var(--domo-line) solid currentColor;
+    border-right: var(--domo-line) solid currentColor;
+  }
+}
+
+.domo-cut--notch .domo-cut__inner {
+  padding-top: calc(#{ds.space("lg")} + 6px); // deja aire bajo la muesca
+}
+
+.domo-cut__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ds.space("sm");
+}
+
+.domo-cut__title {
+  margin: 0;
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.domo-cut__status {
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+}
+
+.domo-cut__body {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  min-width: 0;
+  flex: 1;
+}
+
+// Módulo invertido: exterior claro, interior de tinta.
+.domo-cut--ink {
+  background: var(--domo-well);
+
+  .domo-cut__inner {
+    background: var(--domo-ink);
+    color: var(--domo-well);
+  }
+  .domo-cut__status {
+    color: rgb(240 244 234 / 0.6);
+  }
+}

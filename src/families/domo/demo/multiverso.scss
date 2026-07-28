@@ -1,0 +1,312 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// Demo DOMO V2 — "Multiverso": DOMO OS es la AI-guía y cada slide es un
+// portal. Al viajar, una secuencia de transferencia (glitch + ruta + gauge)
+// te deja dentro de una "ventana de navegador" donde vive OTRA web completa:
+// una vestida KOI, otra vestida TEBEO. Influencia NieR ya sin timidez:
+// tarjetas cortadas a cuchillo (DomoCut), interferencia (DomoGlitch), HUD.
+// =============================================================================
+
+.mv {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  overflow: hidden;
+  position: relative;
+}
+
+.mv__hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: var(--domo-line) solid var(--domo-ink);
+  padding-bottom: ds.space("sm");
+  margin-bottom: ds.space("lg");
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.mv__hud-sep {
+  color: var(--domo-ink-soft);
+  padding: 0 0.5rem;
+}
+
+.mv__ruta {
+  color: var(--domo-ink-soft);
+}
+
+// --- Slide 1: hub de portales ---
+.mv-hub {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: ds.space("lg");
+  max-width: 56rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mv-hub__kicker {
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--domo-ink-soft);
+}
+
+.mv-hub__title {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.mv-hub__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: ds.space("lg");
+  align-items: stretch;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mv-hub__desc {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.5;
+  color: var(--domo-ink-soft);
+  flex: 1;
+}
+
+.mv-hub__sysrow {
+  display: flex;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+// --- Ventana de navegador falsa: aquí "vive" la otra web ---
+.mv-world {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: var(--domo-radius-lg);
+  overflow: hidden;
+}
+
+.mv-world__bar {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  padding: 0.5rem ds.space("md");
+  border-bottom: var(--domo-line) solid var(--domo-ink);
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.05em;
+}
+
+.mv-world__dots {
+  letter-spacing: 0.18em;
+  color: var(--domo-ink-soft);
+}
+
+.mv-world__url {
+  flex: 1;
+  text-align: center;
+  border: var(--domo-line) solid var(--domo-hairline);
+  border-radius: 999px;
+  padding: 0.15rem 1rem;
+  background: var(--domo-well);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mv-world__os {
+  color: var(--domo-ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+
+.mv-world__page {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+// --- Página KOI dentro de la ventana ---
+.mv-koi {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: ds.space("md");
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.mv-koi__contenido {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  max-width: 30rem;
+}
+
+.mv-koi__sub {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+  color: rgb(250 247 242 / 0.75);
+}
+
+.mv-koi__hanko {
+  position: absolute;
+  top: clamp(1rem, 4vw, 2.5rem);
+  right: clamp(1rem, 5vw, 3rem);
+  z-index: 1;
+}
+
+.mv-koi__sol {
+  position: absolute;
+  right: 6%;
+  bottom: -12%;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.mv-koi__acciones {
+  display: flex;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+// --- Página TEBEO dentro de la ventana ---
+.mv-tebeo {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem) 0;
+  gap: ds.space("md");
+}
+
+.mv-tebeo__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex: 1;
+  min-height: 0;
+  flex-wrap: wrap;
+}
+
+.mv-tebeo__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  max-width: 30rem;
+}
+
+.mv-tebeo__chips {
+  display: flex;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+.mv-tebeo__marquee {
+  margin: 0 calc(-1 * clamp(1.25rem, 4vw, 3rem));
+}
+
+// --- Slide final ---
+.mv-fin {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: ds.space("lg");
+}
+
+.mv-fin__panel {
+  width: min(34rem, 100%);
+}
+
+.mv-fin__datos {
+  display: flex;
+  gap: ds.space("xl");
+  flex-wrap: wrap;
+}
+
+// --- Overlay de transferencia entre mundos ---
+.mv-warp {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: ds.space("lg");
+  background: var(--domo-paper);
+
+  // Interferencia: franjas hairline que tiemblan durante el viaje.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -10% 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0 9px,
+      rgb(26 28 25 / 0.06) 9px 10px
+    );
+    animation: mv-warp-scan 0.4s linear infinite;
+    pointer-events: none;
+  }
+}
+
+.mv-warp__panel {
+  width: min(26rem, 100%);
+  position: relative;
+}
+
+.mv-warp__ruta {
+  font-size: var(--ds-font-size-xl);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+@keyframes mv-warp-scan {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv-warp::before {
+    animation: none;
+  }
+}

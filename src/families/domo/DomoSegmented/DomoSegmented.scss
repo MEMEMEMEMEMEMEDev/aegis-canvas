@@ -1,0 +1,62 @@
+@use "../../../abstracts" as ds;
+
+// Cápsula segmentada: borde fino compartido, divisores hairline,
+// el segmento elegido se entinta por completo.
+.domo-segmented {
+  display: inline-flex;
+  align-items: stretch;
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: 999px;
+  overflow: hidden;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.domo-segmented__seg {
+  border: none;
+  background: transparent;
+  color: var(--domo-ink-soft);
+  font-family: var(--domo-font);
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard);
+
+  & + & {
+    border-left: var(--domo-line) solid var(--domo-hairline);
+  }
+
+  // El anillo por dentro: el overflow:hidden de la cápsula recorta un
+  // outline exterior, así que lo metemos con offset negativo.
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: -3px;
+    border-radius: 999px;
+  }
+
+  @include ds.hover {
+    &:not(:disabled):not(.is-selected) {
+      color: var(--domo-ink);
+    }
+  }
+
+  &.is-selected {
+    background: var(--domo-ink);
+    color: var(--domo-well);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}
+
+.domo-segmented--sm .domo-segmented__seg {
+  padding: 0.3rem 0.75rem;
+}

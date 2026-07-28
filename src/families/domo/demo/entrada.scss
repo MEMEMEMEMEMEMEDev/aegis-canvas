@@ -1,0 +1,194 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// Demo DOMO — "Entrada": la vista principal del portafolio como OS con AI.
+// Te recibe la AI (DomoType + DomoPrompt), y todo se navega UN slide a la
+// vez (DomoDeck) — cero scroll. Guiños NieR discretos: HUD de líneas finas,
+// rombos ◆/◇, small caps por todas partes. La paleta sigue siendo DOMO.
+// =============================================================================
+
+.de {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  overflow: hidden;
+}
+
+// HUD superior: sistema + estado de la AI, separados por rombos.
+.de__hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: var(--domo-line) solid var(--domo-ink);
+  padding-bottom: ds.space("sm");
+  margin-bottom: ds.space("lg");
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.de__hud-sep {
+  color: var(--domo-ink-soft);
+  padding: 0 0.5rem;
+}
+
+.de__ai {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--domo-ink-soft);
+
+  &::before {
+    content: "";
+    width: 0.5rem;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: var(--domo-ink);
+    animation: de-pulse 2.2s infinite var(--ds-ease-standard);
+  }
+}
+
+// --- Slide 1: la AI te recibe ---
+.de-hero {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: ds.space("lg");
+  max-width: 38rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.de-hero__kicker {
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--domo-ink-soft);
+}
+
+.de-hero__title {
+  margin: 0;
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.de-hero__voice {
+  font-size: var(--ds-font-size-md);
+  min-height: 3.2em; // la respuesta retecleada no salta el layout
+}
+
+.de-hero__actions {
+  display: flex;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+// --- Slides de proyecto ---
+.de-proy {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: ds.space("xl");
+  align-items: center;
+  max-width: 56rem;
+  margin: 0 auto;
+  width: 100%;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+    gap: ds.space("lg");
+    align-content: center;
+  }
+}
+
+.de-proy__info {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  min-width: 0;
+}
+
+.de-proy__index {
+  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  line-height: 1;
+  color: var(--domo-ink-soft);
+}
+
+.de-proy__nombre {
+  margin: 0;
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.de-proy__desc {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.55;
+  color: var(--domo-ink-soft);
+}
+
+.de-proy__datos {
+  display: flex;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+}
+
+.de-proy__art {
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: var(--domo-radius-lg);
+  aspect-ratio: 16 / 11;
+  min-height: 0;
+  overflow: hidden;
+
+  @include ds.down("md") {
+    aspect-ratio: 16 / 8;
+  }
+
+  > * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// --- Slide final: contacto ---
+.de-fin {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: ds.space("lg");
+  max-width: 38rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@keyframes de-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .de__ai::before {
+    animation: none;
+  }
+}

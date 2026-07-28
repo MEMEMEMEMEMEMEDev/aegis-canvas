@@ -1,0 +1,60 @@
+// =============================================================================
+// DOMO — set "panel de control doméstico" (ver refs/7-referencia.png):
+// papel verde salvia + tinta casi negra, bordes finos (1.5px), radios grandes,
+// TODO monoespaciado — una sola fuente y la jerarquía la hace el tamaño.
+// Densidad de instrumento: steppers, toggles, gauges, filas de datos.
+//
+// Filosofía UX: UNA vista cargada — controles y modales, no scroll. Y cada
+// control es controlable desde fuera (useControllableState), pensado para
+// que un agente AI opere el formulario igual que lo haría un humano.
+//
+// Fuente self-hosted (src/fonts/README.md): Chivo Mono · OFL 1.1
+// (stand-in libre de Aeonik Fono, la fuente de la referencia).
+//
+// Isla CLARA dentro de la marca dark → mini-contrato scoped en .domo-scope
+// (no toca :root). Los componentes lo importan vía TSX — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Chivo Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/chivo-mono/chivo-mono-v11-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Chivo Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/chivo-mono/chivo-mono-v11-latin_latin-ext-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Chivo Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../fonts/chivo-mono/chivo-mono-v11-latin_latin-ext-700.woff2") format("woff2");
+}
+
+.domo-scope {
+  // --- Mini-contrato de la familia ---
+  --domo-paper: #e8ede2; // fondo salvia
+  --domo-well: #f0f4ea; // superficie de inputs/pozos
+  --domo-ink: #1a1c19; // tinta: texto, bordes, rellenos ON
+  --domo-ink-soft: #70766c; // texto secundario / estados apagados
+  --domo-hairline: rgb(26 28 25 / 0.22); // divisores de filas
+  --domo-alert: #b8452b; // SOLO errores de formulario
+  --domo-line: 1.5px; // grosor de borde firma
+  --domo-radius: 14px; // radio de controles
+  --domo-radius-lg: 24px; // radio de paneles/marcos
+  --domo-font: "Chivo Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  // El foco dentro de la isla clara es tinta, no ámbar.
+  --ds-focus-ring: var(--domo-ink);
+
+  background: var(--domo-paper);
+  color: var(--domo-ink);
+  font-family: var(--domo-font);
+  font-variant-numeric: tabular-nums;
+}

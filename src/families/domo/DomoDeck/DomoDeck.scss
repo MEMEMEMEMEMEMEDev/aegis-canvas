@@ -1,0 +1,145 @@
+@use "../../../abstracts" as ds;
+
+.domo-deck {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+.domo-deck__viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+// El slide nuevo entra con un deslizamiento corto y seco desde el lado
+// hacia el que navegas (remontado por key={index}).
+.domo-deck__frame {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  &.is-fwd {
+    animation: domo-deck-fwd var(--ds-duration-base) var(--ds-ease-out);
+  }
+  &.is-back {
+    animation: domo-deck-back var(--ds-duration-base) var(--ds-ease-out);
+  }
+}
+
+.domo-slide {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+}
+
+.domo-deck__rail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("md");
+  border-top: var(--domo-line) solid var(--domo-hairline);
+  padding-top: ds.space("md");
+  margin-top: ds.space("lg");
+}
+
+.domo-deck__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  aspect-ratio: 1;
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--domo-ink);
+  font-family: var(--domo-font);
+  font-size: var(--ds-font-size-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    &:not(:disabled) {
+      background: var(--domo-ink);
+      color: var(--domo-well);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.domo-deck__markers {
+  display: flex;
+  align-items: center;
+}
+
+// Rombos de navegación (guiño NieR, discreto): ◇ en reposo, ◆ activo.
+.domo-deck__marker {
+  border: none;
+  background: transparent;
+  color: var(--domo-ink-soft);
+  font-family: var(--domo-font);
+  font-size: var(--ds-font-size-xs);
+  line-height: 1;
+  padding: 0.35rem 0.3rem;
+  cursor: pointer;
+  transition: color var(--ds-duration-fast) var(--ds-ease-standard);
+  border-radius: 6px;
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    color: var(--domo-ink);
+  }
+
+  &.is-active {
+    color: var(--domo-ink);
+  }
+}
+
+.domo-deck__counter {
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.09em;
+  color: var(--domo-ink-soft);
+}
+
+@keyframes domo-deck-fwd {
+  from {
+    translate: 2.5% 0;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes domo-deck-back {
+  from {
+    translate: -2.5% 0;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .domo-deck__frame.is-fwd,
+  .domo-deck__frame.is-back {
+    animation: none;
+  }
+}

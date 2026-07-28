@@ -1,0 +1,81 @@
+@use "../../../abstracts" as ds;
+
+.domo-stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: ds.space("sm");
+}
+
+.domo-stepper__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  aspect-ratio: 1;
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--domo-ink);
+  font-family: var(--domo-font);
+  font-size: var(--ds-font-size-md);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    &:not(:disabled) {
+      background: var(--domo-ink);
+      color: var(--domo-well);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.domo-stepper__value {
+  min-width: 4ch;
+  text-align: center;
+  font-weight: 500;
+  font-size: var(--ds-font-size-xl);
+  letter-spacing: -0.02em;
+  overflow: hidden;
+}
+
+// Tick de instrumento: el dígito nuevo entra desde abajo, seco y corto.
+.domo-stepper__digits {
+  display: inline-block;
+  animation: domo-stepper-tick var(--ds-duration-fast) var(--ds-ease-out);
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+.domo-stepper--lg {
+  gap: ds.space("md");
+
+  .domo-stepper__btn {
+    width: 2.5rem;
+  }
+  .domo-stepper__value {
+    font-size: var(--ds-font-size-3xl);
+  }
+}
+
+@keyframes domo-stepper-tick {
+  from {
+    translate: 0 0.45em;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
