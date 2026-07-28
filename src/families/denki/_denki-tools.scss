@@ -1,0 +1,26 @@
+// Herramientas SCSS de la familia DENKI (no emiten CSS por sí solas).
+
+// Trama de semitono: los puntos de imprenta que texturizan los paneles
+// negros de la referencia.
+@mixin halftone($dot: rgb(242 228 198 / 0.13), $size: 7px) {
+  background-image: radial-gradient(circle, #{$dot} 1.1px, transparent 1.7px);
+  background-size: #{$size} #{$size};
+}
+
+// Rayado diagonal ///: la marca de esquina de los pósters técnicos.
+@mixin hatch($color: var(--denki-ink)) {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #{$color} 0 2px,
+    transparent 2px 7px
+  );
+}
+
+// Rótulo de ficha técnica: mono en mayúsculas, espaciado de catálogo.
+@mixin spec-label {
+  font-family: var(--denki-font-mono);
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}

@@ -1,0 +1,66 @@
+.denki-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2em;
+  margin: 0;
+  line-height: 1;
+  min-width: 0;
+}
+
+.denki-title__latin {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  font-family: var(--denki-font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.denki-title__crown {
+  color: var(--denki-red);
+  font-size: 0.62em;
+  translate: 0 -0.25em;
+}
+
+// El katakana manda: negro máximo del stack del sistema, apretado.
+.denki-title__kana {
+  font-family: var(--denki-font-kana);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+.denki-title__sub {
+  font-family: var(--denki-font-mono);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--denki-red);
+}
+
+// --- Tamaños ---
+.denki-title--hero {
+  .denki-title__latin {
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+  }
+  .denki-title__kana {
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+  }
+  .denki-title__sub {
+    font-size: var(--ds-font-size-sm);
+  }
+}
+
+.denki-title--card {
+  .denki-title__latin {
+    font-size: var(--ds-font-size-lg);
+  }
+  .denki-title__kana {
+    font-size: var(--ds-font-size-xl);
+  }
+  .denki-title__sub {
+    font-size: var(--ds-font-size-xs);
+  }
+}

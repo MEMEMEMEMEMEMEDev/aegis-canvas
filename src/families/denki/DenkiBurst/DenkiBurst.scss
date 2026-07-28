@@ -1,0 +1,56 @@
+.denki-burst {
+  display: inline-block;
+  flex-shrink: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  &.is-pulsing svg {
+    animation: denki-burst-pulse 2.4s infinite var(--ds-ease-standard);
+  }
+}
+
+.denki-burst__star {
+  fill: var(--denki-cream);
+  stroke: var(--denki-ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.denki-burst__text {
+  fill: var(--denki-ink);
+  font-family: var(--denki-font-display);
+  font-size: 15px;
+  letter-spacing: 0.03em;
+  text-anchor: middle;
+  dominant-baseline: central;
+  text-transform: uppercase;
+}
+
+.denki-burst--red {
+  .denki-burst__star {
+    fill: var(--denki-red);
+  }
+  .denki-burst__text {
+    fill: var(--denki-cream);
+  }
+}
+
+@keyframes denki-burst-pulse {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.05;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .denki-burst.is-pulsing svg {
+    animation: none;
+  }
+}

@@ -1,0 +1,68 @@
+@use "../denki-tools" as dk;
+
+.denki-rail {
+  overflow: hidden;
+  border-block: var(--denki-line) solid var(--denki-ink);
+  background: var(--denki-panel);
+  color: var(--denki-cream);
+
+  @include dk.halftone;
+}
+
+.denki-rail--red {
+  background: var(--denki-red);
+
+  @include dk.halftone(rgb(34 27 18 / 0.16));
+}
+
+.denki-rail__track {
+  display: flex;
+  width: max-content;
+  animation: denki-rail-roll var(--dr-speed, 24s) linear infinite;
+
+  .denki-rail:hover & {
+    animation-play-state: paused;
+  }
+
+  .denki-rail--reverse & {
+    animation-direction: reverse;
+  }
+}
+
+.denki-rail__run {
+  display: flex;
+  align-items: center;
+  padding: 0.55rem 0;
+}
+
+.denki-rail__item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--denki-font-display);
+  font-size: var(--ds-font-size-md);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.denki-rail__sep {
+  color: var(--denki-red);
+  font-size: 0.7em;
+  padding: 0 1.1rem;
+
+  .denki-rail--red & {
+    color: var(--denki-cream);
+  }
+}
+
+@keyframes denki-rail-roll {
+  to {
+    translate: -50% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .denki-rail__track {
+    animation: none;
+  }
+}

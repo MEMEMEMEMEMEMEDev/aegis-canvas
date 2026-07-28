@@ -1,0 +1,70 @@
+// =============================================================================
+// DENKI (電気) — familia "catálogo retro-industrial japonés"
+// (ver refs/8-referencia.png): póster de producto de hardware arcade —
+// papel arena cálido, paneles negro-tinta con TRAMA DE SEMITONO, rojo
+// bermellón, katakana gigante, ráfagas de precio, fichas técnicas, combos
+// de arcade y códigos de barras. Cada proyecto se presenta como PRODUCTO.
+//
+// Fuentes self-hosted (src/fonts/README.md):
+//   Display: Anton · OFL 1.1 (condensed de póster)
+//   Ficha técnica: IBM Plex Mono · OFL 1.1 (compartida con TELAR — mismo
+//   woff2, el navegador dedupe el @font-face)
+//   Katakana: stack del sistema (Hiragino/Yu Gothic/Noto CJK), peso máximo.
+//
+// Isla CLARA-CÁLIDA dentro de la marca dark → mini-contrato en .denki-scope.
+// Los componentes lo importan vía TSX (import "../denki.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/anton/anton-v27-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/ibm-plex-mono/ibm-plex-mono-v20-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/ibm-plex-mono/ibm-plex-mono-v20-latin_latin-ext-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../fonts/ibm-plex-mono/ibm-plex-mono-v20-latin_latin-ext-700.woff2") format("woff2");
+}
+
+.denki-scope {
+  // --- Mini-contrato de la familia ---
+  --denki-paper: #e9d8b8; // papel arena
+  --denki-paper-deep: #ddc79f; // papel sombreado
+  --denki-panel: #1b1611; // panel negro-tinta cálido
+  --denki-cream: #f2e4c6; // texto sobre panel
+  --denki-ink: #221b12; // texto/bordes sobre papel
+  --denki-red: #d13a1e; // bermellón: acento, precio, tachado
+  --denki-red-deep: #a92c14; // bermellón hundido
+  --denki-line: 2px; // borde firma (imprenta gruesa)
+  --denki-radius: 10px; // radio contenido (casi cuadrado)
+  --denki-radius-lg: 16px; // radio de marcos grandes
+  --denki-font-display: "Anton", "Arial Narrow", sans-serif;
+  --denki-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --denki-font-kana: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans CJK JP",
+    "Noto Sans JP", system-ui, sans-serif;
+
+  // Foco bermellón, como sello de control de calidad.
+  --ds-focus-ring: var(--denki-red);
+
+  background: var(--denki-paper);
+  color: var(--denki-ink);
+  font-family: var(--denki-font-mono);
+}

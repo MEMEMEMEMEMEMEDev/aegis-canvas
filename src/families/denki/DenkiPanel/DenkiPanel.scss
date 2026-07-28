@@ -1,0 +1,62 @@
+@use "../../../abstracts" as ds;
+@use "../denki-tools" as dk;
+
+.denki-panel {
+  display: flex;
+  flex-direction: column;
+  border: var(--denki-line) solid var(--denki-ink);
+  border-radius: var(--denki-radius-lg);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.denki-panel__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  padding: 0.45rem ds.space("md");
+  border-bottom: var(--denki-line) solid var(--denki-ink);
+
+  @include dk.spec-label;
+}
+
+.denki-panel__end {
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.denki-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  padding: ds.space("lg");
+  flex: 1;
+  min-width: 0;
+}
+
+// Panel negro: la trama de semitono es la firma.
+.denki-panel--panel {
+  background: var(--denki-panel);
+  color: var(--denki-cream);
+
+  > .denki-panel__body {
+    @include dk.halftone;
+  }
+  > .denki-panel__bar {
+    border-bottom-color: var(--denki-cream);
+  }
+
+  // Piezas anidadas: sobre panel negro, sus tintas pasan a crema.
+  .denki-frame__stage {
+    border-color: var(--denki-cream);
+  }
+  .denki-frame__caption {
+    color: var(--denki-cream);
+    opacity: 0.8;
+  }
+}
+
+.denki-panel--paper {
+  background: var(--denki-paper);
+}

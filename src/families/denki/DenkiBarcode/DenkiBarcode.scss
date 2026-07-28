@@ -1,0 +1,22 @@
+.denki-barcode {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex-shrink: 0;
+}
+
+// Barras desiguales: tres rejillas superpuestas con periodos distintos
+// producen el patrón irregular de un código real.
+.denki-barcode__bars {
+  width: 8.5rem;
+  background-image:
+    repeating-linear-gradient(90deg, var(--denki-ink) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(90deg, var(--denki-ink) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(90deg, var(--denki-ink) 0 3px, transparent 3px 11px);
+}
+
+.denki-barcode__code {
+  font-family: var(--denki-font-mono);
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.3em;
+}

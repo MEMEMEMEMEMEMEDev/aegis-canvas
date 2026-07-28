@@ -1,0 +1,126 @@
+@use "../../../abstracts" as ds;
+
+// Botón de arcade impreso: bordes gruesos, esquinas apenas romas,
+// pulsación seca hacia abajo.
+.denki-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("xs");
+  border: var(--denki-line) solid var(--denki-ink);
+  border-radius: var(--denki-radius);
+  font-family: var(--denki-font-mono);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--ds-duration-fast) var(--ds-ease-standard),
+    color var(--ds-duration-fast) var(--ds-ease-standard),
+    translate var(--ds-duration-fast) var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  &:active:not(:disabled) {
+    translate: 0 2px;
+  }
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  &.is-loading {
+    opacity: 0.7;
+  }
+
+  // --- Tamaños ---
+  &.ds-button--sm {
+    font-size: var(--ds-font-size-xs);
+    padding: 0.3rem 0.85rem;
+  }
+  &.ds-button--md {
+    font-size: var(--ds-font-size-xs);
+    padding: 0.55rem 1.25rem;
+  }
+  &.ds-button--lg {
+    font-size: var(--ds-font-size-sm);
+    padding: 0.75rem 1.7rem;
+  }
+  &.ds-button--icon-only {
+    padding: 0.55rem;
+    aspect-ratio: 1;
+  }
+
+  // --- Variantes ---
+  &.ds-button--solid {
+    background: var(--denki-panel);
+    color: var(--denki-cream);
+
+    &.denki-button--red {
+      background: var(--denki-red);
+      border-color: var(--denki-ink);
+      color: var(--denki-cream);
+    }
+
+    @include ds.hover {
+      &:not(:disabled) {
+        background: var(--denki-red);
+        color: var(--denki-cream);
+      }
+      &.denki-button--red:not(:disabled) {
+        background: var(--denki-red-deep);
+      }
+    }
+  }
+
+  &.ds-button--outline {
+    background: transparent;
+    color: var(--denki-ink);
+
+    @include ds.hover {
+      &:not(:disabled) {
+        background: var(--denki-ink);
+        color: var(--denki-cream);
+      }
+    }
+
+    // Sobre panel negro: borde y texto crema.
+    &.denki-button--inverse {
+      border-color: var(--denki-cream);
+      color: var(--denki-cream);
+
+      @include ds.hover {
+        &:not(:disabled) {
+          background: var(--denki-cream);
+          color: var(--denki-ink);
+        }
+      }
+    }
+  }
+
+  &.ds-button--ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--denki-ink);
+    opacity: 0.75;
+
+    @include ds.hover {
+      &:not(:disabled) {
+        opacity: 1;
+        border-color: var(--denki-ink);
+      }
+    }
+  }
+
+  &.ds-button--danger {
+    background: var(--denki-red);
+    border-color: var(--denki-ink);
+    color: var(--denki-cream);
+
+    @include ds.hover {
+      &:not(:disabled) {
+        background: var(--denki-red-deep);
+      }
+    }
+  }
+}

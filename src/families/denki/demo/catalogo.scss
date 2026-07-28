@@ -1,0 +1,166 @@
+@use "../../../abstracts" as ds;
+@use "../denki-tools" as dk;
+
+// =============================================================================
+// Demo DENKI — "Catálogo": el portafolio como catálogo de productos arcade.
+// Cada proyecto es un producto con su póster: ficha técnica, ráfaga de
+// precio (el año), combo de comandos y código de barras. Un mundo más para
+// el multiverso.
+// =============================================================================
+
+.dk {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.dk__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: var(--denki-line) solid var(--denki-ink);
+  padding-bottom: ds.space("sm");
+  flex-wrap: wrap;
+
+  @include dk.spec-label;
+}
+
+.dk__topbar-kana {
+  font-family: var(--denki-font-kana);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+// --- Héroe de póster ---
+.dk__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(15rem, 1fr);
+  gap: ds.space("xl");
+  align-items: center;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dk__hero-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  min-width: 0;
+}
+
+.dk__hero-chips {
+  display: flex;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+.dk__hero-lado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ds.space("md");
+}
+
+.dk__hero-minis {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: ds.space("md");
+  width: 100%;
+}
+
+// --- Productos ---
+.dk__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: ds.space("lg");
+  align-items: stretch;
+}
+
+.dk-prod__specs {
+  display: flex;
+  flex-direction: column;
+  border-block: var(--denki-line) solid currentColor;
+}
+
+.dk-prod__spec {
+  display: flex;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  padding: 0.35rem 0;
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  & + & {
+    border-top: 1px solid rgb(242 228 198 / 0.25);
+  }
+
+  dt {
+    opacity: 0.65;
+  }
+  dd {
+    margin: 0;
+    font-weight: 700;
+  }
+}
+
+.dk-prod__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  margin-top: auto;
+}
+
+// --- Lista de comandos (skills) ---
+.dk__comandos {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+}
+
+.dk__comando {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+  padding-bottom: ds.space("md");
+
+  &:not(:last-child) {
+    border-bottom: 1px dashed rgb(34 27 18 / 0.3);
+  }
+}
+
+// --- Pie de catálogo ---
+.dk__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+  border-top: var(--denki-line) solid var(--denki-ink);
+  padding-top: ds.space("lg");
+}
+
+.dk__pie-marcas {
+  display: flex;
+  align-items: center;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+}
+
+// Marca de esquina ///: rayado de imprenta.
+.dk__hatch {
+  width: 2.4rem;
+  height: 1.4rem;
+
+  @include dk.hatch;
+}

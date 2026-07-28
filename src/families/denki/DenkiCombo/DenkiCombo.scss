@@ -1,0 +1,44 @@
+@use "../../../abstracts" as ds;
+@use "../denki-tools" as dk;
+
+.denki-combo {
+  display: flex;
+  align-items: center;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.denki-combo__label {
+  @include dk.spec-label;
+}
+
+.denki-combo__keys {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.denki-combo__key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.45rem;
+  border: var(--denki-line) solid var(--denki-ink);
+  border-radius: var(--denki-radius);
+  font-family: var(--denki-font-mono);
+  font-size: var(--ds-font-size-sm);
+  font-weight: 700;
+  background: var(--denki-paper);
+  transition:
+    background-color 90ms var(--ds-ease-standard),
+    color 90ms var(--ds-ease-standard),
+    translate 90ms var(--ds-ease-standard);
+
+  &.is-pressed {
+    background: var(--denki-red);
+    color: var(--denki-cream);
+    translate: 0 2px;
+  }
+}

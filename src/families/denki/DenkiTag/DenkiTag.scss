@@ -1,0 +1,25 @@
+@use "../denki-tools" as dk;
+
+.denki-tag {
+  @include dk.spec-label;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  border: var(--denki-line) solid var(--denki-ink);
+  border-radius: calc(var(--denki-radius) - 4px);
+  padding: 0.22rem 0.6rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.denki-tag--panel {
+  background: var(--denki-panel);
+  color: var(--denki-cream);
+}
+
+.denki-tag--red {
+  background: var(--denki-red);
+  border-color: var(--denki-ink);
+  color: var(--denki-cream);
+}
