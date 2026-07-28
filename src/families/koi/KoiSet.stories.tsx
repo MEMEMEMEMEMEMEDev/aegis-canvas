@@ -4,10 +4,12 @@ import KoiBrush from "./KoiBrush/KoiBrush";
 import KoiButton from "./KoiButton/KoiButton";
 import KoiCard from "./KoiCard/KoiCard";
 import KoiDate from "./KoiDate/KoiDate";
+import KoiHanko from "./KoiHanko/KoiHanko";
 import KoiNav from "./KoiNav/KoiNav";
 import KoiPill from "./KoiPill/KoiPill";
 import KoiPlay from "./KoiPlay/KoiPlay";
 import KoiStat from "./KoiStat/KoiStat";
+import KoiStream from "./KoiStream/KoiStream";
 import KoiSun from "./KoiSun/KoiSun";
 
 const meta: Meta = {
@@ -88,6 +90,17 @@ export const Overview: StoryObj = {
           <KoiCard title="Quiver Dance" orientation="tall" pill="5:00 pm" visual={art("#6b4df066", "#2f6fd855")} href="#" />
         </div>
         <KoiDate lines={["Tokyo's", "Kanda", "Matsuri"]} over="Oct, 2024" big="02" />
+      </div>
+
+      <div style={{ display: "flex", gap: "var(--ds-space-2xl)", flexWrap: "wrap", alignItems: "center" }}>
+        <KoiHanko label="sello koi" />
+        <KoiHanko char="祭" tone="gold" size={60} tilt={5} />
+        <div style={{ position: "relative", width: 260, height: 190, borderRadius: "var(--koi-radius)", overflow: "hidden", border: "1px solid var(--koi-line)" }}>
+          <KoiStream count={6} />
+        </div>
+        <div style={{ position: "relative", width: 260, height: 190, borderRadius: "var(--koi-radius)", overflow: "hidden", border: "1px solid var(--koi-line)" }}>
+          <KoiStream variant="petals" count={7} />
+        </div>
       </div>
     </div>
   ),

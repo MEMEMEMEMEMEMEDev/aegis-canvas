@@ -1,0 +1,90 @@
+.koi-stream {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.koi-stream__mote {
+  position: absolute;
+  bottom: -8%;
+  width: var(--ks-size, 14px);
+}
+
+// Linternas chōchin: cuerpos dorados alargados que suben meciéndose.
+.koi-stream--lanterns .koi-stream__mote {
+  aspect-ratio: 3 / 4.2;
+  border-radius: 45% / 38%;
+  background: radial-gradient(
+    ellipse 60% 55% at 50% 42%,
+    #ffe9b0 0%,
+    var(--koi-gold) 55%,
+    rgb(200 130 30 / 0.9) 100%
+  );
+  box-shadow: 0 0 18px rgb(246 184 60 / 0.45);
+  animation: koi-stream-rise var(--ks-dur, 12s) linear infinite;
+  animation-delay: var(--ks-delay, 0s);
+}
+
+// Pétalos de sakura: virutas rosadas que caen girando.
+.koi-stream--petals .koi-stream__mote {
+  bottom: auto;
+  top: -8%;
+  aspect-ratio: 1 / 0.7;
+  border-radius: 80% 10% 70% 20%;
+  background: linear-gradient(140deg, #ffd8e2 0%, #f5a3b7 70%);
+  opacity: 0.85;
+  animation: koi-stream-fall var(--ks-dur, 12s) linear infinite;
+  animation-delay: var(--ks-delay, 0s);
+}
+
+@keyframes koi-stream-rise {
+  0% {
+    transform: translateY(0) translateX(0) rotate(-4deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-58vh) translateX(var(--ks-drift, 1rem)) rotate(4deg);
+  }
+  92% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-112vh) translateX(calc(var(--ks-drift, 1rem) * -0.6)) rotate(-3deg);
+    opacity: 0;
+  }
+}
+
+@keyframes koi-stream-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(55vh) translateX(var(--ks-drift, 1rem)) rotate(200deg);
+  }
+  100% {
+    transform: translateY(112vh) translateX(calc(var(--ks-drift, 1rem) * -1)) rotate(380deg);
+    opacity: 0;
+  }
+}
+
+// Sin movimiento: escena estática, motas repartidas y tenues.
+@media (prefers-reduced-motion: reduce) {
+  .koi-stream__mote {
+    animation: none !important;
+    opacity: 0.35;
+  }
+  .koi-stream--lanterns .koi-stream__mote {
+    bottom: calc(12% + var(--ks-size, 14px) * 3);
+  }
+  .koi-stream--petals .koi-stream__mote {
+    top: calc(18% + var(--ks-size, 14px) * 2);
+  }
+}
