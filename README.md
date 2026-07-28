@@ -27,32 +27,78 @@ CSS custom properties `--ds-*`** → cambio de tema instantáneo, sin recompilar
   familias/marcas visten las clases BEM después. Permite estéticas radicales
   sin re-resolver accesibilidad, y hace cada componente **100% controlable por
   props/eventos** — requisito para que agentes de AI manejen la UI.
-- **Componentes**: React `.jsx` + `.scss` + `.stories.jsx` por carpeta, clases
+- **Componentes**: React + `.scss` + `.stories.tsx` por carpeta, clases
   BEM `ds-x__el--mod`, SCSS vía `@use "../../abstracts" as ds;` (functions +
   mixins + tokens en un import, sin emitir CSS).
 - **Consumo**: el shell hace `@use "@ahroi/foundation";` (emite CSS una vez);
   los componentes de las apps importan solo herramientas
   (`@ahroi/foundation/mixins`, `/functions`, `/tokens`).
+- **Familias como islas**: cada familia emite su **mini-contrato scoped**
+  (`.tebeo-scope` → `--tebeo-*`, `.domo-scope` → `--domo-*`, …) sin tocar
+  `:root`. Retematizar = redefinir esas variables en un wrapper (así se
+  hacen el modo oscuro espacial y la fusión Domo×Denki de Multi V1).
+- **Fuentes self-hosted** (`src/fonts/README.md`): solo WOFF2 + licencia
+  OFL/Apache viajando junto al archivo; jamás CDN de Google.
+
+## Familias
+
+Cada familia nace de referencias visuales en `refs/` (material de terceros,
+gitignoreado) que se traducen a reglas mecánicas: paleta, grosor de borde,
+radios, tipografías y componentes firma. Flujo: `refs/` → incubadora
+`proto/` → bautizo. Cada una tiene en Storybook su `Set → Overview`
+(catálogo) y su `Portafolio → Completo` (vista real).
+
+| Familia | Concepto | Ref | Tipografías |
+| --- | --- | --- | --- |
+| **MESOSOICOS** | estratos geológicos + UI de videojuego: basalto/hueso/ámbar, fallas diagonales | — | fuentes de marca (`--ds-font-*`) |
+| **TEBEO** | neo-retro sticker/cómic: crema + tinta + amarillo sol, bordes gruesos | refs/4 | Archivo Black + Space Grotesk |
+| **KOI** | festival japonés nocturno: vidrio esmerilado, hinomaru, linternas | refs/5–6 | Permanent Marker + Poppins |
+| **TELAR** | neo-andino digital: lana oscura, esquinas chakana, OS denso | carta blanca | Bricolage Grotesque + IBM Plex Mono |
+| **DOMO** | panel de control doméstico, todo mono, 1 vista + modales, AI-ready | refs/7 | Chivo Mono |
+| **DENKI 電気** | póster retro-industrial japonés: semitono, bermellón, katakana | refs/8 | Anton + IBM Plex Mono |
+| **CINTA** | cassette-futurismo: chasis con tornillos, carretes que giran | refs/9 | Audiowide + Space Mono |
+| *proto* | incubadora vacía (nombre siempre provisional) | — | — |
+
+Imports: `@ahroi/foundation/<familia>` (ver `exports` en package.json).
+
+## Multiverso (concepto de portafolio)
+
+El portafolio es un **multiverso de mundos-proyecto** navegado desde la nave
+**AEGIS** (este repo). Historia `Multiverso/Multi V1` en `src/multi/`:
+
+- **Viajar = deployar**: la pantalla de carga a página completa recorre el
+  pipeline CI/CD real (typecheck → sass → storybook → deploy) etapa a etapa,
+  y la *sala de máquinas* del puente lo documenta como sistemas de la nave.
+- **Navegación rara adrede**: sin navbar — consola de vidrio flotante,
+  códigos de salto (DenkiCombo) y órbitas.
+- **Mundos**: Radio CINTA (música, AI DJ enchufable) · Sector 電気-OS
+  (Domo×Denki vía retema de tokens) · La Gaceta Estelar (Tebeo×Telar+Denki,
+  periódico interestelar). Prototipo previo del concepto:
+  `Families/DomoV2/Multiverso`.
 
 ## Estructura
 
 ```
 src/
-  index.js          Barrel del núcleo (JS público)
+  index.ts          Barrel del núcleo (JS público)
   index.scss        Entry full (tema + base). Incluir 1× por app.
   _abstracts.scss   Barrel de herramientas para SCSS de componentes
-  tokens/           Primitivas (maps SCSS)          — por diseñar
-  themes/           Contrato semántico --ds-*       — por diseñar
-  functions/        Accesores seguros a tokens      — por diseñar
-  mixins/           Herramientas de composición     — por diseñar
-  base/             Reset + globales (+ @font-face) — por diseñar
+  tokens/           Primitivas (maps SCSS)
+  themes/           Contrato semántico --ds-* (marca portafolio dark-first)
+  functions/        Accesores seguros a tokens
+  mixins/           Herramientas de composición (hover, focus-ring, up/down…)
+  base/             Reset + globales
   behaviors/        Hooks headless: useControllableState, useDisclosure,
                     useDismiss, useListNavigation (teclado/typeahead)
   primitives/       Núcleos headless: Button, Field, Input…
-  families/         Lenguajes visuales              — vacío
+  families/         Lenguajes visuales (ver tabla) — cada una con su
+                    <familia>.scss (voz), componentes piel y demo/
+  multi/            Multi V1: composición multiverso (nave AEGIS)
+  fonts/            WOFF2 self-hosted + licencias (ver src/fonts/README.md)
   overlay/          Portal + overlayRoot (overlays que escapan de padres atrapados)
   utils/            cx()
   foundation/       Stories de documentación (Storybook)
+refs/               Referencias visuales de terceros (gitignoreado salvo README)
 ```
 
 ## Scripts
@@ -60,6 +106,7 @@ src/
 ```bash
 npm run build            # sass → dist/foundation.css
 npm run build:min        # versión minificada
+npm run typecheck        # tsc --noEmit
 npm run storybook        # dev en http://localhost:6007 (toolbar con temas)
 npm run build-storybook  # build estático → storybook-static/
 ```

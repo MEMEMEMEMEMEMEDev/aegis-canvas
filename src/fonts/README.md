@@ -30,6 +30,24 @@ fonts/
 3. Convertir a WOFF2 si hace falta; preferir variable font.
 4. Declarar `@font-face` en el tema de la marca que la usa.
 
+## Inventario actual
+
+| Carpeta | Licencia | Usada por |
+| --- | --- | --- |
+| `archivo-black/` | OFL 1.1 | TEBEO (display) |
+| `space-grotesk/` | OFL 1.1 | TEBEO (cuerpo) |
+| `permanent-marker/` | Apache 2.0 | KOI (brush) |
+| `poppins/` | OFL 1.1 | KOI (UI) |
+| `bricolage-grotesque/` | OFL 1.1 | TELAR (display) |
+| `ibm-plex-mono/` | OFL 1.1 | TELAR (terminal) + DENKI (ficha técnica) |
+| `chivo-mono/` | OFL 1.1 | DOMO (única voz) |
+| `anton/` | OFL 1.1 | DENKI (display póster) |
+| `audiowide/` | OFL 1.1 | CINTA (display techno) |
+| `space-mono/` | OFL 1.1 | CINTA (cuerpo/specs) |
+
+Los glifos CJK (katakana de DENKI, kanji de KOI) usan el stack del sistema —
+no se autoaloja ninguna fuente japonesa completa.
+
 ## Estado legal (resumen)
 
 OFL/Apache permiten: autoalojar, uso comercial, incrustar en apps propias y
