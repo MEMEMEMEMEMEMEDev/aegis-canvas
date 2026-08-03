@@ -11,6 +11,8 @@ export interface ObsiEsquirlaProps {
   art: string;
   /** Esquirla destacada: a todo color y más ancha. */
   active?: boolean;
+  /** Destino. Convierte la esquirla en un enlace de verdad. */
+  href?: string;
   onSelect?: () => void;
   className?: string;
 }
@@ -18,13 +20,20 @@ export interface ObsiEsquirlaProps {
 /**
  * Esquirla: panel-paralelogramo de la galería. Apagada (gris, angosta) hasta
  * que está activa o recibe hover/foco: entonces enciende el arte y crece.
- * Si recibe `onSelect` es un botón de verdad (teclado incluido).
+ *
+ * Elige su elemento según lo que recibe, y el orden importa: `href` la vuelve
+ * un <a> —navegación real, que funciona sin JavaScript y se puede abrir en
+ * otra pestaña—, `onSelect` un <button>, y sin ninguno de los dos es un <div>
+ * decorativo. La variante de enlace es la que permite que un sitio estático
+ * use el muro como galería sin envolverla: el muro solapa a sus HIJOS
+ * DIRECTOS, así que un <a> por fuera le rompería los cortes diagonales.
  */
 export function ObsiEsquirla({
   eyebrow,
   title,
   art,
   active = false,
+  href,
   onSelect,
   className,
 }: ObsiEsquirlaProps) {
@@ -39,6 +48,13 @@ export function ObsiEsquirla({
       </span>
     </>
   );
+  if (href) {
+    return (
+      <a href={href} aria-current={active ? "page" : undefined} className={clase}>
+        {cuerpo}
+      </a>
+    );
+  }
   return onSelect ? (
     <button type="button" aria-pressed={active} onClick={onSelect} className={clase}>
       {cuerpo}

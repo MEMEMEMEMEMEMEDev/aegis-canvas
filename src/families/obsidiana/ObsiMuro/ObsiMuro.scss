@@ -35,6 +35,9 @@
   border: none;
   background: var(--obsi-carbon);
   color: inherit;
+  // La variante <a> heredaría el subrayado del navegador, y ese subrayado
+  // cruzaría el corte diagonal. El título ya es su propia afordancia.
+  text-decoration: none;
   text-align: left;
   overflow: hidden;
   transition: flex-grow 320ms ease;
