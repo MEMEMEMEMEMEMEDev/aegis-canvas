@@ -1,0 +1,36 @@
+// Herramientas SCSS de la familia OBSIDIANA (no emiten CSS por sí solas).
+
+// Esquirla: paralelogramo con los dos cortes diagonales firma. El avance
+// horizontal del corte es --obsi-cut. La geometría firma — nunca curvas.
+@mixin esquirla {
+  clip-path: polygon(
+    var(--obsi-cut) 0,
+    100% 0,
+    calc(100% - var(--obsi-cut)) 100%,
+    0 100%
+  );
+}
+
+// Bisel: solo la esquina superior-izquierda y la inferior-derecha talladas.
+// Para placas y superficies que necesitan apoyarse en rectas (texto largo).
+@mixin bisel($c: 12px) {
+  clip-path: polygon(
+    #{$c} 0,
+    100% 0,
+    100% calc(100% - #{$c}),
+    calc(100% - #{$c}) 100%,
+    0 100%,
+    0 #{$c}
+  );
+}
+
+// Sesgo: inclina el contenedor y des-inclina al hijo directo marcado.
+// Para subrayados, resaltes de nav y botones.
+@mixin sesgo {
+  transform: skewX(calc(var(--obsi-shear) * -1));
+
+  > [data-obsi-recto] {
+    display: inline-block;
+    transform: skewX(var(--obsi-shear));
+  }
+}

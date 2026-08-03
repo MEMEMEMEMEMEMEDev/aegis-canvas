@@ -1,0 +1,76 @@
+// =============================================================================
+// OBSIDIANA — familia "galería de esquirlas": la vitrina oscura donde el
+// trabajo es el protagonista (refs/3). Carbón azulado de fondo, UN solo
+// acento (cian eléctrico) y una firma geométrica: TODO corta en diagonal —
+// paneles-esquirla en paralelogramo, subrayados sesgados, placas biseladas.
+// Nada de border-radius: la obsidiana se talla, no se pule.
+//
+// A diferencia de las familias-mundo, OBSIDIANA nace para el ESQUELETO del
+// portafolio (hub, galería de casos de estudio): jerarquía convencional,
+// navegación visible, cero rareza estructural. La rareza es superficie.
+//
+// Fuentes self-hosted (src/fonts/README.md), compartidas con el sistema:
+//   Display/UI: Space Grotesk · OFL 1.1   Ficha técnica: Spline Sans Mono · OFL 1.1
+//
+// Isla oscura-fría: mini-contrato scoped en .obsidiana-scope.
+// Los componentes lo importan vía TSX (import "../obsidiana.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/space-grotesk/space-grotesk-v22-latin_latin-ext-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/space-grotesk/space-grotesk-v22-latin_latin-ext-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../fonts/space-grotesk/space-grotesk-v22-latin_latin-ext-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/spline-sans-mono/spline-sans-mono-v13-latin-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/spline-sans-mono/spline-sans-mono-v13-latin-500.woff2") format("woff2");
+}
+
+.obsidiana-scope {
+  // --- Mini-contrato de la familia ---
+  --obsi-void: #10141b; // carbón azulado (fondo)
+  --obsi-carbon: #191f28; // panel
+  --obsi-carbon-raised: #212935; // panel elevado / hover
+  --obsi-blanco: #eef3f9; // texto
+  --obsi-humo: rgb(238 243 249 / 0.58); // texto secundario
+  --obsi-cian: #35b6ff; // el único acento
+  --obsi-cian-ink: #0a1017; // texto sobre cian
+  --obsi-line: #2a3341; // hairline
+  --obsi-shear: 12deg; // sesgo firma (skew)
+  --obsi-cut: 26px; // avance horizontal del corte diagonal
+
+  --ds-focus-ring: var(--obsi-cian);
+
+  background: var(--obsi-void);
+  color: var(--obsi-blanco);
+  font-family: var(--obsi-font-ui);
+
+  --obsi-font-ui: "Space Grotesk", system-ui, sans-serif;
+  --obsi-font-mono: "Spline Sans Mono", ui-monospace, monospace;
+}

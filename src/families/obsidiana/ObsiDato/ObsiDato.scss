@@ -1,0 +1,38 @@
+@use "../../../abstracts" as ds;
+
+.obsi-dato {
+  display: grid;
+  gap: 0.15rem;
+  justify-items: start;
+
+  &__tick {
+    width: 22px;
+    height: 4px;
+    background: var(--obsi-line);
+    transform: skewX(calc(var(--obsi-shear) * -1));
+  }
+
+  &__value {
+    font-family: var(--obsi-font-mono);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--obsi-blanco);
+  }
+
+  &__label {
+    font-family: var(--obsi-font-mono);
+    font-size: var(--ds-font-size-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--obsi-humo);
+  }
+
+  &--accent &__tick {
+    background: var(--obsi-cian);
+  }
+
+  &--accent &__value {
+    color: var(--obsi-cian);
+  }
+}

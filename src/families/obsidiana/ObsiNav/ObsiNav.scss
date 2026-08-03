@@ -1,0 +1,63 @@
+@use "../../../abstracts" as ds;
+@use "../obsidiana-tools" as obsi;
+
+.obsi-nav {
+  display: flex;
+  align-items: center;
+  gap: ds.space("lg");
+  padding: 0.7rem clamp(1rem, 4vw, 2.5rem);
+  background: rgb(16 20 27 / 0.88);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--obsi-line);
+
+  &--sticky {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+  }
+
+  &__brand {
+    font-family: var(--obsi-font-mono);
+    font-size: var(--ds-font-size-sm);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: var(--obsi-blanco);
+  }
+
+  &__links {
+    display: flex;
+    gap: ds.space("2xs");
+    margin: 0 auto 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    @include obsi.sesgo;
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    font-size: var(--ds-font-size-sm);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--obsi-humo);
+    text-decoration: none;
+    transition: color 120ms ease, background 120ms ease;
+
+    &:hover {
+      color: var(--obsi-blanco);
+    }
+
+    &.is-active {
+      background: var(--obsi-cian);
+      color: var(--obsi-cian-ink);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ds-focus-ring);
+      outline-offset: 2px;
+    }
+  }
+
+  &__action {
+    display: inline-flex;
+  }
+}

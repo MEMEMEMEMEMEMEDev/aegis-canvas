@@ -44,6 +44,8 @@ fonts/
 | `anton/` | OFL 1.1 | DENKI (display póster) |
 | `audiowide/` | OFL 1.1 | CINTA (display techno) |
 | `space-mono/` | OFL 1.1 | CINTA (cuerpo/specs) |
+| `fraunces/` | OFL 1.1 | MULTI V3 (display serif del OS — primera serif del sistema) |
+| `spline-sans-mono/` | OFL 1.1 | MULTI V3 (consola del OS) |
 
 Los glifos CJK (katakana de DENKI, kanji de KOI) usan el stack del sistema —
 no se autoaloja ninguna fuente japonesa completa.

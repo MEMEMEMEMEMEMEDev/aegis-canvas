@@ -1,0 +1,54 @@
+@use "../../../abstracts" as ds;
+@use "../obsidiana-tools" as obsi;
+
+.obsi-boton {
+  @include obsi.sesgo;
+  border: 1px solid transparent;
+  padding: 0.55rem 1.4rem;
+  font-family: var(--obsi-font-ui);
+  font-size: var(--ds-font-size-sm);
+  font-weight: var(--ds-font-weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+
+  &.ds-button--solid {
+    background: var(--obsi-cian);
+    color: var(--obsi-cian-ink);
+
+    &:hover:not(:disabled) {
+      background: var(--obsi-blanco);
+    }
+  }
+
+  &.ds-button--outline {
+    background: transparent;
+    border-color: var(--obsi-line);
+    color: var(--obsi-blanco);
+
+    &:hover:not(:disabled) {
+      border-color: var(--obsi-cian);
+      color: var(--obsi-cian);
+    }
+  }
+
+  &.ds-button--ghost {
+    background: transparent;
+    color: var(--obsi-humo);
+
+    &:hover:not(:disabled) {
+      color: var(--obsi-cian);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

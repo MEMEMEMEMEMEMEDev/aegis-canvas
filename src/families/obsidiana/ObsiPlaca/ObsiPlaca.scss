@@ -1,0 +1,50 @@
+@use "../../../abstracts" as ds;
+@use "../obsidiana-tools" as obsi;
+
+.obsi-placa {
+  display: grid;
+  gap: ds.space("2xs");
+
+  &--raised {
+    @include obsi.bisel;
+    background: var(--obsi-carbon);
+    border: 1px solid var(--obsi-line);
+    padding: ds.space("md") ds.space("lg");
+  }
+
+  &__eyebrow {
+    margin: 0;
+    font-family: var(--obsi-font-mono);
+    font-size: var(--ds-font-size-xs);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--obsi-cian);
+  }
+
+  &__title {
+    margin: 0;
+    font-family: var(--obsi-font-ui);
+    font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+    font-weight: var(--ds-font-weight-bold);
+    line-height: var(--ds-leading-tight);
+    text-wrap: balance;
+
+    // La base sesgada firma.
+    &::after {
+      content: "";
+      display: block;
+      width: 54px;
+      height: 4px;
+      margin-top: 0.55rem;
+      background: var(--obsi-cian);
+      transform: skewX(calc(var(--obsi-shear) * -1));
+    }
+  }
+
+  &__body {
+    color: var(--obsi-humo);
+    font-size: var(--ds-font-size-sm);
+    line-height: var(--ds-leading-normal);
+    max-width: 62ch;
+  }
+}

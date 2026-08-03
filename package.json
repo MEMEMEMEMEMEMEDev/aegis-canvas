@@ -22,6 +22,7 @@
     "./domo": "./src/families/domo/index.ts",
     "./denki": "./src/families/denki/index.ts",
     "./cinta": "./src/families/cinta/index.ts",
+    "./obsidiana": "./src/families/obsidiana/index.ts",
     "./proto": "./src/families/proto/index.ts",
     "./css": "./dist/foundation.css",
     "./abstracts": "./src/_abstracts.scss",

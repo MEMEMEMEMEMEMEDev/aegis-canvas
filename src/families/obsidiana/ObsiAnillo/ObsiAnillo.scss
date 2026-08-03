@@ -1,0 +1,76 @@
+@use "../../../abstracts" as ds;
+
+.obsi-anillo {
+  --obsi-anillo-size: 84px;
+  display: grid;
+  justify-items: center;
+  gap: ds.space("2xs");
+  margin: 0;
+
+  &__aro {
+    display: grid;
+    place-items: center;
+    width: var(--obsi-anillo-size);
+    height: var(--obsi-anillo-size);
+    border-radius: 50%;
+    padding: 4px;
+    background: conic-gradient(
+      from 210deg,
+      var(--obsi-cian) 0 var(--obsi-arc, 260deg),
+      var(--obsi-line) var(--obsi-arc, 260deg) 360deg
+    );
+    transition: filter 200ms ease;
+    filter: saturate(0.35);
+  }
+
+  &__retrato {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--obsi-void);
+    filter: grayscale(0.7) brightness(0.75);
+    transition: filter 200ms ease;
+
+    &--texto {
+      display: grid;
+      place-items: center;
+      background: var(--obsi-carbon-raised);
+      font-family: var(--obsi-font-mono);
+      font-size: var(--ds-font-size-md);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--obsi-humo);
+    }
+  }
+
+  &__pie {
+    display: grid;
+    justify-items: center;
+    gap: 0.1rem;
+    text-align: center;
+  }
+
+  &__label {
+    font-size: var(--ds-font-size-sm);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--obsi-blanco);
+  }
+
+  &__sublabel {
+    font-family: var(--obsi-font-mono);
+    font-size: var(--ds-font-size-xs);
+    color: var(--obsi-humo);
+  }
+
+  &:hover &__aro,
+  &.is-active &__aro {
+    filter: saturate(1);
+  }
+
+  &:hover &__retrato,
+  &.is-active &__retrato {
+    filter: grayscale(0) brightness(1);
+  }
+}
