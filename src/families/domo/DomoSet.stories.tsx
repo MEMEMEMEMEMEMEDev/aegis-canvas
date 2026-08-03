@@ -10,6 +10,7 @@ import DomoPrompt from "./DomoPrompt/DomoPrompt";
 import DomoType from "./DomoType/DomoType";
 import DomoGauge from "./DomoGauge/DomoGauge";
 import DomoInput from "./DomoInput/DomoInput";
+import DomoLog from "./DomoLog/DomoLog";
 import DomoPanel from "./DomoPanel/DomoPanel";
 import DomoReadout from "./DomoReadout/DomoReadout";
 import { DomoRow, DomoRows } from "./DomoRow/DomoRow";
@@ -131,6 +132,18 @@ export const Overview: StoryObj = {
         </DomoCut>
         <DomoCut cut="notch" tone="ink" title="Notch" status="v2">
           <DomoGlitch text="Interferencia ◆" />
+        </DomoCut>
+        <DomoCut cut="blade" title="Bitácora" status="v3">
+          <DomoLog
+            label="transferencia de ejemplo"
+            paso={2}
+            items={[
+              { texto: "Resolviendo ruta", detalle: "koi-matsuri.jp" },
+              { texto: "Montando mini-contrato", detalle: "--koi-* × 6" },
+              { texto: "Cargando tipografía", detalle: "woff2 local" },
+              { texto: "Handshake de piel" },
+            ]}
+          />
         </DomoCut>
       </div>
 

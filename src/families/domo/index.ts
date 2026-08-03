@@ -59,3 +59,7 @@ export type { DomoCutProps } from "./DomoCut/DomoCut";
 
 export { default as DomoGlitch } from "./DomoGlitch/DomoGlitch";
 export type { DomoGlitchProps } from "./DomoGlitch/DomoGlitch";
+
+// --- v3 (la dársena: transferencias narradas) ---
+export { default as DomoLog } from "./DomoLog/DomoLog";
+export type { DomoLogProps, DomoLogItem } from "./DomoLog/DomoLog";

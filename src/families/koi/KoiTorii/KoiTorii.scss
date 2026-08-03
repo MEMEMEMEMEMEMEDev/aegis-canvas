@@ -1,0 +1,22 @@
+@use "../../../abstracts" as ds;
+
+// Torii KOI: silueta de escena. Un solo color por tono — la forma es la voz.
+.koi-torii {
+  display: inline-block;
+  overflow: visible;
+
+  path,
+  rect {
+    fill: currentcolor;
+  }
+
+  &--sun {
+    color: var(--koi-sun);
+  }
+  &--gold {
+    color: var(--koi-gold);
+  }
+  &--ink {
+    color: var(--koi-deep);
+  }
+}

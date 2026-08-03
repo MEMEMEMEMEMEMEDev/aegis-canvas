@@ -31,3 +31,6 @@ export { default as KoiHanko } from "./KoiHanko/KoiHanko";
 export type { KoiHankoProps } from "./KoiHanko/KoiHanko";
 export { default as KoiStream } from "./KoiStream/KoiStream";
 export type { KoiStreamProps } from "./KoiStream/KoiStream";
+
+export { default as KoiTorii } from "./KoiTorii/KoiTorii";
+export type { KoiToriiProps } from "./KoiTorii/KoiTorii";

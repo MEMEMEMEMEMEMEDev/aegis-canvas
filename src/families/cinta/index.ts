@@ -38,3 +38,6 @@ export type { CintaTagProps } from "./CintaTag/CintaTag";
 
 export { default as CintaMarks } from "./CintaMarks/CintaMarks";
 export type { CintaMarksProps } from "./CintaMarks/CintaMarks";
+
+export { default as CintaEq } from "./CintaEq/CintaEq";
+export type { CintaEqProps } from "./CintaEq/CintaEq";

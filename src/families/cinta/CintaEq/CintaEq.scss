@@ -1,0 +1,51 @@
+@use "../../../abstracts" as ds;
+
+// Ecualizador CINTA: VU-bars de walkman. Las barras crecen desde la base
+// (transform-origin bottom) y cada una trae su tempo en variables --ce-*.
+.cinta-eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 2rem;
+
+  &--amber .cinta-eq__bar {
+    background: var(--cinta-amber);
+  }
+  &--coral .cinta-eq__bar {
+    background: var(--cinta-coral);
+  }
+  &--sky .cinta-eq__bar {
+    background: var(--cinta-sky);
+  }
+}
+
+.cinta-eq__bar {
+  width: 5px;
+  height: 100%;
+  border-radius: 2px 2px 0 0;
+  border: 1px solid var(--cinta-ink);
+  border-bottom-width: 2px;
+  transform-origin: bottom;
+  scale: 1 var(--ce-rest, 30%);
+
+  .is-playing & {
+    animation: cinta-eq-baila var(--ce-dur, 0.7s) var(--ce-delay, 0s) infinite
+      var(--ds-ease-standard) alternate;
+  }
+}
+
+@keyframes cinta-eq-baila {
+  from {
+    scale: 1 0.18;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinta-eq__bar,
+  .is-playing .cinta-eq__bar {
+    animation: none;
+  }
+}

@@ -10,6 +10,7 @@ import KoiPill from "./KoiPill/KoiPill";
 import KoiPlay from "./KoiPlay/KoiPlay";
 import KoiStat from "./KoiStat/KoiStat";
 import KoiStream from "./KoiStream/KoiStream";
+import KoiTorii from "./KoiTorii/KoiTorii";
 import KoiSun from "./KoiSun/KoiSun";
 
 const meta: Meta = {
@@ -95,6 +96,8 @@ export const Overview: StoryObj = {
       <div style={{ display: "flex", gap: "var(--ds-space-2xl)", flexWrap: "wrap", alignItems: "center" }}>
         <KoiHanko label="sello koi" />
         <KoiHanko char="祭" tone="gold" size={60} tilt={5} />
+        <KoiTorii label="torii del festival" size={150} />
+        <KoiTorii tone="gold" size={110} />
         <div style={{ position: "relative", width: 260, height: 190, borderRadius: "var(--koi-radius)", overflow: "hidden", border: "1px solid var(--koi-line)" }}>
           <KoiStream count={6} />
         </div>

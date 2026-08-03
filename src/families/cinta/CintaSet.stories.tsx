@@ -3,6 +3,7 @@ import { useState } from "react";
 import CintaButton from "./CintaButton/CintaButton";
 import CintaDisplay from "./CintaDisplay/CintaDisplay";
 import CintaLabel from "./CintaLabel/CintaLabel";
+import CintaEq from "./CintaEq/CintaEq";
 import CintaMarks from "./CintaMarks/CintaMarks";
 import CintaPanel from "./CintaPanel/CintaPanel";
 import CintaScale from "./CintaScale/CintaScale";
@@ -72,6 +73,8 @@ export const Overview: StoryObj = {
         <CintaTag tone="hazard">Zero Audio Sys</CintaTag>
         <CintaMarks />
         <CintaMarks direction="down" tone="amber" count={2} />
+        <CintaEq label="ecualizador" />
+        <CintaEq tone="coral" playing={false} bars={8} />
       </div>
 
       <TransportDemo />
