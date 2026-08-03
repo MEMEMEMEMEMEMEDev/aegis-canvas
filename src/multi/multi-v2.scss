@@ -1,0 +1,19 @@
+// =============================================================================
+// MULTI V2 — el multiverso como juego de descubrimiento.
+//
+// Evolución de Multi V1 (que queda congelado como registro): la nave
+// arranca APAGADA, los mundos son señales sin identificar y los códigos
+// de salto se descubren interactuando — y se EJECUTAN de verdad (teclado
+// o pad táctil). La Cubierta de registros (blog/expediente/contacto) es
+// la salida recruiter-friendly: descubrible con gracia, pero con atajo
+// «Canal directo» visible desde el primer segundo.
+//
+// Entry de estilos: solo compone los parciales de v2/styles.
+// =============================================================================
+
+@use "./v2/styles/base";
+@use "./v2/styles/onboarding";
+@use "./v2/styles/puente";
+@use "./v2/styles/combo";
+@use "./v2/styles/cubierta";
+@use "./v2/styles/mundos";

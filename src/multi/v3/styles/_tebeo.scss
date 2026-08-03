@@ -1,0 +1,87 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V3 — Tebeo Press: imprenta de página larga.
+// =============================================================================
+
+.mv3t {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(6rem, 15vh, 8rem);
+}
+
+.mv3t-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("xl");
+  flex-wrap: wrap;
+  min-height: 55vh;
+}
+
+.mv3t-hero__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  max-width: 36rem;
+}
+
+.mv3t-hero__sticker {
+  rotate: 6deg;
+}
+
+.mv3t-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mv3t-parrafo {
+  margin: 0;
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+  max-width: 30rem;
+}
+
+.mv3t-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+}
+
+.mv3t-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: ds.space("lg");
+  align-items: stretch;
+}
+
+.mv3t-movil {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: ds.space("xl");
+  min-height: 60vh;
+}
+
+.mv3t-movil__texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  max-width: 28rem;
+}
+
+.mv3t-phone {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("sm");
+  padding: ds.space("md");
+}

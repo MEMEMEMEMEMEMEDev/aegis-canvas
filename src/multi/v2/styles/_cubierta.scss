@@ -1,0 +1,100 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V2 — Cubierta de registros: la parte normal-para-recruiters.
+// Legible, escaneable, con links reales. Con gracia, pero sin acertijos.
+// =============================================================================
+
+.mv2-cubierta {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(7rem, 18vh, 9rem);
+}
+
+.mv2-cubierta__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: ds.space("lg");
+  align-items: start;
+}
+
+.mv2-cubierta__panel {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  padding: ds.space("lg");
+  position: relative;
+}
+
+.mv2-cubierta__entrada {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border-top: 1.5px solid var(--domo-hairline);
+  padding-top: ds.space("sm");
+
+  &:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+  }
+}
+
+.mv2-cubierta__entrada-titulo {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.mv2-cubierta__texto {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+  color: var(--domo-ink-soft);
+}
+
+.mv2-cubierta__ficha {
+  display: flex;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+}
+
+.mv2-cubierta__sello {
+  position: absolute;
+  right: ds.space("md");
+  top: ds.space("md");
+}
+
+.mv2-cubierta__links {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("xs");
+  align-items: flex-start;
+}
+
+.mv2-cubierta__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1.5px solid var(--domo-hairline);
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  min-height: 44px;
+  color: var(--domo-ink);
+  text-decoration: none;
+  font-size: var(--ds-font-size-sm);
+  letter-spacing: 0.03em;
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    border-color: var(--domo-ink);
+  }
+}
+
+.mv2-cubierta__nota {
+  font-size: var(--ds-font-size-xs);
+}

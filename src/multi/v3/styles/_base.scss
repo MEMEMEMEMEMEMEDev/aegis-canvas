@@ -1,0 +1,421 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V3 — base: la voz nueva del OS y el cascarón de la experiencia.
+//
+// Herencia directa de DomoV2: hub CLARO salvia (nada de espacio oscuro),
+// deck sin scroll, ventanas de navegador falsas y warp exprés. La novedad
+// tipográfica: Fraunces (primera serif del sistema, display) + Spline Sans
+// Mono (consola). El contrato .mv3 retematiza --domo-font: el OS entero
+// habla la voz nueva sin tocar a la familia DOMO.
+// =============================================================================
+
+// --- La voz nueva (self-hosted, OFL — ver src/fonts/README.md) ---
+@font-face {
+  font-family: "Fraunces";
+  src: url("../../../fonts/fraunces/fraunces-v38-latin-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("../../../fonts/fraunces/fraunces-v38-latin-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Fraunces";
+  src: url("../../../fonts/fraunces/fraunces-v38-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  src: url("../../../fonts/spline-sans-mono/spline-sans-mono-v13-latin-regular.woff2")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  src: url("../../../fonts/spline-sans-mono/spline-sans-mono-v13-latin-500.woff2")
+    format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  src: url("../../../fonts/spline-sans-mono/spline-sans-mono-v13-latin-700.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+// --- Contrato del OS ---
+.mv3 {
+  --mv3-display: "Fraunces", georgia, serif;
+  --mv3-mono: "Spline Sans Mono", ui-monospace, monospace;
+
+  // El OS habla la voz nueva: todos los instrumentos DOMO del hub y del
+  // chrome leen esta mono (los mundos re-retematizan por su cuenta).
+  --domo-font: var(--mv3-mono);
+}
+
+// =============================================================================
+// HUB — deck claro salvia (la entrada simple que ganó)
+// =============================================================================
+.mv3-hub {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.mv3-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: 1.5px solid var(--domo-hairline);
+  padding-bottom: ds.space("sm");
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.mv3-hud__sep {
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
+
+.mv3-hud__ruta {
+  color: var(--domo-ink-soft);
+}
+
+.mv3-kicker {
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--domo-ink-soft);
+}
+
+// La portada: Fraunces a lo grande — la primera serif del sistema.
+.mv3-portada {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  max-width: 38rem;
+}
+
+.mv3-titulo {
+  margin: 0;
+  font-family: var(--mv3-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+// El punto final: parece decorativo (esa es la trampa).
+.mv3-titulo__punto {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--domo-alert);
+  cursor: pointer;
+  display: inline-block;
+  transition: rotate 0.2s var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    rotate: 14deg;
+  }
+}
+
+.mv3-portada__hint {
+  margin: 0;
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+}
+
+.mv3-subtitulo {
+  margin: 0 0 ds.space("md");
+  font-family: var(--mv3-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  letter-spacing: -0.02em;
+}
+
+// Portales
+.mv3-portales__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: ds.space("md");
+  align-items: stretch;
+}
+
+.mv3-portal__desc {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.55;
+  color: var(--domo-ink-soft);
+}
+
+.mv3-portal__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+.mv3-portal__url {
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+  letter-spacing: 0.03em;
+}
+
+// Sistema
+.mv3-sistema__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: ds.space("md");
+  align-items: stretch;
+}
+
+.mv3-sistema__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+}
+
+.mv3-sistema__fraunces {
+  margin: 0;
+  font-family: var(--mv3-display);
+  font-style: italic;
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.mv3-sistema__hallazgos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+
+  .is-ganado {
+    color: var(--domo-ink);
+  }
+}
+
+.mv3-cmd {
+  margin: 0;
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+  line-height: 1.5;
+}
+
+// Contacto
+.mv3-contacto {
+  display: flex;
+  align-items: flex-start;
+  gap: ds.space("xl");
+  flex-wrap: wrap;
+}
+
+.mv3-contacto__panel {
+  max-width: 30rem;
+}
+
+.mv3-contacto__nombre {
+  margin: 0;
+  font-family: var(--mv3-display);
+  font-weight: 600;
+  font-size: 1.9rem;
+  letter-spacing: -0.02em;
+}
+
+.mv3-contacto__bio {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+  color: var(--domo-ink-soft);
+}
+
+.mv3-contacto__links {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("xs");
+  align-items: flex-start;
+}
+
+.mv3-contacto__glitch {
+  font-family: var(--mv3-display);
+  font-size: 1.4rem;
+}
+
+.mv3-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1.5px solid var(--domo-hairline);
+  border-radius: 999px;
+  padding: 0.5rem 0.95rem;
+  min-height: 44px;
+  color: var(--domo-ink);
+  text-decoration: none;
+  font-size: var(--ds-font-size-sm);
+  letter-spacing: 0.03em;
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    border-color: var(--domo-ink);
+  }
+}
+
+// =============================================================================
+// MARCO DE MUNDO — barra de navegador sticky + consola mínima
+// =============================================================================
+.mv3-mundo {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mv3-mundo__pagina {
+  flex: 1;
+}
+
+.mv3-barra {
+  position: sticky;
+  top: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  gap: ds.space("md");
+  padding: 0.5rem clamp(0.75rem, 3vw, 1.5rem);
+  border-bottom: 1.5px solid var(--domo-hairline);
+  font-family: var(--mv3-mono);
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.04em;
+}
+
+.mv3-barra__dots {
+  letter-spacing: 0.2em;
+  color: var(--domo-ink-soft);
+}
+
+.mv3-barra__url {
+  flex: 1;
+  text-align: center;
+  border: 1.5px solid var(--domo-hairline);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mv3-barra__os {
+  color: var(--domo-ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+
+  @include ds.down("sm") {
+    display: none;
+  }
+}
+
+.mv3-consola {
+  position: fixed;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  bottom: clamp(0.75rem, 2vw, 1.5rem);
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: ds.space("xs");
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid var(--domo-hairline);
+  border-radius: 999px;
+  background: rgb(232 237 226 / 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--mv3-mono);
+}
+
+.mv3-consola__hallazgos {
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.06em;
+  padding: 0 0.35rem;
+  color: var(--domo-ink);
+}
+
+// =============================================================================
+// WARP EXPRÉS — overlay de transferencia (brevedad DomoV2 + pipeline V1)
+// =============================================================================
+.mv3-warp {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: ds.space("lg");
+  background: rgb(232 237 226 / 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.mv3-warp__panel {
+  width: min(26rem, 100%);
+}
+
+.mv3-warp__ruta {
+  font-family: var(--mv3-display);
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.mv3-warp__pipeline {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.mv3-warp__chip {
+  border: 1.5px solid var(--domo-hairline);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.04em;
+  color: var(--domo-ink-soft);
+
+  &.is-actual {
+    border-color: var(--domo-ink);
+    color: var(--domo-ink);
+  }
+
+  &.is-lista {
+    border-color: #5a8a63;
+    color: #3f6b48;
+  }
+}

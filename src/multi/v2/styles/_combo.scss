@@ -1,0 +1,129 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V2 — el pad de combos: cabina arcade en miniatura.
+//
+// Arriba la secuencia objetivo (kbd que se van encendiendo), abajo las
+// teclas físicas (botones ≥44px, la alternativa táctil). El error sacude
+// 400ms y reinicia — con reduced-motion solo cambia el borde.
+// =============================================================================
+
+.mv2-combo {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+  width: 100%;
+
+  &.is-error {
+    animation: mv2-combo-error 0.4s var(--ds-ease-standard);
+
+    .mv2-combo__paso {
+      border-color: var(--domo-alert);
+    }
+  }
+}
+
+.mv2-combo__objetivo {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.mv2-combo__paso {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.1rem;
+  height: 2.1rem;
+  padding: 0 0.5rem;
+  border: 1.5px solid var(--domo-hairline);
+  border-radius: 8px;
+  font-family: "Chivo Mono", ui-monospace, monospace;
+  font-size: var(--ds-font-size-sm);
+  color: var(--domo-ink-soft);
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+
+  &.is-actual {
+    border-color: var(--domo-ink);
+    color: var(--domo-ink);
+    animation: mv2-pulso 0.9s infinite var(--ds-ease-standard);
+  }
+
+  &.is-lista {
+    border-color: #7dc98f;
+    color: #7dc98f;
+    background: rgb(125 201 143 / 0.08);
+  }
+}
+
+.mv2-combo__pad {
+  display: flex;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+.mv2-combo__tecla {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem 0.7rem;
+  border: 1.5px solid var(--domo-ink);
+  border-bottom-width: 3px;
+  border-radius: 10px;
+  background: var(--domo-well);
+  color: var(--domo-ink);
+  font-family: "Chivo Mono", ui-monospace, monospace;
+  cursor: pointer;
+
+  @include ds.focus-ring;
+
+  &:active {
+    translate: 0 1px;
+    border-bottom-width: 1.5px;
+  }
+
+  @include ds.hover {
+    background: var(--domo-paper);
+  }
+}
+
+.mv2-combo__glifo {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.mv2-combo__hint {
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--domo-ink-soft);
+}
+
+@keyframes mv2-combo-error {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  25% {
+    translate: -3px 0;
+  }
+  50% {
+    translate: 3px 0;
+  }
+  75% {
+    translate: -2px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv2-combo.is-error {
+    animation: none;
+  }
+  .mv2-combo__paso.is-actual {
+    animation: none;
+  }
+}

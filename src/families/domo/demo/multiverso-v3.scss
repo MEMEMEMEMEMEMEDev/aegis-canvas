@@ -1,0 +1,1201 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// Demo DOMO V3 — "Dársena": evolución de DomoV2 conservando lo que funciona
+// (una vista, ticks secos, cortes NieR) y reinventando lo que no:
+//
+// 1. Ya NO hay ventana de navegador falsa: al viajar, el mundo toma el
+//    viewport completo y DOMO OS se repliega a un visor flotante con la
+//    línea de mundos (metro de rombos).
+// 2. La pantalla de carga es la estrella: la transferencia MONTA la piel del
+//    destino en vivo — tokens reales como swatches, specimen tipográfico en
+//    la fuente de verdad, contador de componentes — y en el handshake el
+//    panel Domo se tiñe con el contrato del destino antes del tajo de salida.
+// 3. El hub es un tablero de salidas (estación japonesa) + ASIS, la AI de a
+//    bordo que responde y pilotea. La llegada a un mundo se estampa con un
+//    sello (guiño hanko) que se disuelve solo.
+// =============================================================================
+
+.dv3 {
+  height: 100dvh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+// --- La vista OS (dársena): HUD + deck, herencia directa de V2 ---
+.dv3__os {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1rem, 3vw, 2.2rem);
+}
+
+.dv3__hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: var(--domo-line) solid var(--domo-ink);
+  padding-bottom: ds.space("sm");
+  margin-bottom: ds.space("md");
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.dv3__hud-sep {
+  color: var(--domo-ink-soft);
+  padding: 0 0.5rem;
+}
+
+.dv3__hud-datos {
+  display: flex;
+  align-items: center;
+  gap: ds.space("md");
+  color: var(--domo-ink-soft);
+}
+
+// El reloj late como instrumento: tabular y sin drama.
+.dv3__hora {
+  font-variant-numeric: tabular-nums;
+}
+
+// =============================================================================
+// SLIDE 1 · LA DÁRSENA — tablero de salidas + ASIS
+// =============================================================================
+.dv3-hub {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: ds.space("lg");
+  max-width: 68rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.dv3-hub__cabecera {
+  display: grid;
+  gap: ds.space("sm");
+}
+
+.dv3-hub__kicker {
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--domo-ink-soft);
+}
+
+.dv3-hub__title {
+  margin: 0;
+  font-size: clamp(2rem, 4.6vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.dv3-hub__zona {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: ds.space("lg");
+  align-items: stretch;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+// --- Tablero de salidas: cada fila es un mundo listo para despegar ---
+.dv3-tablero {
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: var(--domo-radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--domo-well);
+}
+
+// Ambas filas comparten la misma retícula: cabecera y salidas alineadas.
+%dv3-reticula {
+  display: grid;
+  grid-template-columns: minmax(10rem, 1.3fr) 6.8rem auto minmax(0, 1fr) 6.4rem auto;
+  align-items: center;
+  gap: ds.space("sm");
+  padding: 0.55rem 0.9rem;
+
+  @include ds.down("sm") {
+    grid-template-columns: minmax(0, 1.4fr) auto auto;
+  }
+}
+
+.dv3-tablero__cab {
+  @extend %dv3-reticula;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--domo-ink-soft);
+  border-bottom: var(--domo-line) solid var(--domo-ink);
+  background: var(--domo-paper);
+
+  @include ds.down("sm") {
+    span:nth-child(2),
+    span:nth-child(4),
+    span:nth-child(5) {
+      display: none;
+    }
+  }
+}
+
+.dv3-tablero__fila {
+  @extend %dv3-reticula;
+  border: none;
+  border-bottom: 1px solid var(--domo-hairline);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--ds-duration-base) var(--ds-ease-out), translate 120ms var(--ds-ease-out);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  // Tick de instrumento: la fila responde seca, sin florituras.
+  &:hover {
+    background: var(--domo-paper);
+    translate: 2px 0;
+
+    .dv3-tablero__ir {
+      translate: 3px 0;
+      color: var(--domo-ink);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: -2px;
+  }
+
+  @include ds.down("sm") {
+    > :nth-child(2),
+    > :nth-child(4),
+    > :nth-child(5) {
+      display: none;
+    }
+  }
+}
+
+.dv3-tablero__destino {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+
+  b {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+}
+
+.dv3-tablero__rombo {
+  font-style: normal;
+  flex: none;
+}
+
+.dv3-tablero__kana {
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+}
+
+.dv3-tablero__familia,
+.dv3-tablero__url {
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dv3-tablero__paleta {
+  display: flex;
+  gap: 0.25rem;
+
+  i {
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 4px;
+    border: 1px solid var(--domo-hairline);
+  }
+}
+
+.dv3-tablero__estado {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--domo-hairline);
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.dv3-tablero__ir {
+  color: var(--domo-ink-soft);
+  transition: translate 120ms var(--ds-ease-out), color 120ms var(--ds-ease-out);
+}
+
+// --- ASIS: la AI de a bordo ---
+// Dentro del panel tinta, el contrato se invierte SOLO para el contenido
+// (el cuerpo): así los controles anidados (chips ghost, prompt) leen tinta
+// clara sobre fondo oscuro. El caparazón del cut sigue usando los tokens
+// exteriores — por eso la inversión no puede vivir en .dv3-asis mismo.
+.dv3-asis .domo-cut__body {
+  --domo-paper: #1a1c19;
+  --domo-well: #232522;
+  --domo-ink: #eef1e8;
+  --domo-ink-soft: rgb(238 241 232 / 0.6);
+  --domo-hairline: rgb(238 241 232 / 0.25);
+  color: var(--domo-ink);
+}
+
+.dv3-asis__voz {
+  margin: 0;
+  min-height: 4.6em;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.55;
+}
+
+.dv3-asis__chips {
+  display: flex;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+// =============================================================================
+// SLIDE 2 · BITÁCORA
+// =============================================================================
+.dv3-fin {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dv3-fin__panel {
+  width: min(38rem, 100%);
+}
+
+.dv3-fin__datos {
+  display: flex;
+  gap: ds.space("xl");
+  flex-wrap: wrap;
+}
+
+// La bitácora crece con el viaje: que no desborde el panel.
+.dv3-fin__log {
+  max-height: 9.5rem;
+  overflow-y: auto;
+}
+
+// =============================================================================
+// EL WARP — transferencia de piel a pantalla completa
+// =============================================================================
+.dv3-warp {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: ds.space("lg");
+  background: var(--domo-paper);
+  // Re-evaluar el color AQUÍ: el heredado viene ya computado desde el scope
+  // raíz, así que el retinte de --domo-ink no llegaría a los hijos sin esto.
+  color: var(--domo-ink);
+  animation: dv3-warp-in 200ms var(--ds-ease-out);
+
+  // El tinte del handshake: las SUPERFICIES transicionan suave (no son
+  // heredadas, no se encadenan); el texto hace snap seco — tick de
+  // instrumento, no fundido. Ojo: `color` heredado + transition en `*`
+  // compone un retraso por nivel de anidado, por eso queda fuera.
+  * {
+    transition:
+      background-color 560ms var(--ds-ease-standard),
+      border-color 560ms var(--ds-ease-standard),
+      stroke 560ms var(--ds-ease-standard),
+      fill 560ms var(--ds-ease-standard);
+  }
+
+  // Interferencia: franjas hairline que tiemblan durante el viaje (de V2).
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -10% 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0 9px,
+      rgb(26 28 25 / 0.06) 9px 10px
+    );
+    animation: dv3-warp-scan 0.4s linear infinite;
+    pointer-events: none;
+  }
+
+  // HANDSHAKE: el mini-contrato del destino invade al panel Domo — el
+  // overlay entero se retematiza redefiniendo los tokens de la familia.
+  &.is-tinte {
+    --domo-paper: var(--dv3-paper);
+    --domo-well: var(--dv3-well);
+    --domo-ink: var(--dv3-ink);
+    --domo-ink-soft: var(--dv3-soft);
+    --domo-hairline: var(--dv3-hairline);
+    background: var(--dv3-paper);
+    transition: background-color 560ms var(--ds-ease-standard);
+  }
+
+  // SALIDA: tajo diagonal — el filo barre y revela el mundo ya montado.
+  &.is-salida {
+    animation: dv3-tajo 480ms var(--ds-ease-standard) forwards;
+  }
+}
+
+.dv3-warp__esc {
+  position: relative;
+  width: min(46rem, 100%);
+  display: grid;
+  gap: ds.space("md");
+}
+
+// Riel de ruta: el rombo-nave viaja de DOMO al destino durante todo el warp.
+.dv3-warp__ruta-rail {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dv3-warp__rail {
+  flex: 1;
+  position: relative;
+  height: 1em;
+  border-bottom: 1px dashed var(--domo-hairline);
+}
+
+.dv3-warp__nave {
+  position: absolute;
+  bottom: -0.12em;
+  left: 0;
+  animation-name: dv3-viaje;
+  animation-timing-function: var(--ds-ease-standard);
+  animation-fill-mode: forwards;
+}
+
+.dv3-warp__titulo {
+  font-size: var(--ds-font-size-xl);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.dv3-warp__cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: ds.space("lg");
+  align-items: start;
+
+  @include ds.down("sm") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dv3-warp__carga {
+  display: grid;
+  gap: ds.space("md");
+}
+
+// Rack de tokens: los swatches del destino se montan uno a uno (stagger por
+// transition-delay; el interruptor es la clase .is-on del rack completo).
+.dv3-warp__rack {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: ds.space("xs");
+}
+
+.dv3-warp__token {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 0.4rem;
+  align-items: center;
+  font-size: 0.62rem;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  translate: 0 4px;
+  transition: opacity 300ms var(--ds-ease-out), translate 300ms var(--ds-ease-out);
+
+  .dv3-warp__rack.is-on & {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  i {
+    grid-row: 1 / span 2;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 5px;
+    border: 1px solid var(--domo-hairline);
+    background: var(--dv3-sw);
+  }
+
+  b {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  em {
+    font-style: normal;
+    color: var(--domo-ink-soft);
+  }
+}
+
+// Specimen: "Aa" en la fuente REAL del destino — la tipografía aterrizando.
+.dv3-warp__specimen {
+  display: flex;
+  align-items: center;
+  gap: ds.space("md");
+  border-top: 1px dotted var(--domo-hairline);
+  padding-top: ds.space("sm");
+  opacity: 0;
+  translate: 0 4px;
+  transition: opacity 320ms var(--ds-ease-out), translate 320ms var(--ds-ease-out);
+
+  &.is-on {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.dv3-warp__aa {
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.dv3-warp__fuentes {
+  font-size: var(--ds-font-size-xs);
+  line-height: 1.5;
+  color: var(--domo-ink-soft);
+}
+
+.dv3-warp__pie {
+  display: flex;
+  align-items: center;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+
+  > :last-child {
+    margin-left: auto;
+  }
+}
+
+.dv3-warp__piezas {
+  opacity: 0;
+  translate: 0 4px;
+  transition: opacity 320ms var(--ds-ease-out), translate 320ms var(--ds-ease-out);
+
+  &.is-on {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes dv3-warp-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dv3-warp-scan {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 10px;
+  }
+}
+
+@keyframes dv3-viaje {
+  from {
+    left: 0%;
+  }
+  to {
+    left: calc(100% - 1ch);
+  }
+}
+
+@keyframes dv3-tajo {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 0 0, -22% 100%, 0 100%);
+  }
+}
+
+// =============================================================================
+// LOS MUNDOS — viewport completo, sin marcos: estás DENTRO de la otra web
+// =============================================================================
+.dv3-mundo {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(1.5rem, 5vw, 4rem);
+}
+
+.dv3-mundo__contenido {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  max-width: 32rem;
+}
+
+.dv3-mundo__chips {
+  display: flex;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+.dv3-mundo__acciones {
+  display: flex;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+// Boot del mundo: los elementos entran escalonados tras el tajo del warp.
+.dv3-stagger > * {
+  animation: dv3-boot 460ms var(--ds-ease-out) both;
+
+  @for $i from 1 through 6 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{80 + ($i - 1) * 90}ms;
+    }
+  }
+}
+
+@keyframes dv3-boot {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+  }
+}
+
+// --- SELLO DE LLEGADA: se estampa sobre el mundo y se disuelve (hanko) ---
+.dv3-sello {
+  position: absolute;
+  // Debajo de las cabeceras de los mundos (DENKI y CINTA tienen topbar).
+  top: clamp(5.5rem, 13vh, 7.5rem);
+  right: clamp(1.2rem, 5vw, 3.4rem);
+  z-index: 30;
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  padding: 0.55rem 0.8rem;
+  border: 3px solid var(--dv3-acento);
+  border-radius: 8px;
+  color: var(--dv3-acento);
+  rotate: 6deg;
+  pointer-events: none;
+  font-family: var(--domo-font, monospace);
+  animation:
+    dv3-sello-in 360ms var(--ds-ease-out) both,
+    dv3-sello-out 700ms var(--ds-ease-standard) 1700ms forwards;
+
+  b {
+    font-size: var(--ds-font-size-sm);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  span {
+    font-size: var(--ds-font-size-xs);
+    letter-spacing: 0.3em;
+  }
+}
+
+@keyframes dv3-sello-in {
+  from {
+    opacity: 0;
+    scale: 1.7;
+    rotate: 14deg;
+  }
+}
+
+@keyframes dv3-sello-out {
+  to {
+    opacity: 0;
+  }
+}
+
+// --- Mundo MESOSOICOS (contrato --ds-* de la marca, sin isla) ---
+.dv3-meso {
+  background:
+    linear-gradient(168deg, transparent 0 62%, rgb(242 163 60 / 0.05) 62% 63%, transparent 63%),
+    linear-gradient(156deg, var(--ds-surface-base, #10141a) 0 58%, var(--ds-surface-sunken, #0b0e11) 58%);
+  color: var(--ds-text, #f2eee4);
+  padding-bottom: 0;
+}
+
+.dv3-meso__titulo {
+  margin: 0;
+  font-family: var(--ds-font-display);
+  font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.dv3-meso__sub {
+  margin: 0;
+  max-width: 30rem;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+  color: var(--ds-text-muted, #a89e86);
+
+  code {
+    font-family: var(--ds-font-mono);
+    color: var(--ds-accent, #f2a33c);
+  }
+}
+
+.dv3-meso__panel {
+  width: min(30rem, 100%);
+}
+
+.dv3-meso__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: ds.space("lg");
+}
+
+// Fósil tipográfico: la era, enterrada como marca de agua en el estrato.
+.dv3-meso__era {
+  position: absolute;
+  right: clamp(1rem, 5vw, 4rem);
+  bottom: 14vh;
+  z-index: 0;
+  font-family: var(--ds-font-display);
+  font-size: clamp(6rem, 16vw, 13rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgb(242 163 60 / 0.14);
+  user-select: none;
+
+  i {
+    font-style: normal;
+    font-size: 0.4em;
+    -webkit-text-stroke-color: rgb(242 163 60 / 0.2);
+  }
+}
+
+.dv3-meso__ticker {
+  margin: auto calc(-1 * clamp(1.5rem, 5vw, 4rem)) 0;
+}
+
+// --- Mundo TEBEO ---
+.dv3-tebeo {
+  padding-bottom: 0;
+}
+
+.dv3-tebeo__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex: 1;
+  min-height: 0;
+  flex-wrap: wrap;
+}
+
+.dv3-tebeo__sticker {
+  animation: dv3-boot 460ms var(--ds-ease-out) 440ms both;
+}
+
+.dv3-tebeo__marquee {
+  margin: 0 calc(-1 * clamp(1.5rem, 5vw, 4rem));
+}
+
+// --- Mundo CINTA ---
+.dv3-cinta {
+  justify-content: flex-start;
+  gap: ds.space("lg");
+}
+
+.dv3-cinta__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+.dv3-cinta__logo {
+  margin: 0;
+  font-family: var(--cinta-font-display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1;
+}
+
+.dv3-cinta__logo-dot {
+  color: var(--cinta-coral);
+  padding: 0 0.2rem;
+}
+
+.dv3-cinta__top-fin {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+}
+
+.dv3-cinta__fila {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(15rem, 1fr);
+  gap: ds.space("lg");
+  align-items: start;
+  align-content: center;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dv3-cinta__controles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+}
+
+// --- Mundo DENKI (con huéspedes KOI) ---
+.dv3-denki {
+  justify-content: flex-start;
+  gap: ds.space("lg");
+  padding-bottom: 0;
+}
+
+.dv3-denki__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: var(--denki-line) solid var(--denki-ink);
+  padding-bottom: ds.space("xs");
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.dv3-denki__kana {
+  color: var(--denki-red);
+  padding-left: 0.4rem;
+}
+
+.dv3-denki__fila {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("xl");
+  flex-wrap: wrap;
+}
+
+.dv3-denki__desc {
+  margin: 0;
+  max-width: 28rem;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+}
+
+.dv3-denki__lado {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: ds.space("lg");
+  padding-right: clamp(0rem, 3vw, 2.5rem);
+}
+
+.dv3-denki__torii {
+  animation: dv3-boot 460ms var(--ds-ease-out) 350ms both;
+}
+
+.dv3-denki__hanko {
+  position: absolute;
+  top: -1.4rem;
+  right: 0;
+  animation: dv3-sello-in 360ms var(--ds-ease-out) 700ms both;
+}
+
+.dv3-denki .denki-rail {
+  margin: 0 calc(-1 * clamp(1.5rem, 5vw, 4rem));
+}
+
+// --- Mundo OBSIDIANA ---
+.dv3-obsi {
+  background: var(--obsi-void, #10141b);
+}
+
+.dv3-obsi__cuerpo {
+  display: grid;
+  gap: ds.space("lg");
+  width: min(62rem, 100%);
+  margin: 0 auto;
+}
+
+.dv3-obsi__pie {
+  display: flex;
+  align-items: flex-end;
+  gap: ds.space("xl");
+  flex-wrap: wrap;
+
+  > :last-child {
+    margin-left: auto;
+  }
+}
+
+// --- Mundo LAB ASIS: DOMO retematizado a oscuro (el truco, otra vez) ---
+.dv3-lab {
+  --domo-paper: #141712;
+  --domo-well: #1b1f1a;
+  --domo-ink: #e8ede2;
+  --domo-ink-soft: #99a191;
+  --domo-hairline: rgb(232 237 226 / 0.2);
+  background: var(--domo-paper);
+  color: var(--domo-ink);
+}
+
+.dv3-lab__cuerpo {
+  display: grid;
+  gap: ds.space("md");
+  width: min(66rem, 100%);
+  margin: 0 auto;
+}
+
+.dv3-lab__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+.dv3-lab__titulo {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.dv3-lab__lema {
+  margin: 0;
+  max-width: 44rem;
+  font-size: var(--ds-font-size-sm);
+  color: var(--domo-ink-soft);
+}
+
+.dv3-lab__bancos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ds.space("md");
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+// La cadena universal: entrada ▸ proceso ▸ salida — misma anatomía siempre.
+.dv3-banco__cadena {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: ds.space("sm");
+  align-items: stretch;
+}
+
+.dv3-banco__zona {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+  border: 1px solid var(--domo-hairline);
+  border-radius: var(--domo-radius);
+  background: var(--domo-well);
+  padding: 0.6rem 0.7rem;
+  min-height: 6.2rem;
+}
+
+.dv3-banco__rotulo {
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--domo-ink-soft);
+}
+
+// Chevrons del proceso: laten en secuencia — la máquina mastica.
+.dv3-banco__proceso {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.1rem;
+  color: var(--domo-ink-soft);
+
+  i {
+    font-style: normal;
+    animation: dv3-chevron 1.2s infinite var(--ds-ease-standard);
+
+    @for $i from 2 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{($i - 1) * 0.18}s;
+      }
+    }
+  }
+}
+
+.dv3-lab__texto {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.5;
+}
+
+.dv3-lab__texto--ja {
+  font-size: var(--ds-font-size-md);
+  letter-spacing: 0.06em;
+}
+
+.dv3-lab__dato {
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+}
+
+// Onda de audio: barras con alturas fijas que laten si la señal está viva.
+.dv3-onda {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 2rem;
+
+  i {
+    flex: 1;
+    background: var(--domo-ink);
+    border-radius: 1px;
+    min-height: 12%;
+
+    @for $i from 1 through 14 {
+      &:nth-child(#{$i}) {
+        height: #{18 + (($i * 37) % 70)}#{"%"};
+      }
+    }
+  }
+
+  &.is-viva i {
+    animation: dv3-onda 0.9s infinite var(--ds-ease-standard);
+
+    @for $i from 1 through 14 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{($i * 130) % 900}ms;
+      }
+    }
+  }
+
+  &--mic i {
+    background: var(--domo-ink-soft);
+  }
+}
+
+// Visor de cámara: pozo oscuro, marcas de esquina y cajas de detección.
+.dv3-lab__cam {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  background:
+    radial-gradient(ellipse 60% 50% at 35% 45%, rgb(232 237 226 / 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 45% 40% at 72% 60%, rgb(232 237 226 / 0.07) 0%, transparent 70%),
+    #0d0f0c;
+  overflow: hidden;
+
+  // Barrido de escaneo.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    background: rgb(232 237 226 / 0.25);
+    animation: dv3-scan 2.6s infinite var(--ds-ease-standard);
+  }
+}
+
+.dv3-lab__caja {
+  position: absolute;
+  border: 1.5px solid var(--domo-ink);
+
+  b {
+    position: absolute;
+    top: -1.05rem;
+    left: -1.5px;
+    font-size: 0.55rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    background: var(--domo-ink);
+    color: var(--domo-paper);
+    padding: 0.05rem 0.3rem;
+    white-space: nowrap;
+  }
+}
+
+@keyframes dv3-chevron {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+@keyframes dv3-onda {
+  50% {
+    scale: 1 0.35;
+  }
+}
+
+@keyframes dv3-scan {
+  0% {
+    translate: 0 0;
+  }
+  100% {
+    translate: 0 1000%;
+  }
+}
+
+// =============================================================================
+// EL VISOR — DOMO OS replegado a HUD flotante, con línea de mundos
+// =============================================================================
+.dv3-visor {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.9rem, 3vh, 1.8rem);
+  translate: -50% 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  padding: 0.5rem 0.9rem;
+  border: var(--domo-line) solid var(--domo-ink);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+  animation: dv3-visor-in 400ms var(--ds-ease-out) 300ms both;
+  max-width: calc(100% - 2rem);
+}
+
+.dv3-visor__marca {
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding-right: ds.space("xs");
+  border-right: 1px solid var(--domo-hairline);
+}
+
+// Línea de mundos: el metro de rombos — ves dónde estás y saltas directo.
+.dv3-visor__linea {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.dv3-visor__punto {
+  border: none;
+  background: transparent;
+  color: var(--domo-ink-soft);
+  font: inherit;
+  font-size: var(--ds-font-size-xs);
+  padding: 0.2rem 0.25rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: color 120ms var(--ds-ease-out), translate 120ms var(--ds-ease-out);
+
+  &:hover {
+    color: var(--domo-ink);
+    translate: 0 -1px;
+  }
+
+  &.is-aqui {
+    color: var(--domo-ink);
+    cursor: default;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: -1px;
+  }
+}
+
+.dv3-visor__ruta {
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+  letter-spacing: 0.05em;
+  padding-left: ds.space("xs");
+  border-left: 1px solid var(--domo-hairline);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @include ds.down("sm") {
+    display: none;
+  }
+}
+
+@keyframes dv3-visor-in {
+  from {
+    opacity: 0;
+    translate: -50% 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dv3-warp,
+  .dv3-warp::before,
+  .dv3-warp__nave,
+  .dv3-warp *,
+  .dv3-stagger > *,
+  .dv3-sello,
+  .dv3-tebeo__sticker,
+  .dv3-denki__torii,
+  .dv3-denki__hanko,
+  .dv3-banco__proceso i,
+  .dv3-onda.is-viva i,
+  .dv3-lab__cam::after,
+  .dv3-visor {
+    animation: none;
+    transition: none;
+  }
+}

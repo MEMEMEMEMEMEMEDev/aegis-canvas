@@ -1,0 +1,99 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V3 — Radio Cinta: el walkman de página larga.
+// =============================================================================
+
+.mv3c {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(6rem, 15vh, 8rem);
+}
+
+.mv3c-hero {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+  min-height: 70vh;
+  justify-content: center;
+}
+
+.mv3c-cab {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--cinta-ink);
+  padding-bottom: ds.space("sm");
+}
+
+.mv3c-cab__tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mv3c-logo {
+  margin: 0;
+  font-family: var(--cinta-font-display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 4vw, 2.1rem);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.mv3c-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+}
+
+.mv3c-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+}
+
+.mv3c-titulo {
+  margin: 0;
+  font-family: var(--cinta-font-display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+
+.mv3c-tapes .mv3-snap__item {
+  width: 15rem;
+}
+
+.mv3c-hint {
+  margin: 0;
+  font-size: var(--ds-font-size-xs);
+  color: var(--cinta-ink-soft);
+}
+
+.mv3c-ficha {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: ds.space("xl");
+  flex-wrap: wrap;
+}
+
+.mv3c-ficha__marks {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  padding-top: ds.space("md");
+}
+
+.mv3c-nota {
+  margin: 0;
+  font-size: var(--ds-font-size-xs);
+  color: var(--cinta-ink-soft);
+}

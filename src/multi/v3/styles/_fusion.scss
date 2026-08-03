@@ -1,0 +1,106 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V3 — Sector 電気-OS: el retema Domo×Denki (mismo truco que V1,
+// clases nuevas). Los componentes DOMO leen la paleta DENKI.
+// =============================================================================
+
+.mv3f {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(6rem, 15vh, 8rem);
+
+  // Doble clase: gana a los backgrounds de .domo-scope/.denki-scope.
+  @at-root .denki-scope#{&} {
+    background: var(--denki-paper);
+    color: var(--denki-ink);
+  }
+
+  --domo-paper: #e9d8b8;
+  --domo-well: #f2e4c6;
+  --domo-ink: #221b12;
+  --domo-ink-soft: #7a6d52;
+  --domo-hairline: rgb(34 27 18 / 0.28);
+  --domo-alert: #d13a1e;
+  --domo-font: var(--denki-font-mono);
+}
+
+.mv3f-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  min-height: 65vh;
+  justify-content: center;
+}
+
+.mv3f-hud {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+.mv3f-grito {
+  margin: 0;
+  font-family: var(--denki-font-display);
+  font-size: clamp(2.4rem, 7vw, 4.4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+}
+
+.mv3f-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: ds.space("lg");
+  align-items: stretch;
+}
+
+.mv3f-fila {
+  display: flex;
+  align-items: center;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+}
+
+.mv3f-catalogo {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+  flex-wrap: wrap;
+}
+
+.mv3f-catalogo__frame {
+  flex: 1 1 20rem;
+  max-width: 28rem;
+}
+
+.mv3f-catalogo__col {
+  flex: 1 1 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+}
+
+.mv3f-subtitulo {
+  margin: 0;
+  font-family: var(--denki-font-display);
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.mv3f-parrafo {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+  color: var(--domo-ink-soft);
+  max-width: 30rem;
+}

@@ -1,0 +1,102 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V2 — la nave apagada.
+//
+// La oscuridad ES el estado: las estrellas y el vidrio suben de intensidad
+// con data-encendidos (0→3). Nada depende del fade para comunicarse — el
+// texto y los toggles cuentan lo mismo (reduced-motion safe).
+// =============================================================================
+
+.mv2-arranque {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+
+  // La energía va llegando: cada sistema encendido despierta el cielo.
+  .mv2-estrellas {
+    opacity: 0.15;
+    transition: opacity 0.9s var(--ds-ease-standard);
+  }
+  &[data-encendidos="1"] .mv2-estrellas {
+    opacity: 0.45;
+  }
+  &[data-encendidos="2"] .mv2-estrellas {
+    opacity: 0.75;
+  }
+  &[data-encendidos="3"] .mv2-estrellas {
+    opacity: 1;
+  }
+}
+
+.mv2-arranque__hud {
+  border-bottom-color: rgb(231 228 216 / 0.12);
+}
+
+.mv2-arranque__centro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("xl");
+}
+
+.mv2-arranque__nave {
+  opacity: 0.55;
+  transition: opacity 0.9s var(--ds-ease-standard);
+
+  [data-encendidos="3"] & {
+    opacity: 1;
+  }
+}
+
+.mv2-arranque__panel {
+  width: min(28rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  padding: ds.space("lg");
+}
+
+.mv2-arranque__sistemas {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+}
+
+.mv2-arranque__sistema {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("md");
+  border: 1.5px solid var(--domo-hairline);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  opacity: 0.55;
+
+  &.is-siguiente {
+    opacity: 1;
+    border-color: var(--domo-ink);
+  }
+
+  &.is-on {
+    opacity: 1;
+  }
+}
+
+.mv2-arranque__nombre {
+  font-size: var(--ds-font-size-sm);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv2-arranque .mv2-estrellas,
+  .mv2-arranque__nave {
+    transition: none;
+  }
+}

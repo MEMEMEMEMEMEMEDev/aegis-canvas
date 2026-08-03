@@ -1,0 +1,221 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V2 — los tres mundos (adaptados de V1 con prefijo mv2-).
+// Copia deliberada: V1 está congelado y V2 no depende de sus clases.
+// =============================================================================
+
+// =============================================================================
+// MUNDO FUSIÓN — Domo × Denki: el contrato --domo-* vestido de DENKI.
+// =============================================================================
+.mv2-fusion {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(7rem, 18vh, 9rem);
+
+  // Doble clase: gana a los backgrounds de .domo-scope/.denki-scope sin
+  // depender del orden del bundle.
+  @at-root .denki-scope#{&} {
+    background: var(--denki-paper);
+    color: var(--denki-ink);
+  }
+
+  // La fusión de verdad: los componentes DOMO leen la paleta DENKI.
+  --domo-paper: #e9d8b8;
+  --domo-well: #f2e4c6;
+  --domo-ink: #221b12;
+  --domo-ink-soft: #7a6d52;
+  --domo-hairline: rgb(34 27 18 / 0.28);
+  --domo-alert: #d13a1e;
+  --domo-font: var(--denki-font-mono);
+}
+
+.mv2-fusion__hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  flex-wrap: wrap;
+}
+
+.mv2-fusion__grito {
+  margin: 0;
+  font-family: var(--denki-font-display);
+  font-size: clamp(2.4rem, 7vw, 4.4rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+}
+
+.mv2-fusion__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: ds.space("lg");
+  align-items: stretch;
+}
+
+.mv2-fusion__fila {
+  display: flex;
+  align-items: center;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+}
+
+// =============================================================================
+// MUNDO GACETA — Tebeo × Telar (+ sello Denki): periódico interestelar.
+// =============================================================================
+.mv2-gaceta {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(7rem, 18vh, 9rem);
+}
+
+.mv2-gaceta__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: 3px double var(--tebeo-ink);
+  padding-bottom: ds.space("sm");
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.mv2-gaceta__masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+}
+
+.mv2-gaceta__cuerpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(15rem, 1fr);
+  gap: ds.space("xl");
+  align-items: start;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mv2-gaceta__articulo {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+}
+
+// Columnas de periódico de verdad.
+.mv2-gaceta__cols {
+  columns: 2;
+  column-gap: ds.space("xl");
+  column-rule: 1px solid rgb(19 19 17 / 0.3);
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+
+  p {
+    margin: 0 0 0.8em;
+  }
+
+  @include ds.down("sm") {
+    columns: 1;
+  }
+}
+
+.mv2-gaceta__lateral {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+  align-items: flex-start;
+}
+
+// El aviso TELAR insertado en el periódico (isla oscura dentro del papel).
+.mv2-gaceta__aviso {
+  width: 100%;
+  padding: ds.space("md");
+}
+
+.mv2-gaceta__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+  border-top: 3px double var(--tebeo-ink);
+  padding-top: ds.space("md");
+}
+
+// El sello DENKI pegado en el papel crema (mini isla con su contrato).
+.mv2-gaceta__sello {
+  display: inline-flex;
+  align-items: center;
+  gap: ds.space("md");
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  rotate: -2deg;
+}
+
+// =============================================================================
+// MUNDO CINTA — radio del multiverso.
+// =============================================================================
+.mv2-radio {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(7rem, 18vh, 9rem);
+}
+
+.mv2-radio__cab {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--cinta-ink);
+  padding-bottom: ds.space("sm");
+}
+
+.mv2-radio__logo {
+  margin: 0;
+  font-family: var(--cinta-font-display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 4vw, 2.1rem);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.mv2-radio__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(14rem, 1fr);
+  gap: ds.space("lg");
+  align-items: start;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mv2-radio__tapes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: ds.space("lg");
+}
+
+.mv2-radio__nota {
+  margin: 0;
+  font-size: var(--ds-font-size-xs);
+  color: var(--cinta-ink-soft);
+}

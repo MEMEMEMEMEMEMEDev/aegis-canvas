@@ -1,0 +1,152 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V3 — La Gaceta Estelar: periódico de página larga (+ la errata viva).
+// =============================================================================
+
+.mv3g {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  padding-bottom: clamp(6rem, 15vh, 8rem);
+}
+
+.mv3g-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: 3px double var(--tebeo-ink);
+  padding-bottom: ds.space("sm");
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.mv3g-masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+}
+
+.mv3g-cuerpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(15rem, 1fr);
+  gap: ds.space("xl");
+  align-items: start;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mv3g-articulo {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+}
+
+.mv3g-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.mv3g-cols {
+  columns: 2;
+  column-gap: ds.space("xl");
+  column-rule: 1px solid rgb(19 19 17 / 0.3);
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+
+  p {
+    margin: 0 0 0.8em;
+  }
+
+  @include ds.down("sm") {
+    columns: 1;
+  }
+}
+
+// La errata: parece énfasis tipográfico, es un botón (esa es la gracia).
+.mv3g-errata {
+  padding: 0 0.1em;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline wavy rgb(19 19 17 / 0.4) 1.5px;
+  text-underline-offset: 0.18em;
+
+  @include ds.focus-ring;
+
+  &:disabled {
+    cursor: default;
+    background: var(--tebeo-sun);
+    text-decoration: none;
+    rotate: -1deg;
+  }
+}
+
+.mv3g-verificado {
+  display: inline-flex;
+  align-items: center;
+  gap: ds.space("md");
+}
+
+.mv3g-verificado__texto {
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mv3g-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+  align-items: flex-start;
+}
+
+.mv3g-aviso {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+  padding: ds.space("md");
+}
+
+.mv3g-aviso__tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
+}
+
+.mv3g-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+  border-top: 3px double var(--tebeo-ink);
+  padding-top: ds.space("md");
+}
+
+.mv3g-sello {
+  display: inline-flex;
+  align-items: center;
+  gap: ds.space("md");
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  rotate: -2deg;
+}

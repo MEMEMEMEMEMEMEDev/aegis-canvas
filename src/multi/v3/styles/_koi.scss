@@ -1,0 +1,129 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V3 — Koi Matsuri: página larga con capas (sol y torii en parallax).
+// =============================================================================
+
+.mv3k {
+  min-height: 100vh;
+  padding-bottom: clamp(6rem, 15vh, 8rem); // aire para la consola flotante
+}
+
+.mv3k-hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.mv3k-hero__sol {
+  position: absolute;
+  top: 6%;
+  right: 8%;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.mv3k-hero__torii {
+  position: absolute;
+  bottom: -4%;
+  left: 50%;
+  margin-left: -170px; // centrado sin transform (translate lo usa el parallax)
+  z-index: 0;
+  opacity: 0.55;
+}
+
+.mv3k-hero__contenido {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  max-width: 32rem;
+}
+
+.mv3k-sub {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.6;
+  color: var(--koi-snow);
+  opacity: 0.85;
+}
+
+.mv3k-seccion {
+  padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.mv3k-noches {
+  margin-top: ds.space("lg");
+}
+
+.mv3k-noche {
+  width: 16rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("sm");
+  padding: ds.space("lg");
+  border: 1px solid var(--koi-line);
+  border-radius: var(--koi-radius-lg);
+  background: var(--koi-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.mv3k-noche__icono {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.mv3k-noche__desc {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.55;
+  color: var(--koi-snow);
+  opacity: 0.85;
+}
+
+.mv3k-hint {
+  margin: ds.space("sm") 0 0;
+  font-size: var(--ds-font-size-xs);
+  color: var(--koi-snow);
+  opacity: 0.6;
+}
+
+.mv3k-cierre {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+  flex-wrap: wrap;
+  overflow: hidden;
+  min-height: 60vh;
+}
+
+.mv3k-cierre__sello {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("sm");
+  position: relative;
+  z-index: 1;
+}
+
+.mv3k-sello {
+  padding: 0.4rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    rotate: -4deg;
+  }
+}

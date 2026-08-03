@@ -1,0 +1,193 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V2 — puente de mando: carta estelar bloqueada, radiotelescopio,
+// sala de máquinas con el recorte interceptado y la puerta a la Cubierta.
+// =============================================================================
+
+.mv2-puente {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("2xl");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  // La consola flotante no debe tapar el pie en móvil.
+  padding-bottom: clamp(7rem, 18vh, 9rem);
+}
+
+// --- Carta estelar ---
+.mv2-destinos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: ds.space("lg");
+  align-items: start;
+
+  @include ds.down("md") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mv2-destino {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  padding: ds.space("lg");
+}
+
+// Señal sin identificar: presencia fantasmal, borde punteado de sonar.
+.mv2-destino--incognita {
+  border-style: dashed;
+  opacity: 0.85;
+}
+
+// El nombre de cada mundo se escribe con SU propia fuente: el vistazo
+// al otro lado del portal.
+.mv2-destino__nombre {
+  margin: 0;
+  line-height: 1.05;
+  font-size: 1.6rem;
+
+  &--cinta {
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    color: #f0b12e;
+  }
+  &--fusion {
+    font-family: "Anton", sans-serif;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #ff6a4d;
+  }
+  &--gaceta {
+    font-family: "Archivo Black", sans-serif;
+    text-transform: uppercase;
+    color: #f2d43d;
+  }
+}
+
+.mv2-destino__desc {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.55;
+  color: var(--domo-ink-soft);
+  flex: 1;
+}
+
+.mv2-destino__acciones {
+  display: flex;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+// --- Radiotelescopio (isla CINTA en el puente) ---
+.mv2-telescopio {
+  max-width: 38rem;
+}
+
+.mv2-telescopio__mandos {
+  display: flex;
+  align-items: center;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+// --- Sala de máquinas ---
+.mv2-maquinas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: ds.space("lg");
+  align-items: stretch;
+}
+
+.mv2-maquina__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("md");
+  flex-wrap: wrap;
+}
+
+.mv2-cmd {
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+  word-break: break-all;
+}
+
+// --- El recorte interceptado (isla TEBEO clavada entre las máquinas) ---
+.mv2-recorte {
+  max-width: 34rem;
+  rotate: -1.2deg;
+}
+
+.mv2-recorte__papel {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+  background: var(--tebeo-paper);
+  color: var(--tebeo-ink);
+  border: var(--tebeo-line) solid var(--tebeo-ink);
+  border-radius: 6px;
+  padding: ds.space("lg");
+  box-shadow: 4px 4px 0 rgb(10 12 17 / 0.55);
+  position: relative;
+}
+
+.mv2-recorte__texto {
+  margin: 0;
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.7;
+}
+
+.mv2-recorte__palabra {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  vertical-align: baseline;
+
+  @include ds.focus-ring;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  @include ds.hover {
+    rotate: -2deg;
+  }
+}
+
+.mv2-recorte__nota {
+  margin: 0;
+  font-family: var(--tebeo-font-body);
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(19 19 17 / 0.65);
+}
+
+.mv2-recorte__sello {
+  position: absolute;
+  right: ds.space("md");
+  bottom: ds.space("md");
+}
+
+// --- La puerta a la Cubierta de registros ---
+.mv2-puerta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  padding: ds.space("lg");
+  flex-wrap: wrap;
+}
+
+.mv2-puerta__col {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+  max-width: 34rem;
+}

@@ -57,6 +57,7 @@ radios, tipografías y componentes firma. Flujo: `refs/` → incubadora
 | **DOMO** | panel de control doméstico, todo mono, 1 vista + modales, AI-ready | refs/7 | Chivo Mono |
 | **DENKI 電気** | póster retro-industrial japonés: semitono, bermellón, katakana | refs/8 | Anton + IBM Plex Mono |
 | **CINTA** | cassette-futurismo: chasis con tornillos, carretes que giran | refs/9 | Audiowide + Space Mono |
+| **OBSIDIANA** | galería de esquirlas: vitrina oscura, un solo acento cian, todo corta en diagonal — la familia del ESQUELETO del portafolio | refs/3 | Space Grotesk + Spline Sans Mono |
 | *proto* | incubadora vacía (nombre siempre provisional) | — | — |
 
 Imports: `@ahroi/foundation/<familia>` (ver `exports` en package.json).
@@ -74,7 +75,22 @@ El portafolio es un **multiverso de mundos-proyecto** navegado desde la nave
 - **Mundos**: Radio CINTA (música, AI DJ enchufable) · Sector 電気-OS
   (Domo×Denki vía retema de tokens) · La Gaceta Estelar (Tebeo×Telar+Denki,
   periódico interestelar). Prototipo previo del concepto:
-  `Families/DomoV2/Multiverso`.
+  `Families/DomoV2/Multiverso`; su evolución `Families/DomoV3/Multiverso`
+  (la **dársena**) jubila la ventana de navegador falsa: seis mundos a
+  viewport completo (todas las familias menos TELAR; lo más japo de KOI vive
+  como huésped en DENKI), tablero de salidas estilo estación, **ASIS** — la
+  AI de a bordo que responde y pilotea la UI —, el planeta **LAB** de demos
+  de IA (patrón entrada → proceso → salida) y un visor HUD con línea de
+  mundos. La transferencia monta la piel del destino en vivo — tokens
+  reales, specimen tipográfico y un handshake que retiñe el propio panel
+  antes del tajo de salida; la llegada se estampa con un sello tipo hanko.
+
+> **Multi V4 — el multiverso curado** (`Multiverso/Multi V4`, concepto en
+> `src/multi/v4/CONCEPTO.md`): la creatividad cambia de sitio. Esqueleto UX
+> convencional (nav visible, hero directo, scroll natural) vestido por
+> OBSIDIANA, con **casos de estudio reales** (problema → proceso → resultado).
+> Los mundos de V1–V3 pasan de ser la navegación a ser exhibiciones dentro de
+> los casos.
 
 ## Estructura
 

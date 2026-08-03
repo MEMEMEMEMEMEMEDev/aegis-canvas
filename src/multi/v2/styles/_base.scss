@@ -1,0 +1,429 @@
+@use "../../../abstracts" as ds;
+
+// =============================================================================
+// MULTI V2 — base compartida: el cascarón de la nave.
+//
+// Copia deliberada de la base de V1 con prefijo mv2- (V1 está congelado:
+// no se @extend ni se reusa .mv1-*). Aquí viven el retema oscuro espacial,
+// el espacio con estrellas, la nave, el vidrio, el HUD, la secuencia de
+// salto, la consola y el atajo «Canal directo».
+// =============================================================================
+
+// --- Retema OSCURO ESPACIAL del contrato DOMO (+ mínimos DENKI) ---
+.mv2-dark {
+  --domo-paper: #12151c;
+  --domo-well: #0b0d12;
+  --domo-ink: #e7e4d8;
+  --domo-ink-soft: #8d968f;
+  --domo-hairline: rgb(231 228 216 / 0.22);
+  --domo-alert: #ff6a4d;
+  --denki-ink: #e7e4d8;
+  --denki-paper: #12151c;
+  --denki-cream: #12151c;
+  --denki-red: #d13a1e;
+  --denki-red-deep: #a92c14;
+  --denki-line: 1.5px;
+  --denki-radius: 8px;
+  --denki-font-mono: var(--domo-font);
+  --ds-focus-ring: var(--domo-ink);
+
+  background: transparent;
+  color: var(--domo-ink);
+}
+
+// --- Espacio profundo con estrellas ---
+.mv2-espacio {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 60% 45% at 75% 10%, rgb(58 74 96 / 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgb(74 58 96 / 0.25) 0%, transparent 70%),
+    #0a0c11;
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.mv2-estrellas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgb(231 228 216 / 0.9) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgb(231 228 216 / 0.5) 0 1px, transparent 1.4px),
+    radial-gradient(circle, rgb(231 228 216 / 0.28) 0 0.8px, transparent 1.2px);
+  background-size:
+    190px 170px,
+    110px 130px,
+    70px 90px;
+  background-position:
+    12px 8px,
+    43px 61px,
+    27px 33px;
+  animation: mv2-titilar 5s infinite var(--ds-ease-standard);
+}
+
+// --- Nave AEGIS (ahora con casco sensible) ---
+.mv2-nave {
+  overflow: visible;
+
+  &__flama {
+    transform-origin: 14px 30px;
+    animation: mv2-flama 0.5s infinite var(--ds-ease-standard);
+  }
+}
+
+.mv2-nave--viajando {
+  animation: mv2-turbulencia 0.6s infinite var(--ds-ease-standard);
+}
+
+.mv2-nave--molesta {
+  animation: mv2-turbulencia 0.18s 4 var(--ds-ease-standard);
+}
+
+.mv2-nave-boton {
+  padding: 0.25rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+
+  @include ds.focus-ring;
+}
+
+// --- Vidrio de consola ---
+.mv2-glass {
+  background: rgb(18 21 28 / 0.62);
+  border: 1.5px solid rgb(231 228 216 / 0.35);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+// --- HUD y tipografía de a bordo ---
+.mv2-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  border-bottom: 1.5px solid var(--domo-hairline);
+  padding-bottom: ds.space("sm");
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  flex-wrap: wrap;
+}
+
+.mv2-hud__cicd {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--domo-ink-soft);
+
+  &::before {
+    content: "";
+    width: 0.5rem;
+    aspect-ratio: 1;
+    border-radius: 999px;
+    background: #7dc98f;
+    animation: mv2-pulso 2.2s infinite var(--ds-ease-standard);
+  }
+}
+
+.mv2-hero {
+  display: flex;
+  align-items: center;
+  gap: ds.space("2xl");
+  flex-wrap: wrap;
+}
+
+.mv2-hero__col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+  max-width: 34rem;
+  min-width: 0;
+}
+
+.mv2-kicker {
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--domo-ink-soft);
+}
+
+.mv2-titulo {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.mv2-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+}
+
+.mv2-seccion__titulo {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.mv2-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("lg");
+  flex-wrap: wrap;
+  border-top: 1.5px solid var(--domo-hairline);
+  padding-top: ds.space("lg");
+}
+
+// --- Utilidad: texto solo para lectores de pantalla (aria-live del pad) ---
+.mv2-visualmente-oculto {
+  @include ds.visually-hidden;
+}
+
+// =============================================================================
+// SECUENCIA DE SALTO (viajar = deployar, a pantalla completa)
+// =============================================================================
+.mv2-viaje {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("xl");
+  padding: ds.space("lg");
+  overflow: hidden;
+}
+
+.mv2-viaje__panel {
+  width: min(30rem, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  padding: ds.space("lg");
+}
+
+.mv2-viaje__ruta {
+  font-size: var(--ds-font-size-xl);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.mv2-pipeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mv2-paso {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-size: var(--ds-font-size-sm);
+
+  &.is-pendiente {
+    color: var(--domo-ink-soft);
+    opacity: 0.6;
+  }
+  &.is-actual .mv2-paso__icono {
+    animation: mv2-pulso 0.8s infinite var(--ds-ease-standard);
+  }
+  &.is-lista .mv2-paso__icono {
+    color: #7dc98f;
+  }
+}
+
+.mv2-paso__icono {
+  width: 1.1rem;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.mv2-paso__cmd {
+  margin-left: auto;
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+}
+
+// =============================================================================
+// CONSOLA DE VIAJE FLOTANTE V2 — ahora con registro de descubrimientos
+// =============================================================================
+.mv2-consola {
+  position: fixed;
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  bottom: clamp(0.75rem, 2vw, 1.5rem);
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+  padding: ds.space("md");
+  width: min(19rem, calc(100vw - 2rem));
+  max-height: min(70vh, 34rem);
+  overflow-y: auto;
+  font-family: "Chivo Mono", ui-monospace, monospace;
+}
+
+.mv2-consola__cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ds.space("sm");
+  font-size: var(--ds-font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.mv2-consola__registro {
+  border: 1.5px solid var(--domo-hairline);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--domo-ink);
+  font: inherit;
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.5rem 0.65rem;
+  cursor: pointer;
+  min-height: 44px;
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    border-color: var(--domo-ink);
+  }
+}
+
+.mv2-consola__logros {
+  margin: 0;
+  padding: 0 0 0 0.2rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: var(--ds-font-size-xs);
+  color: var(--domo-ink-soft);
+
+  .is-ganado {
+    color: var(--domo-ink);
+  }
+}
+
+.mv2-consola__botones {
+  display: flex;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+// =============================================================================
+// CANAL DIRECTO — el atajo recruiter-friendly, fijo en todas las fases
+// =============================================================================
+.mv2-canal-directo {
+  position: fixed;
+  top: clamp(0.75rem, 2vw, 1.25rem);
+  right: clamp(0.75rem, 2vw, 1.5rem);
+  z-index: 85;
+  border: 1.5px solid rgb(231 228 216 / 0.35);
+  border-radius: 999px;
+  background: rgb(18 21 28 / 0.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #e7e4d8;
+  font-family: "Chivo Mono", ui-monospace, monospace;
+  font-size: var(--ds-font-size-xs);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 0.55rem 0.9rem;
+  min-height: 44px;
+  cursor: pointer;
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    border-color: #e7e4d8;
+  }
+}
+
+// Cuando el canal directo está en pantalla, las cabeceras de cada vista
+// le reservan la esquina (es hermano previo de la vista en el DOM).
+.mv2-canal-directo ~ .mv2-puente .mv2-hud,
+.mv2-canal-directo ~ .mv2-arranque .mv2-arranque__hud,
+.mv2-canal-directo ~ .mv2-radio .mv2-radio__cab,
+.mv2-canal-directo ~ .mv2-fusion .mv2-fusion__hud,
+.mv2-canal-directo ~ .mv2-gaceta .mv2-gaceta__cabecera {
+  padding-right: clamp(8.5rem, 16vw, 10rem);
+}
+
+// --- Animaciones compartidas ---
+@keyframes mv2-titilar {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@keyframes mv2-pulso {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes mv2-flama {
+  0%,
+  100% {
+    scale: 1 1;
+    opacity: 1;
+  }
+  50% {
+    scale: 0.7 0.85;
+    opacity: 0.75;
+  }
+}
+
+@keyframes mv2-turbulencia {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  25% {
+    translate: 1px -2px;
+  }
+  75% {
+    translate: -1px 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv2-estrellas,
+  .mv2-nave__flama,
+  .mv2-nave--viajando,
+  .mv2-nave--molesta,
+  .mv2-hud__cicd::before,
+  .mv2-paso.is-actual .mv2-paso__icono {
+    animation: none;
+  }
+}

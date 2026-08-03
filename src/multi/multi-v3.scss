@@ -1,0 +1,18 @@
+// =============================================================================
+// MULTI V3 — la tercera órbita del multiverso.
+//
+// La entrada simple de DomoV2 (hub claro salvia + deck + ventanas de
+// navegador falsas + warp exprés) + el pilotaje de V1/V2 (pipeline, AI con
+// reglas, consola) + mundos de PÁGINA LARGA con parallax de scroll puro
+// (animation-timeline: view()). Voz tipográfica nueva: Fraunces (primera
+// serif del sistema) + Spline Sans Mono. Juego ligero: 4 hallazgos
+// opcionales; nada bloquea jamás.
+// =============================================================================
+
+@use "./v3/styles/base";
+@use "./v3/styles/parallax";
+@use "./v3/styles/koi";
+@use "./v3/styles/tebeo";
+@use "./v3/styles/cinta";
+@use "./v3/styles/fusion";
+@use "./v3/styles/gaceta";

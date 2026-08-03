@@ -1,0 +1,86 @@
+// =============================================================================
+// MULTI V3 — utilidades de scroll (la técnica que quedó de LINO).
+//
+// CSS scroll-driven animations: `animation-timeline: view()` — cero JS.
+// Regla de oro heredada: los delays temporales NO aplican a las timelines
+// de scroll; el stagger se hace desplazando animation-range (--2, --3…).
+// Fallback: en navegadores sin soporte, la animación (duración 0 + fill
+// both) salta directo al estado final — todo visible, nada roto.
+// =============================================================================
+
+// --- Reveal: entra subiendo mientras aparece en el viewport ---
+.mv3-reveal {
+  animation: mv3-sube linear both;
+  animation-timeline: view();
+  animation-range: entry 5% entry 45%;
+
+  &--2 {
+    animation-range: entry 14% entry 58%;
+  }
+
+  &--3 {
+    animation-range: entry 22% entry 70%;
+  }
+
+  &--4 {
+    animation-range: entry 30% entry 80%;
+  }
+}
+
+@keyframes mv3-sube {
+  from {
+    opacity: 0;
+    translate: 0 6vh;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+// --- Parallax lento: la capa decorativa se queda atrás al scrollear ---
+.mv3-lento {
+  display: inline-block;
+  animation: mv3-deriva linear both;
+  animation-timeline: view();
+  animation-range: cover 0% cover 100%;
+}
+
+@keyframes mv3-deriva {
+  from {
+    translate: 0 -6vh;
+  }
+  to {
+    translate: 0 6vh;
+  }
+}
+
+// --- Slider scroll-snap ---
+.mv3-snap {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.25rem 0.25rem 0.75rem;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mv3-snap__item {
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv3-reveal,
+  .mv3-reveal--2,
+  .mv3-reveal--3,
+  .mv3-reveal--4,
+  .mv3-lento {
+    animation: none;
+  }
+
+  .mv3-snap {
+    scroll-snap-type: none;
+  }
+}
