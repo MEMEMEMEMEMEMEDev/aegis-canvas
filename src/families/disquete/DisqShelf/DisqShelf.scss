@@ -1,0 +1,55 @@
+@use "../disquete-tools" as dq;
+
+.disq-shelf {
+  position: relative;
+  display: grid;
+  gap: 1.75rem;
+  padding: 2rem clamp(1rem, 4vw, 3rem) 2.5rem;
+  background: var(--disq-void);
+  color: var(--disq-label);
+  overflow: hidden;
+
+  @include dq.grain(0.3);
+}
+
+// El grano va detrás del contenido, no delante: si no, apaga el papel de las
+// etiquetas y las vuelve grises.
+.disq-shelf > * {
+  position: relative;
+  z-index: 1;
+}
+
+.disq-shelf__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.disq-shelf__title {
+  @include dq.micro(0.6rem, 700);
+  margin: 0;
+  color: var(--disq-label);
+}
+
+.disq-shelf__mark {
+  flex: none;
+  color: var(--disq-label);
+}
+
+.disq-shelf__grid {
+  display: grid;
+  // auto-fill + minmax: las columnas caben las que caben, y el disquete no se
+  // deforma para rellenar. `1fr` como máximo evita que un nombre largo dentro
+  // de una etiqueta ensanche su columna.
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--disq-min, 19rem)), 1fr));
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  align-items: start;
+}
+
+.disq-shelf__note {
+  @include dq.micro(0.5rem, 500);
+  margin: 0;
+  color: var(--disq-label);
+  opacity: 0.6;
+}

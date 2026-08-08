@@ -1,0 +1,213 @@
+@use "../../../abstracts" as ds;
+@use "../disquete-tools" as dq;
+
+.disq-disk {
+  // 90×94 mm: la proporción real de un 3,5". Cuadrarlo lo desdibuja.
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 3.5%;
+  aspect-ratio: 90 / 94;
+  width: 100%;
+  padding: 3.5%;
+  border-radius: var(--disq-radius-lg);
+  background: var(--disq-shell);
+  color: var(--disq-ink);
+  text-align: left;
+  text-decoration: none;
+  // El canto inferior más oscuro: el plástico tiene grosor.
+  box-shadow:
+    inset 0 -3px 0 var(--disq-shell-deep),
+    0 14px 28px rgb(0 0 0 / 0.45);
+  // El botón hereda font y quita el chrome del navegador.
+  border: 0;
+  font: inherit;
+  appearance: none;
+}
+
+// --- Colorways ---------------------------------------------------------------
+// Solo cambia el plástico. La etiqueta sigue siendo papel y la franja sigue
+// siendo tinta: es lo que mantiene reconocible al objeto entre colores.
+.disq-disk--shell {
+  background: var(--disq-shell);
+}
+.disq-disk--indigo {
+  background: var(--disq-indigo);
+  box-shadow:
+    inset 0 -3px 0 rgb(0 0 0 / 0.25),
+    0 14px 28px rgb(0 0 0 / 0.45);
+}
+.disq-disk--magenta {
+  background: var(--disq-magenta);
+  box-shadow:
+    inset 0 -3px 0 rgb(0 0 0 / 0.25),
+    0 14px 28px rgb(0 0 0 / 0.45);
+}
+.disq-disk--teal {
+  background: var(--disq-teal);
+  box-shadow:
+    inset 0 -3px 0 rgb(0 0 0 / 0.28),
+    0 14px 28px rgb(0 0 0 / 0.45);
+}
+.disq-disk--coral {
+  background: var(--disq-coral);
+  box-shadow:
+    inset 0 -3px 0 rgb(0 0 0 / 0.25),
+    0 14px 28px rgb(0 0 0 / 0.45);
+}
+.disq-disk--ink {
+  background: #26262c;
+  box-shadow:
+    inset 0 -3px 0 #14141a,
+    0 14px 28px rgb(0 0 0 / 0.5);
+}
+
+// --- Franja superior ---------------------------------------------------------
+.disq-disk__top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 4%;
+  align-items: center;
+  padding: 3.5% 4%;
+  border-radius: var(--disq-radius);
+  background: var(--disq-ink);
+  color: var(--disq-label);
+}
+
+// El hueco del cubo con la flecha de inserción: el "por aquí entra".
+.disq-disk__hub {
+  display: grid;
+  place-items: center;
+  width: 1.4em;
+  height: 1.9em;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.14);
+}
+
+.disq-disk__arrow {
+  width: 0;
+  height: 0;
+  border-inline: 0.32em solid transparent;
+  border-bottom: 0.42em solid var(--disq-label);
+  opacity: 0.85;
+}
+
+.disq-disk__maker {
+  display: grid;
+  gap: 0.15em;
+  min-width: 0;
+
+  b {
+    @include dq.micro(0.48rem, 700);
+  }
+
+  i {
+    @include dq.micro(0.44rem, 400);
+    font-style: normal;
+    opacity: 0.62;
+  }
+}
+
+// --- La compuerta ------------------------------------------------------------
+.disq-disk__gate {
+  position: relative;
+  overflow: hidden;
+  width: 2.6em;
+  height: 2.1em;
+  border-radius: 2px;
+}
+
+// El disco magnético, al fondo del hueco.
+.disq-disk__window {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background:
+    radial-gradient(circle at 50% 120%, rgb(255 255 255 / 0.16) 0 18%, transparent 22%),
+    var(--disq-media);
+}
+
+// La chapa que lo tapa. Con `translate` y no `left`: solo compone, así que
+// el navegador la mueve sin recalcular el layout de la tarjeta.
+.disq-disk__shutter {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  @include dq.chrome;
+  // La muesca vertical de la chapa real.
+  box-shadow: inset -0.35em 0 0 rgb(0 0 0 / 0.22);
+}
+
+// --- La etiqueta -------------------------------------------------------------
+.disq-disk__label {
+  display: block;
+  min-width: 0;
+  // Recorta en el canto del papel: es lo que redondea las bandas del pie
+  // cuando sangran.
+  overflow: hidden;
+  // El padding va en em y NO en % del ancho del disquete, para que las piezas
+  // de dentro puedan sangrar hasta el canto con un margen negativo del mismo
+  // valor. Con % contra em no hay número que los case, y esa era la razón por
+  // la que las bandas se salían del papel o se comían dos de sus tres tintas.
+  padding: 1em 1.1em;
+  border-radius: var(--disq-radius);
+  background: var(--disq-label);
+  color: var(--disq-ink);
+  // El papel está pegado sobre el plástico: un filo fino lo levanta.
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.5) inset, 0 2px 6px rgb(0 0 0 / 0.18);
+}
+
+// --- Tacos de las esquinas ---------------------------------------------------
+// En el diskette real son el agujero de protección de escritura y su gemelo.
+.disq-disk__stud {
+  position: absolute;
+  bottom: 1.2%;
+  width: 5%;
+  aspect-ratio: 1;
+  border-radius: 1px;
+  background: rgb(0 0 0 / 0.42);
+
+  &--bl {
+    left: 1.6%;
+  }
+  &--br {
+    right: 1.6%;
+  }
+}
+
+// --- Interacción -------------------------------------------------------------
+.disq-disk--activo {
+  cursor: pointer;
+}
+
+@include ds.focus-ring;
+
+.disq-disk:focus-visible {
+  outline: 2px solid var(--ds-focus-ring);
+  outline-offset: 4px;
+}
+
+// La compuerta se abre: al pasar por encima, al recibir el foco de teclado y
+// cuando el disquete está elegido. Los tres casos son lo mismo —"este es"—
+// así que comparten el gesto.
+@media (prefers-reduced-motion: no-preference) {
+  .disq-disk {
+    transition: translate 220ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 220ms ease;
+  }
+
+  .disq-disk__shutter {
+    transition: translate 260ms cubic-bezier(0.3, 0.9, 0.2, 1);
+  }
+
+  .disq-disk--activo:hover,
+  .disq-disk--activo:focus-visible {
+    translate: 0 -6px;
+  }
+}
+
+.disq-disk--activo:hover .disq-disk__shutter,
+.disq-disk--activo:focus-visible .disq-disk__shutter,
+.disq-disk.is-selected .disq-disk__shutter {
+  // 78% y no 100%: la chapa real no sale del todo del hueco, se recoge.
+  translate: 78% 0;
+}

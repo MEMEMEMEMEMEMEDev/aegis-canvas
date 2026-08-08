@@ -1,0 +1,73 @@
+@use "../../../abstracts" as ds;
+@use "../disquete-tools" as dq;
+
+.disq-title {
+  display: grid;
+  gap: 0.5em;
+  min-width: 0;
+}
+
+// El filete de catálogo: una caja partida en tres celdas con filetes finos.
+.disq-title__rule {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  // currentcolor: el filete se dibuja con la tinta de donde esté impreso. Con
+  // `--disq-ink` fijo era invisible sobre el pliego.
+  border: var(--disq-line) solid currentcolor;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.disq-title__cell {
+  @include dq.micro(0.5rem, 600);
+  padding: 0.3em 0.5em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  // El separador vive en la celda y no como borde del contenedor: así la
+  // última no arrastra un filete suelto al borde.
+  & + & {
+    border-left: var(--disq-line) solid currentcolor;
+  }
+}
+
+.disq-title__text {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.4em;
+  margin: 0;
+  min-width: 0;
+}
+
+.disq-title__words {
+  // `text-wrap: balance` reparte las líneas de un titular corto en lugar de
+  // dejar una palabra huérfana abajo.
+  text-wrap: balance;
+  min-width: 0;
+  // NO se parten palabras: un "CANVA/S" con la S sola en el renglón siguiente
+  // se lee como un error de composición. Si no cabe, cabe más pequeño — de eso
+  // se encarga el clamp del tamaño.
+  overflow-wrap: normal;
+  hyphens: none;
+}
+
+.disq-title--card .disq-title__text {
+  // El suelo baja a 1,05rem: dentro de un disquete de 15rem un titular de dos
+  // palabras largas necesita poder encogerse antes que romperse.
+  @include dq.display(clamp(1.05rem, 0.8rem + 1.1vw, 1.6rem));
+}
+
+.disq-title--hero .disq-title__text {
+  @include dq.display(clamp(2.4rem, 1.6rem + 5vw, 5.5rem), 900);
+}
+
+.disq-title__emblem {
+  flex: none;
+  // Alineado con la altura de mayúsculas del titular, no con su caja: la
+  // línea base de un display a 0.92 de interlineado deja aire arriba.
+  margin-top: 0.06em;
+}

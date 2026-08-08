@@ -1,0 +1,41 @@
+@use "../disquete-tools" as dq;
+
+.disq-rows {
+  @include dq.micro(0.52rem, 500);
+  counter-reset: pista;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--disq-ink);
+}
+
+.disq-rows__item {
+  counter-increment: pista;
+  min-width: 0;
+
+  &::before {
+    content: counter(pista);
+    margin-right: 0.45em;
+    font-weight: 700;
+    // El número va en índigo: es el único color de la letra pequeña, y sirve
+    // de guía para el ojo al recorrer la lista. En su variante profunda,
+    // porque el índigo de marca sobre papel se queda en 4,48:1.
+    color: var(--disq-indigo-deep);
+  }
+}
+
+// Apiladas: una por línea, con filete entre ellas.
+.disq-rows--stack .disq-rows__item {
+  padding: 0.4em 0;
+
+  & + & {
+    border-top: 1px solid rgb(21 21 26 / 0.14);
+  }
+}
+
+// Corridas: el tracklist impreso en dos o tres renglones.
+.disq-rows--inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15em 0.9em;
+}

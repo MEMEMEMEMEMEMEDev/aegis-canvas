@@ -1,0 +1,38 @@
+.disq-emblem {
+  display: inline-block;
+  flex: none;
+  // `inherit` y NO la tinta de la familia: el emblema se imprime tanto en el
+  // papel de una etiqueta como en el pliego oscuro, y con la tinta fija
+  // desaparecía sobre el segundo. Toma el color de la superficie.
+  color: inherit;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentcolor;
+    // vector-effect mantiene el trazo en 1,1px reales sea cual sea el tamaño:
+    // sin esto, un emblema a 1em queda con líneas de menos de medio píxel y
+    // desaparece; a 4em queda con trazos gruesos y parece otro dibujo.
+    stroke-width: 1.1;
+    vector-effect: non-scaling-stroke;
+    stroke-linejoin: round;
+  }
+}
+
+// El aviso va relleno: es una señal, y una señal hueca no señala.
+.disq-emblem--hazard svg path {
+  fill: currentcolor;
+}
+
+.disq-emblem--hazard svg line,
+.disq-emblem--hazard svg circle {
+  stroke: var(--disq-label);
+  fill: var(--disq-label);
+  stroke-width: 2;
+}
+
+.disq-emblem--disc svg rect {
+  fill: currentcolor;
+}

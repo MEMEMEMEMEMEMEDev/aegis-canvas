@@ -1,0 +1,36 @@
+@use "../disquete-tools" as dq;
+
+.disq-badge {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0.4em;
+  // Ver DisqEmblem: las piezas impresas toman la tinta de su superficie.
+  border: var(--disq-line) solid currentcolor;
+  border-radius: 2px;
+  padding: 0.2em 0.35em;
+}
+
+.disq-badge__mark {
+  @include dq.display(1.15em, 800);
+  display: grid;
+  place-items: center;
+  padding-inline: 0.15em;
+  border-right: var(--disq-line) solid currentcolor;
+  padding-right: 0.35em;
+}
+
+.disq-badge__lines {
+  display: grid;
+  align-content: center;
+  gap: 0.1em;
+
+  i {
+    @include dq.micro(0.42rem, 600);
+    font-style: normal;
+    white-space: nowrap;
+  }
+
+  i:last-child {
+    opacity: 0.62;
+  }
+}

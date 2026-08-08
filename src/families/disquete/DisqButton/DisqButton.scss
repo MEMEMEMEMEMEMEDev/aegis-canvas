@@ -1,0 +1,58 @@
+@use "../../../abstracts" as ds;
+@use "../disquete-tools" as dq;
+
+.disq-button {
+  @include dq.micro(0.62rem, 700);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.7em 1.1em;
+  border: var(--disq-line) solid var(--disq-ink);
+  border-radius: 2px;
+  background: none;
+  color: var(--disq-ink);
+  cursor: pointer;
+  // El canto sólido: no hay sombra difusa en esta familia, hay grosor.
+  box-shadow: 3px 3px 0 var(--disq-ink);
+  transition: translate 120ms ease, box-shadow 120ms ease;
+}
+
+.disq-button--ink.ds-button--solid {
+  background: var(--disq-ink);
+  color: var(--disq-label);
+  box-shadow: 3px 3px 0 var(--disq-indigo);
+}
+
+.disq-button--indigo.ds-button--solid {
+  border-color: var(--disq-indigo);
+  background: var(--disq-indigo);
+  color: #fff;
+  box-shadow: 3px 3px 0 var(--disq-ink);
+}
+
+// Sobre el pliego oscuro el contorno tiene que ser papel, no tinta.
+.disquete-scope > .disq-button.ds-button--outline,
+.disq-button--label {
+  border-color: var(--disq-label);
+  color: var(--disq-label);
+  box-shadow: 3px 3px 0 var(--disq-indigo);
+}
+
+@include ds.hover {
+  .disq-button {
+    translate: -1px -1px;
+    box-shadow: 4px 4px 0 var(--disq-indigo);
+  }
+}
+
+.disq-button:active {
+  // Se hunde hasta tocar su propia sombra: el milímetro real de una tecla.
+  translate: 3px 3px;
+  box-shadow: 0 0 0 var(--disq-ink);
+}
+
+.disq-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  translate: none;
+}

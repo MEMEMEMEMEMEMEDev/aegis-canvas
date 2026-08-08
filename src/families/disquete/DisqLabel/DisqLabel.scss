@@ -1,0 +1,98 @@
+@use "../disquete-tools" as dq;
+
+.disq-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  // La etiqueta llena el alto que le deja la carcasa: sin esto el contenido
+  // se apelotona arriba y el papel queda con un hueco muerto abajo.
+  height: 100%;
+  min-width: 0;
+  color: var(--disq-ink);
+}
+
+// Con lomo, el texto del canto se reserva un carril a la derecha con padding
+// y se pinta ahí ENCIMA. Como columna de rejilla le robaba ancho al titular,
+// y ese ancho es justo lo que decide si el nombre cabe en una línea.
+.disq-label--conlomo {
+  padding-right: 1.1em;
+}
+
+.disq-label__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  flex: 1;
+  min-width: 0;
+}
+
+.disq-label__summary {
+  @include dq.micro(0.54rem, 400);
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  // La letra pequeña de una etiqueta no va en mayúsculas cuando es una frase:
+  // en versalitas una oración de veinte palabras deja de leerse.
+  text-transform: none;
+  color: var(--disq-ink-soft);
+  // Dos líneas y corta. La etiqueta mide 90×94 mm: es el texto el que se
+  // ajusta al objeto, no el objeto el que crece con el texto.
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+// Las filas corridas, también a dos líneas.
+.disq-label__main > .disq-rows--inline {
+  max-height: 2.9em;
+  overflow: hidden;
+}
+
+// Las bandas sangran hasta el canto del papel: el padding de la etiqueta se
+// compensa en negativo. Es lo que las hace parecer impresas en el papel y no
+// una barra puesta encima.
+// El margen negativo es EXACTAMENTE el padding de la etiqueta (1em / 1.1em en
+// DisqDisk.scss): las bandas llegan al canto del papel y se ven las tres.
+.disq-label__main > .disq-stripes {
+  width: auto;
+  margin: 0.25em -1.1em -1em;
+  border-radius: 0;
+}
+
+// Con lomo, las bandas NO sangran por la derecha: ahí está el carril del texto
+// rotado, y pasar por debajo lo dejaba ilegible sobre el naranja.
+.disq-label--conlomo .disq-label__main > .disq-stripes {
+  margin-right: 0;
+}
+
+// El pie: sello a la izquierda, código de barras a la derecha, con el filete
+// de separación que llevan las etiquetas impresas.
+// El pie se ancla abajo: es lo último que se imprime en una etiqueta.
+.disq-label__foot {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.6em;
+  padding-top: 0.5em;
+  border-top: var(--disq-line) solid var(--disq-ink);
+}
+
+.disq-label__side {
+  @include dq.micro(0.46rem, 600);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  writing-mode: vertical-rl;
+  // La rotación de 180° hace que se lea de abajo hacia arriba, que es como
+  // se imprime el lomo de una caja de discos.
+  rotate: 180deg;
+  letter-spacing: 0.28em;
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--disq-ink-soft);
+}

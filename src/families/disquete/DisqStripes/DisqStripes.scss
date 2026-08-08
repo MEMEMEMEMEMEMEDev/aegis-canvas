@@ -1,0 +1,33 @@
+.disq-stripes {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0 0 2px 2px;
+
+  i {
+    display: block;
+  }
+
+  i:nth-child(1) {
+    background: var(--disq-band-1);
+  }
+  i:nth-child(2) {
+    background: var(--disq-band-2);
+  }
+  i:nth-child(3) {
+    background: var(--disq-band-3);
+  }
+}
+
+// El escalón: un corte diagonal suave en el arranque de las dos primeras
+// bandas. Al 12% parecía un defecto de troquel; al 4% se lee como el registro
+// desplazado de una tinta, que es el efecto que se busca.
+.disq-stripes--step {
+  i:nth-child(1) {
+    clip-path: polygon(4% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  i:nth-child(2) {
+    clip-path: polygon(2% 0, 100% 0, 100% 100%, 0 100%);
+  }
+}

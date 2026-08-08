@@ -46,9 +46,18 @@ fonts/
 | `space-mono/` | OFL 1.1 | CINTA (cuerpo/specs) |
 | `fraunces/` | OFL 1.1 | MULTI V3 (display serif del OS — primera serif del sistema) |
 | `spline-sans-mono/` | OFL 1.1 | MULTI V3 (consola del OS) |
+| `geist/` | OFL 1.1 | DISQUETE (display) — **variable**, un archivo 100–900 |
+| `geist-mono/` | OFL 1.1 | DISQUETE (micro/specs) — **variable**, un archivo 100–900 |
 
 Los glifos CJK (katakana de DENKI, kanji de KOI) usan el stack del sistema —
 no se autoaloja ninguna fuente japonesa completa.
+
+DISQUETE es la primera familia con **superfamilia** (sans + mono con las
+mismas proporciones) y la primera con **fuentes variables**: los dos archivos
+juntos pesan 52 KB y cubren los nueve pesos, menos que Anton sola (40 KB) más
+cualquier segundo peso. Cuando haya que reemplazar un par estático, este es el
+patrón a seguir. La procedencia exacta de cada una está en su
+`PROCEDENCIA.md`.
 
 ## Estado legal (resumen)
 

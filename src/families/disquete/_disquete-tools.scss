@@ -1,0 +1,54 @@
+// Herramientas SCSS de la familia DISQUETE (no emiten CSS por sí solas).
+
+// Micro-fila: el mono diminuto y espaciado de las etiquetas técnicas. Es la
+// voz secundaria de la familia y aparece en casi todos los componentes, así
+// que vive en un solo sitio.
+@mixin micro($size: 0.55rem, $weight: 500) {
+  font-family: var(--disq-font-mono);
+  font-size: $size;
+  font-weight: $weight;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+// Titular: Geist en peso negro con tracking NEGATIVO. El tracking apretado a
+// tamaño grande es la mitad del look suizo; sin él el titular se deshace.
+@mixin display($size, $weight: 800) {
+  font-family: var(--disq-font-display);
+  font-size: $size;
+  font-weight: $weight;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+// Cromo de la compuerta: metal cepillado. Las paradas duras (y no un
+// gradiente suave) son lo que lo hace leer como chapa y no como plástico.
+@mixin chrome($base: var(--disq-metal), $deep: var(--disq-metal-deep)) {
+  background-image: linear-gradient(
+    100deg,
+    #{$deep} 0%,
+    #{$base} 18%,
+    #ffffff 34%,
+    #{$base} 46%,
+    #{$deep} 62%,
+    #{$base} 80%,
+    #{$deep} 100%
+  );
+}
+
+// Grano del pliego: ruido generado con feTurbulence en un data URI. Se
+// escribe aquí y no se descarga: la familia no depende de ninguna imagen.
+// `overlay` sobre el fondo oscuro da la textura de cartón fotografiado.
+@mixin grain($opacity: 0.35) {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: $opacity;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+}

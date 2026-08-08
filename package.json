@@ -1,6 +1,6 @@
 {
   "name": "@ahroi/foundation",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Design system v2 (reconstrucción desde cero): tokens SCSS + theming por CSS vars (--ds-*), primitivos universales y familias de componentes. Consumible por cualquier app.",
   "license": "UNLICENSED",
   "private": true,
@@ -22,6 +22,7 @@
     "./domo": "./src/families/domo/index.ts",
     "./denki": "./src/families/denki/index.ts",
     "./cinta": "./src/families/cinta/index.ts",
+    "./disquete": "./src/families/disquete/index.ts",
     "./obsidiana": "./src/families/obsidiana/index.ts",
     "./proto": "./src/families/proto/index.ts",
     "./css": "./dist/foundation.css",

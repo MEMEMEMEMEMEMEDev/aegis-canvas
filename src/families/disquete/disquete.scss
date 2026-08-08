@@ -1,0 +1,90 @@
+// =============================================================================
+// DISQUETE — familia "diskette de 3,5 pulgadas"
+// (referencias-portafolio/1-familia-idea/1..4-ref.png).
+//
+// La idea NO es tipografía retro. La referencia es diseño gráfico
+// CONTEMPORÁNEO —suizo, neutro, titulares negros enormes con tracking
+// negativo y filas de micro-texto espaciadas— aplicado a un objeto obsoleto.
+// Ese contraste es la familia entera: si la tipografía también fuera de
+// época, se convertiría en nostalgia; siendo actual, el objeto se lee como
+// una decisión y no como un disfraz.
+//
+// Cada proyecto es un DISQUETE: carcasa de plástico, compuerta metálica que
+// se desliza, y una etiqueta de papel donde vive el arte. Al pasar por
+// encima, la compuerta se abre y se ve el disco magnético de dentro.
+//
+// Fuentes self-hosted (src/fonts/README.md):
+//   Display: Geist · OFL 1.1 — variable 100–900, un solo archivo de 29 KB.
+//   Micro/specs: Geist Mono · OFL 1.1 — 23 KB.
+// Es la primera familia del sistema con una SUPERFAMILIA: sans y mono con
+// las mismas proporciones, que es justo lo que hace que un titular enorme y
+// una fila de 0,55rem se lean como impresos por la misma máquina.
+//
+// Isla OSCURA (el pliego de mockups) → mini-contrato en .disquete-scope.
+// Los componentes lo importan vía TSX (import "../disquete.scss") — Vite dedupe.
+// =============================================================================
+
+// Variable en el eje wght: un archivo cubre 100–900. `font-weight: 100 900`
+// en el @font-face es lo que le dice al navegador que puede interpolar.
+@font-face {
+  font-family: "Geist";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../../fonts/geist/geist-vf-latin-wght-normal.woff2") format("woff2-variations");
+}
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../../fonts/geist-mono/geist-mono-vf-latin-wght-normal.woff2")
+    format("woff2-variations");
+}
+
+.disquete-scope {
+  // --- Mini-contrato de la familia ---
+  --disq-void: #0e0e11; // el pliego: casi negro
+  --disq-void-soft: #191920; // superficie elevada sobre el pliego
+  --disq-shell: #d7d4cb; // plástico gris cálido: el diskette de fábrica
+  --disq-shell-deep: #bebbb1; // canto del plástico en sombra
+  --disq-label: #f3f0e7; // papel de la etiqueta
+  --disq-ink: #15151a; // tinta
+  --disq-ink-soft: #56565f; // texto secundario sobre etiqueta
+  --disq-metal: #bcc0c8; // compuerta metálica
+  --disq-metal-deep: #8b8f97; // canto de la compuerta
+  --disq-media: #3a2a1e; // el disco magnético de dentro
+
+  // Colorways del plástico. El pliego trae ocho; acá quedan los cuatro que
+  // se distinguen de un vistazo, que es para lo que sirve un color de tapa.
+  // Tres índigos, y no es indecisión: la familia vive sobre DOS superficies
+  // —el pliego casi negro y el papel crema— y un solo tono no llega a AA en
+  // las dos. El de marca es para rellenos, bordes y foco, donde el umbral es
+  // 3:1; los otros dos son exclusivamente para TEXTO.
+  --disq-indigo: #5a5ae0; // marca: rellenos, bordes, foco
+  --disq-indigo-deep: #4a4ac9; // texto sobre papel (el de marca da 4,48:1)
+  --disq-indigo-soft: #8b8bf0; // texto sobre el pliego (el de marca da 3,64:1)
+  --disq-magenta: #cf4bc2;
+  --disq-teal: #2b8a8a;
+  --disq-coral: #e0564e;
+
+  // Las bandas apiladas del pie de etiqueta (el degradado de atardecer,
+  // impreso como tres tintas planas y no como gradiente: es offset).
+  --disq-band-1: #f2c14e;
+  --disq-band-2: #ee8b3f;
+  --disq-band-3: #dd554d;
+
+  --disq-line: 1.5px; // filete de la etiqueta
+  --disq-radius: 4px; // radio del papel y las cajas
+  --disq-radius-lg: 10px; // radio de la carcasa
+
+  --disq-font-display: "Geist", system-ui, sans-serif;
+  --disq-font-mono: "Geist Mono", ui-monospace, monospace;
+
+  // Foco índigo: el único color que la familia usa para "esto responde".
+  --ds-focus-ring: var(--disq-indigo);
+
+  background: var(--disq-void);
+  color: var(--disq-label);
+  font-family: var(--disq-font-mono);
+}

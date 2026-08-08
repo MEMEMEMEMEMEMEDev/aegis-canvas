@@ -1,0 +1,32 @@
+@use "../disquete-tools" as dq;
+
+.disq-tag {
+  @include dq.micro(0.5rem, 600);
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25em 0.55em;
+  border: var(--disq-line) solid currentcolor;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.disq-tag--line {
+  color: var(--disq-ink);
+}
+
+.disq-tag--ink {
+  border-color: var(--disq-ink);
+  background: var(--disq-ink);
+  color: var(--disq-label);
+}
+
+.disq-tag--indigo {
+  border-color: var(--disq-indigo);
+  background: var(--disq-indigo);
+  color: #fff;
+}
+
+// Para usar sobre el pliego oscuro, fuera de la etiqueta.
+.disq-tag--label {
+  color: var(--disq-label);
+}
