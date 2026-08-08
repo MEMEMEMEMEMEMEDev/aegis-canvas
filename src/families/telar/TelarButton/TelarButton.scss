@@ -57,7 +57,8 @@
     color: var(--telar-ink);
 
     &.telar-button--fucsia {
-      background: var(--telar-fucsia);
+      // Paso profundo: acá el fucsia es fondo de texto crema. Ver telar.scss.
+      background: var(--telar-fucsia-deep);
       color: var(--telar-cream);
     }
     &.telar-button--cobre {

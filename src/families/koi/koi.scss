@@ -22,21 +22,21 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("../../fonts/poppins/poppins-v24-latin_latin-ext-regular.woff2") format("woff2");
+  src: url("../../fonts/poppins/poppins-latin-400-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("../../fonts/poppins/poppins-v24-latin_latin-ext-500.woff2") format("woff2");
+  src: url("../../fonts/poppins/poppins-latin-500-normal.woff2") format("woff2");
 }
 @font-face {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("../../fonts/poppins/poppins-v24-latin_latin-ext-600.woff2") format("woff2");
+  src: url("../../fonts/poppins/poppins-latin-600-normal.woff2") format("woff2");
 }
 
 .koi-scope {
@@ -46,7 +46,10 @@
   --koi-indigo: #1d2749; // superficie media
   --koi-blue: #2f6fd8; // blob frío
   --koi-violet: #6b4df0; // blob violeta
-  --koi-sun: #f04a2f; // hinomaru
+  --koi-sun: #f04a2f; // hinomaru: acento, glow, bordes
+  // El hinomaru con blanco encima da 3,66:1. Este es el paso para cuando el
+  // rojo hace de FONDO de texto (botón sólido, píldora): 5,3:1.
+  --koi-sun-deep: #c43a20;
   --koi-gold: #f6b83c; // linterna
   --koi-snow: #faf7f2; // blanco cálido
   --koi-ink: #0d0d12; // tinta sobre snow

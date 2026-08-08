@@ -22,8 +22,9 @@
     color: var(--koi-ink);
   }
   &--sun {
-    background: var(--koi-sun);
-    border: 1px solid var(--koi-sun);
+    // Paso profundo: lleva texto encima. Ver koi.scss.
+    background: var(--koi-sun-deep);
+    border: 1px solid var(--koi-sun-deep);
     color: var(--koi-snow);
   }
   &--gold {

@@ -103,6 +103,14 @@ export default function MesoDropdown({
     }
   };
 
+  // El nombre accesible tiene que CONTENER el texto visible (WCAG 2.5.3,
+  // "Label in Name"). Con `aria-label="Periodo geológico"` sobre un botón que
+  // muestra "Elegir estrato…", quien usa control por voz dice lo que ve, no
+  // coincide con nada, y el control se vuelve inalcanzable. Se compone: el
+  // rótulo da el contexto y el texto visible va detrás.
+  const textoVisible = selectedOption ? selectedOption.label : placeholder;
+  const nombreAccesible = ariaLabel ? `${ariaLabel}: ${textoVisible}` : undefined;
+
   return (
     <div className={cx("meso-dropdown", isOpen && "is-open", className)}>
       <button
@@ -112,7 +120,7 @@ export default function MesoDropdown({
         disabled={disabled}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        aria-label={ariaLabel}
+        aria-label={nombreAccesible}
         onClick={() => (isOpen ? close() : openAndFocus())}
         onKeyDown={(e) => {
           if (!isOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")) {

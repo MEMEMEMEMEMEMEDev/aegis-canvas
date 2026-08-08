@@ -62,8 +62,9 @@
     }
 
     &.koi-button--sun {
-      background: var(--koi-sun);
-      border-color: var(--koi-sun);
+      // Paso profundo: lleva texto encima. Ver koi.scss.
+      background: var(--koi-sun-deep);
+      border-color: var(--koi-sun-deep);
       color: var(--koi-snow);
       box-shadow: 0 0 24px rgb(240 74 47 / 0.35);
 

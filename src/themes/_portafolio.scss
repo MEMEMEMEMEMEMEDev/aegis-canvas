@@ -11,7 +11,10 @@
 
   --ds-text: #{fn.palette("bone", 100)};
   --ds-text-muted: #{fn.palette("bone", 400)};
-  --ds-text-subtle: #{fn.palette("bone", 500)};
+  // bone 400 y no 500: sobre el basalto oscuro el 500 se queda en 4,13:1 y
+  // AA pide 4,5. El texto "sutil" tiene que ser legible; para atenuar sin
+  // perder contraste está el TAMAÑO, no el gris.
+  --ds-text-subtle: #{fn.palette("bone", 400)};
   --ds-text-inverse: #{fn.palette("basalt", 900)};
 
   --ds-border-subtle: #{fn.palette("basalt", 700)};
@@ -26,6 +29,12 @@
   --ds-success: #{fn.palette("fern", 400)};
   --ds-warning: #{fn.palette("amber", 300)};
   --ds-danger: #{fn.palette("oxide", 400)};
+  // El óxido 400 con texto blanco encima da 3,69:1. Cuando el rojo deja de
+  // ser un color de aviso y pasa a ser el FONDO de un botón, hace falta el
+  // paso profundo: 5,84:1. Mismo patrón que --denki-red-deep y
+  // --disq-indigo-deep — un color de marca necesita variante cuando carga
+  // texto encima.
+  --ds-danger-solid: #{fn.palette("oxide", 500)};
   --ds-info: #{fn.palette("sky", 400)};
 
   --ds-focus-ring: #{fn.palette("amber", 400)};
@@ -41,7 +50,8 @@
 
   --ds-text: #{fn.palette("basalt", 900)};
   --ds-text-muted: #{fn.palette("bone", 600)};
-  --ds-text-subtle: #{fn.palette("bone", 500)};
+  // bone 600 en el tema claro: el 500 sobre hueso da 3,58:1.
+  --ds-text-subtle: #{fn.palette("bone", 600)};
   --ds-text-inverse: #{fn.palette("bone", 100)};
 
   --ds-border-subtle: #{fn.palette("bone", 200)};
@@ -56,6 +66,7 @@
   --ds-success: #{fn.palette("fern", 500)};
   --ds-warning: #{fn.palette("amber", 500)};
   --ds-danger: #{fn.palette("oxide", 500)};
+  --ds-danger-solid: #{fn.palette("oxide", 500)};
   --ds-info: #{fn.palette("sky", 500)};
 
   --ds-focus-ring: #{fn.palette("amber", 500)};
