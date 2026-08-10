@@ -1,0 +1,126 @@
+@use "../bazar-tools" as bz;
+
+.bazar-resena {
+  position: relative;
+  background: var(--bazar-label);
+  border: 3px solid var(--bazar-rosa);
+  border-radius: 12px;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  // La sombra rosa dura: la reseña es la calcomanía grande del pliego.
+  box-shadow: 6px 7px 0 0 var(--bazar-rosa);
+}
+
+.bazar-resena__cerrar {
+  position: absolute;
+  top: -1rem;
+  right: -0.9rem;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  background: var(--bazar-label);
+  border: 2.5px solid var(--bazar-tinta);
+  color: var(--bazar-tinta);
+  font-weight: 900;
+  font-size: 0.95rem;
+}
+
+.bazar-resena__principal {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
+}
+
+// El avatar asoma por encima del globo, como en la referencia: pisa el
+// margen superior de la tarjeta.
+.bazar-resena__avatar {
+  margin-top: -2.2rem;
+}
+
+// El globo entintado, ligeramente sesgado — texto incluido, porque en la
+// referencia la calcomanía entera está torcida. A -4° el párrafo largo
+// sigue siendo cómodo; el sesgo completo de las placas aquí mareaba.
+.bazar-resena__globo {
+  background: var(--bazar-tinta);
+  color: var(--bazar-label);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  transform: skewX(-4deg);
+  font-size: 0.92rem;
+  line-height: 1.55;
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.bazar-resena__firma {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 1.5rem;
+  margin-top: 0.9rem;
+}
+
+.bazar-resena__quien {
+  display: grid;
+  gap: 0.3rem;
+  justify-items: start;
+}
+
+.bazar-resena__rol {
+  @include bz.micro(0.55rem, 600);
+  color: var(--bazar-tinta-soft);
+}
+
+.bazar-resena__placa {
+  @include bz.placa;
+  @include bz.display(1.05rem, 92%, 850);
+  margin: 0; // la placa puede ser un h3: fuera el margen de encabezado
+}
+
+// El rating pisa el borde inferior derecho: pegado después, encima de todo.
+.bazar-resena__rating {
+  margin: -0.4rem -1.8rem -2.2rem 0;
+}
+
+.bazar-resena__hilo {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0.9rem 0 0;
+  border-top: 2px dashed var(--bazar-papel-deep);
+  display: grid;
+  gap: 0.7rem;
+
+  li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.6rem;
+    align-items: start;
+  }
+}
+
+.bazar-resena__respuesta {
+  background: var(--bazar-papel);
+  border: 2px solid var(--bazar-tinta);
+  border-radius: 8px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+
+  p {
+    margin: 0.2rem 0 0;
+  }
+}
+
+.bazar-resena__nombre {
+  @include bz.micro(0.58rem, 700);
+  color: var(--bazar-tinta);
+}

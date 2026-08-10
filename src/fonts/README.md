@@ -48,6 +48,9 @@ fonts/
 | `spline-sans-mono/` | OFL 1.1 | MULTI V3 (consola del OS) |
 | `geist/` | OFL 1.1 | DISQUETE (display) — **variable**, un archivo 100–900 |
 | `geist-mono/` | OFL 1.1 | DISQUETE (micro/specs) — **variable**, un archivo 100–900 |
+| `anybody/` | OFL 1.1 | BAZAR (display) — **variable en DOS ejes** (wght 100–900 · wdth 50–150) |
+| `schibsted-grotesk/` | OFL 1.1 | BAZAR (cuerpo) — **variable**, wght 400–900 |
+| `martian-mono/` | OFL 1.1 | BAZAR (micro/telemetría) — **variable**, wght 100–800 |
 
 Los glifos CJK (katakana de DENKI, kanji de KOI) usan el stack del sistema —
 no se autoaloja ninguna fuente japonesa completa.

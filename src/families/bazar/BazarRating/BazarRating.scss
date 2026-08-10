@@ -1,0 +1,45 @@
+@use "../bazar-tools" as bz;
+
+.bazar-rating {
+  @include bz.ventana(var(--bazar-morado));
+  @include bz.calco(3px, 4px);
+  display: inline-block;
+  width: fit-content;
+}
+
+.bazar-rating--rosa {
+  border-color: var(--bazar-rosa);
+}
+
+.bazar-rating__corazones {
+  display: flex;
+  justify-content: center;
+  gap: 0.45em;
+  background: var(--bazar-morado);
+  color: var(--bazar-label);
+  padding: 0.3em 1em;
+  font-size: 0.8rem;
+  line-height: 1.2;
+
+  .bazar-rating--rosa & {
+    background: var(--bazar-rosa);
+    color: var(--bazar-tinta);
+  }
+
+  // Los vacíos: el mismo corazón, apagado. Decoración pura — el dato
+  // accesible es el aria-label del conjunto.
+  span:not(.bazar-rating__lleno) {
+    opacity: 0.35;
+  }
+}
+
+.bazar-rating__valor {
+  @include bz.display(1.15rem, 105%, 850);
+  text-align: center;
+  padding: 0.3em 0.9em;
+  color: var(--bazar-morado-deep);
+
+  .bazar-rating--rosa & {
+    color: var(--bazar-rosa-deep);
+  }
+}

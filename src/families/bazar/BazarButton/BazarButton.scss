@@ -1,0 +1,67 @@
+@use "../bazar-tools" as bz;
+@use "../../../abstracts" as ds;
+
+.bazar-boton {
+  @include bz.display(0.85rem, 95%, 800);
+  @include bz.calco(3px, 4px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  background: var(--bazar-rosa);
+  color: var(--bazar-tinta);
+  border: 2.5px solid var(--bazar-tinta);
+  border-radius: 999px;
+  padding: 0.55em 0.6em 0.55em 1.2em;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    @include ds.focus-ring;
+  }
+
+  @media (hover: hover) {
+    &:hover .bazar-boton__flecha svg {
+      transform: translate(2px, -2px);
+    }
+  }
+}
+
+.bazar-boton--tinta {
+  background: var(--bazar-tinta);
+  color: var(--bazar-label);
+  border-color: var(--bazar-tinta);
+
+  .bazar-boton__flecha {
+    background: var(--bazar-rosa);
+    color: var(--bazar-tinta);
+  }
+}
+
+.bazar-boton--linea {
+  background: transparent;
+  color: var(--bazar-tinta);
+}
+
+.bazar-boton__texto {
+  transform: skewX(var(--bazar-sesgo));
+}
+
+.bazar-boton__flecha {
+  display: grid;
+  place-items: center;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 999px;
+  background: var(--bazar-tinta);
+  color: var(--bazar-label);
+
+  svg {
+    width: 0.95em;
+    height: 0.95em;
+    transition: transform 140ms ease;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+}

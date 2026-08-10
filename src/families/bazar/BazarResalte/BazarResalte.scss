@@ -1,0 +1,7 @@
+// Solo tiene sentido sobre superficie oscura: el rosa-soft da 8,6:1 sobre
+// el chrome/tinta. Sobre papel usaría rosa-deep — pero ahí la referencia
+// no resalta: el resalte es un gesto de los paneles oscuros.
+.bazar-resalte {
+  color: var(--bazar-rosa-soft);
+  font-weight: 700;
+}

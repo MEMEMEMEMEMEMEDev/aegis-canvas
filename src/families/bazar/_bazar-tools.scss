@@ -1,0 +1,73 @@
+// Herramientas SCSS de la familia BAZAR (no emiten CSS por sí solas).
+
+// Micro-fila: la telemetría del portal — mono diminuto, espaciado, en caja
+// alta. Es la voz secundaria y aparece en casi todos los componentes.
+@mixin micro($size: 0.55rem, $weight: 500) {
+  font-family: var(--bazar-font-mono);
+  font-size: $size;
+  font-weight: $weight;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+// Titular de cartel: Anybody con el eje de anchura abierto. La anchura es
+// EL parámetro del look — 125% es el banner, 78% la placa condensada.
+// El sesgo no va aquí: se inclina el BLOQUE (como las calcomanías de la
+// referencia), no la letra.
+@mixin display($size, $stretch: 125%, $weight: 900) {
+  font-family: var(--bazar-font-display);
+  font-size: $size;
+  font-weight: $weight;
+  font-stretch: $stretch;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+// Placa autoadhesiva: el paralelogramo sesgado de los nombres. El texto va
+// sesgado CON la placa — en la referencia la calcomanía entera está torcida.
+@mixin placa($fondo: var(--bazar-tinta), $tinta: var(--bazar-label)) {
+  display: inline-block;
+  transform: skewX(var(--bazar-sesgo));
+  background: $fondo;
+  color: $tinta;
+  padding: 0.3em 0.85em;
+  border-radius: 3px;
+}
+
+// Marco de ventana retro: borde grueso + radio corto. Lo comparten la
+// ventana grande y la ventanita del rating para que se lean como el mismo
+// sistema operativo inventado.
+@mixin ventana($tono: var(--bazar-morado)) {
+  border: calc(var(--bazar-linea) + 1px) solid $tono;
+  border-radius: var(--bazar-radio);
+  background: var(--bazar-papel);
+  overflow: hidden;
+}
+
+// Trama del pliego: el punteado de imprenta del papel crema. Radial-gradient
+// repetido — cero imágenes, cero requests.
+@mixin trama($color: rgb(23 21 26 / 5%), $paso: 7px) {
+  background-image: radial-gradient($color 1px, transparent 1.4px);
+  background-size: $paso $paso;
+}
+
+// Grano del chrome: ruido feTurbulence en data URI, como el cartón
+// fotografiado de la referencia 4. La familia no depende de ninguna imagen.
+@mixin grain($opacity: 0.28) {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: $opacity;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+}
+
+// Sombra de calcomanía: dura, sin difuminar — es impresión, no elevación.
+@mixin calco($x: 3px, $y: 4px, $color: rgb(23 21 26 / 35%)) {
+  box-shadow: #{$x} #{$y} 0 0 #{$color};
+}

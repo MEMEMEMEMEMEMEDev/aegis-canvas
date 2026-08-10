@@ -1,0 +1,39 @@
+@use "../bazar-tools" as bz;
+
+.bazar-sticker {
+  @include bz.display(0.9rem, 100%, 850);
+  @include bz.calco(3px, 4px);
+  position: relative;
+  display: inline-block;
+  transform: rotate(var(--bazar-sticker-angulo, -6deg));
+  background: var(--bazar-label);
+  color: var(--bazar-tinta);
+  border: 2px solid var(--bazar-tinta);
+  border-radius: 6px;
+  padding: 0.4em 0.85em;
+
+  // El troquel: la línea punteada por dentro del borde, como una
+  // calcomanía por recortar.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 1.5px dashed currentcolor;
+    border-radius: 3px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
+.bazar-sticker--rosa {
+  background: var(--bazar-rosa);
+}
+
+.bazar-sticker--tinta {
+  background: var(--bazar-tinta);
+  color: var(--bazar-label);
+}
+
+.bazar-sticker--holo {
+  background: var(--bazar-holo);
+}

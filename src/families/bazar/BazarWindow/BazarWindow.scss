@@ -1,0 +1,101 @@
+@use "../bazar-tools" as bz;
+
+.bazar-ventana {
+  @include bz.ventana(var(--bazar-morado));
+  @include bz.calco(4px, 5px);
+  position: relative;
+  // `overflow: visible` y no el hidden del mixin: el cerrar muerde la
+  // esquina por FUERA del marco. El recorte interior lo hace el radio de
+  // la barra y el cuerpo por sí solos.
+  overflow: visible;
+}
+
+.bazar-ventana--rosa {
+  border-color: var(--bazar-rosa);
+}
+
+.bazar-ventana--tinta {
+  border-color: var(--bazar-tinta);
+}
+
+.bazar-ventana__barra {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem;
+  background: var(--bazar-morado);
+  color: var(--bazar-label);
+  padding: 0.5rem 0.9rem;
+  border-radius: calc(var(--bazar-radio) - 3px) calc(var(--bazar-radio) - 3px) 0 0;
+
+  .bazar-ventana--rosa & {
+    background: var(--bazar-rosa);
+    color: var(--bazar-tinta);
+  }
+
+  .bazar-ventana--tinta & {
+    background: var(--bazar-tinta);
+  }
+}
+
+.bazar-ventana__lineas {
+  display: grid;
+  gap: 2.5px;
+
+  i {
+    width: 12px;
+    height: 2px;
+    background: currentcolor;
+    border-radius: 1px;
+  }
+}
+
+.bazar-ventana__titulo {
+  @include bz.display(0.9rem, 85%, 800);
+  letter-spacing: 0.05em;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bazar-ventana__botones {
+  display: flex;
+  gap: 4px;
+
+  i {
+    width: 9px;
+    height: 9px;
+    border: 2px solid currentcolor;
+
+    &:last-child {
+      background: currentcolor;
+    }
+  }
+}
+
+// El cerrar que muerde la esquina, mitad fuera del marco. Decorativo:
+// en la referencia tampoco cierra nada — es parte del empaque.
+.bazar-ventana__cerrar {
+  position: absolute;
+  top: -0.85rem;
+  right: -0.85rem;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  background: var(--bazar-label);
+  border: 2.5px solid var(--bazar-tinta);
+  color: var(--bazar-tinta);
+  font-weight: 900;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.bazar-ventana__cuerpo {
+  padding: clamp(0.9rem, 3vw, 1.4rem);
+  color: var(--bazar-tinta);
+  border-radius: 0 0 calc(var(--bazar-radio) - 3px) calc(var(--bazar-radio) - 3px);
+  background: var(--bazar-papel);
+}

@@ -1,0 +1,44 @@
+@use "../bazar-tools" as bz;
+@use "../../../abstracts" as ds;
+
+.bazar-tabs {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1.4rem;
+  }
+}
+
+.bazar-tabs__tab {
+  @include bz.display(0.8rem, 95%, 800);
+  display: inline-block;
+  color: var(--bazar-tinta);
+  text-decoration: none;
+  padding: 0.5em 0.4em;
+  border-radius: 999px;
+
+  @media (hover: hover) {
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.3em;
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  &:focus-visible {
+    @include ds.focus-ring;
+  }
+}
+
+// La activa: entintada con el texto rosa, como el GOLD MEMBER de la
+// referencia. El rosa-soft sobre tinta da 8,6:1 — AA de sobra.
+.bazar-tabs__tab--activa {
+  background: var(--bazar-tinta);
+  color: var(--bazar-rosa-soft);
+  padding: 0.5em 1.2em;
+  transform: rotate(-2deg);
+}

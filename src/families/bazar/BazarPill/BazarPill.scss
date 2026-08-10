@@ -1,0 +1,31 @@
+@use "../bazar-tools" as bz;
+
+.bazar-pill {
+  @include bz.micro(0.6rem, 600);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  padding: 0.5em 1em;
+  border-radius: 999px;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    flex: none;
+  }
+}
+
+.bazar-pill--tinta {
+  background: var(--bazar-tinta);
+  color: var(--bazar-label);
+}
+
+.bazar-pill--linea {
+  border: 2px solid var(--bazar-tinta);
+  color: var(--bazar-tinta);
+}
+
+.bazar-pill--rosa {
+  background: var(--bazar-rosa);
+  color: var(--bazar-tinta);
+}

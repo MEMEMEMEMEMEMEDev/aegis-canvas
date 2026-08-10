@@ -1,0 +1,85 @@
+@use "../bazar-tools" as bz;
+
+// El marco entintado. La esquina cortada (clip-path) es de la referencia 1:
+// el empaque tiene los cantos a 45°, no redondeados.
+.bazar-banner {
+  background: var(--bazar-tinta);
+  padding: 0.55rem;
+  border-radius: 12px;
+  clip-path: polygon(
+    0 0,
+    calc(100% - 26px) 0,
+    100% 26px,
+    100% 100%,
+    26px 100%,
+    0 calc(100% - 26px)
+  );
+}
+
+.bazar-banner__panel {
+  background: var(--bazar-rosa);
+  color: var(--bazar-tinta);
+  border-radius: 7px;
+  padding: clamp(0.9rem, 3vw, 1.6rem) clamp(1rem, 4vw, 2rem) clamp(1.1rem, 3.5vw, 1.9rem);
+  overflow: hidden;
+}
+
+.bazar-banner--morado .bazar-banner__panel {
+  background: var(--bazar-morado);
+  color: var(--bazar-label);
+}
+
+.bazar-banner--holo .bazar-banner__panel {
+  background: var(--bazar-chrome-soft);
+  color: var(--bazar-label);
+}
+
+.bazar-banner__cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: clamp(0.6rem, 2vw, 1.1rem);
+}
+
+.bazar-banner__kicker {
+  @include bz.placa;
+  @include bz.micro(0.6rem, 700);
+}
+
+.bazar-banner__meta {
+  @include bz.micro(0.55rem, 600);
+  opacity: 0.85;
+}
+
+.bazar-banner__titulo {
+  margin: 0;
+}
+
+// El titular: Anybody expandida al 125%, el bloque sesgado —no la letra— y
+// la sombra dura de calcomanía. `overflow-wrap` porque un titular de cartel
+// con una palabra larga en móvil tiene que partirse, no desbordar.
+.bazar-banner__texto {
+  @include bz.display(clamp(2.3rem, 8vw, 5.6rem), 125%);
+  display: block;
+  transform: skewX(var(--bazar-sesgo));
+  color: var(--bazar-label);
+  text-shadow: 0.045em 0.045em 0 var(--bazar-tinta);
+  // Primero el guion del idioma; `anywhere` queda de red de seguridad para
+  // tokens que el diccionario no sabe partir (URLs, siglas).
+  hyphens: auto;
+  overflow-wrap: anywhere;
+  padding-right: 0.06em; // aire para el sesgo: sin él la última letra se corta
+}
+
+// En holo el tornasol ES el relleno (background-clip): la sombra dura de
+// texto mancharía el recorte, así que fuera.
+.bazar-banner--holo .bazar-banner__texto {
+  text-shadow: none;
+}
+
+.bazar-banner__nota {
+  @include bz.micro(0.62rem, 600);
+  margin: clamp(0.5rem, 2vw, 0.9rem) 0 0;
+}

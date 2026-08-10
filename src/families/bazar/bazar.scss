@@ -1,0 +1,122 @@
+// =============================================================================
+// BAZAR — familia "portal de la web temprana"
+// (referencias-portafolio/2-familia-idea/1..4-idea.png).
+//
+// La referencia es una página de navegador FICTICIA que vende algo: chrome
+// oscuro con barra de dirección, pliego de papel crema, banners sesgados
+// enormes, ventanas retro, placas de nombre en paralelogramo, reseñas con
+// rating, stickers pegados en ángulo y fichas de producto con su precio.
+// La gracia no es el pixel-art nostálgico: es la MAQUETACIÓN — todo está
+// inclinado, superpuesto y pegado como calcomanía, pero con tipografía e
+// impresión de cartel contemporáneo. El desorden es compuesto.
+//
+// Fuentes self-hosted (src/fonts/README.md), las tres OFL 1.1 y variables:
+//   Display: Anybody — ejes wght 100–900 Y wdth 50–150 en UN archivo (56 KB):
+//     condensada en las placas, expandida en los banners. Las dos voces del
+//     cartel salen de la misma fuente, por eso se eligió.
+//   Cuerpo:  Schibsted Grotesk — wght 400–900 (46 KB).
+//   Micro:   Martian Mono — wght 100–800 (24 KB), la telemetría del portal.
+//
+// Isla OSCURA (el chrome del navegador) con PLIEGO CLARO dentro: la familia
+// vive sobre DOS superficies y por eso cada acento trae tres tonos — el de
+// marca (rellenos, bordes, foco: umbral 3:1), el "deep" (texto sobre papel)
+// y el "soft" (texto sobre el chrome). Ratios medidos, no estimados.
+// Los componentes importan esto vía TSX (import "../bazar.scss") — Vite dedupe.
+// =============================================================================
+
+// Variables multi-eje: `font-stretch: 50% 150%` es lo que le dice al
+// navegador que el archivo trae el eje wdth y puede interpolarlo.
+@font-face {
+  font-family: "Anybody";
+  font-style: normal;
+  font-weight: 100 900;
+  font-stretch: 50% 150%;
+  font-display: swap;
+  src: url("../../fonts/anybody/anybody-vf-latin-wdth-normal.woff2")
+    format("woff2-variations");
+}
+@font-face {
+  font-family: "Schibsted Grotesk";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("../../fonts/schibsted-grotesk/schibsted-grotesk-vf-latin-wght-normal.woff2")
+    format("woff2-variations");
+}
+@font-face {
+  font-family: "Martian Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("../../fonts/martian-mono/martian-mono-vf-latin-wght-normal.woff2")
+    format("woff2-variations");
+}
+
+.bazar-scope {
+  // --- Mini-contrato de la familia ---
+  --bazar-chrome: #17151a; // el navegador: casi negro, cálido
+  --bazar-chrome-soft: #26232b; // superficie elevada sobre el chrome
+  --bazar-papel: #e9e4d8; // el pliego de la página
+  --bazar-papel-deep: #d8d2c2; // canto del papel en sombra
+  --bazar-label: #f4f0e6; // papel de sticker / texto sobre chrome (15,9:1)
+  --bazar-label-soft: #b5b0a6; // texto secundario sobre chrome (8,4:1)
+  --bazar-tinta: #17151a; // tinta: la misma que el chrome, a propósito
+  --bazar-tinta-soft: #56525d; // texto secundario sobre papel (6,0:1)
+
+  // Rosa: el acento de marca. Tres tonos porque hay dos superficies:
+  //   marca → rellenos, bordes, foco (3,15:1 papel · 4,54:1 chrome);
+  //   deep  → TEXTO sobre papel (5,06:1); soft → TEXTO sobre chrome (8,56:1).
+  // Sobre relleno rosa, el texto pequeño va en TINTA (4,54:1) — el blanco
+  // se queda en 3,99 y solo vale para display grande.
+  --bazar-rosa: #f0257c;
+  --bazar-rosa-deep: #b8125a;
+  --bazar-rosa-soft: #ff8fbd;
+
+  // Morado: la voz de las ventanas y los ratings. Mismo trío.
+  // Sobre relleno morado el papel-label da 4,62:1 — texto pequeño permitido.
+  --bazar-morado: #7d55c7;
+  --bazar-morado-deep: #5e3aa6;
+  --bazar-morado-soft: #b39ae8;
+
+  // Rojo de advertencia (el "READ MANUAL CAREFULLY" del empaque). Solo
+  // borde/icono en marca; como texto siempre el deep (5,81:1 sobre papel).
+  --bazar-rojo: #d92b2b;
+  --bazar-rojo-deep: #a81c1c;
+
+  // El holográfico del cartel: tornasol para display grande y decorativo.
+  // NUNCA para texto de lectura — un gradiente no tiene ratio de contraste.
+  --bazar-holo: linear-gradient(
+    105deg,
+    #8fd8ff 0%,
+    #c9a6ff 28%,
+    #ffb3d9 52%,
+    #ffe9a8 74%,
+    #9fe8c8 100%
+  );
+
+  --bazar-linea: 2px; // filete estándar de cajas y ventanas
+  --bazar-radio: 8px; // radio de píldoras y cajas chicas
+  --bazar-radio-lg: 18px; // radio del chrome y las tarjetas
+  --bazar-sesgo: -8deg; // el sesgo de placas y banners: UNO para todos
+
+  --bazar-font-display: "Anybody", system-ui, sans-serif;
+  --bazar-font-cuerpo: "Schibsted Grotesk", system-ui, sans-serif;
+  --bazar-font-mono: "Martian Mono", ui-monospace, monospace;
+
+  // Foco rosa: el color de "esto responde" en toda la familia.
+  --ds-focus-ring: var(--bazar-rosa);
+
+  background: var(--bazar-chrome);
+  color: var(--bazar-label);
+  font-family: var(--bazar-font-cuerpo);
+}
+
+// Tornasol como texto: recorte de fondo. El fallback es el color sólido
+// previo — si el navegador no recorta, se lee igual.
+.bazar-holo {
+  color: var(--bazar-label);
+  background: var(--bazar-holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

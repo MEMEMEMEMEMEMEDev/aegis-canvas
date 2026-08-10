@@ -23,6 +23,7 @@
     "./denki": "./src/families/denki/index.ts",
     "./cinta": "./src/families/cinta/index.ts",
     "./disquete": "./src/families/disquete/index.ts",
+    "./bazar": "./src/families/bazar/index.ts",
     "./obsidiana": "./src/families/obsidiana/index.ts",
     "./proto": "./src/families/proto/index.ts",
     "./css": "./dist/foundation.css",

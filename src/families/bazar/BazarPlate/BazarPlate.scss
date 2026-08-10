@@ -1,0 +1,34 @@
+@use "../bazar-tools" as bz;
+
+.bazar-placa {
+  @include bz.placa;
+  @include bz.calco(2px, 3px);
+}
+
+.bazar-placa--rosa {
+  background: var(--bazar-rosa);
+  color: var(--bazar-tinta);
+}
+
+.bazar-placa--morado {
+  background: var(--bazar-morado);
+  color: var(--bazar-label);
+}
+
+.bazar-placa--papel {
+  background: var(--bazar-label);
+  color: var(--bazar-tinta);
+  border: 2px solid var(--bazar-tinta);
+}
+
+.bazar-placa--sm {
+  @include bz.display(0.7rem, 88%, 800);
+}
+
+.bazar-placa--md {
+  @include bz.display(1rem, 92%, 850);
+}
+
+.bazar-placa--lg {
+  @include bz.display(1.5rem, 100%, 900);
+}

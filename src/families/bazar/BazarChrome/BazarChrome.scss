@@ -1,0 +1,89 @@
+@use "../bazar-tools" as bz;
+
+.bazar-chrome {
+  position: relative;
+  background: var(--bazar-chrome);
+  border-radius: var(--bazar-radio-lg);
+  padding: 0.7rem;
+  @include bz.grain(0.22);
+}
+
+.bazar-chrome__barra {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.25rem 0.25rem 0.7rem;
+}
+
+.bazar-chrome__menu {
+  display: grid;
+  gap: 3px;
+  padding: 0.55rem;
+  border-radius: 999px;
+  background: var(--bazar-chrome-soft);
+
+  i {
+    width: 14px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--bazar-label-soft);
+
+    &:nth-child(2) {
+      width: 10px;
+    }
+  }
+}
+
+.bazar-chrome__direccion {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  background: var(--bazar-chrome-soft);
+  color: var(--bazar-label);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+
+  svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    flex: none;
+    color: var(--bazar-label-soft);
+  }
+}
+
+.bazar-chrome__url {
+  @include bz.micro(0.62rem, 600);
+  letter-spacing: 0.22em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  text-align: center;
+}
+
+.bazar-chrome__pagina {
+  position: relative;
+  background: var(--bazar-papel);
+  color: var(--bazar-tinta);
+  border-radius: calc(var(--bazar-radio-lg) - 6px);
+  overflow: clip;
+  @include bz.trama;
+}
+
+.bazar-chrome__pie {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 0.6rem 0.25rem 0.1rem;
+  @include bz.micro(0.55rem);
+  color: var(--bazar-label-soft);
+}
+
+// El reflejo: la misma dirección volteada, medio apagada. Es el detalle
+// que hace que el pie se lea como cromo estampado y no como un footer.
+.bazar-chrome__espejo {
+  transform: scaleX(-1);
+  opacity: 0.4;
+}
