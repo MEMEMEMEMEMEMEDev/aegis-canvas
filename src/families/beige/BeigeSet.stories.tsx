@@ -55,6 +55,7 @@ export const Overview: StoryObj = {
           title="voz.exe — Texto a voz"
           picto="altavoz"
           cerrable
+          minimizable
           menu={["Archivo", "Voz", "Ayuda"]}
           estado={["Listo", "es-CL", "22 kHz"]}
         >

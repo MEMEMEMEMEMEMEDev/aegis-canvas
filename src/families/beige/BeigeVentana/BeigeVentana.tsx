@@ -27,6 +27,8 @@ export interface BeigeVentanaProps {
    * decide qué significa "cerrar" en su mundo.
    */
   cerrable?: boolean;
+  /** Igual que `cerrable` pero para el guion bajo: `data-beige-minimiza`. */
+  minimizable?: boolean;
   id?: string;
   children: ReactNode;
   className?: string;
@@ -47,6 +49,7 @@ export default function BeigeVentana({
   pozo = false,
   botones = true,
   cerrable = false,
+  minimizable = false,
   id,
   children,
   className,
@@ -60,12 +63,30 @@ export default function BeigeVentana({
         <Title className="beige-ventana__rotulo">{title}</Title>
         {botones && (
           <span className="beige-ventana__botones">
-            <i className="beige-ventana__min" aria-hidden="true" />
-            <i className="beige-ventana__max" aria-hidden="true" />
+            {minimizable ? (
+              <button
+                type="button"
+                className="beige-ventana__min beige-ventana__real"
+                data-beige-minimiza
+                aria-label={`Minimizar ${title}`}
+              />
+            ) : (
+              <i className="beige-ventana__min" aria-hidden="true" />
+            )}
+            {/* Cuando la ventana tiene controles vivos, maximizar se dibuja
+                DESHABILITADO — el glifo gris repujado del 98 para la opción
+                que no se puede elegir. Sigue siendo maqueta. */}
+            <i
+              className={cx(
+                "beige-ventana__max",
+                (cerrable || minimizable) && "beige-ventana__max--capado",
+              )}
+              aria-hidden="true"
+            />
             {cerrable ? (
               <button
                 type="button"
-                className="beige-ventana__x beige-ventana__x--real"
+                className="beige-ventana__x beige-ventana__real"
                 data-beige-cierra
                 aria-label={`Cerrar ${title}`}
               />

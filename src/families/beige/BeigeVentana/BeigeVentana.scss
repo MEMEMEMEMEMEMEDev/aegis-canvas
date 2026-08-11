@@ -32,15 +32,15 @@
 }
 
 // Los tres botones del título: minimizar, maximizar, cerrar. Glifos
-// dibujados con bordes y gradientes — ni una imagen. Min/max son
-// decorativos; la ✕ puede ser un botón real cuando la ventana es
-// `cerrable` (mismo dibujo, distinta responsabilidad).
+// dibujados con bordes y gradientes — ni una imagen. Por defecto son
+// decorativos; con `minimizable`/`cerrable` el guion y la ✕ se vuelven
+// botones reales (mismo dibujo, distinta responsabilidad).
 .beige-ventana__botones {
   display: flex;
   gap: 2px;
 
   i,
-  .beige-ventana__x--real {
+  .beige-ventana__real {
     @include bg.bisel-saliente;
     position: relative;
     width: 16px;
@@ -54,8 +54,8 @@
   }
 }
 
-// La ✕ real: mismo glifo, más el hundido al pulsar y el foco punteado.
-.beige-ventana__x--real {
+// El botón real: mismo glifo, más el hundido al pulsar y el foco punteado.
+.beige-ventana__real {
   @include bg.foco-punteado;
   padding: 0;
   border: 0;
@@ -68,6 +68,13 @@
       translate: 1px 1px;
     }
   }
+}
+
+// Maximizar deshabilitado: el repujado del 98 — glifo en gris de sombra
+// con su luz corrida un píxel abajo-derecha. La opción que no se elige.
+.beige-ventana__max--capado::before {
+  border-color: var(--beige-sombra);
+  box-shadow: 1px 1px 0 var(--beige-luz);
 }
 
 .beige-ventana__min::before {
