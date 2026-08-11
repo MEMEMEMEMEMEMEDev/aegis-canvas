@@ -3,6 +3,7 @@ import "../beige.scss";
 import "./BeigePicto.scss";
 
 export type BeigePictoName =
+  | "bandera"
   | "pc"
   | "carpeta"
   | "chip"
@@ -41,6 +42,18 @@ const A = "#ffce52"; // amarillo manila
 const M = "#000080"; // marino
 
 const LAMINA: Record<BeigePictoName, React.ReactNode> = {
+  // La bandera que ondea: homenaje de píxel a la insignia de los 98 —
+  // cuatro paños al viento y su estela. Dibujo propio, como toda la lámina.
+  bandera: (
+    <>
+      {R(1, 5, 1, 8, N)}
+      {R(2, 12, 1, 1, N)}
+      {R(3, 4, 5, 4, "#e0442e")}
+      {R(9, 3, 5, 4, "#6fbf44")}
+      {R(3, 9, 5, 4, "#2f9be0")}
+      {R(9, 8, 5, 4, "#f2b21d")}
+    </>
+  ),
   pc: (
     <>
       {R(2, 1, 12, 9, N)}

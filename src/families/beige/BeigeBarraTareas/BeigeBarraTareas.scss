@@ -6,8 +6,8 @@
   align-items: stretch;
   gap: 4px;
   background: var(--beige-plata);
-  padding: 3px;
-  min-height: 30px;
+  padding: 4px;
+  min-height: 40px;
 }
 
 .beige-barra--fija {
@@ -20,12 +20,12 @@
 
 .beige-barra__inicio {
   @include bg.bisel-saliente;
-  @include bg.cromo(0.62rem, 700);
+  @include bg.cromo(0.75rem, 700);
   @include bg.foco-punteado;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 2px 8px;
+  gap: 6px;
+  padding: 2px 12px;
   background: var(--beige-plata);
   color: var(--beige-tinta);
   border: 0;

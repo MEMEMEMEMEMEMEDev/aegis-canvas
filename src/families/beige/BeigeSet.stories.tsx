@@ -28,6 +28,7 @@ const Pantalla = ({ children }: { children: React.ReactNode }) => (
       </div>
       <BeigeBarraTareas
         fija
+        inicioPicto="bandera"
         tareas={[
           { label: "voz.exe", picto: "altavoz", activa: true },
           { label: "traduce.exe", picto: "mundo" },
@@ -131,10 +132,11 @@ export const Ventanas: StoryObj = {
 export const Pictos: StoryObj = {
   render: () => (
     <Pantalla>
-      <BeigeVentana title="lamina.exe — 13 pictogramas" picto="carpeta" pozo>
+      <BeigeVentana title="lamina.exe — 14 pictogramas" picto="carpeta" pozo>
         <div style={{ display: "flex", gap: "18px", flexWrap: "wrap" }}>
           {(
             [
+              "bandera",
               "pc",
               "carpeta",
               "chip",

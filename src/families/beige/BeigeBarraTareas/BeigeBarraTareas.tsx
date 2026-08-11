@@ -15,6 +15,8 @@ export interface BeigeTarea {
 export interface BeigeBarraTareasProps {
   /** Rótulo del botón Inicio. */
   inicio?: string;
+  /** Picto del botón Inicio (la bandera, si el mundo quiere izarla). */
+  inicioPicto?: BeigePictoName;
   /** id del botón Inicio, para que el consumidor le cuelgue su menú. */
   inicioId?: string;
   tareas?: readonly BeigeTarea[];
@@ -37,6 +39,7 @@ export interface BeigeBarraTareasProps {
  */
 export default function BeigeBarraTareas({
   inicio = "Inicio",
+  inicioPicto = "pc",
   inicioId,
   tareas,
   reloj,
@@ -52,7 +55,7 @@ export default function BeigeBarraTareas({
       aria-label={label}
     >
       <button className="beige-barra__inicio" type="button" id={inicioId}>
-        <BeigePicto name="pc" size={16} />
+        <BeigePicto name={inicioPicto} size={16} />
         {inicio}
       </button>
 
