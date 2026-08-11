@@ -1,0 +1,12 @@
+.beige-escritorio {
+  position: relative;
+  min-height: 100%;
+  background: var(--beige-escritorio);
+  // El tramado de la época: el degradado que no existía se fingía con un
+  // ajedrez de 2px. Aquí, apenas presente, da el grano del fondo.
+  background-image: repeating-conic-gradient(
+    rgb(0 0 0 / 3.5%) 0% 25%,
+    transparent 0% 50%
+  );
+  background-size: 4px 4px;
+}

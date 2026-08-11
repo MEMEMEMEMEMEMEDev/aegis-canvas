@@ -1,0 +1,123 @@
+@use "../beige-tools" as bg;
+
+.beige-clip {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+  margin: 0;
+  width: fit-content;
+}
+
+// El globo: fondo de nota amarilla, borde negro de 1px, cola escalonada.
+.beige-clip__globo {
+  position: relative;
+  background: var(--beige-nota);
+  border: 1px solid var(--beige-negro);
+  padding: 9px 11px;
+  max-width: 17rem;
+  box-shadow: 2px 2px 0 rgb(0 0 0 / 25%);
+}
+
+.beige-clip__texto {
+  @include bg.ui(15px);
+  color: var(--beige-tinta);
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: var(--beige-seleccion);
+    text-decoration: underline;
+
+    &:focus-visible {
+      outline: 1px dotted var(--beige-tinta);
+      outline-offset: 1px;
+    }
+  }
+}
+
+// La cola del globo: dos escalones de píxel, no una curva.
+.beige-clip__cola {
+  position: absolute;
+  right: 26px;
+  bottom: -14px;
+  width: 14px;
+  height: 14px;
+  background:
+    linear-gradient(
+      to bottom right,
+      var(--beige-nota) 0 50%,
+      transparent 50%
+    );
+  border-left: 1px solid var(--beige-negro);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+// La hoja de papel donde vive: rayada, con la esquina doblada.
+.beige-clip__hoja {
+  position: relative;
+  width: 108px;
+  height: 128px;
+  background:
+    linear-gradient(#9db4c8 1px, transparent 1px) 0 10px / 100% 16px,
+    linear-gradient(135deg, transparent 14px, #fdfBEA 14px);
+  border: 1px solid var(--beige-negro);
+  filter: drop-shadow(2px 3px 0 rgb(0 0 0 / 25%));
+
+  // La esquina doblada.
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    background: linear-gradient(135deg, var(--beige-escritorio) 50%, #d9d4b8 50%);
+    border-right: 1px solid var(--beige-negro);
+    border-bottom: 1px solid var(--beige-negro);
+  }
+}
+
+.beige-clip__mono {
+  position: absolute;
+  inset: 8px 10px 4px;
+  width: calc(100% - 20px);
+  height: calc(100% - 12px);
+}
+
+.beige-clip__cejas {
+  transition: transform 160ms ease;
+  transform-origin: 30px 22px;
+}
+
+@media (hover: hover) {
+  .beige-clip:hover .beige-clip__cejas {
+    transform: translateY(-3px);
+  }
+}
+
+// El parpadeo: el párpado crece de 0 a la altura del ojo dos veces por
+// ciclo, con steps para que sea de dibujo animado barato.
+@media (prefers-reduced-motion: no-preference) {
+  .beige-clip__parpado {
+    animation: beige-clip-parpadeo 6.5s steps(2, jump-none) infinite;
+  }
+}
+
+@keyframes beige-clip-parpadeo {
+  0%,
+  91%,
+  100% {
+    height: 0;
+  }
+
+  93%,
+  96% {
+    height: 24px;
+  }
+}

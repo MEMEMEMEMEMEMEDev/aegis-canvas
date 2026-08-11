@@ -1,0 +1,77 @@
+// Herramientas SCSS de la familia BEIGE (no emiten CSS por sí solas).
+
+// ── Los biseles ─────────────────────────────────────────────────────────
+// Toda la profundidad del 98 son cuatro trazos de 1px hechos con sombras
+// INSET duras. El orden importa: el canto exterior pisa al interior.
+
+// Relieve saliente: botones, ventanas, barra de tareas.
+@mixin bisel-saliente {
+  box-shadow:
+    inset -1px -1px 0 var(--beige-negro),
+    inset 1px 1px 0 var(--beige-luz),
+    inset -2px -2px 0 var(--beige-sombra),
+    inset 2px 2px 0 var(--beige-claro);
+}
+
+// Hundido: el botón mientras se pulsa.
+@mixin bisel-hundido {
+  box-shadow:
+    inset -1px -1px 0 var(--beige-luz),
+    inset 1px 1px 0 var(--beige-negro),
+    inset -2px -2px 0 var(--beige-claro),
+    inset 2px 2px 0 var(--beige-sombra);
+}
+
+// Pozo: campos de texto, listas, la bandeja del reloj.
+@mixin bisel-pozo {
+  background: var(--beige-pozo);
+  box-shadow:
+    inset 1px 1px 0 var(--beige-sombra),
+    inset -1px -1px 0 var(--beige-luz),
+    inset 2px 2px 0 var(--beige-negro),
+    inset -2px -2px 0 var(--beige-claro);
+}
+
+// Marco grabado: el borde de los groupbox (una línea sombra + una luz).
+@mixin bisel-grabado {
+  border: 1px solid var(--beige-sombra);
+  box-shadow:
+    inset 1px 1px 0 var(--beige-luz),
+    1px 1px 0 var(--beige-luz);
+}
+
+// ── Las voces ───────────────────────────────────────────────────────────
+
+// Cromo: Silkscreen, la letra de títulos y botones. Es ancha: tamaños
+// chicos y sin tracking extra.
+@mixin cromo($size: 0.6rem, $weight: 700) {
+  font-family: var(--beige-font-cromo);
+  font-size: $size;
+  font-weight: $weight;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+// UI: Jersey 15. Nativa a 15px — mantener múltiplos (15/30/45) para que la
+// rejilla de píxeles caiga entera y no se emborrone.
+@mixin ui($size: 15px) {
+  font-family: var(--beige-font-ui);
+  font-size: $size;
+  line-height: 1.35;
+}
+
+// Terminal: VT323, la consola.
+@mixin terminal($size: 1.05rem) {
+  font-family: var(--beige-font-terminal);
+  font-size: $size;
+  line-height: 1.25;
+}
+
+// El foco del 98: rectángulo punteado por DENTRO del control. Sigue siendo
+// el indicador real de foco — visible, 1px, sobre plata contrasta de sobra.
+@mixin foco-punteado($inset: 3px) {
+  &:focus-visible {
+    outline: 1px dotted var(--beige-tinta);
+    outline-offset: -#{$inset};
+  }
+}

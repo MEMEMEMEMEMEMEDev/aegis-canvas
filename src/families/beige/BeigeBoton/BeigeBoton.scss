@@ -1,0 +1,40 @@
+@use "../beige-tools" as bg;
+
+.beige-boton {
+  @include bg.bisel-saliente;
+  @include bg.ui(15px);
+  @include bg.foco-punteado;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 84px;
+  padding: 5px 14px;
+  background: var(--beige-plata);
+  color: var(--beige-tinta);
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+
+  // Pulsado: el bisel se invierte y el contenido se corre 1px — el gesto
+  // completo del 98, no una opacidad.
+  &:active {
+    @include bg.bisel-hundido;
+    padding: 6px 13px 4px 15px;
+  }
+}
+
+// El botón por defecto del diálogo lleva su cerco negro extra.
+.beige-boton--principal {
+  outline: 1px solid var(--beige-negro);
+  outline-offset: 0;
+  font-weight: 700;
+
+  // El cerco del principal ya usa outline: el foco punteado pasa a borde
+  // interior simulado con text-decoration… no — se marca invirtiendo a
+  // selección, que es como lo hacía el sistema con el default activo.
+  &:focus-visible {
+    outline: 2px solid var(--beige-seleccion);
+  }
+}

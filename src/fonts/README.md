@@ -51,6 +51,9 @@ fonts/
 | `anybody/` | OFL 1.1 | BAZAR (display) — **variable en DOS ejes** (wght 100–900 · wdth 50–150) |
 | `schibsted-grotesk/` | OFL 1.1 | BAZAR (cuerpo) — **variable**, wght 400–900 |
 | `martian-mono/` | OFL 1.1 | BAZAR (micro/telemetría) — **variable**, wght 100–800 |
+| `jersey-15/` | OFL 1.1 | BEIGE (UI/cuerpo) — pixel-grotesca en rejilla de 15px |
+| `silkscreen/` | OFL 1.1 | BEIGE (cromo: títulos, botones) — 400 y 700 reales |
+| `vt323/` | OFL 1.1 | BEIGE (terminal/consola) — digitalización del DEC VT320 |
 
 Los glifos CJK (katakana de DENKI, kanji de KOI) usan el stack del sistema —
 no se autoaloja ninguna fuente japonesa completa.

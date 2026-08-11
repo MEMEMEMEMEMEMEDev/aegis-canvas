@@ -1,0 +1,49 @@
+@use "../beige-tools" as bg;
+
+.beige-campo {
+  display: grid;
+  gap: 3px;
+}
+
+.beige-campo__rotulo {
+  @include bg.ui(15px);
+  color: var(--beige-tinta);
+}
+
+.beige-campo__pozo {
+  @include bg.bisel-pozo;
+  @include bg.ui(15px);
+  padding: 7px 9px;
+  color: var(--beige-tinta);
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: var(--beige-seleccion);
+    text-decoration: underline;
+
+    &:focus-visible {
+      outline: 1px dotted var(--beige-tinta);
+      outline-offset: 1px;
+    }
+  }
+}
+
+// La consola: fósforo verde sobre negro (21:1 — el contraste no era el
+// problema de esos monitores).
+.beige-campo__pozo--terminal {
+  @include bg.terminal(1.05rem);
+  background: #0d0d0d;
+  color: #33ff66;
+  box-shadow:
+    inset 1px 1px 0 var(--beige-sombra),
+    inset -1px -1px 0 var(--beige-luz),
+    inset 2px 2px 0 var(--beige-negro),
+    inset -2px -2px 0 var(--beige-claro);
+}

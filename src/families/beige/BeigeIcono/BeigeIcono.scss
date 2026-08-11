@@ -1,0 +1,53 @@
+@use "../beige-tools" as bg;
+
+.beige-icono {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 88px;
+  padding: 6px 2px;
+  background: none;
+  border: 0;
+  text-decoration: none;
+  cursor: pointer;
+
+  // El foco ES la selección del 98: rótulo en marino + punteado.
+  &:focus-visible {
+    outline: none;
+
+    .beige-icono__rotulo {
+      background: var(--beige-seleccion);
+      color: #fff;
+      outline: 1px dotted var(--beige-nota);
+      outline-offset: -1px;
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover .beige-icono__rotulo {
+      text-decoration: underline;
+    }
+  }
+}
+
+.beige-icono__arte {
+  filter: drop-shadow(1px 1px 0 rgb(0 0 0 / 45%));
+}
+
+// Blanco sobre el verde azulado: 4,8:1 — y la sombra dura de 1px que
+// llevaba todo rótulo de escritorio.
+.beige-icono__rotulo {
+  @include bg.ui(15px);
+  color: #fff;
+  text-align: center;
+  text-shadow: 1px 1px 0 rgb(0 0 0 / 80%);
+  padding: 0 3px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.beige-icono--sel .beige-icono__rotulo {
+  background: var(--beige-seleccion);
+  text-shadow: none;
+}

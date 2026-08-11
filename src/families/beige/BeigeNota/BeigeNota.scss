@@ -1,0 +1,36 @@
+@use "../beige-tools" as bg;
+
+.beige-nota {
+  background: var(--beige-nota);
+  border: 1px solid var(--beige-negro);
+  padding: 7px 9px;
+  color: var(--beige-tinta);
+  display: grid;
+  gap: 4px;
+}
+
+.beige-nota__titulo {
+  @include bg.cromo(0.55rem, 700);
+}
+
+.beige-nota__texto {
+  @include bg.ui(15px);
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  a {
+    color: var(--beige-seleccion);
+    text-decoration: underline;
+
+    &:focus-visible {
+      outline: 1px dotted var(--beige-tinta);
+      outline-offset: 1px;
+    }
+  }
+}

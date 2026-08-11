@@ -1,0 +1,100 @@
+@use "../beige-tools" as bg;
+
+.beige-barra {
+  @include bg.bisel-saliente;
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  background: var(--beige-plata);
+  padding: 3px;
+  min-height: 30px;
+}
+
+.beige-barra--fija {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.beige-barra__inicio {
+  @include bg.bisel-saliente;
+  @include bg.cromo(0.62rem, 700);
+  @include bg.foco-punteado;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  background: var(--beige-plata);
+  color: var(--beige-tinta);
+  border: 0;
+  cursor: pointer;
+  text-transform: uppercase;
+
+  &:active,
+  &[aria-expanded="true"] {
+    @include bg.bisel-hundido;
+  }
+}
+
+.beige-barra__muesca {
+  width: 3px;
+  margin: 2px 0;
+  box-shadow:
+    inset 1px 0 0 var(--beige-sombra),
+    inset -1px 0 0 var(--beige-luz);
+}
+
+.beige-barra__tareas {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  gap: 3px;
+  overflow: hidden;
+}
+
+.beige-barra__tarea {
+  @include bg.bisel-saliente;
+  @include bg.ui(15px);
+  @include bg.foco-punteado;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  max-width: 12rem;
+  flex: 1;
+  padding: 2px 8px;
+  background: var(--beige-plata);
+  color: var(--beige-tinta);
+  text-decoration: none;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+// El programa al frente: hundido y con el tramado de ajedrez de la época.
+.beige-barra__tarea--activa {
+  @include bg.bisel-hundido;
+  background-image: repeating-conic-gradient(
+    rgb(255 255 255 / 55%) 0% 25%,
+    transparent 0% 50%
+  );
+  background-size: 2px 2px;
+  font-weight: 700;
+}
+
+.beige-barra__bandeja {
+  @include bg.ui(15px);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 2px 10px;
+  color: var(--beige-tinta);
+  box-shadow:
+    inset 1px 1px 0 var(--beige-sombra),
+    inset -1px -1px 0 var(--beige-luz);
+}

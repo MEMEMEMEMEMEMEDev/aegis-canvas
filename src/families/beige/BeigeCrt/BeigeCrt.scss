@@ -1,0 +1,115 @@
+.beige-crt {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+}
+
+// Las líneas de barrido + la máscara de apertura RGB. Los alfas están
+// calibrados para oscurecer ~5% de media: los contrastes AA de la familia
+// se midieron con margen y la lámina no los baja del umbral.
+.beige-crt__scan {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgb(10 10 14 / 13%) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgb(255 70 70 / 3.5%) 0 1px,
+      rgb(70 255 130 / 2.5%) 1px 2px,
+      rgb(90 130 255 / 3.5%) 2px 3px
+    );
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: beige-crt-parpadeo 3.4s steps(1) infinite;
+  }
+}
+
+// El parpadeo: caídas de nada de brillo a intervalos desiguales — un tubo
+// sano pero de su edad. steps(1) para que sea un salto, no un fundido.
+@keyframes beige-crt-parpadeo {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  7% {
+    opacity: 0.86;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  38% {
+    opacity: 0.92;
+  }
+
+  39% {
+    opacity: 1;
+  }
+
+  71% {
+    opacity: 0.89;
+  }
+
+  73% {
+    opacity: 1;
+  }
+}
+
+// La banda de refresco que rueda de arriba a abajo cada nueve segundos.
+// Solo transform: viaja por el compositor, no repinta nada.
+.beige-crt__banda {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -30vh;
+  height: 22vh;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgb(255 255 255 / 4.5%) 45%,
+    rgb(10 10 14 / 4%) 55%,
+    transparent
+  );
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: beige-crt-banda 9s linear infinite;
+  }
+}
+
+@keyframes beige-crt-banda {
+  to {
+    transform: translateY(170vh);
+  }
+}
+
+// El vidrio: viñeta radial + esquinas redondeadas SOLO aquí — la única
+// curva permitida en la familia es la del propio tubo.
+.beige-crt__vidrio {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.4rem / 1.9rem;
+  background: radial-gradient(
+    ellipse 105% 100% at 50% 48%,
+    transparent 62%,
+    rgb(5 5 10 / 10%) 82%,
+    rgb(5 5 10 / 32%) 100%
+  );
+  box-shadow: inset 0 0 4rem rgb(5 5 10 / 18%);
+}
+
+.beige-crt--suave {
+  .beige-crt__scan {
+    opacity: 0.5;
+  }
+
+  .beige-crt__vidrio {
+    opacity: 0.6;
+  }
+}

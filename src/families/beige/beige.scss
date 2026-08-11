@@ -1,0 +1,95 @@
+// =============================================================================
+// BEIGE — familia "computador de escritorio de 1998".
+//
+// La caja beige, el monitor de tubo y el sistema operativo gris con biseles
+// de tres luces. No es un tema "inspirado en": la anatomía se reproduce en
+// serio — escritorio verde azulado, ventanas con barra de título en
+// degradado azul, botones que se hunden al pulsarlos, campos-pozo blancos,
+// barra de tareas con reloj y un asistente con forma de clip que da
+// consejos que nadie pidió. Encima de todo, un tubo: BeigeCrt pinta las
+// líneas de barrido y la viñeta del monitor (capa aria-hidden, sin JS).
+//
+// La regla dura de la familia: CERO radios y CERO sombras difusas. En 1998
+// no existía el border-radius — la profundidad se hacía con biseles de
+// 1px: luz arriba-izquierda, sombra abajo-derecha. Todo lo "3D" de esta
+// familia son box-shadow INSET duros (ver _beige-tools.scss).
+//
+// Fuentes self-hosted (src/fonts/README.md), las tres OFL y de PÍXEL —
+// ninguna fuente propietaria de Microsoft se toca:
+//   UI/cuerpo:  Jersey 15 — pixel-grotesca en rejilla de 15px (la voz
+//               "MS Sans de mapa de bits"). Nativa a 15px: usar múltiplos.
+//   Cromo:      Silkscreen 400/700 — títulos, botones, barra de tareas.
+//   Terminal:   VT323 — readouts y consola.
+//
+// Isla de ÉPOCA: .beige-scope emite el mini-contrato --beige-*. Los
+// componentes lo importan vía TSX (import "../beige.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Jersey 15";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/jersey-15/jersey-15-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/silkscreen/silkscreen-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../fonts/silkscreen/silkscreen-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "VT323";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/vt323/vt323-latin-400-normal.woff2") format("woff2");
+}
+
+.beige-scope {
+  // --- Mini-contrato de la familia ---
+  // La paleta ES la del sistema operativo del 98, verbatim: plata de
+  // ventana, los cuatro tonos del bisel, el degradado azul del título y el
+  // escritorio verde azulado. Cambiar uno es dejar de parecer el original.
+  --beige-plata: #c0c0c0; // la cara de todo: ventanas, botones, barras
+  --beige-luz: #ffffff; // bisel: canto iluminado
+  --beige-claro: #dfdfdf; // bisel: luz secundaria
+  --beige-sombra: #808080; // bisel: sombra
+  --beige-negro: #0a0a0a; // bisel: canto exterior oscuro
+  --beige-tinta: #000000; // texto sobre plata y sobre pozo
+  --beige-tinta-tenue: #4d4d4d; // secundario sobre plata (4,7:1 — el gris
+  //   "disabled" clásico #808080 da 2,6 y aquí solo se usa decorativo)
+  --beige-pozo: #ffffff; // campos y listas: el pozo blanco
+  --beige-escritorio: #008080; // el verde azulado del fondo
+  --beige-titulo-1: #000080; // degradado de barra de título activa…
+  --beige-titulo-2: #1084d0; // …de azul marino a celeste
+  --beige-titulo-gris-1: #808080; // barra de título inactiva
+  --beige-titulo-gris-2: #b5b5b5;
+  --beige-seleccion: #000080; // selección: marino con texto blanco (15,3:1)
+  --beige-nota: #ffffe1; // el amarillo del tooltip y del asistente
+  --beige-error: #c00000; // el rojo de los diálogos que dan malas noticias
+
+  --beige-font-ui: "Jersey 15", "Trebuchet MS", system-ui, sans-serif;
+  --beige-font-cromo: "Silkscreen", monospace;
+  --beige-font-terminal: "VT323", ui-monospace, monospace;
+
+  // Foco: el rectángulo punteado del 98 lo pinta cada componente; para lo
+  // que use el anillo del sistema, que sea el marino de selección.
+  --ds-focus-ring: var(--beige-titulo-2);
+
+  background: var(--beige-escritorio);
+  color: var(--beige-tinta);
+  font-family: var(--beige-font-ui);
+  // La rejilla de 15px de Jersey: tamaño base nativo para que los píxeles
+  // caigan enteros.
+  font-size: 15px;
+  line-height: 1.35;
+}

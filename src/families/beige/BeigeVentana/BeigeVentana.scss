@@ -1,0 +1,121 @@
+@use "../beige-tools" as bg;
+
+.beige-ventana {
+  @include bg.bisel-saliente;
+  background: var(--beige-plata);
+  padding: 3px;
+}
+
+.beige-ventana__titulo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(90deg, var(--beige-titulo-1), var(--beige-titulo-2));
+  color: #fff;
+  padding: 3px 4px;
+  min-height: 22px;
+}
+
+.beige-ventana__titulo--inactiva {
+  background: linear-gradient(90deg, var(--beige-titulo-gris-1), var(--beige-titulo-gris-2));
+  color: var(--beige-claro);
+}
+
+.beige-ventana__rotulo {
+  @include bg.cromo(0.62rem, 700);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Los tres botones del título: minimizar, maximizar, cerrar. Glifos
+// dibujados con bordes y gradientes — ni una imagen. Decorativos: esta
+// ventana no se puede cerrar, está impresa.
+.beige-ventana__botones {
+  display: flex;
+  gap: 2px;
+
+  i {
+    @include bg.bisel-saliente;
+    position: relative;
+    width: 16px;
+    height: 14px;
+    background: var(--beige-plata);
+
+    &::before {
+      content: "";
+      position: absolute;
+    }
+  }
+}
+
+.beige-ventana__min::before {
+  left: 4px;
+  right: 6px;
+  bottom: 3px;
+  height: 2px;
+  background: var(--beige-tinta);
+}
+
+.beige-ventana__max::before {
+  inset: 3px 4px 3px 3px;
+  border: 1px solid var(--beige-tinta);
+  border-top-width: 2px;
+}
+
+.beige-ventana__x::before {
+  inset: 3px 4px;
+  background:
+    linear-gradient(45deg, transparent 42%, var(--beige-tinta) 42% 58%, transparent 58%),
+    linear-gradient(-45deg, transparent 42%, var(--beige-tinta) 42% 58%, transparent 58%);
+}
+
+.beige-ventana__menu {
+  @include bg.ui(15px);
+  display: flex;
+  gap: 14px;
+  padding: 2px 6px;
+  border-bottom: 1px solid var(--beige-sombra);
+  box-shadow: 0 1px 0 var(--beige-luz);
+  color: var(--beige-tinta);
+
+  // La mnemotecnia del 98: primera letra subrayada.
+  span::first-letter {
+    text-decoration: underline;
+  }
+}
+
+.beige-ventana__cuerpo {
+  padding: 10px;
+  color: var(--beige-tinta);
+}
+
+.beige-ventana__cuerpo--pozo {
+  @include bg.bisel-pozo;
+  margin: 4px;
+  padding: 8px;
+}
+
+.beige-ventana__estado {
+  display: flex;
+  gap: 3px;
+  padding-top: 3px;
+
+  span {
+    @include bg.ui(15px);
+    flex: 1;
+    min-width: 0;
+    padding: 1px 6px;
+    color: var(--beige-tinta-tenue);
+    box-shadow:
+      inset 1px 1px 0 var(--beige-sombra),
+      inset -1px -1px 0 var(--beige-luz);
+
+    &:first-child {
+      flex: 2;
+    }
+  }
+}

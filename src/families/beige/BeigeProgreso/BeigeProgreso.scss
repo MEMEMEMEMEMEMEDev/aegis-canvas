@@ -1,0 +1,37 @@
+@use "../beige-tools" as bg;
+
+.beige-progreso {
+  @include bg.bisel-pozo;
+  height: 18px;
+  padding: 3px;
+  overflow: hidden;
+
+  i {
+    display: block;
+    height: 100%;
+    // Los bloques: marino de 9px con 3px de aire. Un gradiente, cero nodos.
+    background: repeating-linear-gradient(
+      90deg,
+      var(--beige-seleccion) 0 9px,
+      transparent 9px 12px
+    );
+  }
+}
+
+.beige-progreso--infinito i {
+  width: 40%;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: beige-progreso-tren 2.2s linear infinite;
+  }
+}
+
+@keyframes beige-progreso-tren {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(250%);
+  }
+}

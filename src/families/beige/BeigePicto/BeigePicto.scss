@@ -1,0 +1,7 @@
+.beige-picto {
+  display: inline-block;
+  vertical-align: middle;
+  // Al escalar, píxeles duros — nada de suavizado.
+  image-rendering: pixelated;
+  flex: none;
+}
