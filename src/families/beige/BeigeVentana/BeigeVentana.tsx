@@ -20,6 +20,13 @@ export interface BeigeVentanaProps {
   pozo?: boolean;
   /** Los tres botones del título. Decorativos, como manda la época. */
   botones?: boolean;
+  /**
+   * La ✕ deja de ser maqueta: se vuelve un botón real (con su nombre
+   * accesible «Cerrar {title}») marcado con `data-beige-cierra`. El
+   * componente no gestiona estado — el consumidor escucha el click y
+   * decide qué significa "cerrar" en su mundo.
+   */
+  cerrable?: boolean;
   id?: string;
   children: ReactNode;
   className?: string;
@@ -39,6 +46,7 @@ export default function BeigeVentana({
   estado,
   pozo = false,
   botones = true,
+  cerrable = false,
   id,
   children,
   className,
@@ -51,10 +59,19 @@ export default function BeigeVentana({
         {picto && <BeigePicto name={picto} size={16} />}
         <Title className="beige-ventana__rotulo">{title}</Title>
         {botones && (
-          <span className="beige-ventana__botones" aria-hidden="true">
-            <i className="beige-ventana__min" />
-            <i className="beige-ventana__max" />
-            <i className="beige-ventana__x" />
+          <span className="beige-ventana__botones">
+            <i className="beige-ventana__min" aria-hidden="true" />
+            <i className="beige-ventana__max" aria-hidden="true" />
+            {cerrable ? (
+              <button
+                type="button"
+                className="beige-ventana__x beige-ventana__x--real"
+                data-beige-cierra
+                aria-label={`Cerrar ${title}`}
+              />
+            ) : (
+              <i className="beige-ventana__x" aria-hidden="true" />
+            )}
           </span>
         )}
       </header>
