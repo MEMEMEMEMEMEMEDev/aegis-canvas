@@ -73,6 +73,16 @@
   --disq-band-1: #f2c14e;
   --disq-band-2: #ee8b3f;
   --disq-band-3: #dd554d;
+  // Las dos tintas que completan el ESPECTRO de las referencias 4 (la banda
+  // arcoíris de las etiquetas instantáneas): rojo-naranja-amarillo-verde-azul.
+  --disq-band-4: #4fae54;
+  --disq-band-5: #2f8fd6;
+
+  // La voz kana: el ideograma como pieza gráfica (製品, 作品 — como en las
+  // hojas de stickers de la referencia). Pila de sistema a propósito: es
+  // decoración de gran tamaño, no texto de lectura, y un WOFF2 CJK entero
+  // costaría megas por cuatro glifos.
+  --disq-font-kana: "Noto Sans CJK JP", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
 
   --disq-line: 1.5px; // filete de la etiqueta
   --disq-radius: 4px; // radio del papel y las cajas

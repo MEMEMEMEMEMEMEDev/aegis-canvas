@@ -49,6 +49,12 @@ export type { DisqButtonProps } from "./DisqButton/DisqButton";
 export { default as DisqNeon } from "./DisqNeon/DisqNeon";
 export type { DisqNeonProps } from "./DisqNeon/DisqNeon";
 
+export { default as DisqEstela } from "./DisqEstela/DisqEstela";
+export type { DisqEstelaProps } from "./DisqEstela/DisqEstela";
+
+export { default as DisqSticker } from "./DisqSticker/DisqSticker";
+export type { DisqStickerProps, DisqStickerShape, DisqStickerFill } from "./DisqSticker/DisqSticker";
+
 export { default as DisqMarquee } from "./DisqMarquee/DisqMarquee";
 export type { DisqMarqueeProps } from "./DisqMarquee/DisqMarquee";
 

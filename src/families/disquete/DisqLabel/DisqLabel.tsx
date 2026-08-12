@@ -25,6 +25,17 @@ export interface DisqLabelProps {
   side?: string;
   /** Bandas de color al pie. */
   stripes?: boolean;
+  /**
+   * Las bandas del pie: el atardecer de tres tintas o el espectro de cinco
+   * de la referencia instantánea.
+   */
+  stripesVariant?: "atardecer" | "espectro";
+  /**
+   * El sello kana (作品, 製品…): la cajita de tinta con el ideograma en
+   * vertical, como el marchamo de las etiquetas de la referencia. Es gráfico
+   * y va oculto al lector de pantalla.
+   */
+  kana?: string;
   /** Contenido extra antes del pie. */
   children?: ReactNode;
   className?: string;
@@ -49,6 +60,8 @@ export default function DisqLabel({
   code,
   side,
   stripes = false,
+  stripesVariant = "atardecer",
+  kana,
   children,
   className,
 }: DisqLabelProps) {
@@ -65,14 +78,19 @@ export default function DisqLabel({
 
         {children}
 
-        {(badge || code) && (
+        {(badge || code || kana) && (
           <span className="disq-label__foot">
             {badge && <DisqBadge mark={badge.mark} lines={badge.lines} />}
+            {kana && (
+              <b className="disq-label__kana" aria-hidden="true">
+                {kana}
+              </b>
+            )}
             {code && <DisqBarcode code={code} height={26} />}
           </span>
         )}
 
-        {stripes && <DisqStripes height={2.4} step />}
+        {stripes && <DisqStripes height={2.4} step variant={stripesVariant} />}
       </span>
 
       {/* El canto rotado: en la etiqueta impresa es el lomo, lo que se lee

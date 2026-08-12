@@ -1,0 +1,77 @@
+.disq-estela {
+  display: grid;
+  grid-auto-rows: 1fr;
+  align-items: center;
+  width: 100%;
+  pointer-events: none;
+
+  i {
+    display: block;
+    height: 38%;
+    max-height: 4px;
+    min-height: 2px;
+    width: var(--disq-estela-w, 60%);
+  }
+}
+
+// La velocidad apunta a un lado: las líneas se pegan al contrario.
+.disq-estela--der i {
+  justify-self: end;
+  transform-origin: right center;
+}
+
+.disq-estela--izq i {
+  justify-self: start;
+  transform-origin: left center;
+}
+
+// Las tintas primarias de la referencia 4: amarillo, rojo, azul, en ciclo.
+.disq-estela--primarias {
+  i:nth-child(3n + 1) {
+    background: var(--disq-band-1);
+  }
+  i:nth-child(3n + 2) {
+    background: var(--disq-band-3);
+  }
+  i:nth-child(3n) {
+    background: var(--disq-band-5);
+  }
+}
+
+.disq-estela--espectro {
+  i:nth-child(5n + 1) {
+    background: var(--disq-band-3);
+  }
+  i:nth-child(5n + 2) {
+    background: var(--disq-band-2);
+  }
+  i:nth-child(5n + 3) {
+    background: var(--disq-band-1);
+  }
+  i:nth-child(5n + 4) {
+    background: var(--disq-band-4);
+  }
+  i:nth-child(5n) {
+    background: var(--disq-band-5);
+  }
+}
+
+// La salida: cada línea se estira una vez, escalonada por su índice. Es
+// scaleX —compositor puro— y pasa UNA vez: una estela que respira deja de
+// ser velocidad.
+@media (prefers-reduced-motion: no-preference) {
+  .disq-estela i {
+    animation: disq-estela-tira 640ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--disq-estela-i, 0) * 55ms);
+  }
+}
+
+@keyframes disq-estela-tira {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}

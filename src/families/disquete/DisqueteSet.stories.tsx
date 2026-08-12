@@ -6,6 +6,7 @@ import DisqButton from "./DisqButton/DisqButton";
 import DisqDisk from "./DisqDisk/DisqDisk";
 import type { DisqColor } from "./DisqDisk/DisqDisk";
 import DisqEmblem from "./DisqEmblem/DisqEmblem";
+import DisqEstela from "./DisqEstela/DisqEstela";
 import DisqHud from "./DisqHud/DisqHud";
 import DisqLabel from "./DisqLabel/DisqLabel";
 import DisqMarquee from "./DisqMarquee/DisqMarquee";
@@ -13,6 +14,7 @@ import DisqNeon from "./DisqNeon/DisqNeon";
 import DisqRows from "./DisqRows/DisqRows";
 import DisqShelf from "./DisqShelf/DisqShelf";
 import DisqSleeve from "./DisqSleeve/DisqSleeve";
+import DisqSticker from "./DisqSticker/DisqSticker";
 import DisqStripes from "./DisqStripes/DisqStripes";
 import DisqTag from "./DisqTag/DisqTag";
 import DisqTitle from "./DisqTitle/DisqTitle";
@@ -113,8 +115,9 @@ export const Overview: StoryObj = {
 };
 
 /**
- * La renovación entera en una historia: HUD con lectura de datos, marquesina,
- * y la vitrina con sus luces. Es la maqueta de lo que lleva el mundo
+ * La renovación entera en una historia: HUD con lectura de datos, la estela
+ * de velocidad bajo el titular, marquesina, la vitrina con sus luces y la
+ * hoja de stickers en papel. Es la maqueta de lo que lleva el mundo
  * PROYECTOS del portafolio.
  */
 export const Vitrina: StoryObj = {
@@ -126,6 +129,9 @@ export const Vitrina: StoryObj = {
           <DisqTitle as="h2" size="hero" cells={["ARCHIVO", "CARA A", "2S/HD"]} emblem="disc">
             La vitrina
           </DisqTitle>
+          <div style={{ maxWidth: "34rem", marginTop: "0.9rem" }}>
+            <DisqEstela lineas={9} height={2.6} align="izq" />
+          </div>
         </DisqHud>
       </div>
       <DisqMarquee
@@ -135,7 +141,7 @@ export const Vitrina: StoryObj = {
       <DisqShelf neon min="15rem">
         {DISCOS.map((d) => (
           <DisqDisk key={d.title} color={d.color} href="#">
-            <DisqLabel title={d.title} cells={d.cells} code={d.code} stripes />
+            <DisqLabel title={d.title} cells={d.cells} code={d.code} kana="作品" stripes stripesVariant="espectro" />
           </DisqDisk>
         ))}
       </DisqShelf>
@@ -143,6 +149,45 @@ export const Vitrina: StoryObj = {
         items={["GitOps", "Design system", "IA aplicada", "SEO", "Accesibilidad", "Rendimiento"]}
         reverse
       />
+    </Hoja>
+  ),
+};
+
+/**
+ * La hoja de stickers de la referencia 4: troqueles sobre papel crema
+ * moteado — el parche con su ideograma, el banderín, la pastilla — junto a
+ * las estelas y los emblemas nuevos.
+ */
+export const Stickers: StoryObj = {
+  render: () => (
+    <Hoja>
+      <DisqShelf tone="papel" title="HOJA DE STICKERS · TROQUEL 4" mark="estrella" min="1rem">
+        <div
+          style={{
+            display: "flex",
+            gap: "2rem",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gridColumn: "1 / -1",
+          }}
+        >
+          <DisqSticker kana="作品" title="PROYECTOS" sub="CASOS REALES" shape="caja" fill="tinta" />
+          <DisqSticker kana="製品" title="FICHA TÉCNICA" sub="2S/DD" shape="escudo" fill="coral" emblem="estrella" />
+          <DisqSticker kana="実験" title="LABORATORIO" shape="banderin" fill="tinta" emblem="diana" />
+          <DisqSticker title="MF2-HD" sub="ALTA DENSIDAD" shape="pastilla" fill="indigo" />
+        </div>
+
+        <div style={{ display: "grid", gap: "1.2rem", gridColumn: "1 / -1", maxWidth: "40rem" }}>
+          <DisqEstela lineas={12} height={3.4} align="der" />
+          <DisqStripes variant="espectro" height={1.4} />
+          <div style={{ display: "flex", gap: "1.2rem", alignItems: "center", color: "var(--disq-ink)" }}>
+            <DisqEmblem shape="estrella" size={2.4} />
+            <DisqEmblem shape="diana" size={2.4} />
+            <DisqEmblem shape="globe" size={2.4} />
+            <DisqBarcode code="0812 2026" scan />
+          </div>
+        </div>
+      </DisqShelf>
     </Hoja>
   ),
 };

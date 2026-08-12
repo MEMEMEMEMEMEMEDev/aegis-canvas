@@ -2,10 +2,14 @@ import { cx } from "../../../utils/cx";
 import "../disquete.scss";
 import "./DisqEmblem.scss";
 
-export type DisqEmblemShape = "globe" | "disc" | "hazard";
+export type DisqEmblemShape = "globe" | "disc" | "hazard" | "estrella" | "diana";
 
 export interface DisqEmblemProps {
-  /** globe: retícula del mundo. disc: el disco con su cubo. hazard: aviso. */
+  /**
+   * globe: retícula del mundo. disc: el disco con su cubo. hazard: aviso.
+   * estrella: el destello de cuatro puntas de las hojas de stickers.
+   * diana: los anillos de registro de imprenta.
+   */
   shape?: DisqEmblemShape;
   /**
    * Diámetro en em, RELATIVO al texto de alrededor. Dentro de un titular
@@ -56,6 +60,19 @@ export default function DisqEmblem({ shape = "globe", size = 1.6, className }: D
             <path d="M16 4 L29 27 H3 Z" />
             <line x1="16" y1="12" x2="16" y2="20" />
             <circle cx="16" cy="23.5" r="0.9" />
+          </>
+        )}
+        {shape === "estrella" && (
+          /* Cuatro puntas con los flancos curvados hacia dentro: el destello
+             de las hojas de stickers, relleno — un destello hueco no brilla. */
+          <path d="M16 1 C17.6 10.4 21.6 14.4 31 16 C21.6 17.6 17.6 21.6 16 31 C14.4 21.6 10.4 17.6 1 16 C10.4 14.4 14.4 10.4 16 1 Z" />
+        )}
+        {shape === "diana" && (
+          <>
+            <circle cx="16" cy="16" r="13" />
+            <circle cx="16" cy="16" r="9" />
+            <circle cx="16" cy="16" r="5" />
+            <circle cx="16" cy="16" r="1.6" />
           </>
         )}
       </svg>

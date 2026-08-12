@@ -36,3 +36,13 @@
 .disq-emblem--disc svg rect {
   fill: currentcolor;
 }
+
+// El destello va relleno: es tinta plana, como en la hoja de stickers.
+.disq-emblem--estrella svg path {
+  fill: currentcolor;
+}
+
+// La diana rellena el centro: los anillos de registro llevan su punto.
+.disq-emblem--diana svg circle:last-child {
+  fill: currentcolor;
+}

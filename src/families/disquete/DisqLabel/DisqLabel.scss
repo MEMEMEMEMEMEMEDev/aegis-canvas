@@ -79,6 +79,21 @@
   border-top: var(--disq-line) solid var(--disq-ink);
 }
 
+// El marchamo kana: la cajita de tinta con el ideograma en vertical, pegada
+// al pie como en las etiquetas instantáneas de la referencia.
+.disq-label__kana {
+  font-family: var(--disq-font-kana);
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1.1;
+  writing-mode: vertical-rl;
+  padding: 0.4em 0.24em;
+  border-radius: 2px;
+  background: var(--disq-ink);
+  color: var(--disq-label);
+  letter-spacing: 0.1em;
+}
+
 .disq-label__side {
   @include dq.micro(0.46rem, 600);
   position: absolute;

@@ -1,0 +1,113 @@
+@use "../disquete-tools" as dq;
+
+// El troquel: el elemento exterior ES el papel del canto. Su padding es el
+// grosor del corte; el cuerpo de dentro lleva la tinta.
+.disq-sticker {
+  display: inline-block;
+  padding: 5px;
+  background: var(--disq-label);
+  // La pegatina está pegada sobre la superficie: media sombra dura.
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.28);
+}
+
+.disq-sticker__cuerpo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  min-width: 7.5em;
+  padding: 1.1em 1.2em 1em;
+  text-align: center;
+}
+
+// --- Tintas -------------------------------------------------------------------
+.disq-sticker__cuerpo--tinta {
+  background: var(--disq-ink);
+  color: var(--disq-label);
+}
+
+.disq-sticker__cuerpo--papel {
+  background: var(--disq-label);
+  color: var(--disq-ink);
+}
+
+.disq-sticker__cuerpo--coral {
+  background: var(--disq-coral);
+  color: var(--disq-label);
+}
+
+.disq-sticker__cuerpo--indigo {
+  background: var(--disq-indigo);
+  color: #fff;
+}
+
+// --- Formas -------------------------------------------------------------------
+// Caja y pastilla van por radio; escudo y banderín por clip-path aplicado a
+// las DOS capas (el troquel y la tinta), y la diferencia de padding es el
+// canto de papel.
+.disq-sticker--caja {
+  border-radius: 10px;
+
+  .disq-sticker__cuerpo {
+    border-radius: 7px;
+  }
+}
+
+.disq-sticker--pastilla {
+  border-radius: 999px;
+
+  .disq-sticker__cuerpo {
+    border-radius: 999px;
+    padding-inline: 1.6em;
+  }
+}
+
+$escudo: polygon(0 0, 100% 0, 100% 74%, 50% 100%, 0 74%);
+
+.disq-sticker--escudo {
+  clip-path: $escudo;
+  box-shadow: none; // el clip se la comería; el escudo asume el plano
+
+  .disq-sticker__cuerpo {
+    clip-path: $escudo;
+    padding-bottom: 2.4em;
+  }
+}
+
+$banderin: polygon(0 0, 100% 0, 100% 82%, 50% 100%, 0 82%);
+
+.disq-sticker--banderin {
+  clip-path: $banderin;
+  box-shadow: none;
+
+  .disq-sticker__cuerpo {
+    clip-path: $banderin;
+    padding-bottom: 2em;
+  }
+}
+
+// --- Las piezas ---------------------------------------------------------------
+.disq-sticker__emblema {
+  line-height: 0;
+}
+
+// El ideograma héroe: enorme, en negro máximo. Es dibujo, no párrafo.
+.disq-sticker__kana {
+  font-family: var(--disq-font-kana);
+  font-size: 2.6em;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+}
+
+.disq-sticker__title {
+  @include dq.micro(0.6rem, 700);
+  letter-spacing: 0.22em;
+}
+
+.disq-sticker__sub {
+  @include dq.micro(0.46rem, 500);
+  opacity: 0.72;
+}

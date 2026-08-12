@@ -25,6 +25,11 @@ export interface DisqShelfProps {
   min?: string;
   /** Enciende las luces de la vitrina (DisqNeon) detrás de los discos. */
   neon?: boolean;
+  /**
+   * void: el pliego oscuro con grano (default). papel: la hoja crema moteada
+   * de las hojas de stickers — para troqueles y piezas de tinta.
+   */
+  tone?: "void" | "papel";
   className?: string;
 }
 
@@ -43,10 +48,11 @@ export default function DisqShelf({
   mark,
   min = "19rem",
   neon = false,
+  tone = "void",
   className,
 }: DisqShelfProps) {
   return (
-    <section className={cx("disq-shelf", className)}>
+    <section className={cx("disq-shelf", tone === "papel" && "disq-shelf--papel", className)}>
       {neon && <DisqNeon />}
       {(title || mark) && (
         <header className="disq-shelf__head">

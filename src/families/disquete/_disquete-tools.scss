@@ -77,3 +77,25 @@
   background-image: radial-gradient(circle at 1px 1px, #{$tinta} 1px, transparent 1.5px);
   background-size: #{$paso} #{$paso};
 }
+
+// Dither: el ajedrez pixelado con que las etiquetas de la referencia
+// disuelven una masa de tinta. Cuadros duros —conic, no radial—: es un
+// patrón de imprenta digital de los 90, no un degradado.
+@mixin dither($tinta: currentcolor, $paso: 6px) {
+  background-image: repeating-conic-gradient(#{$tinta} 0% 25%, transparent 0% 50%);
+  background-size: #{$paso} #{$paso};
+}
+
+// Motas del papel crema: el mismo feTurbulence del grano pero más abierto y
+// multiplicado — pecas de pulpa de papel, no ruido de foto.
+@mixin speckle($opacity: 0.16) {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: $opacity;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 0 0 0 0 0 0 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23s)'/%3E%3C/svg%3E");
+  }
+}
