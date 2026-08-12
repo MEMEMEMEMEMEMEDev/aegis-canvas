@@ -7,6 +7,7 @@ import DisqDisk from "./DisqDisk/DisqDisk";
 import type { DisqColor } from "./DisqDisk/DisqDisk";
 import DisqEmblem from "./DisqEmblem/DisqEmblem";
 import DisqEstela from "./DisqEstela/DisqEstela";
+import DisqHolo from "./DisqHolo/DisqHolo";
 import DisqHud from "./DisqHud/DisqHud";
 import DisqLabel from "./DisqLabel/DisqLabel";
 import DisqMarquee from "./DisqMarquee/DisqMarquee";
@@ -184,6 +185,7 @@ export const Stickers: StoryObj = {
             <DisqEmblem shape="estrella" size={2.4} />
             <DisqEmblem shape="diana" size={2.4} />
             <DisqEmblem shape="globe" size={2.4} />
+            <DisqHolo size={3.2} />
             <DisqBarcode code="0812 2026" scan />
           </div>
         </div>
