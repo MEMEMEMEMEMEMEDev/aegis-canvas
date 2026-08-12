@@ -55,6 +55,9 @@ export type { DisqEstelaProps } from "./DisqEstela/DisqEstela";
 export { default as DisqSticker } from "./DisqSticker/DisqSticker";
 export type { DisqStickerProps, DisqStickerShape, DisqStickerFill } from "./DisqSticker/DisqSticker";
 
+export { default as DisqHolo } from "./DisqHolo/DisqHolo";
+export type { DisqHoloProps } from "./DisqHolo/DisqHolo";
+
 export { default as DisqMarquee } from "./DisqMarquee/DisqMarquee";
 export type { DisqMarqueeProps } from "./DisqMarquee/DisqMarquee";
 

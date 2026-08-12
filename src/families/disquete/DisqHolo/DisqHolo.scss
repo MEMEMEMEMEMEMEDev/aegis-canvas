@@ -1,0 +1,65 @@
+.disq-holo {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  // El tornasol: las tintas del espectro fundidas alrededor del centro, dos
+  // vueltas para que ningún borde delate el empalme.
+  background: conic-gradient(
+    from 40deg,
+    #dd554d,
+    #ee8b3f 12%,
+    #f2c14e 24%,
+    #4fae54 38%,
+    #2f8fd6 52%,
+    #5a5ae0 64%,
+    #cf4bc2 78%,
+    #dd554d 90%,
+    #ee8b3f 100%
+  );
+  // El papel metalizado de debajo levanta el centro y apaga los cantos.
+  box-shadow:
+    inset 0 0 0.35em rgb(255 255 255 / 0.55),
+    inset 0 0 1.6em rgb(0 0 0 / 0.28),
+    0 2px 0 rgb(0 0 0 / 0.3);
+
+  // La retícula de difracción: anillos finos, como el corte de una lámina
+  // holográfica de verdad.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+      circle at 50% 50%,
+      rgb(255 255 255 / 0.16) 0 1px,
+      transparent 1px 4px
+    );
+    mix-blend-mode: overlay;
+  }
+}
+
+// El brillo que gira: una cuña blanca suave dando la vuelta al sello. Solo
+// transform — la lámina se pinta una vez.
+.disq-holo__brillo {
+  position: absolute;
+  inset: -20%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 68%,
+    rgb(255 255 255 / 0.5) 78%,
+    transparent 88%
+  );
+  mix-blend-mode: soft-light;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: disq-holo-gira 7s linear infinite;
+  }
+}
+
+@keyframes disq-holo-gira {
+  to {
+    transform: rotate(1turn);
+  }
+}
