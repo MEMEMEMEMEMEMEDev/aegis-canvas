@@ -1,0 +1,138 @@
+@use "../disquete-tools" as dq;
+
+.disq-neon {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.disq-neon--fija {
+  position: fixed;
+  z-index: 0;
+}
+
+// --- Las masas de luz ---------------------------------------------------------
+// Sin `filter: blur`: el desvanecido está en las paradas del gradiente, así
+// que la capa se pinta una vez y después solo viaja por el compositor. Los
+// alfas están calibrados para levantar el pliego sin tocar los contrastes AA
+// del papel: la luz vive DEBAJO del contenido (z-index del consumidor).
+.disq-neon__masa {
+  position: absolute;
+  width: 72vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+}
+
+.disq-neon__masa--indigo {
+  top: -30vmax;
+  left: -18vmax;
+  background: radial-gradient(circle, rgb(90 90 224 / 30%) 0%, rgb(90 90 224 / 10%) 38%, transparent 68%);
+}
+
+.disq-neon__masa--magenta {
+  top: 4vmax;
+  right: -30vmax;
+  background: radial-gradient(circle, rgb(207 75 194 / 22%) 0%, rgb(207 75 194 / 8%) 36%, transparent 66%);
+}
+
+.disq-neon__masa--teal {
+  bottom: -38vmax;
+  left: 16vmax;
+  background: radial-gradient(circle, rgb(43 138 138 / 20%) 0%, rgb(43 138 138 / 7%) 40%, transparent 70%);
+}
+
+// --- El haz -------------------------------------------------------------------
+// El foco de la vitrina: una franja diagonal que la barre entera y descansa.
+// El viaje es un solo translate; la pausa larga vive en los porcentajes.
+.disq-neon__haz {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -35%;
+  width: 34%;
+  rotate: 14deg;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(243 240 231 / 5%) 38%,
+    rgb(243 240 231 / 9%) 50%,
+    rgb(243 240 231 / 5%) 62%,
+    transparent
+  );
+}
+
+// --- La retícula --------------------------------------------------------------
+.disq-neon__reticula {
+  position: absolute;
+  inset: 0;
+  @include dq.halftone(rgb(243 240 231 / 4.5%), 7px);
+  // Se desvanece hacia abajo: la trama pesa arriba, donde está la luz, y el
+  // pie del pliego queda limpio para leer.
+  mask-image: linear-gradient(180deg, #000 0%, rgb(0 0 0 / 35%) 70%, transparent 100%);
+}
+
+// --- Movimiento ---------------------------------------------------------------
+@media (prefers-reduced-motion: no-preference) {
+  .disq-neon__masa--indigo {
+    animation: disq-neon-deriva-a 34s ease-in-out infinite alternate;
+  }
+
+  .disq-neon__masa--magenta {
+    animation: disq-neon-deriva-b 41s ease-in-out infinite alternate;
+  }
+
+  .disq-neon__masa--teal {
+    animation: disq-neon-deriva-c 47s ease-in-out infinite alternate;
+  }
+
+  .disq-neon__haz {
+    animation: disq-neon-haz 13s ease-in-out infinite;
+  }
+}
+
+@keyframes disq-neon-deriva-a {
+  to {
+    transform: translate(9vmax, 7vmax) scale(1.15);
+  }
+}
+
+@keyframes disq-neon-deriva-b {
+  to {
+    transform: translate(-8vmax, 10vmax) scale(0.9);
+  }
+}
+
+@keyframes disq-neon-deriva-c {
+  to {
+    transform: translate(10vmax, -6vmax) scale(1.12);
+  }
+}
+
+// El haz cruza en el primer cuarto y el resto es descanso: una vitrina que
+// barre sin parar marea; una que pasa cada tanto se mira.
+@keyframes disq-neon-haz {
+  0% {
+    transform: translateX(0);
+  }
+
+  26% {
+    transform: translateX(500%);
+  }
+
+  100% {
+    transform: translateX(500%);
+  }
+}
+
+.disq-neon--suave {
+  .disq-neon__masa {
+    opacity: 0.5;
+  }
+
+  .disq-neon__haz,
+  .disq-neon__reticula {
+    opacity: 0.55;
+  }
+}

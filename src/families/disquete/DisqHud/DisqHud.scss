@@ -1,0 +1,85 @@
+@use "../disquete-tools" as dq;
+
+.disq-hud {
+  position: relative;
+  padding: 1.4rem;
+  color: var(--disq-label);
+}
+
+// --- Las esquinas -------------------------------------------------------------
+.disq-hud__esquina {
+  position: absolute;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--disq-indigo);
+  pointer-events: none;
+
+  &--tl {
+    top: 0;
+    left: 0;
+    border-right: 0;
+    border-bottom: 0;
+  }
+
+  &--tr {
+    top: 0;
+    right: 0;
+    border-left: 0;
+    border-bottom: 0;
+  }
+
+  &--bl {
+    bottom: 0;
+    left: 0;
+    border-right: 0;
+    border-top: 0;
+  }
+
+  &--br {
+    bottom: 0;
+    right: 0;
+    border-left: 0;
+    border-top: 0;
+  }
+}
+
+// --- La fila de lectura -------------------------------------------------------
+.disq-hud__readout {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55em;
+  margin: 0 0 1.1rem;
+}
+
+.disq-hud__celda {
+  @include dq.micro(0.55rem, 600);
+  padding: 0.35em 0.7em;
+  border: 1px solid rgb(243 240 231 / 30%);
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+// El indicador: un cuadrado índigo que respira. steps(1): parpadea como un
+// cursor, no se funde como un LED de estado de ánimo.
+.disq-hud__pulso {
+  width: 0.55em;
+  height: 0.55em;
+  background: var(--disq-indigo);
+  box-shadow: 0 0 8px rgb(90 90 224 / 80%);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: disq-hud-pulso 1.4s steps(1) infinite;
+  }
+}
+
+@keyframes disq-hud-pulso {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.disq-hud__cuerpo {
+  position: relative;
+  min-width: 0;
+}

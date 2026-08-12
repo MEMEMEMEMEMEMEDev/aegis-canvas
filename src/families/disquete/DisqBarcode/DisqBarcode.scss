@@ -26,3 +26,53 @@
   @include dq.micro(0.48rem, 500);
   letter-spacing: 0.3em;
 }
+
+// El láser del lector: una aguja roja que barre las barras y descansa. La
+// pausa está en los porcentajes — un lector pasa, no patrulla.
+.disq-barcode--scan {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: -12%;
+    bottom: -4%;
+    left: 0;
+    width: 2px;
+    background: rgb(224 60 50 / 85%);
+    box-shadow: 0 0 6px rgb(224 60 50 / 70%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &::after {
+      animation: disq-barcode-laser 6.5s ease-in-out infinite;
+    }
+  }
+}
+
+// Anima `left` y no transform: la aguja mide 2px y un translateX porcentual
+// se mediría contra esos 2px. El layout de un absoluto de 2px cuesta nada.
+@keyframes disq-barcode-laser {
+  0%,
+  55%,
+  100% {
+    opacity: 0;
+    left: 0;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  78% {
+    opacity: 1;
+    left: calc(100% - 2px);
+  }
+
+  80% {
+    opacity: 0;
+    left: calc(100% - 2px);
+  }
+}

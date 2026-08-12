@@ -3,6 +3,8 @@
 
 .disq-button {
   @include dq.micro(0.62rem, 700);
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
@@ -15,6 +17,26 @@
   // El canto sólido: no hay sombra difusa en esta familia, hay grosor.
   box-shadow: 3px 3px 0 var(--disq-ink);
   transition: translate 120ms ease, box-shadow 120ms ease;
+
+  // El destello de tecla de recreativa: una línea de luz cruza al apuntar.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    width: 45%;
+    translate: -160% 0;
+    rotate: 14deg;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 35%), transparent);
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .disq-button:hover::after,
+  .disq-button:focus-visible::after {
+    transition: translate 480ms ease-out;
+    translate: 320% 0;
+  }
 }
 
 .disq-button--ink.ds-button--solid {

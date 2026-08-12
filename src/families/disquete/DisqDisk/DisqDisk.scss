@@ -15,6 +15,14 @@
   color: var(--disq-ink);
   text-align: left;
   text-decoration: none;
+  // El halo: el color con que el plástico devuelve la luz de la vitrina.
+  // Cada colorway pone el suyo; el brillo vive en ::after para no pelearse
+  // con la sombra base de cada tono.
+  --disq-halo: rgb(90 90 224 / 0.4);
+  // La inclinación de carta: quien tiene un puntero fino puede empujarla
+  // desde fuera con estas dos variables (JS del consumidor). Sin ellas es
+  // la identidad y no cuesta nada.
+  transform: perspective(900px) rotateX(var(--disq-tx, 0deg)) rotateY(var(--disq-ty, 0deg));
   // El canto inferior más oscuro: el plástico tiene grosor.
   box-shadow:
     inset 0 -3px 0 var(--disq-shell-deep),
@@ -25,38 +33,66 @@
   appearance: none;
 }
 
+// La luz que enciende al elegirlo: detrás del disquete, con el color del
+// plástico. Solo anima opacity: el resplandor está pintado desde el build.
+.disq-disk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--disq-radius-lg);
+  // Dos luces: el aro ambiental alrededor y la caída hacia abajo. Juntas es
+  // lo que hace leer "encendido" y no "sombra de color".
+  box-shadow:
+    0 0 44px -4px var(--disq-halo),
+    0 26px 70px -6px var(--disq-halo);
+  opacity: 0;
+}
+
+.disq-disk--activo:hover::after,
+.disq-disk--activo:focus-visible::after,
+.disq-disk.is-selected::after {
+  opacity: 1;
+}
+
 // --- Colorways ---------------------------------------------------------------
 // Solo cambia el plástico. La etiqueta sigue siendo papel y la franja sigue
 // siendo tinta: es lo que mantiene reconocible al objeto entre colores.
 .disq-disk--shell {
   background: var(--disq-shell);
+  --disq-halo: rgb(215 212 203 / 0.34);
 }
 .disq-disk--indigo {
   background: var(--disq-indigo);
+  --disq-halo: rgb(90 90 224 / 0.55);
   box-shadow:
     inset 0 -3px 0 rgb(0 0 0 / 0.25),
     0 14px 28px rgb(0 0 0 / 0.45);
 }
 .disq-disk--magenta {
   background: var(--disq-magenta);
+  --disq-halo: rgb(207 75 194 / 0.5);
   box-shadow:
     inset 0 -3px 0 rgb(0 0 0 / 0.25),
     0 14px 28px rgb(0 0 0 / 0.45);
 }
 .disq-disk--teal {
   background: var(--disq-teal);
+  --disq-halo: rgb(43 138 138 / 0.55);
   box-shadow:
     inset 0 -3px 0 rgb(0 0 0 / 0.28),
     0 14px 28px rgb(0 0 0 / 0.45);
 }
 .disq-disk--coral {
   background: var(--disq-coral);
+  --disq-halo: rgb(224 86 78 / 0.5);
   box-shadow:
     inset 0 -3px 0 rgb(0 0 0 / 0.25),
     0 14px 28px rgb(0 0 0 / 0.45);
 }
 .disq-disk--ink {
   background: #26262c;
+  --disq-halo: rgb(139 139 240 / 0.4);
   box-shadow:
     inset 0 -3px 0 #14141a,
     0 14px 28px rgb(0 0 0 / 0.5);
@@ -122,9 +158,25 @@
   position: absolute;
   inset: 0;
   border-radius: 2px;
+  overflow: hidden;
   background:
     radial-gradient(circle at 50% 120%, rgb(255 255 255 / 0.16) 0 18%, transparent 22%),
     var(--disq-media);
+
+  // El reflejo del disco girando: un destello cónico que da vueltas cuando
+  // la compuerta se abre. Es lo que hace un disco DENTRO de la unidad, y es
+  // la clase de detalle que solo se ve si alguien se queda mirando.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -45%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0 68%,
+      rgb(255 255 255 / 0.15) 78%,
+      transparent 88%
+    );
+  }
 }
 
 // La chapa que lo tapa. Con `translate` y no `left`: solo compone, así que
@@ -155,6 +207,21 @@
   color: var(--disq-ink);
   // El papel está pegado sobre el plástico: un filo fino lo levanta.
   box-shadow: 0 1px 0 rgb(255 255 255 / 0.5) inset, 0 2px 6px rgb(0 0 0 / 0.18);
+  position: relative;
+
+  // El barniz foil: la lámina holográfica de una etiqueta de coleccionista.
+  // Vive fuera del papel por la izquierda y cruza al abrirse la compuerta.
+  // `overlay` sobre el papel: la tinta debajo mide el mismo contraste.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 160%;
+    translate: -100% 0;
+    @include dq.foil;
+    pointer-events: none;
+    opacity: 0;
+  }
 }
 
 // --- Tacos de las esquinas ---------------------------------------------------
@@ -192,7 +259,14 @@
 // así que comparten el gesto.
 @media (prefers-reduced-motion: no-preference) {
   .disq-disk {
-    transition: translate 220ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 220ms ease;
+    transition:
+      translate 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      scale 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 220ms ease;
+  }
+
+  .disq-disk::after {
+    transition: opacity 320ms ease;
   }
 
   .disq-disk__shutter {
@@ -202,6 +276,38 @@
   .disq-disk--activo:hover,
   .disq-disk--activo:focus-visible {
     translate: 0 -6px;
+    scale: 1.015;
+  }
+
+  // El foil cruza la etiqueta una vez, con la cadencia de girar una carta
+  // hacia la luz. El viaje es translate y el resto opacity: compositor puro.
+  .disq-disk__label::after {
+    transition: translate 950ms cubic-bezier(0.25, 0.6, 0.2, 1), opacity 260ms ease;
+  }
+
+  .disq-disk--activo:hover .disq-disk__label::after,
+  .disq-disk--activo:focus-visible .disq-disk__label::after,
+  .disq-disk.is-selected .disq-disk__label::after {
+    translate: 38% 0;
+    opacity: 1;
+  }
+
+  // El disco gira mientras la compuerta esté abierta.
+  .disq-disk__window::after {
+    animation: disq-disk-giro 2.6s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .disq-disk--activo:hover .disq-disk__window::after,
+  .disq-disk--activo:focus-visible .disq-disk__window::after,
+  .disq-disk.is-selected .disq-disk__window::after {
+    animation-play-state: running;
+  }
+}
+
+@keyframes disq-disk-giro {
+  to {
+    transform: rotate(1turn);
   }
 }
 

@@ -19,6 +19,13 @@
   z-index: 1;
 }
 
+// Las luces de la vitrina se quedan al fondo, con el grano: iluminan los
+// discos, no los tapan.
+.disq-shelf > .disq-neon {
+  position: absolute;
+  z-index: 0;
+}
+
 .disq-shelf__head {
   display: flex;
   align-items: flex-start;

@@ -45,3 +45,12 @@ export type { DisqTagProps } from "./DisqTag/DisqTag";
 
 export { default as DisqButton } from "./DisqButton/DisqButton";
 export type { DisqButtonProps } from "./DisqButton/DisqButton";
+
+export { default as DisqNeon } from "./DisqNeon/DisqNeon";
+export type { DisqNeonProps } from "./DisqNeon/DisqNeon";
+
+export { default as DisqMarquee } from "./DisqMarquee/DisqMarquee";
+export type { DisqMarqueeProps } from "./DisqMarquee/DisqMarquee";
+
+export { default as DisqHud } from "./DisqHud/DisqHud";
+export type { DisqHudProps } from "./DisqHud/DisqHud";

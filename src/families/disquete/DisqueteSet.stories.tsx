@@ -6,7 +6,10 @@ import DisqButton from "./DisqButton/DisqButton";
 import DisqDisk from "./DisqDisk/DisqDisk";
 import type { DisqColor } from "./DisqDisk/DisqDisk";
 import DisqEmblem from "./DisqEmblem/DisqEmblem";
+import DisqHud from "./DisqHud/DisqHud";
 import DisqLabel from "./DisqLabel/DisqLabel";
+import DisqMarquee from "./DisqMarquee/DisqMarquee";
+import DisqNeon from "./DisqNeon/DisqNeon";
 import DisqRows from "./DisqRows/DisqRows";
 import DisqShelf from "./DisqShelf/DisqShelf";
 import DisqSleeve from "./DisqSleeve/DisqSleeve";
@@ -77,11 +80,15 @@ const Hoja = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-/** La vista que resume la familia: el pliego con los cuatro colorways. */
+/** La vista que resume la familia: la vitrina con luces y los colorways. */
 export const Overview: StoryObj = {
   render: () => (
     <Hoja>
+      <DisqMarquee
+        items={["Kubernetes", "React 19", "Astro", "TypeScript", "ArgoCD", "vLLM", "SCSS", "Storybook"]}
+      />
       <DisqShelf
+        neon
         title="DISQUETE · MF2-HD · 8 CARAS"
         mark="globe"
         note="Proporción real 90×94 mm · la compuerta se abre al pasar por encima o con el foco de teclado"
@@ -101,6 +108,41 @@ export const Overview: StoryObj = {
           </DisqDisk>
         ))}
       </DisqShelf>
+    </Hoja>
+  ),
+};
+
+/**
+ * La renovación entera en una historia: HUD con lectura de datos, marquesina,
+ * y la vitrina con sus luces. Es la maqueta de lo que lleva el mundo
+ * PROYECTOS del portafolio.
+ */
+export const Vitrina: StoryObj = {
+  render: () => (
+    <Hoja>
+      <div style={{ position: "relative", display: "grid", gap: "1.5rem", padding: "2rem clamp(1rem, 4vw, 3rem)" }}>
+        <DisqNeon />
+        <DisqHud readout={["04 DISCOS", "02 CASOS", "MF2-HD", "REV 2026"]}>
+          <DisqTitle as="h2" size="hero" cells={["ARCHIVO", "CARA A", "2S/HD"]} emblem="disc">
+            La vitrina
+          </DisqTitle>
+        </DisqHud>
+      </div>
+      <DisqMarquee
+        items={["Kubernetes", "React 19", "Astro", "TypeScript", "ArgoCD", "vLLM", "SCSS", "Storybook"]}
+        tone="indigo"
+      />
+      <DisqShelf neon min="15rem">
+        {DISCOS.map((d) => (
+          <DisqDisk key={d.title} color={d.color} href="#">
+            <DisqLabel title={d.title} cells={d.cells} code={d.code} stripes />
+          </DisqDisk>
+        ))}
+      </DisqShelf>
+      <DisqMarquee
+        items={["GitOps", "Design system", "IA aplicada", "SEO", "Accesibilidad", "Rendimiento"]}
+        reverse
+      />
     </Hoja>
   ),
 };
@@ -236,7 +278,7 @@ export const Piezas: StoryObj = {
           <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap", alignItems: "flex-end" }}>
             <DisqBadge mark="5" lines={["LA PRODUCCIÓN", "SUPERIOR"]} />
             <DisqBadge mark="HD" lines={["DOBLE CARA", "ALTA DENSIDAD"]} />
-            <DisqBarcode code="1446 0002" />
+            <DisqBarcode code="1446 0002" scan />
           </div>
 
           <DisqRows items={["Connections", "Fake true", "Logic lovers", "Korrupted", "Firestarting"]} />

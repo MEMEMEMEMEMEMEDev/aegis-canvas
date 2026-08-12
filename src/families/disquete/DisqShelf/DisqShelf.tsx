@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { cx } from "../../../utils/cx";
 import DisqEmblem from "../DisqEmblem/DisqEmblem";
 import type { DisqEmblemShape } from "../DisqEmblem/DisqEmblem";
+import DisqNeon from "../DisqNeon/DisqNeon";
 import "../disquete.scss";
 import "./DisqShelf.scss";
 
@@ -22,6 +23,8 @@ export interface DisqShelfProps {
    * deja de caber en la proporción 90×94 y estira el objeto.
    */
   min?: string;
+  /** Enciende las luces de la vitrina (DisqNeon) detrás de los discos. */
+  neon?: boolean;
   className?: string;
 }
 
@@ -39,10 +42,12 @@ export default function DisqShelf({
   note,
   mark,
   min = "19rem",
+  neon = false,
   className,
 }: DisqShelfProps) {
   return (
     <section className={cx("disq-shelf", className)}>
+      {neon && <DisqNeon />}
       {(title || mark) && (
         <header className="disq-shelf__head">
           {title && <h2 className="disq-shelf__title">{title}</h2>}

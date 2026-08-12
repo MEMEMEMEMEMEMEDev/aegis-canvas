@@ -1,0 +1,78 @@
+@use "../disquete-tools" as dq;
+
+.disq-marquee {
+  overflow: hidden;
+  border-block: var(--disq-line) solid currentcolor;
+  // El desvanecido de los cantos: la cinta entra y sale de la luz en vez de
+  // cortarse contra el borde.
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.disq-marquee--void {
+  color: var(--disq-label);
+}
+
+.disq-marquee--ink {
+  background: var(--disq-ink);
+  color: var(--disq-label);
+  border-block-color: var(--disq-ink);
+}
+
+.disq-marquee--indigo {
+  background: var(--disq-indigo);
+  color: #fff;
+  border-block-color: var(--disq-indigo);
+}
+
+.disq-marquee__track {
+  display: flex;
+  width: max-content;
+}
+
+.disq-marquee__group {
+  display: flex;
+  align-items: center;
+  padding-block: 0.55em;
+}
+
+.disq-marquee__item {
+  @include dq.micro(0.62rem, 700);
+  white-space: nowrap;
+}
+
+.disq-marquee__sep {
+  @include dq.micro(0.5rem, 400);
+  margin-inline: 1.6em;
+  opacity: 0.55;
+}
+
+// El acento del rombo: sobre el pliego, el índigo de texto; sobre tinta o
+// índigo la banda ya tiene color y el rombo hereda.
+.disq-marquee--void .disq-marquee__sep {
+  color: var(--disq-indigo-soft);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .disq-marquee__track {
+    animation: disq-marquee var(--disq-marquee-dur, 26s) linear infinite;
+  }
+
+  .disq-marquee--reverse .disq-marquee__track {
+    animation-direction: reverse;
+  }
+
+  // La cinta se detiene bajo el cursor: si algo llama la atención, se deja
+  // leer.
+  .disq-marquee:hover .disq-marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+// La pista mide el doble (dos copias iguales): media pista exacta por vuelta
+// y el empalme no se nota.
+@keyframes disq-marquee {
+  to {
+    translate: -50% 0;
+  }
+}
