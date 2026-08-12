@@ -1,0 +1,403 @@
+// La maqueta de interfaz, dibujada con bloques. Todo se mide en % del propio
+// lienzo, así que la pantalla escala entera con su contenedor y no hay un
+// tamaño "correcto": lo mismo sirve de miniatura en una rejilla que de
+// pantallazo gigante en el recorrido de un demo.
+
+.disq-pantalla {
+  display: block;
+  width: 100%;
+  // --tinta es el acento de la interfaz; --papel, su fondo. Cada tono los
+  // reescribe y todo lo de dentro los hereda.
+  --disq-p-tinta: var(--disq-indigo);
+  --disq-p-papel: #f7f5ef;
+  --disq-p-hueso: #dedbd2;
+}
+
+.disq-pantalla--indigo {
+  --disq-p-tinta: var(--disq-indigo);
+}
+.disq-pantalla--magenta {
+  --disq-p-tinta: var(--disq-magenta);
+}
+.disq-pantalla--teal {
+  --disq-p-tinta: var(--disq-teal);
+}
+.disq-pantalla--coral {
+  --disq-p-tinta: var(--disq-coral);
+}
+.disq-pantalla--band {
+  --disq-p-tinta: var(--disq-band-2);
+}
+
+// --- El monitor ---------------------------------------------------------------
+.disq-pantalla__marco {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  padding: 2.2%;
+  border-radius: 8px;
+  background: var(--disq-ink);
+  // El canto del plástico y, con glow, el resplandor del tubo.
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.5);
+  overflow: hidden;
+}
+
+.disq-pantalla--glow .disq-pantalla__marco {
+  box-shadow:
+    inset 0 -2px 0 rgb(0 0 0 / 0.5),
+    0 0 32px -6px var(--disq-p-tinta),
+    0 18px 44px -12px rgb(0 0 0 / 0.6);
+}
+
+.disq-pantalla__lienzo {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 3%;
+  gap: 3%;
+  border-radius: 3px;
+  background: var(--disq-p-papel);
+  overflow: hidden;
+}
+
+// El cristal: barrido + viñeta. La firma del tubo, sin coste por frame.
+.disq-pantalla__cristal {
+  position: absolute;
+  inset: 2.2%;
+  border-radius: 3px;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgb(10 10 14 / 7%) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 110% 100% at 50% 45%, transparent 58%, rgb(5 5 10 / 22%) 100%);
+}
+
+// --- Piezas comunes -----------------------------------------------------------
+// SOLO los <i>: son las piezas hoja de la maqueta y ninguna declara su
+// display. Incluir aquí también a los <span> —que son los contenedores— les
+// ganaba por especificidad (clase + elemento contra clase sola) y aplastaba
+// todas las rejillas a bloques apilados.
+.disq-pantalla__lienzo i {
+  display: block;
+}
+
+.disq-pantalla__barra {
+  display: flex;
+  align-items: center;
+  gap: 3%;
+  height: 11%;
+  padding-bottom: 2%;
+  border-bottom: 1px solid var(--disq-p-hueso);
+}
+
+.disq-pantalla__marca {
+  width: 16%;
+  height: 42%;
+  border-radius: 2px;
+  background: var(--disq-p-tinta);
+}
+
+.disq-pantalla__link {
+  width: 9%;
+  height: 26%;
+  border-radius: 2px;
+  background: var(--disq-p-hueso);
+}
+
+.disq-pantalla__carro {
+  margin-left: auto;
+  width: 7%;
+  height: 45%;
+  border-radius: 2px;
+  background: var(--disq-ink);
+}
+
+.disq-pantalla__cta {
+  margin-left: auto;
+  width: 20%;
+  height: 48%;
+  border-radius: 999px;
+  background: var(--disq-p-tinta);
+}
+
+// --- Tienda -------------------------------------------------------------------
+.disq-pantalla__lienzo--tienda,
+.disq-pantalla__lienzo--agenda,
+.disq-pantalla__lienzo--landing,
+.disq-pantalla__lienzo--chat {
+  flex-direction: column;
+}
+
+.disq-pantalla__rejilla {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4%;
+  flex: 1;
+  min-height: 0;
+}
+
+.disq-pantalla__ficha {
+  display: flex;
+  flex-direction: column;
+  gap: 8%;
+  padding: 6%;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 1px 0 var(--disq-p-hueso);
+}
+
+.disq-pantalla__foto {
+  flex: 1;
+  border-radius: 2px;
+  // La foto del producto: la tinta diluida, nunca una imagen.
+  background: color-mix(in srgb, var(--disq-p-tinta) 26%, var(--disq-p-hueso));
+}
+
+.disq-pantalla__linea {
+  height: 8%;
+  min-height: 2px;
+  width: 78%;
+  border-radius: 1px;
+  background: var(--disq-p-hueso);
+}
+
+.disq-pantalla__precio {
+  height: 8%;
+  min-height: 2px;
+  width: 40%;
+  border-radius: 1px;
+  background: var(--disq-ink);
+}
+
+// --- Panel --------------------------------------------------------------------
+.disq-pantalla__flanco {
+  display: flex;
+  flex-direction: column;
+  gap: 6%;
+  width: 18%;
+  padding: 3% 2%;
+  border-radius: 3px;
+  background: var(--disq-ink);
+}
+
+.disq-pantalla__item {
+  height: 7%;
+  min-height: 3px;
+  border-radius: 1px;
+  background: rgb(243 240 231 / 0.35);
+
+  &:first-child {
+    background: var(--disq-p-tinta);
+  }
+}
+
+.disq-pantalla__tablero {
+  display: flex;
+  flex-direction: column;
+  gap: 4%;
+  flex: 1;
+  min-width: 0;
+}
+
+.disq-pantalla__cifras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4%;
+  height: 22%;
+}
+
+.disq-pantalla__cifra {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12%;
+  padding: 5%;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 1px 0 var(--disq-p-hueso);
+}
+
+.disq-pantalla__num {
+  height: 34%;
+  width: 58%;
+  border-radius: 1px;
+  background: var(--disq-p-tinta);
+}
+
+.disq-pantalla__rotulo {
+  height: 18%;
+  width: 80%;
+  border-radius: 1px;
+  background: var(--disq-p-hueso);
+}
+
+// El gráfico: barras de alturas fijas —los datos de una maqueta también
+// tienen que ser deterministas— alineadas al suelo.
+.disq-pantalla__grafico {
+  display: flex;
+  align-items: flex-end;
+  gap: 3%;
+  flex: 1;
+  min-height: 0;
+  padding: 4%;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 1px 0 var(--disq-p-hueso);
+}
+
+.disq-pantalla__barra-dato {
+  flex: 1;
+  border-radius: 1px 1px 0 0;
+  background: var(--disq-p-tinta);
+
+  &:nth-child(even) {
+    opacity: 0.55;
+  }
+}
+
+.disq-pantalla__tabla {
+  display: flex;
+  flex-direction: column;
+  gap: 22%;
+  height: 16%;
+}
+
+.disq-pantalla__fila {
+  flex: 1;
+  border-radius: 1px;
+  background: var(--disq-p-hueso);
+
+  &:first-child {
+    background: var(--disq-ink);
+    opacity: 0.55;
+  }
+}
+
+// --- Agenda -------------------------------------------------------------------
+.disq-pantalla__mes {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2.5%;
+  flex: 1;
+  min-height: 0;
+  padding-block: 3%;
+}
+
+.disq-pantalla__dia {
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--disq-p-hueso);
+}
+
+.disq-pantalla__dia--tomado {
+  background: var(--disq-p-tinta);
+  box-shadow: none;
+}
+
+.disq-pantalla__horas {
+  display: flex;
+  gap: 3%;
+  height: 14%;
+}
+
+.disq-pantalla__hora {
+  flex: 1;
+  border-radius: 999px;
+  background: var(--disq-p-hueso);
+
+  &:first-child {
+    background: var(--disq-ink);
+  }
+}
+
+// --- Landing ------------------------------------------------------------------
+.disq-pantalla__hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5%;
+  flex: 1;
+  min-height: 0;
+  padding: 6% 5%;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--disq-p-tinta) 12%, #fff);
+}
+
+.disq-pantalla__titular {
+  height: 14%;
+  min-height: 4px;
+  width: 84%;
+  border-radius: 2px;
+  background: var(--disq-ink);
+}
+
+.disq-pantalla__titular--corto {
+  width: 52%;
+}
+
+.disq-pantalla__boton {
+  margin-top: 2%;
+  height: 12%;
+  min-height: 4px;
+  width: 30%;
+  border-radius: 999px;
+  background: var(--disq-p-tinta);
+}
+
+.disq-pantalla__tres {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4%;
+  height: 24%;
+}
+
+.disq-pantalla__columna {
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: 0 1px 0 var(--disq-p-hueso);
+}
+
+// --- Chat ---------------------------------------------------------------------
+.disq-pantalla__hilo {
+  display: flex;
+  flex-direction: column;
+  gap: 4%;
+  flex: 1;
+  min-height: 0;
+  padding-block: 3%;
+}
+
+.disq-pantalla__globo {
+  height: 14%;
+  min-height: 5px;
+  border-radius: 6px;
+}
+
+.disq-pantalla__globo--yo {
+  align-self: flex-end;
+  width: 46%;
+  background: var(--disq-p-tinta);
+}
+
+.disq-pantalla__globo--ia {
+  align-self: flex-start;
+  width: 62%;
+  background: var(--disq-p-hueso);
+}
+
+.disq-pantalla__globo--largo {
+  height: 24%;
+  width: 74%;
+}
+
+.disq-pantalla__globo--corto {
+  width: 28%;
+}
+
+.disq-pantalla__prompt {
+  display: block;
+  height: 13%;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--disq-p-hueso);
+}

@@ -3,6 +3,9 @@ import { useState } from "react";
 import DisqBadge from "./DisqBadge/DisqBadge";
 import DisqBarcode from "./DisqBarcode/DisqBarcode";
 import DisqButton from "./DisqButton/DisqButton";
+import DisqCarga from "./DisqCarga/DisqCarga";
+import DisqPantalla from "./DisqPantalla/DisqPantalla";
+import type { DisqPantallaLayout } from "./DisqPantalla/DisqPantalla";
 import DisqDisk from "./DisqDisk/DisqDisk";
 import type { DisqColor } from "./DisqDisk/DisqDisk";
 import DisqEmblem from "./DisqEmblem/DisqEmblem";
@@ -152,6 +155,55 @@ export const Vitrina: StoryObj = {
       />
     </Hoja>
   ),
+};
+
+/**
+ * La galería de demos: las cinco maquetas de interfaz dibujadas con bloques
+ * y la pantalla de arranque de un cartucho. Es lo que viste la sección de
+ * proyectos demo del portafolio.
+ */
+export const Demos: StoryObj = {
+  render: () => {
+    const PANTALLAS: Array<{ layout: DisqPantallaLayout; label: string; tone: "indigo" | "magenta" | "teal" | "coral" | "band" }> = [
+      { layout: "tienda", label: "Maqueta de una tienda online", tone: "indigo" },
+      { layout: "panel", label: "Maqueta de un panel de administración", tone: "teal" },
+      { layout: "agenda", label: "Maqueta de una agenda de reservas", tone: "magenta" },
+      { layout: "landing", label: "Maqueta de una landing de campaña", tone: "coral" },
+      { layout: "chat", label: "Maqueta de un chat con IA", tone: "band" },
+    ];
+
+    return (
+      <Hoja>
+        <div style={{ position: "relative", padding: "2rem clamp(1rem, 4vw, 3rem)", display: "grid", gap: "2rem" }}>
+          <DisqNeon />
+          <div style={{ position: "relative", maxWidth: "34rem" }}>
+            <DisqCarga
+              title="Cargando demo"
+              lines={[
+                "montando catálogo · 128 productos de prueba",
+                "conectando pasarela en modo test",
+                "sembrando pedidos y clientes",
+                "listo — pulsa para abrir en otra pestaña",
+              ]}
+            />
+          </div>
+
+          <div
+            style={{
+              position: "relative",
+              display: "grid",
+              gap: "1.6rem",
+              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 17rem), 1fr))",
+            }}
+          >
+            {PANTALLAS.map((p) => (
+              <DisqPantalla key={p.layout} layout={p.layout} tone={p.tone} label={p.label} glow />
+            ))}
+          </div>
+        </div>
+      </Hoja>
+    );
+  },
 };
 
 /**

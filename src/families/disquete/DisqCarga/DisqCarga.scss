@@ -1,0 +1,132 @@
+@use "../disquete-tools" as dq;
+
+// El contador. Registrada como entero para que el navegador sepa
+// interpolarla: sin @property una custom property no se anima, salta.
+// El valor declarado es 100 —el estado final— así que donde no se registre,
+// el número queda en el sitio honesto en vez de en cero.
+@property --disq-carga-p {
+  syntax: "<integer>";
+  initial-value: 100;
+  inherits: false;
+}
+
+.disq-carga {
+  --disq-carga-p: 100;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.2rem 1.3rem 1.4rem;
+  border-radius: 6px;
+  background: var(--disq-ink);
+  color: var(--disq-label);
+}
+
+.disq-carga__cabeza {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.disq-carga__title {
+  @include dq.micro(0.68rem, 700);
+  letter-spacing: 0.24em;
+}
+
+// El número gigante: es la pieza que se ve desde la otra punta de la sala.
+.disq-carga__pct {
+  font-family: var(--disq-font-display);
+  font-size: clamp(2rem, 1.2rem + 3.4vw, 3.4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  counter-reset: disq-pct var(--disq-carga-p);
+
+  &::after {
+    content: counter(disq-pct) "%";
+  }
+}
+
+// --- La barra -----------------------------------------------------------------
+.disq-carga__barra {
+  display: flex;
+  gap: 2px;
+  height: 0.85rem;
+
+  i {
+    flex: 1;
+    border-radius: 1px;
+    // Apagado: el bloque existe desde el principio, solo espera su turno.
+    background: rgb(243 240 231 / 0.14);
+  }
+}
+
+// --- El registro --------------------------------------------------------------
+.disq-carga__log {
+  @include dq.micro(0.56rem, 500);
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  letter-spacing: 0.1em;
+  // El log no grita: es lo que pasa por detrás mientras carga.
+  color: rgb(243 240 231 / 0.78);
+
+  span {
+    color: var(--disq-band-4);
+  }
+}
+
+// --- La secuencia -------------------------------------------------------------
+// Todo escalonado sobre la MISMA duración: el último bloque de la barra y la
+// última línea del log caen a la vez que el contador llega a 100.
+@media (prefers-reduced-motion: no-preference) {
+  .disq-carga__pct {
+    animation: disq-carga-cuenta var(--disq-carga-dur, 2.6s) cubic-bezier(0.15, 0.75, 0.2, 1) both;
+  }
+
+  .disq-carga__barra i {
+    animation: disq-carga-bloque 260ms steps(1) both;
+    animation-delay: calc(
+      var(--disq-carga-i) / var(--disq-carga-n) * var(--disq-carga-dur, 2.6s)
+    );
+  }
+
+  .disq-carga__log li {
+    animation: disq-carga-linea 320ms ease-out both;
+    animation-delay: calc(
+      var(--disq-carga-i) / var(--disq-carga-n) * var(--disq-carga-dur, 2.6s)
+    );
+  }
+}
+
+@keyframes disq-carga-cuenta {
+  from {
+    --disq-carga-p: 0;
+  }
+  to {
+    --disq-carga-p: 100;
+  }
+}
+
+// steps(1): el bloque se enciende de golpe. Un fundido lo volvería una barra
+// de progreso moderna, y esto es una consola.
+@keyframes disq-carga-bloque {
+  from {
+    background: rgb(243 240 231 / 0.14);
+  }
+  to {
+    background: var(--disq-band-4);
+  }
+}
+
+@keyframes disq-carga-linea {
+  from {
+    opacity: 0;
+    translate: -6px 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}

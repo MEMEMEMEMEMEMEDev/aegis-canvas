@@ -58,6 +58,12 @@ export type { DisqStickerProps, DisqStickerShape, DisqStickerFill } from "./Disq
 export { default as DisqHolo } from "./DisqHolo/DisqHolo";
 export type { DisqHoloProps } from "./DisqHolo/DisqHolo";
 
+export { default as DisqPantalla } from "./DisqPantalla/DisqPantalla";
+export type { DisqPantallaProps, DisqPantallaLayout } from "./DisqPantalla/DisqPantalla";
+
+export { default as DisqCarga } from "./DisqCarga/DisqCarga";
+export type { DisqCargaProps } from "./DisqCarga/DisqCarga";
+
 export { default as DisqMarquee } from "./DisqMarquee/DisqMarquee";
 export type { DisqMarqueeProps } from "./DisqMarquee/DisqMarquee";
 
