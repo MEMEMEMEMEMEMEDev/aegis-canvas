@@ -1,13 +1,20 @@
 @use "../disquete-tools" as dq;
 
-// El contador. Registrada como entero para que el navegador sepa
-// interpolarla: sin @property una custom property no se anima, salta.
-// El valor declarado es 100 —el estado final— así que donde no se registre,
-// el número queda en el sitio honesto en vez de en cero.
+// El contador, registrado como entero para que el navegador sepa
+// interpolarlo: sin @property una custom property no se anima, salta.
+//
+// `inherits: true` es la pieza clave del arreglo: la variable se anima UNA
+// vez en el contenedor y desciende a los hijos, así que el número y la barra
+// leen exactamente el mismo valor en cada fotograma. Con `inherits: false`
+// —como estaba— la barra no podía verla y había que repartir los bloques por
+// retardo, que es de donde salía el desfase.
+//
+// El valor declarado es 100, el estado final: donde no se registre la
+// propiedad, la carga aparece completa en vez de vacía.
 @property --disq-carga-p {
   syntax: "<integer>";
   initial-value: 100;
-  inherits: false;
+  inherits: true;
 }
 
 .disq-carga {
@@ -15,30 +22,46 @@
   display: grid;
   gap: 0.9rem;
   padding: 1.2rem 1.3rem 1.4rem;
-  border-radius: 6px;
-  background: var(--disq-ink);
-  color: var(--disq-label);
+  // Registro bruto: papel, trazo negro grueso, radio contado y sombra dura.
+  background: var(--disq-beige);
+  color: var(--disq-ink);
+  border: var(--disq-trazo) solid var(--disq-ink);
+  border-radius: var(--disq-radio-2);
+  box-shadow: var(--disq-sombra-2);
 }
 
 .disq-carga__cabeza {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .disq-carga__title {
-  @include dq.micro(0.68rem, 700);
-  letter-spacing: 0.24em;
+  font-family: var(--disq-font-suave);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-// El número gigante: es la pieza que se ve desde la otra punta de la sala.
+// El número, en su bloque de acento macizo: tinta negra sobre amarillo, que
+// es el par de más contraste de la lámina.
 .disq-carga__pct {
   font-family: var(--disq-font-display);
-  font-size: clamp(2rem, 1.2rem + 3.4vw, 3.4rem);
+  font-size: clamp(1.6rem, 1.1rem + 2.2vw, 2.6rem);
   font-weight: 900;
   letter-spacing: -0.04em;
-  line-height: 0.9;
+  line-height: 1;
+  padding: 0.12em 0.4em;
+  background: var(--disq-amarillo);
+  border: var(--disq-trazo) solid var(--disq-ink);
+  border-radius: var(--disq-radio-1);
+  // Ancho fijo en cifras: sin esto la caja da un salto al pasar de 9 a 10 y
+  // de 99 a 100, y el bloque entero tiembla durante toda la carga.
+  min-width: 3.6em;
+  text-align: center;
   counter-reset: disq-pct var(--disq-carga-p);
 
   &::after {
@@ -48,50 +71,75 @@
 
 // --- La barra -----------------------------------------------------------------
 .disq-carga__barra {
+  position: relative;
+  height: 1.5rem;
+  padding: 3px;
+  background: #fff;
+  border: var(--disq-trazo) solid var(--disq-ink);
+  border-radius: var(--disq-radio-1);
+  overflow: hidden;
+}
+
+.disq-carga__pista,
+.disq-carga__lleno {
   display: flex;
-  gap: 2px;
-  height: 0.85rem;
+  gap: 3px;
+  height: 100%;
 
   i {
+    display: block;
     flex: 1;
-    border-radius: 1px;
-    // Apagado: el bloque existe desde el principio, solo espera su turno.
-    background: rgb(243 240 231 / 0.14);
+    border-radius: 2px;
   }
+}
+
+// La pista apagada, debajo.
+.disq-carga__pista i {
+  background: rgb(21 21 26 / 0.14);
+}
+
+// La encendida, encima y recortada por el porcentaje. Un solo `clip-path`
+// atado a la MISMA variable que el número: no hay forma de que discrepen.
+.disq-carga__lleno {
+  position: absolute;
+  inset: 3px;
+  clip-path: inset(0 calc(100% - var(--disq-carga-p) * 1%) 0 0);
+}
+
+.disq-carga__lleno i {
+  background: var(--disq-teal-neon);
 }
 
 // --- El registro --------------------------------------------------------------
 .disq-carga__log {
-  @include dq.micro(0.56rem, 500);
+  font-family: var(--disq-font-mono);
+  font-size: 0.66rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
   display: grid;
   gap: 0.3rem;
   margin: 0;
   padding: 0;
   list-style: none;
-  letter-spacing: 0.1em;
-  // El log no grita: es lo que pasa por detrás mientras carga.
-  color: rgb(243 240 231 / 0.78);
+  color: var(--disq-ink-soft);
 
   span {
-    color: var(--disq-band-4);
+    color: var(--disq-ink);
+    font-weight: 700;
   }
 }
 
 // --- La secuencia -------------------------------------------------------------
-// Todo escalonado sobre la MISMA duración: el último bloque de la barra y la
-// última línea del log caen a la vez que el contador llega a 100.
 @media (prefers-reduced-motion: no-preference) {
-  .disq-carga__pct {
-    animation: disq-carga-cuenta var(--disq-carga-dur, 2.6s) cubic-bezier(0.15, 0.75, 0.2, 1) both;
+  // UNA animación para toda la pieza. El número y la barra son dos lecturas
+  // de esta misma cuenta, así que la curva da igual: siempre coinciden.
+  .disq-carga {
+    animation: disq-carga-cuenta var(--disq-carga-dur, 2.6s) cubic-bezier(0.2, 0.7, 0.3, 1) both;
   }
 
-  .disq-carga__barra i {
-    animation: disq-carga-bloque 260ms steps(1) both;
-    animation-delay: calc(
-      var(--disq-carga-i) / var(--disq-carga-n) * var(--disq-carga-dur, 2.6s)
-    );
-  }
-
+  // El log es cualitativo, no una medida: se reparte por igual a lo largo de
+  // la misma duración y no pretende casar con la cifra.
   .disq-carga__log li {
     animation: disq-carga-linea 320ms ease-out both;
     animation-delay: calc(
@@ -106,17 +154,6 @@
   }
   to {
     --disq-carga-p: 100;
-  }
-}
-
-// steps(1): el bloque se enciende de golpe. Un fundido lo volvería una barra
-// de progreso moderna, y esto es una consola.
-@keyframes disq-carga-bloque {
-  from {
-    background: rgb(243 240 231 / 0.14);
-  }
-  to {
-    background: var(--disq-band-4);
   }
 }
 

@@ -35,18 +35,24 @@
   display: block;
   aspect-ratio: 16 / 10;
   padding: 2.2%;
-  border-radius: 8px;
+  // Radio del registro bruto: el monitor es un bloque del sistema, con las
+  // mismas esquinas que las tarjetas y los controles.
+  border-radius: var(--disq-radio-2, 24px);
   background: var(--disq-ink);
+  border: var(--disq-trazo, 3px) solid var(--disq-ink);
   // El canto del plástico y, con glow, el resplandor del tubo.
   box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.5);
   overflow: hidden;
 }
 
+// Encendida: la sombra DURA del registro bruto (desplazada, sin desenfoque)
+// más el halo del tubo. La primera dice "es un bloque apoyado"; el segundo,
+// "está encendido". Las dos cosas son ciertas y no se estorban.
 .disq-pantalla--glow .disq-pantalla__marco {
   box-shadow:
     inset 0 -2px 0 rgb(0 0 0 / 0.5),
-    0 0 32px -6px var(--disq-p-tinta),
-    0 18px 44px -12px rgb(0 0 0 / 0.6);
+    10px 10px 0 var(--disq-p-tinta),
+    0 0 38px -8px var(--disq-p-tinta);
 }
 
 .disq-pantalla__lienzo {
@@ -65,7 +71,7 @@
 .disq-pantalla__cristal {
   position: absolute;
   inset: 2.2%;
-  border-radius: 3px;
+  border-radius: 6px;
   pointer-events: none;
   background:
     repeating-linear-gradient(0deg, rgb(10 10 14 / 7%) 0 1px, transparent 1px 3px),

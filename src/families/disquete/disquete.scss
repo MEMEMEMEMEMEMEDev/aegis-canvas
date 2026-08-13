@@ -42,6 +42,59 @@
     format("woff2-variations");
 }
 
+// Poppins: la voz SUAVE. Geometría circular y terminaciones redondas — es lo
+// más cercano al aire de una interfaz de teléfono que hay en el repertorio, y
+// es justo el contrapeso que el registro neo-brutalista necesita: los bloques
+// gritan, la letra no tiene por qué.
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/poppins/poppins-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/poppins/poppins-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../../fonts/poppins/poppins-latin-600-normal.woff2") format("woff2");
+}
+
+// Spline Sans Mono releva a Geist Mono en el papel de mono. Geist Mono está
+// dibujada a escuadra —terminaciones rectas, ojales cuadrados— y a tamaño
+// pequeño y en versalitas la sección entera acababa pareciendo una consola.
+// Esta tiene el mismo ancho fijo con curvas humanistas: sigue siendo mono
+// donde hace falta ser mono, sin la aspereza.
+@font-face {
+  font-family: "Spline Sans Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../fonts/spline-sans-mono/spline-sans-mono-v13-latin-regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../fonts/spline-sans-mono/spline-sans-mono-v13-latin-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../fonts/spline-sans-mono/spline-sans-mono-v13-latin-700.woff2") format("woff2");
+}
+
 .disquete-scope {
   // --- Mini-contrato de la familia ---
   --disq-void: #0e0e11; // el pliego: casi negro
@@ -89,7 +142,47 @@
   --disq-radius-lg: 10px; // radio de la carcasa
 
   --disq-font-display: "Geist", system-ui, sans-serif;
-  --disq-font-mono: "Geist Mono", ui-monospace, monospace;
+  // La voz suave: lectura, botones y micro-texto de interfaz.
+  --disq-font-suave: "Poppins", system-ui, sans-serif;
+  --disq-font-mono: "Spline Sans Mono", ui-monospace, monospace;
+
+  // ---------------------------------------------------------------------------
+  // REGISTRO BRUTO (referencias-portafolio/5-familia-idea/01-ref.png)
+  //
+  // Un sistema neo-brutalista declarado en sus propias reglas: trazo negro
+  // grueso, esquinas cuadradas con radios contados, bloques de acento macizos,
+  // rejilla estricta, contraste alto y foco SIEMPRE visible.
+  //
+  // Convive con el resto de la familia en vez de reemplazarlo: DISQUETE sigue
+  // siendo el objeto impreso, y este registro es cómo se comporta cuando se
+  // vuelve interfaz. Lo usa la sección de demos entera.
+  // ---------------------------------------------------------------------------
+
+  // Tres radios y ni uno más. El 0 es para lo que se pega a una rejilla; el
+  // 12 para controles; el 24 para bloques y tarjetas.
+  --disq-radio-0: 0px;
+  --disq-radio-1: 12px;
+  --disq-radio-2: 24px;
+
+  // El trazo. Grueso y negro: es el borde que sostiene el sistema entero.
+  --disq-trazo: 3px;
+
+  // Sombras DURAS, sin desenfoque: el objeto está apoyado, no flotando.
+  --disq-sombra-1: 4px 4px 0 var(--disq-ink);
+  --disq-sombra-2: 12px 12px 0 var(--disq-ink);
+
+  // Los tres acentos macizos. Son BLOQUES DE FONDO con tinta negra encima,
+  // nunca color de texto: el magenta sobre blanco da 3,1:1 y no pasa AA,
+  // mientras que el negro sobre magenta da 8:1 de sobra. La regla del sistema
+  // —bloques sólidos, alto contraste— y la de accesibilidad coinciden.
+  --disq-teal-neon: #00c2cb;
+  --disq-magenta-neon: #ff00ff;
+  --disq-amarillo: #ffc700;
+  --disq-beige: #f5f5dc;
+
+  // Área mínima de toque (la regla de 44px de la lámina, que es además la que
+  // pide Apple en sus guías y la que evita el pulgar frustrado).
+  --disq-toque: 44px;
 
   // Foco índigo: el único color que la familia usa para "esto responde".
   --ds-focus-ring: var(--disq-indigo);
