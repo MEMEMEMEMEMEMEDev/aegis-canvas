@@ -1,0 +1,301 @@
+@use "../bazar-tools" as bz;
+
+// La carta vive sobre el chrome oscuro, no sobre el pliego: es el objeto
+// que se tiene en la mano, y necesita su propio fondo para despegarse del
+// fondo de la pantalla.
+.bazar-agente {
+  --agente-tinta: var(--bazar-rosa);
+
+  position: relative;
+  display: grid;
+  gap: 0;
+  padding: 0.5rem 0.5rem 0.4rem;
+  background: var(--bazar-chrome-soft);
+  border: var(--bazar-linea) solid var(--bazar-tinta);
+  border-radius: var(--bazar-radio-lg);
+  // Sombra dura de calcomanía: la carta está PEGADA sobre la pantalla, no
+  // flotando sobre ella. El difuminado sería otra familia.
+  @include bz.calco(6px, 7px, rgb(0 0 0 / 55%));
+  // El tilt necesita profundidad; sin perspectiva, rotar en Y es un sesgo.
+  transform:
+    perspective(1000px)
+    rotateY(calc(var(--agente-x, 0) * 6deg))
+    rotateX(calc(var(--agente-y, 0) * -6deg));
+  transform-style: preserve-3d;
+  transition: transform 320ms var(--ds-ease-out, ease-out), box-shadow 200ms;
+}
+
+.bazar-agente--morado {
+  --agente-tinta: var(--bazar-morado);
+}
+
+// El holo no es un color: es el gradiente entero. Los sitios que pintan
+// texto con él usan la clase .bazar-holo; acá viste el cartel.
+.bazar-agente--holo {
+  --agente-tinta: var(--bazar-morado);
+}
+
+// Mientras el puntero manda, la vuelta a casa tiene que ser instantánea o
+// la carta "nada" detrás del ratón. Al soltar, las custom properties se
+// borran y esta transición ya no aplica: vuelve con la de arriba.
+.bazar-agente--tilt:hover {
+  transition: transform 60ms linear;
+}
+
+.bazar-agente.is-activo {
+  border-color: var(--agente-tinta);
+  @include bz.calco(6px, 7px, var(--agente-tinta));
+}
+
+// --- La solapa del canto -----------------------------------------------------
+
+.bazar-agente__solapa {
+  @include bz.micro(0.5rem, 700);
+  position: absolute;
+  top: 1.6rem;
+  left: 0;
+  translate: -46% 0;
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  background: var(--bazar-label);
+  color: var(--bazar-tinta);
+  border: var(--bazar-linea) solid var(--bazar-tinta);
+  border-radius: 4px;
+  padding: 0.5rem 0.22rem;
+  z-index: 2;
+}
+
+.is-activo .bazar-agente__solapa {
+  background: var(--agente-tinta);
+  // Sobre relleno rosa o morado, la tinta oscura es la que pasa AA en
+  // tamaño pequeño; el papel claro solo vale para display grande.
+  color: var(--bazar-tinta);
+}
+
+// --- La barra del nombre -----------------------------------------------------
+
+.bazar-agente__cabecera {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.55rem;
+  background: var(--bazar-tinta);
+  border-radius: 5px 5px 0 0;
+  padding: 0.42rem 0.7rem;
+}
+
+.bazar-agente__kana {
+  font-family: var(--bazar-font-display);
+  font-size: clamp(1.05rem, 3.2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--bazar-label);
+  line-height: 1;
+}
+
+.bazar-agente__nombre {
+  @include bz.display(clamp(1.05rem, 3.4vw, 1.6rem), 108%);
+  margin: 0;
+  color: var(--bazar-label);
+  // El nombre puede ser largo (un cargo entero): que parta antes de
+  // empujar la carta y romper la rejilla del roster.
+  overflow-wrap: break-word;
+}
+
+.bazar-agente__paginado {
+  @include bz.micro(0.5rem, 500);
+  color: var(--bazar-label-soft);
+}
+
+// --- La banda de advertencia -------------------------------------------------
+
+.bazar-agente__banda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  background: var(--bazar-label);
+  padding: 0.32rem 0.6rem;
+}
+
+.bazar-agente__aviso {
+  @include bz.micro(0.5rem, 700);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  // Como TEXTO el rojo va en su tono profundo: el de marca solo rotula
+  // bordes e iconos.
+  color: var(--bazar-rojo-deep);
+
+  svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    flex: none;
+    color: var(--bazar-rojo);
+  }
+}
+
+.bazar-agente__micro {
+  @include bz.micro(0.46rem, 500);
+  color: var(--bazar-tinta-soft);
+  text-align: right;
+}
+
+// --- El cartel ---------------------------------------------------------------
+
+.bazar-agente__cartel {
+  position: relative;
+  overflow: hidden;
+  background: var(--agente-tinta);
+  min-height: 8rem;
+  display: grid;
+}
+
+.bazar-agente--holo .bazar-agente__cartel {
+  background: var(--bazar-holo);
+}
+
+.bazar-agente__fondo {
+  position: absolute;
+  inset: auto -0.1em -0.32em auto;
+  font-family: var(--bazar-font-display);
+  font-size: clamp(5rem, 20vw, 9rem);
+  font-weight: 900;
+  line-height: 0.8;
+  color: rgb(23 21 26 / 22%);
+  pointer-events: none;
+  user-select: none;
+}
+
+// El tornasol que cruza el cartel. En reposo también: la carta tiene que
+// parecer plastificada, y un foil que solo brilla al pasar el ratón se
+// pierde en la primera visita, que es la que cuenta.
+.bazar-agente__brillo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgb(255 255 255 / 45%) 47%,
+    rgb(255 255 255 / 12%) 55%,
+    transparent 70%
+  );
+  background-size: 260% 100%;
+  background-position: 180% 0;
+  mix-blend-mode: soft-light;
+}
+
+.bazar-agente__lienzo {
+  position: relative;
+  display: grid;
+  align-content: end;
+  gap: 0.4rem;
+  padding: 0.7rem;
+  min-height: inherit;
+}
+
+// --- El rol y el pie ---------------------------------------------------------
+
+.bazar-agente__rol {
+  @include bz.micro(0.52rem, 600);
+  margin: 0;
+  background: var(--bazar-label);
+  color: var(--bazar-tinta-soft);
+  padding: 0.42rem 0.6rem;
+  border-bottom: 1px solid var(--bazar-papel-deep);
+}
+
+.bazar-agente__pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  background: var(--bazar-label);
+  border-radius: 0 0 5px 5px;
+  padding: 0.34rem 0.6rem;
+}
+
+// Los tres cuadros de símbolos del empaque (reciclaje, cuidado, atención).
+// Decorativos de verdad: no dicen nada que haya que leer.
+.bazar-agente__marcas {
+  display: flex;
+  gap: 0.22rem;
+
+  i {
+    width: 0.62rem;
+    height: 0.62rem;
+    border: 1.5px solid var(--bazar-tinta);
+    border-radius: 2px;
+
+    &:nth-child(2) {
+      border-radius: 50%;
+    }
+
+    &:nth-child(3) {
+      background: var(--bazar-tinta);
+    }
+  }
+}
+
+.bazar-agente__firma {
+  @include bz.display(0.92rem, 130%);
+  color: var(--agente-tinta);
+  -webkit-text-stroke: 0.6px var(--bazar-tinta);
+}
+
+// --- Movimiento --------------------------------------------------------------
+
+@media (prefers-reduced-motion: no-preference) {
+  // La carta respira en reposo. `translate` es propiedad individual y se
+  // compone ANTES que `transform`, así que el vaivén y el tilt del puntero
+  // conviven sin pisarse — que es justo por lo que no se hace con
+  // transform: translateY().
+  .bazar-agente {
+    animation: bazar-agente-respira 6s ease-in-out infinite;
+  }
+
+  .bazar-agente__brillo {
+    animation: bazar-agente-foil 7s ease-in-out infinite;
+  }
+
+  // Las cartas del mazo no respiran todas a la vez: sin desfase el roster
+  // late como un solo bloque y se ve mecánico.
+  .bazar-agente:nth-child(2n) {
+    animation-delay: -2.1s;
+  }
+
+  .bazar-agente:nth-child(3n) {
+    animation-delay: -4.3s;
+  }
+}
+
+@keyframes bazar-agente-respira {
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes bazar-agente-foil {
+  0%,
+  62% {
+    background-position: 180% 0;
+  }
+
+  100% {
+    background-position: -80% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bazar-agente,
+  .bazar-agente__brillo {
+    animation: none;
+  }
+
+  // Sin movimiento el foil se queda quieto donde no tapa nada: el cartel
+  // se lee igual y la carta conserva el acabado plastificado.
+  .bazar-agente__brillo {
+    background-position: 40% 0;
+  }
+}

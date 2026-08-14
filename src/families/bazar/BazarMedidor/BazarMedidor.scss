@@ -1,0 +1,89 @@
+@use "../bazar-tools" as bz;
+
+.bazar-medidor {
+  --medidor-tinta: var(--bazar-rosa);
+
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.6rem 0.7rem;
+  background: var(--bazar-chrome-soft);
+  border: var(--bazar-linea) solid var(--bazar-label);
+  border-radius: var(--bazar-radio);
+  // El corte diagonal de la esquina: la muesca de las cajas del HUD.
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 0.7rem), calc(100% - 0.7rem) 100%, 0 100%);
+}
+
+.bazar-medidor--morado {
+  --medidor-tinta: var(--bazar-morado);
+}
+
+.bazar-medidor__cifra {
+  @include bz.display(clamp(1.7rem, 6vw, 2.6rem), 118%);
+  margin: 0;
+  color: var(--bazar-label);
+  display: flex;
+  align-items: baseline;
+  gap: 0.1em;
+}
+
+.bazar-medidor__sufijo {
+  font-size: 0.42em;
+  // El tono soft es el que rotula sobre el chrome: 8,4:1 contra el 4,5
+  // del de marca, y acá es texto de verdad, no un filete.
+  color: var(--bazar-rosa-soft);
+}
+
+.bazar-medidor--morado .bazar-medidor__sufijo {
+  color: var(--bazar-morado-soft);
+}
+
+.bazar-medidor__tira {
+  display: flex;
+  gap: 2px;
+  height: 0.42rem;
+
+  i {
+    flex: 1;
+    background: rgb(244 240 230 / 18%);
+    border-radius: 1px;
+  }
+
+  // Las muescas decorativas no fingen carga: se quedan todas apagadas y
+  // se leen como la serigrafía de la caja.
+  &.is-medida i.is-lleno {
+    background: var(--medidor-tinta);
+  }
+}
+
+.bazar-medidor__label {
+  @include bz.micro(0.48rem, 500);
+  margin: 0;
+  color: var(--bazar-label-soft);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // La tira medida se llena al aparecer: es la única animación del HUD y
+  // ocurre una vez, cuando el dato entra en pantalla.
+  .bazar-medidor__tira.is-medida i.is-lleno {
+    animation: bazar-medidor-carga 420ms var(--ds-ease-out, ease-out) both;
+
+    @for $i from 1 through 12 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 45}ms;
+      }
+    }
+  }
+}
+
+@keyframes bazar-medidor-carga {
+  from {
+    background: rgb(244 240 230 / 18%);
+    scale: 1 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bazar-medidor__tira.is-medida i.is-lleno {
+    animation: none;
+  }
+}

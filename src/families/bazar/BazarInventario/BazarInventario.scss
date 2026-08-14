@@ -1,0 +1,127 @@
+@use "../bazar-tools" as bz;
+
+.bazar-bolsa {
+  --bolsa-tinta: var(--bazar-rosa);
+
+  display: grid;
+  gap: 0.55rem;
+  background: var(--bazar-label);
+  border: 3px solid var(--bazar-tinta);
+  border-radius: 12px;
+  padding: clamp(0.7rem, 2.4vw, 1rem);
+  @include bz.calco(5px, 6px, var(--bolsa-tinta));
+}
+
+.bazar-bolsa--morado {
+  --bolsa-tinta: var(--bazar-morado);
+}
+
+.bazar-bolsa__cabecera {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.bazar-bolsa__kana {
+  font-family: var(--bazar-font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  background: var(--bolsa-tinta);
+  color: var(--bazar-tinta);
+  border-radius: 5px;
+}
+
+.bazar-bolsa__titulos {
+  display: grid;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.bazar-bolsa__titulo {
+  @include bz.display(0.98rem, 100%);
+  margin: 0;
+  color: var(--bazar-tinta);
+}
+
+.bazar-bolsa__sub {
+  @include bz.micro(0.46rem, 500);
+  color: var(--bazar-tinta-soft);
+}
+
+.bazar-bolsa__cuenta {
+  @include bz.display(1.15rem, 130%);
+  // Como texto sobre papel manda el tono profundo: el de marca se queda
+  // en 3,15:1 y solo vale para filetes y rellenos.
+  color: var(--bolsa-tinta);
+  filter: brightness(0.78);
+}
+
+.bazar-bolsa__rejilla {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  // Casillas anchas y bajas: dentro va el nombre de una tecnología, no un
+  // icono. Con auto-fill la bolsa se reparte sola en cualquier columna.
+  grid-template-columns: repeat(auto-fill, minmax(min(8.5rem, 100%), 1fr));
+  gap: 0.35rem;
+}
+
+.bazar-bolsa__casilla {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 0.1rem;
+  min-height: 2.6rem;
+  padding: 0.35rem 0.5rem;
+  background: var(--bazar-papel);
+  border: 1.5px solid var(--bazar-papel-deep);
+  border-radius: 5px;
+  transition: background-color 140ms, border-color 140ms, translate 140ms;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(.is-vacia) {
+      background: var(--bazar-label);
+      border-color: var(--bolsa-tinta);
+      translate: 0 -2px;
+    }
+  }
+}
+
+// La casilla vacía es un hueco de verdad: cruzada y sin fondo, como la
+// ranura libre de una bolsa.
+.bazar-bolsa__casilla.is-vacia {
+  background: none;
+  border-style: dashed;
+  background-image: linear-gradient(
+    135deg,
+    transparent calc(50% - 0.5px),
+    var(--bazar-papel-deep) calc(50% - 0.5px) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+
+.bazar-bolsa__ranura {
+  @include bz.micro(0.4rem, 500);
+  color: var(--bazar-tinta-soft);
+}
+
+.bazar-bolsa__pieza {
+  font-size: 0.76rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--bazar-tinta);
+  overflow-wrap: break-word;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bazar-bolsa__casilla {
+    transition: none;
+  }
+}

@@ -9,6 +9,20 @@
 // IMPORTANTE: los componentes viven dentro de un contenedor .bazar-scope
 // (isla OSCURA que emite el mini-contrato --bazar-*). El BazarChrome pone
 // el pliego claro; el resto vive sobre él.
+//
+// LAS DOS MITADES DE LA FAMILIA
+// La referencia no es solo una página: es la UI de un videojuego que
+// CONTIENE una página. La primera tanda de piezas construyó el documento
+// (chrome, banner, ventana, reseña, ficha); la segunda construye la
+// PANTALLA — la carta de agente, el mazo que la elige, el dossier, el
+// medidor del HUD, el inventario y el telón por capas. Comparten tokens y
+// voz, pero se usan distinto: el documento se lee, la pantalla se maneja.
+//
+// La mitad "pantalla" NO va dentro de BazarChrome. Encerrarla en el
+// navegador ficticio fue el error de la primera vuelta: mete un juego
+// dentro de una web dentro de otra web, y lo que se siente al llegar es
+// el navegador, no el juego. Sobre el chrome oscuro a secas, la pantalla
+// es una pantalla.
 // =============================================================================
 
 export { default as BazarChrome } from "./BazarChrome/BazarChrome";
@@ -52,3 +66,23 @@ export type { BazarButtonProps } from "./BazarButton/BazarButton";
 
 export { default as BazarSpecCard } from "./BazarSpecCard/BazarSpecCard";
 export type { BazarSpecCardProps, BazarSpecRow } from "./BazarSpecCard/BazarSpecCard";
+
+// --- La pantalla -------------------------------------------------------------
+
+export { default as BazarAgente } from "./BazarAgente/BazarAgente";
+export type { BazarAgenteProps } from "./BazarAgente/BazarAgente";
+
+export { default as BazarRoster } from "./BazarRoster/BazarRoster";
+export type { BazarRosterProps, BazarRosterItem } from "./BazarRoster/BazarRoster";
+
+export { default as BazarDossier } from "./BazarDossier/BazarDossier";
+export type { BazarDossierProps } from "./BazarDossier/BazarDossier";
+
+export { default as BazarMedidor } from "./BazarMedidor/BazarMedidor";
+export type { BazarMedidorProps } from "./BazarMedidor/BazarMedidor";
+
+export { default as BazarInventario } from "./BazarInventario/BazarInventario";
+export type { BazarInventarioProps } from "./BazarInventario/BazarInventario";
+
+export { default as BazarFondo } from "./BazarFondo/BazarFondo";
+export type { BazarFondoProps } from "./BazarFondo/BazarFondo";

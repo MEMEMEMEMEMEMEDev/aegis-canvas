@@ -1,0 +1,68 @@
+@use "../bazar-tools" as bz;
+
+// El panel oscuro sobre el cartel. Bordes redondeados generosos y nada
+// torcido: es el único sitio de la familia donde se lee un párrafo entero,
+// y un párrafo sesgado no se lee, se descifra.
+.bazar-dossier {
+  --dossier-tinta: var(--bazar-rosa-soft);
+
+  position: relative;
+  display: grid;
+  gap: 0.4rem;
+  background: rgb(23 21 26 / 92%);
+  border: var(--bazar-linea) solid var(--dossier-tinta);
+  border-radius: var(--bazar-radio-lg);
+  padding: clamp(0.8rem, 2.5vw, 1.15rem);
+  color: var(--bazar-label);
+  // Sobre un cartel a todo color, el panel necesita despegarse sin brillo:
+  // un halo del propio acento, no una sombra difusa de material.
+  box-shadow: 0 0 0 4px rgb(23 21 26 / 35%);
+}
+
+.bazar-dossier--morado {
+  --dossier-tinta: var(--bazar-morado-soft);
+}
+
+.bazar-dossier__meta {
+  @include bz.micro(0.5rem, 600);
+  margin: 0;
+  color: var(--dossier-tinta);
+}
+
+.bazar-dossier__nombre {
+  @include bz.display(clamp(1.15rem, 4vw, 1.75rem), 105%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--bazar-label);
+}
+
+.bazar-dossier__kana {
+  font-size: 0.8em;
+  font-weight: 700;
+  color: var(--dossier-tinta);
+  flex: none;
+}
+
+.bazar-dossier__cuerpo {
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: var(--bazar-label);
+
+  p {
+    margin: 0;
+
+    + p {
+      margin-top: 0.6rem;
+    }
+  }
+
+  // BazarResalte ya viene en rosa-soft, que es el tono correcto sobre
+  // superficie oscura. Lo único que falta es que siga al dossier cuando
+  // este va en morado: el énfasis tiene que ser del color del panel que
+  // lo contiene, no del acento de la familia entera.
+  .bazar-resalte {
+    color: var(--dossier-tinta);
+  }
+}

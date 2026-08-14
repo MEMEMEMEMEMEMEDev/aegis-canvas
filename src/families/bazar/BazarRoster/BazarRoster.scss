@@ -1,0 +1,150 @@
+@use "../bazar-tools" as bz;
+@use "../../../abstracts" as ds;
+
+.bazar-roster {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.bazar-roster--horizontal {
+  // En horizontal el mazo es una tira que se arrastra: en un teléfono no
+  // caben cuatro fichas a lo ancho y partirlas en dos filas rompe el
+  // orden de lectura que las flechas prometen.
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(11rem, 1fr);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 0.3rem;
+}
+
+.bazar-roster--horizontal .bazar-roster__ficha {
+  scroll-snap-align: start;
+}
+
+// La ficha: botón nativo vestido de calcomanía. Nace torcida —en la
+// referencia nada está recto— y se endereza al elegirla, que es la forma
+// más barata de decir "esta es la que está en cartel".
+.bazar-roster__ficha {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.6rem;
+  text-align: left;
+  font: inherit;
+  color: var(--bazar-tinta);
+  background: var(--bazar-label);
+  border: var(--bazar-linea) solid var(--bazar-tinta);
+  border-radius: var(--bazar-radio);
+  padding: 0.5rem 0.65rem;
+  cursor: pointer;
+  rotate: -1.2deg;
+  @include bz.calco(3px, 4px, rgb(0 0 0 / 45%));
+  transition:
+    rotate 220ms var(--ds-ease-out, ease-out),
+    translate 220ms var(--ds-ease-out, ease-out),
+    box-shadow 220ms var(--ds-ease-out, ease-out),
+    background-color 160ms;
+
+  &:nth-child(2n) {
+    rotate: 1.4deg;
+  }
+
+  // La ficha se levanta al pasar por encima, como una carta que se
+  // despega del mazo. Solo con puntero fino: en táctil el hover se
+  // queda pegado después del toque.
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      rotate: 0deg;
+      translate: 0.25rem -2px;
+      @include bz.calco(5px, 7px, rgb(0 0 0 / 45%));
+    }
+  }
+
+  @include ds.focus-ring;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    rotate: 0deg;
+  }
+}
+
+.bazar-roster__ficha.is-activa {
+  rotate: 0deg;
+  background: var(--bazar-rosa);
+  translate: 0.4rem 0;
+  @include bz.calco(4px, 5px, var(--bazar-tinta));
+}
+
+.bazar-roster__kana {
+  font-family: var(--bazar-font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  border: var(--bazar-linea) solid currentcolor;
+  border-radius: 5px;
+}
+
+.is-activa .bazar-roster__kana {
+  background: var(--bazar-tinta);
+  color: var(--bazar-label);
+}
+
+.bazar-roster__texto {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.bazar-roster__nombre {
+  @include bz.display(0.82rem, 92%);
+  // El nombre de una parada de la trayectoria es un cargo entero: se corta
+  // con puntos antes que estirar la columna del mazo.
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bazar-roster__meta {
+  @include bz.micro(0.46rem, 500);
+  color: var(--bazar-tinta-soft);
+}
+
+.is-activa .bazar-roster__meta {
+  // Sobre el relleno rosa, el gris de papel pierde el ratio: la tinta
+  // llega a 4,54:1 y es la única que vale a este tamaño.
+  color: var(--bazar-tinta);
+}
+
+// El cursor solo existe en la ficha en cartel, asomando por el canto.
+.bazar-roster__cursor {
+  position: absolute;
+  right: -0.45rem;
+  bottom: -0.5rem;
+  width: 1.05rem;
+  color: var(--bazar-label);
+  opacity: 0;
+  scale: 0.6;
+  rotate: -12deg;
+  transition:
+    opacity 200ms var(--ds-ease-out, ease-out),
+    scale 260ms var(--ds-ease-out, ease-out);
+}
+
+.is-activa .bazar-roster__cursor {
+  opacity: 1;
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bazar-roster__ficha,
+  .bazar-roster__cursor {
+    transition: none;
+  }
+}
