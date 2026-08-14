@@ -5,6 +5,7 @@ import DisqBarcode from "./DisqBarcode/DisqBarcode";
 import DisqButton from "./DisqButton/DisqButton";
 import DisqCarga from "./DisqCarga/DisqCarga";
 import DisqPantalla from "./DisqPantalla/DisqPantalla";
+import DisqRanura from "./DisqRanura/DisqRanura";
 import type { DisqPantallaLayout } from "./DisqPantalla/DisqPantalla";
 import DisqDisk from "./DisqDisk/DisqDisk";
 import type { DisqColor } from "./DisqDisk/DisqDisk";
@@ -176,6 +177,13 @@ export const Demos: StoryObj = {
       <Hoja>
         <div style={{ position: "relative", padding: "2rem clamp(1rem, 4vw, 3rem)", display: "grid", gap: "2rem" }}>
           <DisqNeon />
+          <DisqRanura
+            kana="展示"
+            title="Demos"
+            sub="5 cartuchos · datos de prueba"
+            salidaHref="#"
+            className="disq-ranura--demo"
+          />
           <div style={{ position: "relative", maxWidth: "34rem" }}>
             <DisqCarga
               title="Cargando demo"

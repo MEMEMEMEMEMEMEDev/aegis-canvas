@@ -69,3 +69,6 @@ export type { DisqMarqueeProps } from "./DisqMarquee/DisqMarquee";
 
 export { default as DisqHud } from "./DisqHud/DisqHud";
 export type { DisqHudProps } from "./DisqHud/DisqHud";
+
+export { default as DisqRanura } from "./DisqRanura/DisqRanura";
+export type { DisqRanuraProps, DisqRanuraLink } from "./DisqRanura/DisqRanura";

@@ -1,0 +1,194 @@
+// La ranura: cabecera de sección en el registro bruto — papel, trazo negro
+// grueso y sombra dura. Se pega arriba del contenido y no viaja con el
+// scroll: una barra fija encima de un mundo a pantalla completa se lleva por
+// delante justo lo que el mundo quería enseñar.
+
+.disq-ranura {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.7rem 1rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--disq-beige);
+  color: var(--disq-ink);
+  border: var(--disq-trazo) solid var(--disq-ink);
+  border-radius: var(--disq-radio-2);
+  box-shadow: var(--disq-sombra-1);
+}
+
+// --- La marca de la sección ---------------------------------------------------
+.disq-ranura__marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  margin-right: auto;
+}
+
+.disq-ranura__kana {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: 2.1rem;
+  padding: 0.2em 0.35em;
+  font-family: var(--disq-font-kana);
+  font-size: 0.95rem;
+  font-weight: 900;
+  line-height: 1;
+  background: var(--disq-ink);
+  color: var(--disq-beige);
+  border-radius: var(--disq-radio-1);
+}
+
+.disq-ranura__rotulos {
+  display: grid;
+  min-width: 0;
+}
+
+.disq-ranura__title {
+  font-family: var(--disq-font-suave);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.disq-ranura__sub {
+  font-family: var(--disq-font-mono);
+  font-size: 0.62rem;
+  font-style: normal;
+  color: var(--disq-ink-soft);
+  line-height: 1.3;
+}
+
+// --- Los enlaces de la propia sección ------------------------------------------
+.disq-ranura__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.disq-ranura__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--disq-toque);
+  padding: 0.35em 0.8em;
+  font-family: var(--disq-font-suave);
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--disq-ink);
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: var(--disq-radio-1);
+
+  &:hover {
+    border-color: var(--disq-ink);
+  }
+
+  &:focus-visible {
+    outline: var(--disq-trazo) solid var(--disq-ink);
+    outline-offset: 2px;
+  }
+}
+
+.disq-ranura__link.is-active {
+  background: var(--disq-amarillo);
+  border-color: var(--disq-ink);
+  font-weight: 600;
+}
+
+// --- La salida ------------------------------------------------------------------
+.disq-ranura__salida {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  flex: none;
+  min-height: var(--disq-toque);
+  padding: 0.4em 1em 0.4em 0.8em;
+  font-family: var(--disq-font-suave);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--disq-ink);
+  text-decoration: none;
+  background: var(--disq-teal-neon);
+  border: var(--disq-trazo) solid var(--disq-ink);
+  border-radius: var(--disq-radio-1);
+  box-shadow: var(--disq-sombra-1);
+
+  &:focus-visible {
+    outline: var(--disq-trazo) solid var(--disq-ink);
+    outline-offset: 3px;
+  }
+
+  &:active {
+    translate: 4px 4px;
+    box-shadow: 0 0 0 var(--disq-ink);
+  }
+}
+
+// El glifo de expulsar: triángulo sobre barra, con dos bordes y un ::after.
+// Cero iconos importados, como el resto de la familia.
+.disq-ranura__eject {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-inline: 0.32em solid transparent;
+  border-bottom: 0.38em solid var(--disq-ink);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0.22em;
+    left: -0.32em;
+    width: 0.64em;
+    height: 0.14em;
+    background: var(--disq-ink);
+  }
+}
+
+// El cartucho que asoma por la ranura al apuntar la salida: una lengüeta
+// oscura que sube desde debajo del botón. Recortada por el propio botón, así
+// que solo se ve su canto — que es exactamente lo que hace un disco al salir.
+.disq-ranura__cartucho {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 2.2em;
+  height: 0.9em;
+  translate: -50% 0.9em;
+  background: var(--disq-ink);
+  border-radius: 3px 3px 0 0;
+  z-index: -1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .disq-ranura__salida {
+    transition: translate 120ms ease, box-shadow 120ms ease;
+  }
+
+  .disq-ranura__cartucho {
+    transition: translate 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .disq-ranura__salida:hover .disq-ranura__cartucho,
+  .disq-ranura__salida:focus-visible .disq-ranura__cartucho {
+    translate: -50% 0.1em;
+  }
+
+  .disq-ranura__eject {
+    transition: translate 200ms ease;
+  }
+
+  .disq-ranura__salida:hover .disq-ranura__eject,
+  .disq-ranura__salida:focus-visible .disq-ranura__eject {
+    translate: 0 -0.12em;
+  }
+}
