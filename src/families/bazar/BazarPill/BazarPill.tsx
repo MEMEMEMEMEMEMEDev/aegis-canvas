@@ -17,6 +17,17 @@ export interface BazarPillProps {
   icon?: BazarPillIcon;
   /** tinta (default) · linea · rosa. */
   tone?: "tinta" | "linea" | "rosa";
+  /**
+   * Sobre qué superficie se pega: el pliego claro (default) o el chrome
+   * oscuro.
+   *
+   * No es cosmético: la píldora de contorno se dibuja con `--bazar-tinta`,
+   * que es EXACTAMENTE el color del chrome. Sobre el pliego da 14:1 y sobre
+   * el chrome desaparece —tinta negra sobre fondo negro, 1:1— que es lo que
+   * pasaba en la pantalla de agente antes de que esto existiera. La familia
+   * siempre vivió sobre dos superficies; esta pieza no se había enterado.
+   */
+  sobre?: "papel" | "chrome";
   className?: string;
 }
 
@@ -84,9 +95,15 @@ const ICONOS: Record<BazarPillIcon, ReactNode> = {
 };
 
 /** Píldora de letra pequeña: icono + micro-texto, la voz de los avisos. */
-export default function BazarPill({ children, icon, tone = "tinta", className }: BazarPillProps) {
+export default function BazarPill({
+  children,
+  icon,
+  tone = "tinta",
+  sobre = "papel",
+  className,
+}: BazarPillProps) {
   return (
-    <span className={cx("bazar-pill", `bazar-pill--${tone}`, className)}>
+    <span className={cx("bazar-pill", `bazar-pill--${tone}`, `bazar-pill--en-${sobre}`, className)}>
       {icon && (
         <svg viewBox="0 0 16 16" aria-hidden="true">
           {ICONOS[icon]}

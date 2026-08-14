@@ -109,6 +109,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  // Alto extra para la tilde de las mayúsculas: con el line-height del
+  // cartel, "FORMACIÓN" perdía el acento contra el borde de la caja.
+  padding-block: 0.18em;
 }
 
 .bazar-roster__meta {

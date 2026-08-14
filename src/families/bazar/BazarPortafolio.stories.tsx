@@ -118,10 +118,15 @@ export const Completo: StoryObj = {
               items={AGENTES}
               value={elegido}
               onChange={setElegido}
-              panelId="bazar-dossier-demo"
+              panelId="bazar-demo"
             />
 
-            <div style={{ display: "grid", gap: "1rem" }} id="bazar-dossier-demo" role="tabpanel">
+            <div
+              style={{ display: "grid", gap: "1rem" }}
+              id={`bazar-demo-${agente.id}`}
+              role="tabpanel"
+              aria-labelledby={`bazar-demo-tab-${agente.id}`}
+            >
               <BazarAgente
                 kana={agente.kana}
                 nombre={agente.nombre}

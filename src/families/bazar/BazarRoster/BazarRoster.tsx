@@ -24,9 +24,12 @@ export interface BazarRosterProps {
   defaultValue?: string;
   onChange?: (id: string) => void;
   /**
-   * Id del panel que esta lista gobierna. Sin él las fichas no pueden
-   * anunciar QUÉ cambian, y un lector de pantalla oye botones que no
-   * llevan a ninguna parte.
+   * Prefijo de los ids del par pestaña/panel. Cada ficha anuncia el SUYO:
+   *   pestaña → `${panelId}-tab-<id>`   ·   panel → `${panelId}-<id>`
+   *
+   * Quien lo usa tiene que poner ese id en cada panel y devolverle el
+   * `aria-labelledby` de la pestaña. Sin esto un lector de pantalla oye
+   * botones que no llevan a ninguna parte.
    */
   panelId?: string;
   /** Nombre accesible de la lista. Obligatorio: es un mando. */
@@ -124,7 +127,7 @@ export default function BazarRoster({
             role="tab"
             id={panelId ? `${panelId}-tab-${item.id}` : undefined}
             aria-selected={activo}
-            aria-controls={panelId}
+            aria-controls={panelId ? `${panelId}-${item.id}` : undefined}
             // Roving tabindex: el mazo entero es UNA parada de tabulación;
             // dentro se navega con flechas. Doce fichas no deberían costar
             // doce tabuladas para llegar al contenido de abajo.

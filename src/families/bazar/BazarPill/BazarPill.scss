@@ -15,17 +15,38 @@
   }
 }
 
+// La tinta de la píldora la decide la SUPERFICIE, no el tono: sobre el
+// pliego escribe en negro, sobre el chrome en papel. `--pill-tinta` es el
+// único sitio donde eso se resuelve.
+.bazar-pill--en-papel {
+  --pill-tinta: var(--bazar-tinta);
+}
+
+.bazar-pill--en-chrome {
+  --pill-tinta: var(--bazar-label);
+}
+
 .bazar-pill--tinta {
   background: var(--bazar-tinta);
   color: var(--bazar-label);
 }
 
+// La de contorno es la única que pinta CON la tinta en vez de sobre ella,
+// y por eso era la que desaparecía al cambiar de superficie: negro sobre
+// negro, 1:1.
 .bazar-pill--linea {
-  border: 2px solid var(--bazar-tinta);
-  color: var(--bazar-tinta);
+  border: 2px solid var(--pill-tinta);
+  color: var(--pill-tinta);
 }
 
 .bazar-pill--rosa {
   background: var(--bazar-rosa);
+  color: var(--bazar-tinta);
+}
+
+// Sobre el chrome, la sólida se invierte: un relleno negro sobre un fondo
+// casi negro no es una píldora, es un agujero con letras.
+.bazar-pill--en-chrome.bazar-pill--tinta {
+  background: var(--bazar-label);
   color: var(--bazar-tinta);
 }

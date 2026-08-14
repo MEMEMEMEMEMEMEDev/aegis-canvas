@@ -64,18 +64,23 @@
 
 // --- Parallax sin JavaScript -------------------------------------------------
 //
-// `animation-timeline: scroll()` engancha la animación al scroll del
-// ancestro scrollable en vez de al reloj: cada capa recorre su rango
-// completo mientras la página baja, y a velocidades distintas. Sin
-// soporte, la animación (duración por defecto + fill both) se queda en su
-// primer fotograma y las capas simplemente no derivan.
+// `animation-timeline: scroll()` engancha la animación al scroll en vez de
+// al reloj: cada capa recorre su rango completo mientras la página baja, y
+// a velocidades distintas. Sin soporte, la animación (duración por defecto
+// + fill both) se queda en su primer fotograma y las capas no derivan.
+//
+// `scroll(root)` y no `scroll()` a secas: el telón se usa dentro de
+// contenedores con overflow, y el ancestro scrollable más cercano suele ser
+// uno que NUNCA scrollea — ahí la timeline nace muerta y el fondo se queda
+// clavado sin que nada avise. El telón sigue al documento, que es lo que de
+// verdad se está moviendo.
 @media (prefers-reduced-motion: no-preference) {
   .bazar-fondo__trama,
   .bazar-fondo__bandas,
   .bazar-fondo__kana,
   .bazar-fondo__cenefa {
     animation: linear both;
-    animation-timeline: scroll();
+    animation-timeline: scroll(root);
   }
 
   .bazar-fondo__trama {

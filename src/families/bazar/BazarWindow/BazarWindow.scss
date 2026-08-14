@@ -57,6 +57,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  // El `line-height: 0.92` del cartel deja la caja más baja que la letra, y
+  // con overflow:hidden lo primero que se corta es lo que sobresale por
+  // arriba: la tilde de las mayúsculas acentuadas. "LA SEÑAL" se leía "LA
+  // SENAL" y parecía una falta de ortografía del contenido, no un recorte
+  // de la hoja. El padding devuelve el alto sin tocar el interletrado.
+  padding-block: 0.16em;
 }
 
 .bazar-ventana__botones {
