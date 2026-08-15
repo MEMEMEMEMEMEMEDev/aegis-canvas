@@ -17,10 +17,25 @@
 }
 
 // Rótulo de ficha técnica: mono en mayúsculas, espaciado de catálogo.
+//
+// El suelo lo impone `max()` en el navegador: por debajo de esto la ficha
+// deja de ser "letra pequeña de catálogo" y pasa a ser letra que no se lee,
+// y en esta familia la ficha técnica es contenido, no textura.
+$spec-suelo: 0.72rem;
+
 @mixin spec-label {
   font-family: var(--denki-font-mono);
-  font-size: var(--ds-font-size-xs);
+  font-size: max(#{$spec-suelo}, var(--ds-font-size-xs));
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+// Rótulo de ficha con tamaño propio, CON SUELO. Los sitios que necesitaban
+// una línea más chica venían pisando el font-size después del @include, y
+// así el pie de la placa acabó a 8 px y la serigrafía del chasis a 9,6.
+// Pasando por aquí, pedir menos del suelo no sirve de nada — que es
+// justamente lo que tiene que pasar.
+@mixin spec-size($size) {
+  font-size: max(#{$spec-suelo}, #{$size});
 }

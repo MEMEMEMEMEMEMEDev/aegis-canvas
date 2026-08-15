@@ -31,7 +31,7 @@
 
   i {
     @include dk.spec-label;
-    font-size: 0.5rem;
+    @include dk.spec-size(0.74rem);
     font-style: normal;
     color: var(--pie-suave);
   }

@@ -53,8 +53,8 @@
 
 .denki-placa__ref {
   @include dk.spec-label;
-  font-size: 0.52rem;
-  color: rgb(242 228 198 / 0.62);
+  @include dk.spec-size(0.72rem);
+  color: rgb(242 228 198 / 0.72);
   position: relative;
 }
 
@@ -77,8 +77,8 @@
 .denki-placa__pie {
   @include dk.spec-label;
   position: relative;
-  font-size: 0.5rem;
-  color: rgb(242 228 198 / 0.72);
+  @include dk.spec-size(0.76rem);
+  color: rgb(242 228 198 / 0.8);
   border-top: 1px solid rgb(242 228 198 / 0.22);
   padding-top: 0.5rem;
   line-height: 1.4;

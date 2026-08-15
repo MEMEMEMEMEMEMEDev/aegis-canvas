@@ -1,14 +1,27 @@
 // Herramientas SCSS de la familia BAZAR (no emiten CSS por sí solas).
 
-// Micro-fila: la telemetría del portal — mono diminuto, espaciado, en caja
-// alta. Es la voz secundaria y aparece en casi todos los componentes.
-@mixin micro($size: 0.55rem, $weight: 500) {
+// Micro-fila: la telemetría del portal — mono, espaciado, en caja alta. Es
+// la voz secundaria y aparece en casi todos los componentes.
+//
+// EL SUELO NO ES NEGOCIABLE. `max()` lo impone en el navegador, así que un
+// sitio de llamada que pida 0.42rem recibe igualmente 0.72rem. Es a
+// propósito: medida en pantalla, esta voz estaba llegando a 6,4 px —el
+// número de ranura del inventario— y a 7,4 px en cosas que hay que LEER,
+// como el período de un empleo o la etiqueta de una cifra. "Pequeño" es una
+// decisión de diseño; "ilegible" es un defecto, y este mixin es el único
+// sitio donde se puede impedir de una vez para toda la familia.
+//
+// La jerarquía que antes se hacía encogiendo la letra se hace ahora con el
+// peso, el color y el interletrado, que no cuestan legibilidad.
+$micro-suelo: 0.72rem;
+
+@mixin micro($size: $micro-suelo, $weight: 500) {
   font-family: var(--bazar-font-mono);
-  font-size: $size;
+  font-size: max(#{$micro-suelo}, #{$size});
   font-weight: $weight;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  line-height: 1.35;
+  line-height: 1.4;
 }
 
 // Titular de cartel: Anybody con el eje de anchura abierto. La anchura es

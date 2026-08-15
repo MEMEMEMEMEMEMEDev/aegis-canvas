@@ -148,7 +148,7 @@ export const Lamina: StoryObj = {
             botones={BOTONES}
             attract
             sobre="panel"
-            placa="AAROI·DEV — CONTACT UNIT 電-03"
+            placa="CONTACT UNIT 電-03"
             kana="連絡"
             label="Ilustración: el panel de contacto, con un botón por pregunta"
           />
