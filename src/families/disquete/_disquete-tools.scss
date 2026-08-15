@@ -1,15 +1,28 @@
 // Herramientas SCSS de la familia DISQUETE (no emiten CSS por sí solas).
 
-// Micro-fila: el mono diminuto y espaciado de las etiquetas técnicas. Es la
-// voz secundaria de la familia y aparece en casi todos los componentes, así
-// que vive en un solo sitio.
-@mixin micro($size: 0.55rem, $weight: 500) {
+// Micro-fila: el mono espaciado de las etiquetas técnicas. Es la voz
+// secundaria de la familia y aparece en casi todos los componentes, así que
+// vive en un solo sitio.
+//
+// EL SUELO NO ES NEGOCIABLE, y lo impone `max()` en el navegador: un sitio
+// de llamada que pida 0.46rem recibe igualmente 0.72rem. Medido en la
+// vitrina, esta voz estaba rindiendo a 7,4 px ("Vitrina · Cara A") y a 8 px
+// el recuento de cartuchos. La letra pequeña de una etiqueta de
+// coleccionista es parte del look; la letra que no se lee es un defecto, y
+// este mixin es el único sitio donde se puede impedir para toda la familia
+// de una vez.
+//
+// La jerarquía se sostiene con el peso, el color y el interletrado — que no
+// se cobran en legibilidad — en vez de con el tamaño.
+$micro-suelo: 0.72rem;
+
+@mixin micro($size: $micro-suelo, $weight: 500) {
   font-family: var(--disq-font-mono);
-  font-size: $size;
+  font-size: max(#{$micro-suelo}, #{$size});
   font-weight: $weight;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 // Titular: Geist en peso negro con tracking NEGATIVO. El tracking apretado a
