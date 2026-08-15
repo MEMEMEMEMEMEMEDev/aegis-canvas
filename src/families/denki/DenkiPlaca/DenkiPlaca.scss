@@ -1,0 +1,85 @@
+@use "../denki-tools" as dk;
+
+.denki-placa {
+  @include dk.halftone;
+  position: relative;
+  margin: 0;
+  background-color: var(--denki-panel);
+  border: var(--denki-line) solid var(--denki-ink);
+  border-radius: var(--denki-radius-lg);
+  padding: clamp(0.9rem, 3vw, 1.5rem);
+  display: grid;
+  gap: 1rem;
+  overflow: hidden;
+  color: var(--denki-cream);
+}
+
+// Las cuatro marcas de registro de imprenta, una por esquina. Cruz fina
+// dentro de un cuadrado: la plancha de cada tinta se alinea sobre ellas.
+.denki-placa__marcas {
+  position: absolute;
+  inset: 0.55rem;
+  pointer-events: none;
+
+  i {
+    position: absolute;
+    width: 0.85rem;
+    height: 0.85rem;
+    opacity: 0.5;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background: var(--denki-cream);
+    }
+
+    &::before {
+      inset: 0 50% 0 50%;
+      width: 1px;
+    }
+
+    &::after {
+      inset: 50% 0 50% 0;
+      height: 1px;
+    }
+
+    &:nth-child(1) { top: 0; left: 0; }
+    &:nth-child(2) { top: 0; right: 0; }
+    &:nth-child(3) { bottom: 0; left: 0; }
+    &:nth-child(4) { bottom: 0; right: 0; }
+  }
+}
+
+.denki-placa__ref {
+  @include dk.spec-label;
+  font-size: 0.52rem;
+  color: rgb(242 228 198 / 0.62);
+  position: relative;
+}
+
+// La ráfaga vive fuera del flujo, mordiendo la esquina: en la referencia el
+// precio se sale del panel y esa invasión es la mitad de la gracia.
+.denki-placa__esquina {
+  position: absolute;
+  top: clamp(-0.6rem, -1vw, -0.3rem);
+  right: clamp(0.4rem, 2vw, 1.4rem);
+  z-index: 2;
+}
+
+.denki-placa__escena {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-block: clamp(0.3rem, 1.4vw, 0.7rem);
+}
+
+.denki-placa__pie {
+  @include dk.spec-label;
+  position: relative;
+  font-size: 0.5rem;
+  color: rgb(242 228 198 / 0.72);
+  border-top: 1px solid rgb(242 228 198 / 0.22);
+  padding-top: 0.5rem;
+  line-height: 1.4;
+}

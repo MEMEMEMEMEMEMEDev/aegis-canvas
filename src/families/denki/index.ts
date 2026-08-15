@@ -38,3 +38,26 @@ export type { DenkiMeterProps } from "./DenkiMeter/DenkiMeter";
 
 export { default as DenkiRail } from "./DenkiRail/DenkiRail";
 export type { DenkiRailProps } from "./DenkiRail/DenkiRail";
+
+// --- La lámina de producto ---------------------------------------------------
+//
+// La referencia es el póster de un APARATO, y hasta acá la familia tenía la
+// tipografía, los paneles y las ráfagas — pero no el aparato. Estas cinco
+// piezas son la lámina entera: la máquina dibujada, la placa donde se la
+// fotografía, la chispa del impacto, la tira de combo y la banda de marca
+// que cierra el pliego.
+
+export { default as DenkiStick } from "./DenkiStick/DenkiStick";
+export type { DenkiStickProps, DenkiStickBoton } from "./DenkiStick/DenkiStick";
+
+export { default as DenkiPlaca } from "./DenkiPlaca/DenkiPlaca";
+export type { DenkiPlacaProps } from "./DenkiPlaca/DenkiPlaca";
+
+export { default as DenkiSpark } from "./DenkiSpark/DenkiSpark";
+export type { DenkiSparkProps } from "./DenkiSpark/DenkiSpark";
+
+export { default as DenkiFlecha } from "./DenkiFlecha/DenkiFlecha";
+export type { DenkiFlechaProps, DenkiDir } from "./DenkiFlecha/DenkiFlecha";
+
+export { default as DenkiPie } from "./DenkiPie/DenkiPie";
+export type { DenkiPieProps } from "./DenkiPie/DenkiPie";

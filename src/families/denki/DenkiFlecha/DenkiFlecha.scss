@@ -1,0 +1,69 @@
+.denki-flecha {
+  --flecha-tinta: var(--denki-cream);
+  --flecha-marco: rgb(242 228 198 / 0.4);
+
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+.denki-flecha--paper {
+  --flecha-tinta: var(--denki-ink);
+  --flecha-marco: rgb(34 27 18 / 0.4);
+}
+
+// Cada dirección en su casilla, como la tira de combo de un manual de
+// arcade: el marco es lo que las convierte en instrucción y no en adorno.
+.denki-flecha__celda {
+  display: grid;
+  place-items: center;
+  width: 1.35rem;
+  aspect-ratio: 1;
+  border: 1.5px solid var(--flecha-marco);
+  border-radius: 3px;
+  color: var(--flecha-tinta);
+
+  svg {
+    width: 62%;
+    height: 62%;
+  }
+
+  polygon {
+    fill: currentcolor;
+  }
+}
+
+.denki-flecha__celda.is-activa {
+  background: var(--denki-red);
+  border-color: var(--denki-red);
+  color: var(--denki-cream);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .denki-flecha.is-attract .denki-flecha__celda {
+    animation: denki-flecha-paso 2.1s infinite steps(2, jump-none);
+  }
+}
+
+// steps y no una curva: en una recreativa la flecha del combo se enciende
+// y se apaga, no se funde.
+@keyframes denki-flecha-paso {
+  0%,
+  22% {
+    background: var(--denki-red);
+    border-color: var(--denki-red);
+    color: var(--denki-cream);
+  }
+
+  23%,
+  100% {
+    background: none;
+    border-color: var(--flecha-marco);
+    color: var(--flecha-tinta);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .denki-flecha.is-attract .denki-flecha__celda {
+    animation: none;
+  }
+}

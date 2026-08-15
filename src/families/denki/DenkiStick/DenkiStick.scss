@@ -1,0 +1,267 @@
+@use "../denki-tools" as dk;
+
+.denki-stick {
+  // La tinta de la ficha depende de la superficie de debajo, no del
+  // chasis: el aparato siempre es crema, pero lo que se rotula alrededor
+  // tiene que verse tanto sobre el papel como sobre un panel negro.
+  --stick-rotulo: rgb(34 27 18 / 0.75);
+  --stick-filete: rgb(34 27 18 / 0.3);
+  --stick-fuerte: var(--denki-ink);
+
+  display: grid;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.denki-stick--en-panel {
+  --stick-rotulo: rgb(242 228 198 / 0.78);
+  --stick-filete: rgb(242 228 198 / 0.28);
+  --stick-fuerte: var(--denki-cream);
+}
+
+// El mueble en perspectiva de catálogo: visto desde arriba y algo a la
+// derecha, como la foto de producto de la referencia. La rotación va en el
+// contenedor para que la cara y el canto giren juntos y sigan encajando.
+.denki-stick__mueble {
+  position: relative;
+  perspective: 1200px;
+  filter: drop-shadow(6px 9px 0 rgb(34 27 18 / 0.28));
+}
+
+.denki-stick__cara {
+  position: relative;
+  aspect-ratio: 16 / 5.6;
+  background: linear-gradient(168deg, var(--denki-cream) 0%, var(--denki-paper-deep) 100%);
+  border: var(--denki-line) solid var(--denki-ink);
+  border-radius: var(--denki-radius-lg);
+  // 14 grados: suficiente para que se lea como objeto y poco para que la
+  // serigrafía siga siendo legible. Más inclinación y la placa se aplasta.
+  transform: rotateX(14deg);
+  transform-origin: 50% 100%;
+  overflow: hidden;
+}
+
+// La costura de la carcasa. Diagonal, no recta: en el aparato de la
+// referencia la tapa entra en cuña por el lado izquierdo.
+.denki-stick__costura {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 22%;
+  border-right: 1.5px solid rgb(34 27 18 / 0.35);
+  background: rgb(34 27 18 / 0.05);
+  transform: skewX(-9deg);
+  transform-origin: 0 100%;
+}
+
+// La rejilla de ventilación del canto superior izquierdo: el rayado
+// diagonal de la familia, recortado en un triángulo.
+.denki-stick__rejilla {
+  @include dk.hatch(rgb(34 27 18 / 0.5));
+  position: absolute;
+  top: 8%;
+  left: 4%;
+  width: 13%;
+  height: 34%;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+// --- Los botones -------------------------------------------------------------
+
+.denki-stick__botones {
+  position: absolute;
+  right: 7%;
+  bottom: 26%;
+  display: flex;
+  align-items: center;
+  gap: 4.5%;
+}
+
+// Botón de arcade: aro de tinta, cúpula clara y el brillo alto arriba a la
+// izquierda, que es lo que lo hace parecer plástico y no un círculo.
+.denki-stick__boton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(2.3rem, 8.5vw, 4rem);
+  aspect-ratio: 1;
+  border: var(--denki-line) solid var(--denki-ink);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.9) 0%, transparent 42%),
+    var(--denki-paper);
+  box-shadow: inset 0 -2px 0 rgb(34 27 18 / 0.22);
+  transition: background-color 160ms var(--ds-ease-standard, ease), scale 160ms;
+}
+
+.denki-stick__marca {
+  font-family: var(--denki-font-display);
+  font-size: clamp(0.8rem, 2.6vw, 1.15rem);
+  color: var(--denki-ink);
+  line-height: 1;
+  // La serigrafía va hundida en la cúpula: sigue la misma inclinación que
+  // la cara, así que no necesita corrección propia.
+  opacity: 0.72;
+}
+
+// Encendido: el botón se llena de bermellón y la marca se invierte. El
+// halo es del mismo rojo, sin difuminar de más — es una luz de máquina,
+// no un resplandor de interfaz moderna.
+.denki-stick__boton.is-activo {
+  background:
+    radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.55) 0%, transparent 45%),
+    var(--denki-red);
+  box-shadow:
+    inset 0 -2px 0 rgb(34 27 18 / 0.3),
+    0 0 0 4px rgb(209 58 30 / 0.22);
+  scale: 1.04;
+
+  .denki-stick__marca {
+    color: var(--denki-cream);
+    opacity: 1;
+  }
+}
+
+// El racimo auxiliar: los botones chicos de servicio, en dos filas
+// escalonadas como en el aparato real.
+.denki-stick__aux {
+  position: absolute;
+  right: 8%;
+  top: 14%;
+  display: flex;
+  gap: 0.45rem;
+
+  i {
+    width: clamp(0.62rem, 2vw, 1rem);
+    aspect-ratio: 1;
+    border: 1.5px solid var(--denki-ink);
+    border-radius: 50%;
+    background: var(--denki-paper-deep);
+    opacity: 0.75;
+
+    &:nth-child(even) {
+      translate: 0 40%;
+    }
+  }
+}
+
+.denki-stick__placa {
+  @include dk.spec-label;
+  position: absolute;
+  left: 6%;
+  bottom: 14%;
+  font-size: clamp(0.42rem, 1.3vw, 0.6rem);
+  color: rgb(34 27 18 / 0.65);
+  max-width: 40%;
+  line-height: 1.3;
+}
+
+.denki-stick__kana {
+  position: absolute;
+  right: 6%;
+  top: 8%;
+  font-family: var(--denki-font-kana);
+  font-weight: 800;
+  font-size: clamp(0.7rem, 2.2vw, 1.05rem);
+  color: rgb(34 27 18 / 0.45);
+  line-height: 1;
+}
+
+// --- El canto ----------------------------------------------------------------
+// El grosor del aparato. Va pegado bajo la cara y en tinta: es la sombra
+// propia del objeto, no una sombra proyectada.
+
+.denki-stick__canto {
+  height: clamp(0.5rem, 1.8vw, 0.95rem);
+  margin-inline: 1.5%;
+  background: var(--denki-ink);
+  border-radius: 0 0 var(--denki-radius) var(--denki-radius);
+}
+
+// --- La ficha de patillaje ---------------------------------------------------
+
+.denki-stick__ficha {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(9rem, 100%), 1fr));
+  gap: 0.4rem;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    border-top: 1.5px solid var(--stick-filete);
+    padding-top: 0.35rem;
+    transition: border-color 160ms;
+  }
+
+  b {
+    font-family: var(--denki-font-display);
+    font-size: 0.9rem;
+    color: var(--denki-red-deep);
+    line-height: 1;
+    flex: none;
+  }
+
+  span {
+    @include dk.spec-label;
+    font-size: 0.56rem;
+    color: var(--stick-rotulo);
+    line-height: 1.35;
+  }
+
+  li.is-activo {
+    border-top-color: var(--denki-red);
+
+    span {
+      color: var(--stick-fuerte);
+    }
+  }
+}
+
+// --- Modo atracción ----------------------------------------------------------
+// La recreativa esperando: los botones se encienden uno tras otro. El
+// desfase sale de --boton-i, así que la secuencia se ordena sola sin que
+// la hoja sepa cuántos botones hay.
+
+@media (prefers-reduced-motion: no-preference) {
+  .denki-stick.is-attract .denki-stick__boton {
+    animation: denki-stick-luz 2.4s infinite var(--ds-ease-standard, ease);
+    animation-delay: calc(var(--boton-i, 0) * 0.4s);
+  }
+
+  .denki-stick.is-attract .denki-stick__aux i {
+    animation: denki-stick-servicio 3.2s infinite steps(2, jump-none);
+    animation-delay: calc(var(--boton-i, 0) * 0.2s);
+  }
+}
+
+@keyframes denki-stick-luz {
+  0%,
+  16%,
+  100% {
+    background:
+      radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.9) 0%, transparent 42%),
+      var(--denki-paper);
+  }
+
+  6% {
+    background:
+      radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.55) 0%, transparent 45%),
+      var(--denki-red);
+  }
+}
+
+@keyframes denki-stick-servicio {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .denki-stick.is-attract .denki-stick__boton,
+  .denki-stick.is-attract .denki-stick__aux i {
+    animation: none;
+  }
+}

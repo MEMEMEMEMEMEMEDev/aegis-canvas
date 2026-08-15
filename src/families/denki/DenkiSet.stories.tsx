@@ -3,6 +3,11 @@ import DenkiBarcode from "./DenkiBarcode/DenkiBarcode";
 import DenkiBurst from "./DenkiBurst/DenkiBurst";
 import DenkiButton from "./DenkiButton/DenkiButton";
 import DenkiCombo from "./DenkiCombo/DenkiCombo";
+import DenkiFlecha from "./DenkiFlecha/DenkiFlecha";
+import DenkiPie from "./DenkiPie/DenkiPie";
+import DenkiPlaca from "./DenkiPlaca/DenkiPlaca";
+import DenkiSpark from "./DenkiSpark/DenkiSpark";
+import DenkiStick from "./DenkiStick/DenkiStick";
 import DenkiMeter from "./DenkiMeter/DenkiMeter";
 import DenkiFrame from "./DenkiFrame/DenkiFrame";
 import DenkiPanel from "./DenkiPanel/DenkiPanel";
@@ -92,6 +97,68 @@ export const Overview: StoryObj = {
       </div>
 
       <DenkiRail items={["Fight King Pro", "12,000¥", "Leverless", "電気"]} />
+    </div>
+  ),
+};
+
+// =============================================================================
+// La lámina de producto: las cinco piezas que faltaban para que la familia
+// pudiera anunciar un APARATO y no solo componer un titular.
+//
+// Se muestra en modo atracción — los botones encendiéndose en secuencia, la
+// chispa latiendo, la tira de combo corriendo — que es CSS puro dentro de
+// cada pieza: sin estado, sin temporizadores y sin un solo listener.
+// =============================================================================
+
+const BOTONES = [
+  { id: "a", marca: "1", label: "Primera pregunta" },
+  { id: "b", marca: "2", label: "Segunda pregunta" },
+  { id: "c", marca: "3", label: "Tercera pregunta" },
+];
+
+export const Lamina: StoryObj = {
+  render: () => (
+    <div
+      className="denki-scope"
+      style={{ minHeight: "100vh", padding: "clamp(1rem, 4vw, 2.5rem)", display: "grid", gap: "1.2rem", alignContent: "start" }}
+    >
+      <DenkiTitle latin="Contacto" kana="ご相談" sub="Unidad de contacto 電-03" crown as="h2" />
+
+      <div style={{ display: "grid", gap: "0.6rem", gridTemplateColumns: "repeat(auto-fit, minmax(16rem, 1fr))" }}>
+        <DenkiPanel label="Sin formularios">
+          <p style={{ margin: 0, fontSize: "0.72rem" }}>Se responde eligiendo, no rellenando.</p>
+        </DenkiPanel>
+        <DenkiPanel label="Una sola pantalla">
+          <p style={{ margin: 0, fontSize: "0.72rem" }}>Tres pasos y el mensaje está.</p>
+          <DenkiFlecha dirs={["der", "der", "der"]} attract />
+        </DenkiPanel>
+      </div>
+
+      <DenkiPlaca
+        codigo="REF. 電-03 · UNIDAD DE CONTACTO"
+        pie="Panel de tres botones · dibujado con cajas, cero imágenes"
+        esquina={
+          <DenkiBurst size={104} tone="red" tilt={-10}>
+            3 PREGUNTAS
+          </DenkiBurst>
+        }
+      >
+        <div style={{ position: "relative", width: "min(32rem, 100%)" }}>
+          <DenkiStick
+            botones={BOTONES}
+            attract
+            sobre="panel"
+            placa="AAROI·DEV — CONTACT UNIT 電-03"
+            kana="連絡"
+            label="Ilustración: el panel de contacto, con un botón por pregunta"
+          />
+          <span style={{ position: "absolute", top: "-14%", right: "16%" }}>
+            <DenkiSpark size={92} pulse />
+          </span>
+        </div>
+      </DenkiPlaca>
+
+      <DenkiPie marca="AAROI·DEV" sub="デザインラボ · 直接連絡" sello="電" />
     </div>
   ),
 };

@@ -1,0 +1,98 @@
+@use "../denki-tools" as dk;
+
+.denki-pie {
+  --pie-tinta: var(--denki-ink);
+  --pie-suave: rgb(34 27 18 / 0.55);
+
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  border-top: var(--denki-line) solid var(--pie-tinta);
+  padding-top: 0.55rem;
+  color: var(--pie-tinta);
+}
+
+.denki-pie--panel {
+  --pie-tinta: var(--denki-cream);
+  --pie-suave: rgb(242 228 198 / 0.6);
+}
+
+.denki-pie__marca {
+  font-family: var(--denki-font-display);
+  font-size: clamp(0.85rem, 2.4vw, 1.1rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  i {
+    @include dk.spec-label;
+    font-size: 0.5rem;
+    font-style: normal;
+    color: var(--pie-suave);
+  }
+}
+
+// Las marcas van al medio y empujan el sello al canto: `margin-left: auto`
+// en el grupo del medio reparte la banda sin necesitar una rejilla.
+.denki-pie__marcas {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  opacity: 0.72;
+}
+
+// Barras de tinta: la tira de control de color de cualquier pliego.
+.denki-pie__barras {
+  width: 2.4rem;
+  height: 0.55rem;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--pie-tinta) 0 0.4rem,
+    transparent 0.4rem 0.62rem
+  );
+}
+
+// Aspa de registro.
+.denki-pie__aspa {
+  position: relative;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1px solid var(--pie-tinta);
+  border-radius: 50%;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background: var(--pie-tinta);
+  }
+
+  &::before { inset: -0.15rem 50% -0.15rem 50%; width: 1px; }
+  &::after { inset: 50% -0.15rem 50% -0.15rem; height: 1px; }
+}
+
+.denki-pie__rayado {
+  @include dk.hatch(var(--pie-tinta));
+  width: 1.5rem;
+  height: 0.7rem;
+}
+
+.denki-pie__sello {
+  font-family: var(--denki-font-kana);
+  font-weight: 800;
+  font-size: 0.85rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  aspect-ratio: 1;
+  background: var(--denki-red);
+  color: var(--denki-cream);
+  border-radius: 3px;
+}

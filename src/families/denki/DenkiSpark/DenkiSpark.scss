@@ -1,0 +1,45 @@
+.denki-spark {
+  display: block;
+  overflow: visible;
+
+  polygon {
+    stroke: var(--denki-ink);
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+  }
+}
+
+.denki-spark--red polygon { fill: var(--denki-red); }
+.denki-spark--ink polygon { fill: var(--denki-ink); }
+.denki-spark--cream polygon { fill: var(--denki-cream); }
+
+// El latido es un GOLPE, no una respiración: sube de golpe y baja
+// despacio. Con una curva simétrica parecería un corazón, y esto es un
+// impacto.
+@media (prefers-reduced-motion: no-preference) {
+  .denki-spark.is-pulse {
+    animation: denki-spark-golpe 1.9s infinite;
+    transform-origin: 50% 50%;
+  }
+}
+
+@keyframes denki-spark-golpe {
+  0% {
+    scale: 1;
+  }
+
+  6% {
+    scale: 1.18;
+  }
+
+  40%,
+  100% {
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .denki-spark.is-pulse {
+    animation: none;
+  }
+}
