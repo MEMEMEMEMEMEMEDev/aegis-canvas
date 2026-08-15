@@ -50,7 +50,9 @@
 
 .bazar-banner__meta {
   @include bz.micro(0.55rem, 600);
-  opacity: 0.85;
+  // Sin velo de opacidad: a este cuerpo la tinta plena del panel queda
+  // justo en AA (4,5:1 sobre rosa) y el 0.85 que la "suavizaba" la hundía
+  // a 3,9. La jerarquía ya la dan el cuerpo micro y el peso.
 }
 
 .bazar-banner__titulo {

@@ -2,6 +2,10 @@
 
 .bazar-bolsa {
   --bolsa-tinta: var(--bazar-rosa);
+  // La pareja de TEXTO del tono: el rosa de marca queda en 3,5:1 sobre el
+  // papel y solo vale para filetes y rellenos — el texto usa su versión
+  // hundida (5,9:1). El morado pasa AA tal cual y es su propio texto.
+  --bolsa-texto: #b30d59;
 
   display: grid;
   gap: 0.55rem;
@@ -14,6 +18,7 @@
 
 .bazar-bolsa--morado {
   --bolsa-tinta: var(--bazar-morado);
+  --bolsa-texto: var(--bazar-morado);
 }
 
 .bazar-bolsa__cabecera {
@@ -56,10 +61,10 @@
 
 .bazar-bolsa__cuenta {
   @include bz.display(1.15rem, 130%);
-  // Como texto sobre papel manda el tono profundo: el de marca se queda
-  // en 3,15:1 y solo vale para filetes y rellenos.
-  color: var(--bolsa-tinta);
-  filter: brightness(0.78);
+  // Color de verdad y no filter: brightness() — el filtro oscurecía el
+  // píxel pero no el color computado, así que ningún auditor de contraste
+  // (axe, Lighthouse) podía verlo y el rosa seguía contando como 3,5:1.
+  color: var(--bolsa-texto);
 }
 
 .bazar-bolsa__rejilla {
