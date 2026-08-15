@@ -77,6 +77,8 @@
   @include bz.calco(4px, 5px, var(--bazar-tinta));
 }
 
+// Cuadrado con un glifo, rectángulo con una palabra: `min-width` deja que
+// el troquel crezca a lo ancho en vez de estrujar la letra.
 .bazar-roster__kana {
   font-family: var(--bazar-font-display);
   font-size: 1.15rem;
@@ -84,11 +86,14 @@
   line-height: 1;
   display: grid;
   place-items: center;
-  width: 2rem;
+  min-width: 2rem;
   height: 2rem;
+  padding-inline: 0.3rem;
   flex: none;
   border: var(--bazar-linea) solid currentcolor;
   border-radius: 5px;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .is-activa .bazar-roster__kana {

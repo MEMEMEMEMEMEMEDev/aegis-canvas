@@ -54,7 +54,7 @@ export default function BazarInventario({
     >
       <header className="bazar-bolsa__cabecera">
         {kana && (
-          <span className="bazar-bolsa__kana" aria-hidden="true">
+          <span className="bazar-bolsa__kana" lang="ja" aria-hidden="true">
             {kana}
           </span>
         )}

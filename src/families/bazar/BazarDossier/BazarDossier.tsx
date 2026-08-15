@@ -41,7 +41,7 @@ export default function BazarDossier({
 
       <Nombre className="bazar-dossier__nombre">
         {kana && (
-          <span className="bazar-dossier__kana" aria-hidden="true">
+          <span className="bazar-dossier__kana" lang="ja" aria-hidden="true">
             {kana}
           </span>
         )}

@@ -115,7 +115,7 @@ export default function BazarAgente({
       </span>
 
       <header className="bazar-agente__cabecera">
-        <span className="bazar-agente__kana" aria-hidden="true">
+        <span className="bazar-agente__kana" lang="ja" aria-hidden="true">
           {kana}
         </span>
         <Nombre className="bazar-agente__nombre">{nombre}</Nombre>
@@ -145,7 +145,7 @@ export default function BazarAgente({
         {/* El ideograma gigante del fondo: es el mismo kana de la barra,
             reventado de tamaño y recortado por el marco. Decorativo —
             arriba ya se anunció, y repetirlo al lector sería ruido. */}
-        <span className="bazar-agente__fondo" aria-hidden="true">
+        <span className="bazar-agente__fondo" lang="ja" aria-hidden="true">
           {kana}
         </span>
         {/* El barrido tornasol. Vive sobre el cartel y bajo el contenido:

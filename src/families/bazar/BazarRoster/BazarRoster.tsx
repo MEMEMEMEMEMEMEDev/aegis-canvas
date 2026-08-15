@@ -136,7 +136,7 @@ export default function BazarRoster({
             className={cx("bazar-roster__ficha", activo && "is-activa")}
             onClick={() => elegir(item.id)}
           >
-            <span className="bazar-roster__kana" aria-hidden="true">
+            <span className="bazar-roster__kana" lang="ja" aria-hidden="true">
               {item.kana}
             </span>
             <span className="bazar-roster__texto">

@@ -28,6 +28,11 @@
   gap: 0.55rem;
 }
 
+// El troquel acepta de uno a seis caracteres. `min-width` y no `width`: con
+// un solo glifo se queda cuadrado —que es como nació— y con una palabra
+// entera crece a lo ancho en vez de aplastar la letra. Hizo falta cuando los
+// troqueles pasaron de kanji sueltos (que decían cosas que nadie quería
+// decir) a palabras de verdad, en kanji o en katakana.
 .bazar-bolsa__kana {
   font-family: var(--bazar-font-display);
   font-size: 1.1rem;
@@ -35,11 +40,16 @@
   line-height: 1;
   display: grid;
   place-items: center;
-  width: 1.9rem;
+  min-width: 1.9rem;
   height: 1.9rem;
+  padding-inline: 0.34rem;
   background: var(--bolsa-tinta);
   color: var(--bazar-tinta);
   border-radius: 5px;
+  // El katakana es más alto que ancho y con el interletrado del cartel se
+  // separa de más dentro de una caja pequeña.
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .bazar-bolsa__titulos {

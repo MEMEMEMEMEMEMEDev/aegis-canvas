@@ -32,7 +32,7 @@ export default meta;
 const AGENTES = [
   {
     id: "independiente",
-    kana: "独",
+    kana: "独立",
     nombre: "Independiente",
     meta: "MAY 2025 · HOY",
     rol: "Desarrollador Fullstack · clientes propios",
@@ -48,7 +48,7 @@ const AGENTES = [
   },
   {
     id: "orbis",
-    kana: "軌",
+    kana: "軌道",
     nombre: "Orbis Data",
     meta: "MAR · MAY 2025",
     rol: "Consultor de Infraestructura y CI/CD",
@@ -62,7 +62,7 @@ const AGENTES = [
   },
   {
     id: "scotiabank",
-    kana: "銀",
+    kana: "銀行",
     nombre: "Scotiabank Chile",
     meta: "ABR 2022 · MAR 2025",
     rol: "Fullstack Developer · vía Mobdev",
@@ -170,7 +170,7 @@ export const Completo: StoryObj = {
             <BazarInventario
               titulo="Frontend"
               as="h3"
-              kana="前"
+              kana="フロント"
               sub="Lo que toca el usuario"
               items={["React", "TypeScript", "Astro", "Next", "Module Federation", "CSS avanzado"]}
               rotate={-1}
@@ -178,7 +178,7 @@ export const Completo: StoryObj = {
             <BazarInventario
               titulo="Infra & DevOps"
               as="h3"
-              kana="基"
+              kana="土台"
               sub="Donde corre todo"
               tone="morado"
               items={["Kubernetes (K3s)", "ArgoCD", "Jenkins", "Ansible", "GCP"]}
