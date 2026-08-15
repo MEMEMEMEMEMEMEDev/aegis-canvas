@@ -1,0 +1,33 @@
+@use "../denki-tools" as dk;
+
+.denki-meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.denki-meter__label {
+  @include dk.spec-label;
+}
+
+.denki-meter__segs {
+  display: inline-flex;
+  gap: 0.28rem;
+}
+
+// El sesgo del segmento es el de la familia (los tachados y ráfagas del
+// póster van inclinados); el encendido es un cambio de estado seco, como
+// una lámpara — la transición larga lo haría parecer una barra de descarga.
+.denki-meter__seg {
+  width: 1.05rem;
+  height: 0.8rem;
+  border: var(--denki-line) solid var(--denki-ink);
+  border-radius: 3px;
+  transform: skewX(-12deg);
+  background: transparent;
+  transition: background-color 120ms var(--ds-ease-standard);
+
+  &.is-on {
+    background: var(--denki-red);
+  }
+}

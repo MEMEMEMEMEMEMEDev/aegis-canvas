@@ -3,6 +3,7 @@ import DenkiBarcode from "./DenkiBarcode/DenkiBarcode";
 import DenkiBurst from "./DenkiBurst/DenkiBurst";
 import DenkiButton from "./DenkiButton/DenkiButton";
 import DenkiCombo from "./DenkiCombo/DenkiCombo";
+import DenkiMeter from "./DenkiMeter/DenkiMeter";
 import DenkiFrame from "./DenkiFrame/DenkiFrame";
 import DenkiPanel from "./DenkiPanel/DenkiPanel";
 import DenkiRail from "./DenkiRail/DenkiRail";
@@ -68,6 +69,7 @@ export const Overview: StoryObj = {
         </DenkiBurst>
         <DenkiBarcode />
         <DenkiCombo label="Hadouken" sequence={["↓", "↘", "→", "P"]} />
+        <DenkiMeter label="Señal" value={2} total={3} />
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(15rem, 1fr))", gap: "var(--ds-space-lg)", alignItems: "start" }}>

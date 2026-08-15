@@ -33,5 +33,8 @@ export type { DenkiTagProps } from "./DenkiTag/DenkiTag";
 export { default as DenkiBarcode } from "./DenkiBarcode/DenkiBarcode";
 export type { DenkiBarcodeProps } from "./DenkiBarcode/DenkiBarcode";
 
+export { default as DenkiMeter } from "./DenkiMeter/DenkiMeter";
+export type { DenkiMeterProps } from "./DenkiMeter/DenkiMeter";
+
 export { default as DenkiRail } from "./DenkiRail/DenkiRail";
 export type { DenkiRailProps } from "./DenkiRail/DenkiRail";
