@@ -10,6 +10,7 @@ export type BeigePictoName =
   | "altavoz"
   | "micro"
   | "camara"
+  | "lupa"
   | "mundo"
   | "nota"
   | "consola"
@@ -116,6 +117,30 @@ const LAMINA: Record<BeigePictoName, React.ReactNode> = {
       {R(4, 7, 1, 1, C)}
       {R(11, 6, 4, 5, N)}
       {R(12, 7, 2, 3, S)}
+    </>
+  ),
+  // La lupa del examinador: cristal con brillo arriba a la izquierda y
+  // mango escalonado en diagonal — la única diagonal que el píxel permite.
+  lupa: (
+    <>
+      {R(4, 1, 4, 1, N)}
+      {R(3, 2, 1, 1, N)}
+      {R(8, 2, 1, 1, N)}
+      {R(2, 3, 1, 4, N)}
+      {R(9, 3, 1, 4, N)}
+      {R(3, 7, 1, 1, N)}
+      {R(8, 7, 1, 1, N)}
+      {R(4, 8, 4, 1, N)}
+      {R(4, 2, 4, 1, C)}
+      {R(3, 3, 6, 4, C)}
+      {R(4, 7, 4, 1, C)}
+      {R(4, 3, 2, 2, B)}
+      {R(5, 5, 3, 2, T)}
+      {R(9, 8, 2, 2, N)}
+      {R(11, 10, 2, 2, N)}
+      {R(13, 12, 2, 2, N)}
+      {R(10, 9, 1, 1, S)}
+      {R(12, 11, 1, 1, S)}
     </>
   ),
   mundo: (
