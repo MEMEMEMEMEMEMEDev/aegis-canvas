@@ -3,6 +3,15 @@
   inset: 0;
   z-index: 999;
   pointer-events: none;
+  // El tubo recorta lo suyo. La banda de refresco viaja hasta 162vh —
+  // muy por debajo del monitor — y sin este recorte su cola ESTIRA el
+  // scroll del documento: la página "crece" por abajo al ritmo del
+  // barrido y se encoge cuando el bucle vuelve arriba. Con el tubo bien
+  // fixed no se nota (lo fixed no suma al scroll), pero basta un
+  // ancestro con transform —la animación de entrada de un mundo— para
+  // que fixed degrade a su caja contenedora y el desborde cuente.
+  // Medido en el laboratorio del portafolio con Chrome headless.
+  overflow: hidden;
 }
 
 // Las líneas de barrido + la máscara de apertura RGB. Los alfas están
