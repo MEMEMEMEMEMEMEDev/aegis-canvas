@@ -1,13 +1,23 @@
 @use "../beige-tools" as bg;
 
+// LA ESCALA DE LA BARRA, en un solo lugar.
+//
+// Subida el 2026-08-18: la barra estaba calcada de un Windows 98 de 96
+// DPI, y en una pantalla de hoy queda de juguete — el escritorio se ve
+// enorme y su barra, diminuta. No es nostalgia mal entendida: aquella
+// barra ocupaba ~40 px sobre 600 de alto, y hoy 600 son el alto de una
+// ventana. Se escala el conjunto, no una pieza suelta, para que los
+// biseles sigan cuadrando.
 .beige-barra {
+  --beige-barra-alto: 54px;
+  --beige-barra-hueco: 5px;
   @include bg.bisel-saliente;
   display: flex;
   align-items: stretch;
-  gap: 4px;
+  gap: var(--beige-barra-hueco);
   background: var(--beige-plata);
-  padding: 4px;
-  min-height: 40px;
+  padding: var(--beige-barra-hueco);
+  min-height: var(--beige-barra-alto);
 }
 
 .beige-barra--fija {
@@ -20,12 +30,12 @@
 
 .beige-barra__inicio {
   @include bg.bisel-saliente;
-  @include bg.cromo(0.75rem, 700);
+  @include bg.cromo(0.95rem, 700);
   @include bg.foco-punteado;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 2px 12px;
+  gap: 8px;
+  padding: 4px 18px;
   background: var(--beige-plata);
   color: var(--beige-tinta);
   border: 0;
@@ -40,7 +50,7 @@
 
 .beige-barra__muesca {
   width: 3px;
-  margin: 2px 0;
+  margin: 3px 0;
   box-shadow:
     inset 1px 0 0 var(--beige-sombra),
     inset -1px 0 0 var(--beige-luz);
@@ -56,15 +66,15 @@
 
 .beige-barra__tarea {
   @include bg.bisel-saliente;
-  @include bg.ui(15px);
+  @include bg.ui(17px);
   @include bg.foco-punteado;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 7px;
   min-width: 0;
-  max-width: 12rem;
+  max-width: 14rem;
   flex: 1;
-  padding: 2px 8px;
+  padding: 4px 12px;
   background: var(--beige-plata);
   color: var(--beige-tinta);
   text-decoration: none;
@@ -88,11 +98,11 @@
 }
 
 .beige-barra__bandeja {
-  @include bg.ui(15px);
+  @include bg.ui(17px);
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 2px 10px;
+  gap: 9px;
+  padding: 4px 14px;
   color: var(--beige-tinta);
   box-shadow:
     inset 1px 1px 0 var(--beige-sombra),
