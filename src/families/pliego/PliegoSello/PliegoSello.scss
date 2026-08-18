@@ -1,0 +1,85 @@
+@use "../pliego-tools" as pl;
+
+.pliego-sello {
+  display: inline-flex;
+  align-items: stretch;
+  @include pl.filete;
+  border-radius: var(--pliego-radio);
+  overflow: hidden;
+  line-height: 1;
+}
+
+.pliego-sello__glifo {
+  display: grid;
+  place-items: center;
+  // Cuadrado de verdad: es un sello, y un sello que se estira con el texto
+  // de al lado deja de parecerlo.
+  min-width: 2.6em;
+  padding: 0.5em;
+  font-family: var(--pliego-font-kana);
+  font-weight: 900;
+  font-size: var(--ds-font-size-lg);
+}
+
+.pliego-sello__texto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2em;
+  padding: 0.45em 0.7em;
+  border-left: var(--pliego-filete) solid currentcolor;
+}
+
+.pliego-sello__titulo {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+}
+
+.pliego-sello__sub {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  opacity: 0.72;
+}
+
+// --- Tratamientos ------------------------------------------------------------
+
+.pliego-sello--linea {
+  color: var(--pliego-tinta);
+  background: var(--pliego-hoja);
+
+  .pliego-sello__glifo {
+    background: var(--pliego-tinta);
+    color: var(--pliego-hoja);
+  }
+}
+
+.pliego-sello--rosa {
+  border-color: var(--pliego-rosa);
+  color: var(--pliego-tinta);
+  background: var(--pliego-hoja);
+
+  .pliego-sello__glifo {
+    background: var(--pliego-rosa);
+    color: var(--pliego-tinta);
+  }
+
+  .pliego-sello__texto {
+    border-left-color: var(--pliego-rosa);
+  }
+}
+
+.pliego-sello--tinta {
+  color: var(--pliego-hoja);
+  background: var(--pliego-tinta);
+
+  .pliego-sello__glifo {
+    background: var(--pliego-rosa);
+    color: var(--pliego-tinta);
+  }
+
+  .pliego-sello__texto {
+    border-left-color: rgb(255 255 255 / 0.28);
+  }
+}

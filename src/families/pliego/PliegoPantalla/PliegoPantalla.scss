@@ -1,0 +1,335 @@
+@use "../pliego-tools" as pl;
+
+// La maqueta se dibuja SIEMPRE en las mismas cuatro tintas, declaradas aquí
+// como variables locales para que la versión invertida se resuelva cambiando
+// cuatro líneas y no ochenta reglas.
+.pliego-pantalla {
+  --pant-papel: var(--pliego-hoja);
+  --pant-linea: rgb(22 22 26 / 0.26);
+  --pant-mancha: rgb(22 22 26 / 0.1);
+  --pant-acento: var(--pliego-rosa);
+
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--pant-papel);
+  border: var(--pliego-filete) solid var(--pliego-tinta);
+  border-radius: var(--pliego-radio);
+  // La maqueta es un recorte: nada asoma por los cantos.
+  overflow: hidden;
+  // Contenedor de consulta para que los bloques se midan contra la maqueta y
+  // no contra la ventana: la misma pantalla vive a 90px en un riel y a 700px
+  // en el escenario.
+  container-type: inline-size;
+}
+
+.pliego-pantalla--invertida {
+  --pant-papel: var(--pliego-tinta);
+  --pant-linea: rgb(255 255 255 / 0.32);
+  --pant-mancha: rgb(255 255 255 / 0.14);
+}
+
+.pliego-pantalla__lienzo {
+  display: flex;
+  flex-direction: column;
+  gap: 4cqw;
+  inline-size: 100%;
+  block-size: 100%;
+  padding: 4cqw;
+}
+
+// --- Piezas compartidas ------------------------------------------------------
+
+.pliego-pantalla__barra {
+  display: flex;
+  align-items: center;
+  gap: 2.5cqw;
+  padding-bottom: 2.5cqw;
+  border-bottom: var(--pliego-filete) solid var(--pant-linea);
+}
+
+.pliego-pantalla__marca {
+  inline-size: 12cqw;
+  block-size: 3cqw;
+  background: var(--pliego-tinta);
+}
+
+.pliego-pantalla--invertida .pliego-pantalla__marca {
+  background: var(--pliego-hoja);
+}
+
+.pliego-pantalla__link {
+  inline-size: 7cqw;
+  block-size: 2cqw;
+  background: var(--pant-mancha);
+}
+
+.pliego-pantalla__accion {
+  margin-left: auto;
+  inline-size: 11cqw;
+  block-size: 4.5cqw;
+  background: var(--pant-acento);
+}
+
+// --- TIENDA ------------------------------------------------------------------
+
+.pliego-pantalla__rejilla {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3cqw;
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+
+.pliego-pantalla__ficha {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4cqw;
+  min-block-size: 0;
+  border: var(--pliego-filete) solid var(--pant-linea);
+  padding: 1.6cqw;
+}
+
+.pliego-pantalla__foto {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  background: var(--pant-mancha);
+}
+
+.pliego-pantalla__linea {
+  inline-size: 78%;
+  block-size: 1.6cqw;
+  background: var(--pant-linea);
+}
+
+.pliego-pantalla__precio {
+  inline-size: 40%;
+  block-size: 2cqw;
+  background: var(--pant-acento);
+}
+
+// --- PANEL -------------------------------------------------------------------
+
+.pliego-pantalla--panel .pliego-pantalla__lienzo {
+  flex-direction: row;
+}
+
+.pliego-pantalla__flanco {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4cqw;
+  inline-size: 18cqw;
+  padding-right: 3cqw;
+  border-right: var(--pliego-filete) solid var(--pant-linea);
+}
+
+.pliego-pantalla__item {
+  block-size: 2.4cqw;
+  background: var(--pant-mancha);
+
+  &:first-child {
+    background: var(--pant-acento);
+  }
+}
+
+.pliego-pantalla__tablero {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 3cqw;
+  min-inline-size: 0;
+}
+
+.pliego-pantalla__cifras {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5cqw;
+}
+
+.pliego-pantalla__cifra {
+  display: flex;
+  flex-direction: column;
+  gap: 1cqw;
+  border: var(--pliego-filete) solid var(--pant-linea);
+  padding: 1.6cqw;
+}
+
+.pliego-pantalla__num {
+  inline-size: 60%;
+  block-size: 3.4cqw;
+  background: var(--pliego-tinta);
+}
+
+.pliego-pantalla--invertida .pliego-pantalla__num {
+  background: var(--pliego-hoja);
+}
+
+.pliego-pantalla__rotulo {
+  inline-size: 85%;
+  block-size: 1.4cqw;
+  background: var(--pant-linea);
+}
+
+.pliego-pantalla__grafico {
+  display: flex;
+  align-items: flex-end;
+  gap: 2cqw;
+  flex: 1 1 auto;
+  min-block-size: 0;
+  padding-bottom: 1cqw;
+  border-bottom: var(--pliego-filete) solid var(--pant-linea);
+}
+
+.pliego-pantalla__dato {
+  flex: 1 1 0;
+  background: var(--pant-mancha);
+
+  // La barra más alta es la que cuenta la historia: se lleva el acento.
+  &:nth-child(5) {
+    background: var(--pant-acento);
+  }
+}
+
+.pliego-pantalla__tabla {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6cqw;
+}
+
+.pliego-pantalla__fila {
+  block-size: 1.8cqw;
+  background: var(--pant-linea);
+
+  &:nth-child(2) {
+    inline-size: 76%;
+  }
+  &:nth-child(3) {
+    inline-size: 88%;
+  }
+}
+
+// --- AGENDA ------------------------------------------------------------------
+
+.pliego-pantalla__mes {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1.6cqw;
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+
+.pliego-pantalla__dia {
+  border: var(--pliego-filete) solid var(--pant-linea);
+}
+
+.pliego-pantalla__dia--tomado {
+  background: var(--pant-acento);
+  border-color: var(--pant-acento);
+}
+
+.pliego-pantalla__horas {
+  display: flex;
+  gap: 2cqw;
+}
+
+.pliego-pantalla__hora {
+  flex: 1 1 0;
+  block-size: 3.4cqw;
+  border: var(--pliego-filete) solid var(--pant-linea);
+
+  &:first-child {
+    background: var(--pliego-tinta);
+    border-color: var(--pliego-tinta);
+  }
+}
+
+.pliego-pantalla--invertida .pliego-pantalla__hora:first-child {
+  background: var(--pliego-hoja);
+  border-color: var(--pliego-hoja);
+}
+
+// --- LANDING -----------------------------------------------------------------
+
+.pliego-pantalla__hero {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.4cqw;
+  min-block-size: 0;
+}
+
+.pliego-pantalla__titular {
+  inline-size: 76%;
+  block-size: 6cqw;
+  background: var(--pliego-tinta);
+}
+
+.pliego-pantalla--invertida .pliego-pantalla__titular {
+  background: var(--pliego-hoja);
+}
+
+.pliego-pantalla__titular--corto {
+  inline-size: 48%;
+}
+
+.pliego-pantalla__boton {
+  inline-size: 24%;
+  block-size: 5cqw;
+  background: var(--pant-acento);
+}
+
+.pliego-pantalla__tres {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5cqw;
+}
+
+.pliego-pantalla__columna {
+  block-size: 8cqw;
+  border: var(--pliego-filete) solid var(--pant-linea);
+}
+
+// --- CHAT --------------------------------------------------------------------
+
+.pliego-pantalla__hilo {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2.4cqw;
+  min-block-size: 0;
+}
+
+.pliego-pantalla__globo {
+  block-size: 5cqw;
+  inline-size: 58%;
+}
+
+.pliego-pantalla__globo--yo {
+  align-self: flex-end;
+  background: var(--pant-acento);
+}
+
+.pliego-pantalla__globo--ia {
+  align-self: flex-start;
+  border: var(--pliego-filete) solid var(--pant-linea);
+  background: var(--pant-mancha);
+}
+
+.pliego-pantalla__globo--largo {
+  inline-size: 76%;
+  block-size: 8cqw;
+}
+
+.pliego-pantalla__globo--corto {
+  inline-size: 34%;
+}
+
+.pliego-pantalla__prompt {
+  block-size: 5.5cqw;
+  border: var(--pliego-filete) solid var(--pliego-tinta);
+}
+
+.pliego-pantalla--invertida .pliego-pantalla__prompt {
+  border-color: var(--pliego-hoja);
+}

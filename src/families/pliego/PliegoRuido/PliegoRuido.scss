@@ -1,0 +1,54 @@
+@use "../pliego-tools" as pl;
+
+.pliego-ruido {
+  position: absolute;
+  inset: 0;
+  // Nunca intercepta nada: es papel, no interfaz.
+  pointer-events: none;
+  // Debajo de todo lo que se pinte encima, pero encima del fondo del padre.
+  z-index: 0;
+  overflow: hidden;
+}
+
+.pliego-ruido__reticula,
+.pliego-ruido__grano,
+.pliego-ruido__barrido {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.pliego-ruido__reticula {
+  @include pl.reticula;
+}
+
+.pliego-ruido__grano {
+  @include pl.grano(0.35);
+  // El grano en `multiply` ensucia el papel sin aclararlo: en `normal` la
+  // capa gris subía el brillo del blanco y el pliego perdía el contraste que
+  // toda la familia apoya en el papel.
+  mix-blend-mode: multiply;
+}
+
+// El barrido de monitor: líneas horizontales de un píxel, muy tenues. Es la
+// mitad videojuego de PLIEGO y por eso es opcional — sobre una lámina de
+// imprenta pura no pinta nada.
+.pliego-ruido__barrido {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgb(22 22 26 / 0.05) 0 1px,
+    transparent 1px 3px
+  );
+}
+
+// --- Intensidades ------------------------------------------------------------
+// El grano es lo único que sube: la retícula y el barrido tienen que quedarse
+// en el umbral de "se nota al quitarlo" pase lo que pase.
+
+.pliego-ruido--suave {
+  opacity: 0.5;
+}
+
+.pliego-ruido--media {
+  opacity: 0.85;
+}

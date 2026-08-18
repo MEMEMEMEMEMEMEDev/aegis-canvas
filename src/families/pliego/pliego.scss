@@ -1,0 +1,138 @@
+// =============================================================================
+// PLIEGO — familia "hoja de imprenta japonesa"
+// (ver refs/10-referencia.png): el pliego de un diseñador gráfico antes de
+// doblarse. Campo gris claro, hojas blancas, filetes de un pelo, un ÚNICO
+// rojo-rosa saturado que aparece como bloque plano, kanji enormes, cadenas
+// de asteriscos, texto rotado en el canto y letra pequeñísima muy ordenada.
+// Titulares en minúsculas gigantes y apretadas.
+//
+// Encima de esa lámina, la MECÁNICA de un menú de videojuego: cursor de
+// selección, escuadras que se cierran al enfocar, entradas escalonadas,
+// secuencia de arranque y diálogo de confirmación. La lámina es el look; el
+// menú es el comportamiento. Ninguna de las dos mitades funciona sola.
+//
+// Fuentes self-hosted (src/fonts/README.md):
+//   Voz única: Inter Tight · OFL 1.1 — variable wght 100–900, UN archivo de
+//   44 KB para toda la familia. El titular a 800 y la ficha a 500 salen del
+//   mismo fichero; no hay segunda descarga que esperar.
+//   Kanji: stack del sistema (Hiragino/Yu Gothic/Noto CJK), peso máximo.
+//
+// Isla CLARÍSIMA dentro de la marca dark → mini-contrato en .pliego-scope.
+// Los componentes lo importan vía TSX (import "../pliego.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../../fonts/inter-tight/inter-tight-vf-latin-wght-normal.woff2") format("woff2");
+}
+
+.pliego-scope {
+  // --- Mini-contrato de la familia ---
+  --pliego-papel: #ececea; // el campo del pliego (fondo de página)
+  --pliego-hoja: #ffffff; // la hoja blanca: paneles, tarjetas, cajas
+  --pliego-tinta: #16161a; // negro de imprenta, apenas azulado
+  --pliego-tinta-suave: #6b6b72; // 5,3:1 sobre hoja — letra pequeña legal
+  --pliego-rosa: #fd3564; // el rojo-rosa: RELLENO, nunca texto pequeño
+  --pliego-rosa-tinta: #d20f42; // el mismo rojo cuando ES texto (5,4:1)
+  --pliego-rosa-hondo: #b60c38; // hundido: pulsado, sombra de bloque
+
+  // Un pelo, y de verdad un pelo: la referencia entera está dibujada con
+  // filetes de imprenta, no con bordes de interfaz.
+  --pliego-filete: 1px;
+  // Cero, y no es pereza: un pliego se corta con guillotina. Cualquier radio
+  // convierte la lámina en tarjeta y la familia deja de ser esto.
+  --pliego-radio: 0;
+
+  --pliego-font: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --pliego-font-kana: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Noto Sans CJK JP",
+    "Noto Sans JP", system-ui, sans-serif;
+
+  // Foco en el rojo de TEXTO y no en el de relleno: el anillo se dibuja sobre
+  // hoja blanca, donde el rosa de bloque se queda en 3,6:1.
+  --ds-focus-ring: var(--pliego-rosa-tinta);
+
+  background: var(--pliego-papel);
+  color: var(--pliego-tinta);
+  font-family: var(--pliego-font);
+}
+
+// =============================================================================
+// El vocabulario de movimiento de la familia.
+//
+// Vive aquí y no en cada componente porque la coreografía es COMPARTIDA: lo
+// que hace que una pantalla de PLIEGO se lea como una sola pieza montándose
+// es que todo entre con el mismo barrido y el mismo escalón. Cada pieza
+// declara su turno con --pliego-i; el retardo lo calcula la clase.
+// =============================================================================
+
+// Barrido: la pieza se descubre de izquierda a derecha, como la cuchilla de
+// una guillotina pasando. Sin opacidad de compositor sola — el clip-path es
+// lo que da el carácter de imprenta.
+@keyframes pliego-barrido {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+// Subida corta: para las líneas de texto que acompañan al barrido.
+@keyframes pliego-sube {
+  from {
+    translate: 0 0.6rem;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+// Parpadeo de arranque: el guiño de consola encendiéndose. Dos golpes y ya
+// — un parpadeo largo se lee como fallo de renderizado, no como intención.
+@keyframes pliego-parpadeo {
+  0%,
+  22%,
+  36% {
+    opacity: 0;
+  }
+  12%,
+  30%,
+  100% {
+    opacity: 1;
+  }
+}
+
+// Latido del asterisco: la marca de la referencia, viva pero discreta.
+@keyframes pliego-latido {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.14;
+  }
+}
+
+.pliego-entra {
+  --pliego-i: 0;
+  --pliego-paso: 55ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-entra {
+    animation: pliego-barrido 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--pliego-i) * var(--pliego-paso));
+  }
+
+  .pliego-entra--sube {
+    animation-name: pliego-sube;
+    animation-duration: 420ms;
+  }
+}

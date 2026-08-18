@@ -1,0 +1,75 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("2xs");
+  border-radius: var(--pliego-radio);
+  white-space: nowrap;
+  @include pl.micro;
+}
+
+// --- Tratamientos ------------------------------------------------------------
+
+.pliego-etiqueta--linea {
+  @include pl.filete;
+  color: var(--pliego-tinta);
+  background: transparent;
+}
+
+// Tinta sobre rosa, no blanco: 5,1:1 contra 3,6:1. Ver la nota del TSX.
+.pliego-etiqueta--rosa {
+  border: var(--pliego-filete) solid var(--pliego-rosa);
+  background: var(--pliego-rosa);
+  color: var(--pliego-tinta);
+}
+
+.pliego-etiqueta--tinta {
+  border: var(--pliego-filete) solid var(--pliego-tinta);
+  background: var(--pliego-tinta);
+  color: var(--pliego-hoja);
+}
+
+// Sin caja: los corchetes SON el recuadro. Van en ::before/::after porque son
+// tipografía decorativa — un lector de pantalla no tiene por qué anunciar
+// "corchete izquierdo música corchete derecho".
+.pliego-etiqueta--corchete {
+  border: 0;
+  padding: 0;
+  color: var(--pliego-tinta);
+  gap: 0.5em;
+
+  &::before,
+  &::after {
+    color: var(--pliego-rosa-tinta);
+    font-weight: 500;
+  }
+
+  &::before {
+    content: "[";
+  }
+
+  &::after {
+    content: "]";
+  }
+}
+
+// --- Tamaños -----------------------------------------------------------------
+
+.pliego-etiqueta--sm {
+  padding: 0.32em 0.7em;
+  @include pl.micro-size(0.7rem);
+}
+
+.pliego-etiqueta--md {
+  padding: 0.5em 1em;
+  @include pl.micro-size(var(--ds-font-size-sm));
+  letter-spacing: 0.14em;
+}
+
+.pliego-etiqueta--corchete.pliego-etiqueta--sm,
+.pliego-etiqueta--corchete.pliego-etiqueta--md {
+  padding: 0;
+}

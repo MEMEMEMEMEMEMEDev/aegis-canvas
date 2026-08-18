@@ -1,0 +1,114 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-ficha {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("xs");
+  padding: ds.space("md") ds.space("md") ds.space("md") ds.space("lg");
+  min-width: 0;
+  // El filete al margen izquierdo: el gesto de anotación de la referencia.
+  // Va en border y no en un pseudo-elemento para que el texto no se le monte
+  // encima cuando la ficha crece.
+  border-left: 2px solid var(--pliego-rosa);
+}
+
+.pliego-ficha__cabeza {
+  display: flex;
+  align-items: baseline;
+  gap: ds.space("xs");
+  margin: 0;
+}
+
+.pliego-ficha__indice {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  color: var(--pliego-rosa-tinta);
+}
+
+.pliego-ficha__titulo {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+}
+
+.pliego-ficha__cuerpo {
+  // 0,82rem y un interlineado generoso: la referencia aprieta la letra pero
+  // abre las líneas, y esa pareja es lo que hace que un bloque diminuto
+  // siga siendo cómodo de leer.
+  font-size: max(0.78rem, 1.05rem);
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0.005em;
+  // Medida de lectura, no de columna: pasado esto el ojo pierde el renglón.
+  max-width: 42ch;
+
+  > p {
+    margin: 0 0 0.7em;
+  }
+
+  > p:last-child {
+    margin-bottom: 0;
+  }
+
+  > ul {
+    margin: 0;
+    padding-left: 1.1em;
+  }
+
+  > ul > li {
+    margin-bottom: 0.35em;
+  }
+
+  > ul > li::marker {
+    color: var(--pliego-rosa-tinta);
+  }
+}
+
+// La anotación al canto: gráfica, grande y muy pálida, detrás del texto.
+.pliego-ficha__kana {
+  position: absolute;
+  right: ds.space("xs");
+  bottom: ds.space("2xs");
+  font-family: var(--pliego-font-kana);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  line-height: 1;
+  opacity: 0.12;
+  pointer-events: none;
+  // Detrás del texto SIEMPRE: una marca de agua que tape una palabra deja de
+  // ser marca de agua y pasa a ser un error.
+  z-index: 0;
+}
+
+.pliego-ficha__cabeza,
+.pliego-ficha__cuerpo {
+  position: relative;
+  z-index: 1;
+}
+
+// --- Tratamientos ------------------------------------------------------------
+
+.pliego-ficha--hoja {
+  background: var(--pliego-hoja);
+  color: var(--pliego-tinta);
+}
+
+.pliego-ficha--papel {
+  background: transparent;
+  color: var(--pliego-tinta);
+}
+
+.pliego-ficha--tinta {
+  background: var(--pliego-tinta);
+  color: var(--pliego-hoja);
+
+  .pliego-ficha__indice,
+  .pliego-ficha__cuerpo > ul > li::marker {
+    // Los dos rojos se cambian el sitio al invertir el fondo: sobre hoja
+    // manda --pliego-rosa-tinta (5,4:1) y el de relleno se queda en 3,6:1;
+    // sobre tinta pasa justo lo contrario — el de relleno llega a 5,1:1 y el
+    // de texto cae a 3,4:1. Por eso la familia tiene dos y no uno.
+    color: var(--pliego-rosa);
+  }
+}

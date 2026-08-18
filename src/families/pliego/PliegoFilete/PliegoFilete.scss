@@ -1,0 +1,58 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-filete {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  width: 100%;
+  min-width: 0;
+}
+
+.pliego-filete__label,
+.pliego-filete__readout {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  white-space: nowrap;
+}
+
+.pliego-filete__readout {
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.pliego-filete__linea {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  height: var(--pliego-filete);
+  background: currentcolor;
+}
+
+// Las marcas de tick de una regla: el filete deja de ser una raya y pasa a
+// ser un instrumento. La línea se dibuja igual, y encima cuelga la fila de
+// ticks — por eso el alto crece y la raya se ancla arriba.
+.pliego-filete--marcas .pliego-filete__linea {
+  height: 8px;
+  background:
+    linear-gradient(currentcolor, currentcolor) 0 0 / 100% var(--pliego-filete) no-repeat,
+    repeating-linear-gradient(
+        to right,
+        currentcolor 0 var(--pliego-filete),
+        transparent var(--pliego-filete) 8px
+      )
+      0 0 / 100% 4px no-repeat;
+}
+
+// --- Tratamientos ------------------------------------------------------------
+
+.pliego-filete--tinta {
+  color: var(--pliego-tinta);
+}
+
+.pliego-filete--rosa {
+  color: var(--pliego-rosa-tinta);
+}
+
+.pliego-filete--suave {
+  color: var(--pliego-tinta-suave);
+}

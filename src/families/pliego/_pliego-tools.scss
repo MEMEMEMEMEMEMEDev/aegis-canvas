@@ -1,0 +1,73 @@
+// Herramientas SCSS de la familia PLIEGO (no emiten CSS por sí solas).
+
+// El suelo de la letra pequeña. En esta familia la ficha técnica ES contenido
+// —dice qué incluye un demo y en cuánto tiempo—, así que por debajo de esto
+// deja de ser "letra de catálogo" y pasa a ser letra que no se lee. El
+// `max()` lo impone en el navegador: pedir menos no sirve de nada, que es
+// justo lo que tiene que pasar.
+// 2026-08-18: subido de 0.7rem. El suelo estaba tan bajo que TODO el
+// rotulado se apoyaba justo en él —11,2 px medidos— y la sección se leía
+// como un prospecto. Subirlo aquí levanta de una vez cada micro-rótulo de
+// la familia, que es para lo que existe el suelo.
+$micro-suelo: 0.78rem;
+
+// La voz pequeña de la familia: mayúsculas, prosado abierto, cifras de
+// tabla. Es lo que en otras familias hace una monoespaciada; aquí lo hace la
+// única fuente, abierta de tracking — y así PLIEGO se sostiene con un solo
+// archivo de fuente.
+@mixin micro {
+  font-family: var(--pliego-font);
+  font-size: max(#{$micro-suelo}, var(--ds-font-size-xs));
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+// Micro con tamaño propio, CON SUELO (misma razón que arriba: el sitio que
+// necesita una línea más chica no puede bajarla por debajo de lo legible).
+@mixin micro-size($size) {
+  font-size: max(#{$micro-suelo}, #{$size});
+}
+
+// Filete de imprenta. Un pelo, del color que se pida.
+@mixin filete($color: var(--pliego-tinta)) {
+  border: var(--pliego-filete) solid #{$color};
+}
+
+// Retícula de montaje: las guías tenues sobre las que se arma el pliego.
+// Decorativa siempre — nunca lleva información.
+@mixin reticula($color: rgb(22 22 26 / 0.06), $paso: 32px) {
+  background-image:
+    linear-gradient(to right, #{$color} 0 1px, transparent 1px),
+    linear-gradient(to bottom, #{$color} 0 1px, transparent 1px);
+  background-size: #{$paso} #{$paso};
+}
+
+// Cadena de asteriscos ✳✳✳: la textura firma de la referencia, dibujada como
+// fondo repetido para que no meta un nodo por asterisco en el DOM.
+@mixin cadena($color: var(--pliego-rosa), $paso: 14px) {
+  background-image: radial-gradient(circle, #{$color} 0 1.6px, transparent 1.9px);
+  background-size: #{$paso} #{$paso};
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+// Marcas de registro: las escuadras de corte de una lámina de imprenta.
+// Se dibujan con un solo gradiente por esquina sobre ::before/::after del
+// contenedor que las pida.
+@mixin registro($color: var(--pliego-tinta), $largo: 10px, $grosor: 1px) {
+  background-image:
+    linear-gradient(#{$color}, #{$color}),
+    linear-gradient(#{$color}, #{$color});
+  background-size:
+    #{$largo} #{$grosor},
+    #{$grosor} #{$largo};
+  background-repeat: no-repeat;
+}
+
+// Grano de papel: ruido fractal en SVG, inline, sin petición de red. Muy
+// tenue — se nota al quitarlo, no al ponerlo.
+@mixin grano($opacidad: 0.4) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='#{$opacidad}'/%3E%3C/svg%3E");
+}

@@ -1,0 +1,222 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-menu {
+  min-width: 0;
+}
+
+.pliego-menu__lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  // El filete de arriba cierra la lista por el borde que ninguna fila cubre.
+  border-top: var(--pliego-filete) solid var(--pliego-tinta);
+}
+
+.pliego-menu__fila {
+  position: relative;
+  border-bottom: var(--pliego-filete) solid var(--pliego-tinta);
+}
+
+// =============================================================================
+// El mismo vestido, sin React.
+//
+// El componente de arriba necesita hidratarse para que el cursor se mueva. En
+// un sitio estático eso significa mandar el renderizador entero para operar
+// una lista de cinco filas, y no vale la pena: un grupo de radios hace lo
+// MISMO —tabulación rodante, flechas para recorrer, anuncio de "opción 2 de
+// 5"— y lo hace el navegador, gratis y sin JavaScript.
+//
+// Por eso estas clases sirven para dos esqueletos. El React:
+//   <button class="pliego-menu__opcion is-activo">
+// y el estático:
+//   <input class="pliego-menu__radio" id="x"><label class="pliego-menu__opcion" for="x">
+//
+// El radio va PEGADO a su etiqueta —hermano inmediato— porque de ahí sale el
+// selector. Y va oculto con `clip-path` y no con `display:none`: un radio sin
+// caja se sale del recorrido del teclado, y entonces el menú deja de tener
+// justo lo que veníamos a buscar.
+// =============================================================================
+
+.pliego-menu__radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  margin: 0;
+  clip-path: inset(50%);
+  pointer-events: none;
+}
+
+.pliego-menu__opcion {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  width: 100%;
+  padding: clamp(0.7rem, 1.6vh, 1.1rem) ds.space("sm");
+  border: 0;
+  border-radius: var(--pliego-radio);
+  background: transparent;
+  color: var(--pliego-tinta);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  // Blanco táctil holgado: es la fila que se pulsa en el teléfono.
+  min-height: 56px;
+  // El barrido de la inversión sale de aquí, así que nada se le escapa.
+  position: relative;
+  overflow: hidden;
+  @include ds.focus-ring;
+}
+
+// El relleno negro que invierte la fila elegida. Es un pseudo-elemento y no
+// un `background` porque así puede BARRER de izquierda a derecha: el gesto
+// de que el cursor "llega" a la fila en vez de encenderla de golpe.
+.pliego-menu__opcion::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--pliego-tinta);
+  transform-origin: left center;
+  scale: 0 1;
+  z-index: 0;
+}
+
+.pliego-menu__opcion.is-activo::before,
+.pliego-menu__radio:checked + .pliego-menu__opcion::before {
+  scale: 1 1;
+}
+
+// El foco del radio se dibuja sobre la etiqueta, que es la caja que se ve.
+.pliego-menu__radio:focus-visible + .pliego-menu__opcion {
+  outline: 2px solid var(--ds-focus-ring);
+  outline-offset: -3px;
+}
+
+.pliego-menu__cursor,
+.pliego-menu__num,
+.pliego-menu__texto,
+.pliego-menu__kana {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.pliego-menu__cursor {
+  flex: 0 0 auto;
+  color: var(--pliego-rosa);
+  font-size: 0.7em;
+  opacity: 0;
+  // Reserva su sitio SIEMPRE: si el cursor apareciera de la nada, la fila
+  // entera se desplazaría un centímetro al señalarla y el menú temblaría.
+  width: 0.9em;
+  translate: -6px 0;
+}
+
+.pliego-menu__num {
+  flex: 0 0 auto;
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  color: var(--pliego-tinta-suave);
+}
+
+.pliego-menu__texto {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.15em;
+}
+
+// El rótulo grande: el mismo ajuste que el titular, un cuerpo más abajo. Es
+// lo que hace que un menú de PLIEGO se lea desde la otra punta de la sala.
+.pliego-menu__label {
+  font-size: clamp(1.3rem, 3.2vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: lowercase;
+  // La palabra completa o nada: partir "chat con documentos" a mitad de
+  // palabra en un menú de juego se lee como un fallo.
+  overflow-wrap: break-word;
+}
+
+.pliego-menu__meta {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--pliego-tinta-suave);
+}
+
+// El sello del final de la fila. Mismo criterio que el del titular: es una
+// marca, no una segunda etiqueta — a 1,7rem competía con el nombre de la
+// opción, que es lo único que la fila tiene que decir de lejos.
+.pliego-menu__kana {
+  flex: 0 0 auto;
+  font-family: var(--pliego-font-kana);
+  font-weight: 900;
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  opacity: 0.4;
+}
+
+// --- Fila elegida ------------------------------------------------------------
+
+.pliego-menu__opcion.is-activo,
+.pliego-menu__radio:checked + .pliego-menu__opcion {
+  color: var(--pliego-hoja);
+
+  .pliego-menu__cursor {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .pliego-menu__num {
+    color: var(--pliego-rosa);
+  }
+
+  .pliego-menu__meta {
+    // Sobre negro, el gris de papel se hunde a 2,4:1. Este blanco velado
+    // llega a 9:1 y sigue leyéndose como segunda voz.
+    color: rgb(255 255 255 / 0.72);
+  }
+
+  .pliego-menu__kana {
+    opacity: 0.55;
+  }
+}
+
+// --- Deshabilitada -----------------------------------------------------------
+
+// Inerte, no ausente: la fila sigue en el recorrido del teclado (ver la nota
+// de `vecino` en el TSX), así que tiene que verse apagada sin desaparecer.
+.pliego-menu__opcion[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: var(--pliego-tinta-suave);
+
+  .pliego-menu__label {
+    // Rayado y no opacidad: sobre papel casi blanco, bajar la opacidad de un
+    // rótulo de este cuerpo lo deja ilegible en vez de "apagado".
+    text-decoration: line-through;
+    text-decoration-color: var(--pliego-rosa-tinta);
+    text-decoration-thickness: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-menu__opcion::before {
+    transition: scale 260ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pliego-menu__opcion,
+  .pliego-menu__cursor,
+  .pliego-menu__num,
+  .pliego-menu__kana {
+    transition:
+      color 180ms ease,
+      opacity 180ms ease,
+      translate 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}

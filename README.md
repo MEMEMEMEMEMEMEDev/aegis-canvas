@@ -58,6 +58,7 @@ radios, tipografías y componentes firma. Flujo: `refs/` → incubadora
 | **DENKI 電気** | póster retro-industrial japonés: semitono, bermellón, katakana | refs/8 | Anton + IBM Plex Mono |
 | **CINTA** | cassette-futurismo: chasis con tornillos, carretes que giran | refs/9 | Audiowide + Space Mono |
 | **OBSIDIANA** | galería de esquirlas: vitrina oscura, un solo acento cian, todo corta en diagonal — la familia del ESQUELETO del portafolio | refs/3 | Space Grotesk + Spline Sans Mono |
+| **PLIEGO** | lámina de imprenta japonesa: papel casi blanco, filetes de un pelo, UN rojo-rosa como bloque plano, minúsculas gigantes — y encima la mecánica de un menú de videojuego | refs/10 | Inter Tight (única) |
 | *proto* | incubadora vacía (nombre siempre provisional) | — | — |
 
 Imports: `@ahroi/foundation/<familia>` (ver `exports` en package.json).

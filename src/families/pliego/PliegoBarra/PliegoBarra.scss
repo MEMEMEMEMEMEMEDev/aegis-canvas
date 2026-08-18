@@ -1,0 +1,98 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-barra {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  width: 100%;
+  min-width: 0;
+}
+
+.pliego-barra__label,
+.pliego-barra__readout {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  white-space: nowrap;
+  color: var(--pliego-tinta);
+}
+
+.pliego-barra__readout {
+  font-weight: 700;
+  // La cifra al final y en su ancho de tabla: al animarse, un readout con
+  // cifras proporcionales empuja la barra a cada paso.
+  font-variant-numeric: tabular-nums;
+  min-width: 3ch;
+  text-align: right;
+}
+
+.pliego-barra__riel {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 2rem;
+  background: rgb(22 22 26 / 0.14);
+  border-radius: 999px;
+}
+
+.pliego-barra__lleno {
+  position: relative;
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  // El ancho lo pone el estilo en línea; esto solo lo hace animable.
+  min-inline-size: 0;
+}
+
+// El punto de la referencia: la cabeza del riel, montada en el borde del
+// relleno y sobresaliendo un poco por arriba y por abajo.
+.pliego-barra__punto {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  translate: 50% -50%;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  background: currentcolor;
+  // Un aro del color del papel lo despega del riel cuando el relleno llega
+  // al tope y el punto se solapa con el final de la pista.
+  box-shadow: 0 0 0 2px var(--pliego-hoja);
+}
+
+// --- Tratamientos ------------------------------------------------------------
+
+.pliego-barra--rosa .pliego-barra__lleno {
+  background: var(--pliego-rosa);
+  color: var(--pliego-rosa);
+}
+
+.pliego-barra--tinta .pliego-barra__lleno {
+  background: var(--pliego-tinta);
+  color: var(--pliego-tinta);
+}
+
+// --- Tamaños -----------------------------------------------------------------
+
+.pliego-barra--sm .pliego-barra__riel {
+  height: 4px;
+}
+
+.pliego-barra--sm .pliego-barra__punto {
+  width: 8px;
+  height: 8px;
+}
+
+.pliego-barra--md .pliego-barra__riel {
+  height: 7px;
+}
+
+.pliego-barra--md .pliego-barra__punto {
+  width: 13px;
+  height: 13px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-barra__lleno {
+    transition: inline-size 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}

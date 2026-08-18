@@ -1,0 +1,132 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("xs");
+  padding: 0.85em 1.6em;
+  border-radius: var(--pliego-radio);
+  @include pl.micro;
+  @include pl.micro-size(0.72rem);
+  cursor: pointer;
+  // Blanco táctil de 44px pase lo que pase, incluso en el tamaño chico.
+  min-height: 44px;
+  @include ds.focus-ring;
+}
+
+.pliego-boton__cursor {
+  color: currentcolor;
+  font-size: 0.8em;
+  // Retirado en reposo: el cursor entra cuando la tecla se señala, igual
+  // que en el menú.
+  opacity: 0;
+}
+
+// --- Variante solid ----------------------------------------------------------
+
+.pliego-boton--tinta.ds-button--solid {
+  border: var(--pliego-filete) solid var(--pliego-tinta);
+  background: var(--pliego-tinta);
+  color: var(--pliego-hoja);
+}
+
+.pliego-boton--rosa.ds-button--solid {
+  border: var(--pliego-filete) solid var(--pliego-rosa);
+  background: var(--pliego-rosa);
+  // Tinta sobre rosa: 5,1:1. Blanco se quedaría en 3,6:1 y este rótulo va
+  // en micro, que es justo el cuerpo que no puede permitírselo.
+  color: var(--pliego-tinta);
+}
+
+// --- Variantes de línea ------------------------------------------------------
+
+.pliego-boton.ds-button--outline {
+  @include pl.filete;
+  background: transparent;
+  color: var(--pliego-tinta);
+}
+
+.pliego-boton.ds-button--ghost {
+  border: var(--pliego-filete) solid transparent;
+  background: transparent;
+  color: var(--pliego-tinta);
+}
+
+// --- Tamaños -----------------------------------------------------------------
+
+.pliego-boton.ds-button--sm {
+  padding: 0.6em 1.1em;
+  @include pl.micro-size(0.7rem);
+}
+
+.pliego-boton.ds-button--lg {
+  padding: 1.1em 2.2em;
+  @include pl.micro-size(var(--ds-font-size-sm));
+}
+
+// --- Estados -----------------------------------------------------------------
+// La inversión es el gesto de la familia: la tecla no baja, cambia de bando.
+
+@media (hover: hover) and (pointer: fine) {
+  .pliego-boton:not(:disabled):hover {
+    .pliego-boton__cursor {
+      opacity: 1;
+    }
+  }
+
+  .pliego-boton--tinta.ds-button--solid:not(:disabled):hover,
+  .pliego-boton.ds-button--outline:not(:disabled):hover,
+  .pliego-boton.ds-button--ghost:not(:disabled):hover {
+    background: var(--pliego-rosa);
+    border-color: var(--pliego-rosa);
+    color: var(--pliego-tinta);
+  }
+
+  .pliego-boton--rosa.ds-button--solid:not(:disabled):hover {
+    background: var(--pliego-tinta);
+    border-color: var(--pliego-tinta);
+    color: var(--pliego-hoja);
+  }
+}
+
+// El foco de teclado enciende el cursor igual que el ratón: quien tabula ve
+// exactamente la misma señal.
+.pliego-boton:focus-visible .pliego-boton__cursor {
+  opacity: 1;
+}
+
+.pliego-boton:not(:disabled):active {
+  // Un pelo hacia dentro, sin sombras: es papel troquelado, no un botón de
+  // plástico.
+  scale: 0.985;
+}
+
+.pliego-boton:disabled {
+  cursor: not-allowed;
+  border-color: var(--pliego-tinta-suave);
+  background: transparent;
+  color: var(--pliego-tinta-suave);
+  // El rayado de "esto no se puede pulsar", en vez de bajar la opacidad —
+  // que en un papel casi blanco deja el rótulo ilegible.
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgb(22 22 26 / 0.07) 0 4px,
+    transparent 4px 9px
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-boton {
+    transition:
+      background 140ms ease,
+      color 140ms ease,
+      border-color 140ms ease,
+      scale 90ms ease;
+  }
+
+  .pliego-boton__cursor {
+    transition: opacity 140ms ease;
+  }
+}

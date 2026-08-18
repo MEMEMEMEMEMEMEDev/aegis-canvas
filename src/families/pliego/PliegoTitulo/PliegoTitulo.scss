@@ -1,0 +1,153 @@
+@use "../pliego-tools" as pl;
+
+.pliego-titulo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.12em;
+  margin: 0;
+  min-width: 0;
+  line-height: 1;
+  // El titular se mide contra SU COLUMNA y no contra la ventana. Con `vw`,
+  // una palabra de este cuerpo puesta en la mitad izquierda de una pantalla
+  // ancha se salía por la derecha y se metía debajo de lo que hubiera al
+  // lado — que es exactamente lo que le pasó al cargador de demos. `cqi` lo
+  // resuelve de raíz y en todas partes a la vez: el titular nunca es más
+  // grande que el hueco que le dieron.
+  container-type: inline-size;
+}
+
+// La línea de marca: rótulo y sello en una sola fila, separados por un filete
+// fino. Envuelve cuando no cabe, que en un teléfono con un rótulo largo pasa.
+.pliego-titulo__marca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em 0.85em;
+  min-width: 0;
+}
+
+.pliego-titulo__sobre {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  @include pl.micro;
+  color: var(--pliego-tinta-suave);
+  // El prosado de la línea diminuta es MÁS abierto que el del resto de la
+  // micro: es la única línea que compite en el mismo bloque con letras de
+  // veinte veces su cuerpo, y sin este aire desaparece.
+  letter-spacing: 0.26em;
+}
+
+.pliego-titulo__ast {
+  color: var(--pliego-rosa-tinta);
+  letter-spacing: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-titulo__ast {
+    display: inline-block;
+    animation: pliego-latido 2.6s ease-in-out infinite;
+  }
+}
+
+// El kanji es un SELLO, no un titular.
+//
+// Nació del cuerpo de la palabra —"manda en mancha", decía esta nota— y
+// puesto en una página de verdad resultó ser dos problemas a la vez. Le
+// robaba el protagonismo al NOMBRE de la pieza, que es el dato por el que
+// alguien entró; y con la palabra a `line-height: 0.82` la línea latina se
+// subía dentro de la caja del ideograma, así que las dos se solapaban.
+//
+// Ahora es una marca de imprenta: pequeña, en tinta suave y con el prosado
+// abierto, hermanada con la línea diminuta de arriba en vez de compitiendo
+// con la de abajo. Se sigue viendo —es parte de la firma de la familia— pero
+// por debajo del nombre.
+.pliego-titulo__kana {
+  font-family: var(--pliego-font-kana);
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  color: var(--pliego-tinta-suave);
+
+  // El filete que lo separa del rótulo. Solo aparece cuando hay rótulo
+  // delante: `~` no sirve acá porque el sello va DESPUÉS, así que lo dibuja
+  // el propio sello mirando si tiene un hermano antes.
+  &:not(:first-child)::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    margin-right: 0.85em;
+    vertical-align: -0.12em;
+    background: currentcolor;
+    opacity: 0.5;
+  }
+}
+
+// La palabra: minúsculas, peso 800 y tracking NEGATIVO. El prosado cerrado es
+// la razón de que la familia use Inter Tight y no cualquier grotesca: a este
+// cuerpo, una fuente de prosado normal deja calles blancas entre letras y el
+// bloque deja de leerse como una mancha.
+.pliego-titulo__palabra {
+  display: inline-flex;
+  align-items: baseline;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.82;
+  // Sin esto, la palabra en minúsculas hereda cualquier mayúscula que traiga
+  // el dato y rompe la firma de la familia.
+  text-transform: lowercase;
+  // Las letras gigantes se salen de su caja por abajo (la j, la g); dejarlo
+  // en `clip` recortaba las colas.
+  overflow: visible;
+}
+
+.pliego-titulo__bang {
+  color: var(--pliego-rosa-tinta);
+  // Pegado a la última letra, como en la referencia: el signo es parte de la
+  // palabra, no un adorno separado.
+  margin-left: -0.02em;
+}
+
+// --- Tamaños -----------------------------------------------------------------
+// Los `clamp` van en `cqi` —el ancho de la propia columna— porque esta
+// familia se diseñó para ocupar sitio: el titular de una vista de PLIEGO se
+// mide contra el hueco que ocupa, no contra una escala de tarjeta. El tope
+// en rem existe para que una pantalla de cine no lo convierta en una valla.
+
+// El sello NO escala con la palabra: se queda en cuerpo de rótulo en los tres
+// tamaños. Es lo que lo mantiene siendo una marca — un sello proporcional a un
+// titular de once rem vuelve a ser un titular.
+
+.pliego-titulo--hero {
+  .pliego-titulo__kana {
+    font-size: clamp(0.95rem, 3cqi, 1.5rem);
+  }
+  .pliego-titulo__palabra {
+    font-size: clamp(2.6rem, 21cqi, 11rem);
+  }
+}
+
+.pliego-titulo--seccion {
+  .pliego-titulo__kana {
+    font-size: clamp(0.85rem, 2.4cqi, 1.2rem);
+  }
+  .pliego-titulo__palabra {
+    font-size: clamp(1.9rem, 11cqi, 4.6rem);
+    letter-spacing: -0.045em;
+  }
+}
+
+.pliego-titulo--ficha {
+  .pliego-titulo__kana {
+    font-size: 0.95rem;
+  }
+  .pliego-titulo__palabra {
+    font-size: clamp(1.35rem, 3vw, 2.1rem);
+    letter-spacing: -0.035em;
+  }
+  .pliego-titulo__sobre {
+    letter-spacing: 0.2em;
+  }
+}

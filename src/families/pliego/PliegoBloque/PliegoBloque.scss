@@ -1,0 +1,74 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-bloque {
+  position: relative;
+  display: flex;
+  border-radius: var(--pliego-radio);
+  // Nada se sale del bloque: es un recorte de guillotina.
+  overflow: hidden;
+  min-width: 0;
+}
+
+// El passe-partout del montaje: arriba deja sitio a la marca de registro,
+// abajo al pie. Los lados apenas respiran — lo que se enseña tiene que
+// llegar casi al canto, o el bloque deja de ser un marco y pasa a ser un
+// borde grueso.
+.pliego-bloque--montaje {
+  padding: 2rem 0.75rem 1.75rem;
+}
+
+.pliego-bloque__cuerpo {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+}
+
+// El circulito de la esquina de la referencia: marca de registro de imprenta,
+// dos aros concéntricos dibujados con un gradiente.
+.pliego-bloque__registro {
+  position: absolute;
+  top: ds.space("sm");
+  left: ds.space("sm");
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: var(--pliego-filete) solid currentcolor;
+  background: radial-gradient(circle, currentcolor 0 2px, transparent 2.5px);
+  // Por encima del contenido, que es lo que hace una marca de registro: se
+  // imprime sobre la lámina, no debajo.
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pliego-bloque__pie {
+  position: absolute;
+  left: ds.space("sm");
+  bottom: ds.space("xs");
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+// --- Rellenos ----------------------------------------------------------------
+// El color de las marcas (registro, pie) sale de `color`, así que basta con
+// declarar la pareja fondo/tinta una vez por tratamiento.
+
+.pliego-bloque--rosa {
+  background: var(--pliego-rosa);
+  color: var(--pliego-tinta);
+}
+
+.pliego-bloque--tinta {
+  background: var(--pliego-tinta);
+  color: var(--pliego-hoja);
+}
+
+.pliego-bloque--hoja {
+  background: var(--pliego-hoja);
+  color: var(--pliego-tinta);
+  @include pl.filete;
+}

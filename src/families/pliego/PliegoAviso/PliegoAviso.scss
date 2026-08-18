@@ -1,0 +1,106 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-aviso {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+  padding: clamp(1.2rem, 4vw, 2.4rem);
+  background: var(--pliego-hoja);
+  color: var(--pliego-tinta);
+  border: 2px solid var(--pliego-tinta);
+  border-radius: var(--pliego-radio);
+  min-width: 0;
+  // El filete doble de una placa de aviso: el borde grueso, y por dentro un
+  // pelo separado. Es el marco que en los menús de juego dice "esto va en
+  // serio".
+  box-shadow: inset 0 0 0 5px var(--pliego-hoja), inset 0 0 0 6px var(--pliego-tinta);
+}
+
+.pliego-aviso__pregunta {
+  margin: 0;
+  font-size: clamp(1.3rem, 3.4vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  // Aquí NO se fuerza minúscula: es una frase, no un rótulo, y una pregunta
+  // sin su mayúscula inicial se lee como un descuido.
+  text-wrap: balance;
+}
+
+.pliego-aviso__detalle {
+  font-size: max(0.78rem, 0.95rem);
+  line-height: 1.65;
+  color: var(--pliego-tinta-suave);
+  max-width: 48ch;
+
+  > p {
+    margin: 0 0 0.6em;
+  }
+
+  > p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.pliego-aviso__teclas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: ds.space("sm");
+  margin-top: auto;
+}
+
+// El enlace que confirma se viste como el botón rosa, pero es un <a> de
+// verdad: se puede abrir en otra pestaña, copiar y compartir. Un botón que
+// navega rompe las tres cosas.
+.pliego-aviso__enlace {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("xs");
+  min-height: 44px;
+  padding: 0.85em 1.6em;
+  border: var(--pliego-filete) solid var(--pliego-rosa);
+  border-radius: var(--pliego-radio);
+  background: var(--pliego-rosa);
+  color: var(--pliego-tinta);
+  text-decoration: none;
+  @include pl.micro;
+  @include pl.micro-size(0.72rem);
+  @include ds.focus-ring;
+}
+
+.pliego-aviso__cursor {
+  font-size: 0.8em;
+  opacity: 0;
+  width: 0.9em;
+}
+
+.pliego-aviso__enlace:focus-visible .pliego-aviso__cursor {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pliego-aviso__enlace:hover {
+    background: var(--pliego-tinta);
+    border-color: var(--pliego-tinta);
+    color: var(--pliego-hoja);
+
+    .pliego-aviso__cursor {
+      opacity: 1;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-aviso__enlace {
+    transition:
+      background 140ms ease,
+      color 140ms ease,
+      border-color 140ms ease;
+  }
+
+  .pliego-aviso__cursor {
+    transition: opacity 140ms ease;
+  }
+}

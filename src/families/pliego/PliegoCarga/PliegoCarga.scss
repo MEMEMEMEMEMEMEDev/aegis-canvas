@@ -1,0 +1,116 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+@keyframes pliego-carga-linea {
+  from {
+    opacity: 0;
+    translate: -0.5rem 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes pliego-carga-barra {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+.pliego-carga {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+  padding: ds.space("lg");
+  background: var(--pliego-hoja);
+  color: var(--pliego-tinta);
+  @include pl.filete;
+  border-radius: var(--pliego-radio);
+  min-width: 0;
+}
+
+.pliego-carga__titulo {
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: lowercase;
+}
+
+.pliego-carga__lineas {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.pliego-carga__linea {
+  display: flex;
+  align-items: center;
+  gap: ds.space("xs");
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--pliego-tinta-suave);
+}
+
+.pliego-carga__punto {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pliego-rosa);
+}
+
+.pliego-carga__pie {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  margin: 0;
+  margin-top: auto;
+}
+
+.pliego-carga__riel {
+  flex: 1 1 auto;
+  height: 4px;
+  background: rgb(22 22 26 / 0.14);
+  overflow: hidden;
+}
+
+.pliego-carga__lleno {
+  display: block;
+  height: 100%;
+  background: var(--pliego-rosa);
+  transform-origin: left center;
+  // Sin movimiento, la barra se enseña LLENA: el estado final de una carga
+  // es "cargado", y dejarla vacía sugeriría que algo se quedó a medias.
+  scale: 1 1;
+}
+
+.pliego-carga__readout {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  color: var(--pliego-tinta-suave);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // Cada línea espera su turno: la secuencia entera cabe en `duration`,
+  // repartida entre el número de líneas que haya. Así el mismo componente
+  // dura lo mismo con tres líneas que con seis.
+  .pliego-carga__linea {
+    animation: pliego-carga-linea 260ms ease-out both;
+    animation-delay: calc(var(--i) / var(--pliego-carga-n) * var(--pliego-carga-dur));
+  }
+
+  .pliego-carga__lleno {
+    animation: pliego-carga-barra var(--pliego-carga-dur) linear both;
+  }
+}

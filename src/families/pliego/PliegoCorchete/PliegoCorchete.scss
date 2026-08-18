@@ -1,0 +1,85 @@
+.pliego-corchete {
+  position: relative;
+  min-width: 0;
+  // Las escuadras se dibujan FUERA de la caja del contenido: si mordieran
+  // hacia dentro habría que reservarles padding en cada sitio que use el
+  // encuadre, y el marco dejaría de ser transparente para el que lo pone.
+  --pliego-esq: 14px;
+  --pliego-fuera: 5px;
+}
+
+.pliego-corchete__esq {
+  position: absolute;
+  width: var(--pliego-esq);
+  height: var(--pliego-esq);
+  pointer-events: none;
+  // Reposo: retiradas y apagadas. La escuadra se gana, no se regala.
+  opacity: 0;
+}
+
+.pliego-corchete--tinta .pliego-corchete__esq {
+  border-color: var(--pliego-tinta);
+}
+
+.pliego-corchete--rosa .pliego-corchete__esq {
+  border-color: var(--pliego-rosa-tinta);
+}
+
+.pliego-corchete__esq--ai {
+  top: calc(var(--pliego-fuera) * -1);
+  left: calc(var(--pliego-fuera) * -1);
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.pliego-corchete__esq--ad {
+  top: calc(var(--pliego-fuera) * -1);
+  right: calc(var(--pliego-fuera) * -1);
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+
+.pliego-corchete__esq--bi {
+  bottom: calc(var(--pliego-fuera) * -1);
+  left: calc(var(--pliego-fuera) * -1);
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+
+.pliego-corchete__esq--bd {
+  bottom: calc(var(--pliego-fuera) * -1);
+  right: calc(var(--pliego-fuera) * -1);
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+// Activo: las cuatro aparecen. El foco del teclado dentro del encuadre las
+// enciende igual — quien tabula tiene derecho al mismo marco que quien pasa
+// el ratón, y esto lo resuelve CSS sin que el guion tenga que enterarse.
+.pliego-corchete.is-activo .pliego-corchete__esq,
+.pliego-corchete:focus-within .pliego-corchete__esq {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-corchete__esq {
+    transition:
+      opacity 160ms cubic-bezier(0.16, 1, 0.3, 1),
+      translate 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  // Cada esquina llega desde su diagonal: el cierre del cerrojo.
+  .pliego-corchete__esq--ai {
+    translate: -6px -6px;
+  }
+  .pliego-corchete__esq--ad {
+    translate: 6px -6px;
+  }
+  .pliego-corchete__esq--bi {
+    translate: -6px 6px;
+  }
+  .pliego-corchete__esq--bd {
+    translate: 6px 6px;
+  }
+}

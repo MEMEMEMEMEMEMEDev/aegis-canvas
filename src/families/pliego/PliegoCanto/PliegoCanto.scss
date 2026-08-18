@@ -1,0 +1,64 @@
+@use "../../../abstracts" as ds;
+@use "../pliego-tools" as pl;
+
+.pliego-canto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ds.space("md");
+  // El ancho lo pone el modo vertical; esto es solo el suelo para que el
+  // filete y la cadena no se peguen al texto.
+  min-width: 1.5rem;
+  height: 100%;
+  color: var(--pliego-tinta-suave);
+}
+
+.pliego-canto__texto {
+  display: flex;
+  flex: 1 0 auto;
+  align-items: center;
+  gap: ds.space("lg");
+  // vertical-rl + 180° = el texto corre de abajo arriba, que es como se lee
+  // el canto de un libro en la estantería y como está en la referencia.
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+}
+
+.pliego-canto__linea {
+  @include pl.micro;
+  @include pl.micro-size(0.7rem);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  white-space: nowrap;
+  // Recortar con puntos suspensivos y no desbordar: un canto más largo que
+  // la ventana empujaba el alto de la página entera.
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Las cadenas ceden SIEMPRE antes que el texto: con `flex-shrink` alto en
+// ellas y cero en el texto, un canto corto se queda con dos guiones de
+// asteriscos y los créditos enteros, en vez de con dos cadenas larguísimas y
+// el texto aplastado a cero — que es exactamente lo que pasaba.
+.pliego-canto__cadena {
+  flex: 0 8 clamp(1.5rem, 10vh, 5rem);
+  min-height: 0.5rem;
+  width: var(--pliego-filete);
+  @include pl.cadena($paso: 12px);
+  background-repeat: repeat-y;
+}
+
+// --- Lados -------------------------------------------------------------------
+// El filete del canto mira SIEMPRE hacia dentro de la página: en el borde
+// izquierdo se dibuja a la derecha del riel, y al revés. Así el canto encierra
+// el pliego en vez de flotar al lado.
+
+.pliego-canto--izq {
+  border-right: var(--pliego-filete) solid var(--pliego-tinta);
+  padding-right: ds.space("xs");
+}
+
+.pliego-canto--der {
+  border-left: var(--pliego-filete) solid var(--pliego-tinta);
+  padding-left: ds.space("xs");
+}
