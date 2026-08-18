@@ -2,6 +2,12 @@
 
 .denki-rail {
   overflow: hidden;
+  // Contenedor de consulta: es lo que le permite a cada tirada medirse
+  // contra el ANCHO DEL RIEL y no contra el viewport. Sin esto, el arreglo
+  // de abajo tendría que asumir que el riel ocupa la pantalla entera —
+  // cierto hoy en el mundo CONTACTO, falso el día que alguien lo meta en
+  // una columna.
+  container-type: inline-size;
   border-block: var(--denki-line) solid var(--denki-ink);
   background: var(--denki-panel);
   color: var(--denki-cream);
@@ -29,9 +35,25 @@
   }
 }
 
+// LA TIRADA MIDE, COMO MÍNIMO, EL ANCHO DEL RIEL, y eso arregla un fallo
+// que solo se ve en pantallas anchas.
+//
+// El bucle son dos tiradas idénticas y una animación que desplaza el carril
+// un 50%: al terminar, la segunda queda exactamente donde estaba la primera
+// y la costura no se ve. Eso solo se cumple si UNA tirada tapa el riel
+// entero. Con ocho palabras cortas y un monitor ancho, no lo tapaba: se veía
+// el final del texto, un hueco, y el salto de vuelta al principio.
+//
+// `100cqw` es el ancho del riel, así que la tirada se estira hasta cubrirlo
+// y `space-around` reparte las palabras en vez de dejarlas amontonadas a la
+// izquierda. En pantallas normales no cambia nada: el contenido ya era más
+// ancho que el riel y el mínimo no se aplica.
 .denki-rail__run {
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  flex: 0 0 auto;
+  min-width: 100cqw;
   padding: 0.55rem 0;
 }
 
