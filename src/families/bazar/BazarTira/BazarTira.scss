@@ -1,0 +1,102 @@
+@use "../bazar-tools" as bz;
+
+.bazar-tira {
+  --tira-tinta: var(--bazar-label-soft);
+  --tira-rombo: var(--bazar-rosa);
+  --tira-dur: 42s;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
+  border-block: var(--bazar-linea) solid rgb(244 240 230 / 14%);
+  // La cinta se corta en los cantos y nada asoma fuera.
+  overflow: hidden;
+  // Se difumina por los dos extremos: sin esto, las lecturas aparecen y
+  // desaparecen de golpe contra el borde y la cinta parece un carrusel roto.
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4rem,
+    #000 calc(100% - 4rem),
+    transparent
+  );
+}
+
+.bazar-tira--rosa {
+  --tira-tinta: var(--bazar-rosa-soft);
+  --tira-rombo: var(--bazar-rosa);
+}
+
+.bazar-tira--morado {
+  --tira-tinta: var(--bazar-morado-soft);
+  --tira-rombo: var(--bazar-morado);
+}
+
+.bazar-tira__pista {
+  display: flex;
+  // Sin encogerse: la pista mide lo que miden sus dos copias, y es ese
+  // ancho el que hace que el 50 % del recorrido caiga justo en la costura.
+  flex: 0 0 auto;
+  width: max-content;
+}
+
+.bazar-tira__grupo {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.bazar-tira__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding-inline-end: 1.1rem;
+  white-space: nowrap;
+  color: var(--tira-tinta);
+  @include bz.micro(0.72rem, 500);
+}
+
+.bazar-tira__rombo {
+  color: var(--tira-rombo);
+  font-size: 0.7em;
+  font-weight: 400;
+}
+
+// El bucle sin costura: la pista lleva la lista DOS veces y recorre
+// exactamente la mitad de sí misma. Al reiniciarse, la segunda copia está
+// donde estaba la primera y el salto no existe.
+@media (prefers-reduced-motion: no-preference) {
+  .bazar-tira__pista {
+    animation: bazar-tira-corre var(--tira-dur) linear infinite;
+  }
+
+  .bazar-tira--der .bazar-tira__pista {
+    animation-direction: reverse;
+  }
+}
+
+@keyframes bazar-tira-corre {
+  to {
+    translate: -50% 0;
+  }
+}
+
+// Quieta, la tira sigue siendo una fila de lecturas: no se esconde, deja de
+// correr. La máscara de los cantos se retira porque ya no hay nada
+// entrando ni saliendo — con ella, la primera lectura se vería a medio
+// desvanecer para siempre.
+@media (prefers-reduced-motion: reduce) {
+  .bazar-tira {
+    mask-image: none;
+  }
+
+  .bazar-tira__pista {
+    animation: none;
+  }
+
+  // La segunda copia sobra cuando no hay bucle que coser.
+  .bazar-tira__grupo + .bazar-tira__grupo {
+    display: none;
+  }
+}

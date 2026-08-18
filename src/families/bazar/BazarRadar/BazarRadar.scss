@@ -1,0 +1,142 @@
+@use "../bazar-tools" as bz;
+
+.bazar-radar {
+  --radar-size: 7rem;
+  --radar-tinta: var(--bazar-rosa);
+  // Misma regla que en el marco: el acento de marca dibuja el disco, y el
+  // "soft" es el que puede ser TEXTO sobre el chrome. Sobre negro, el morado
+  // de marca se queda en 3,5:1 y la lectura del pie no llegaría.
+  --radar-texto: var(--bazar-rosa-soft);
+  --radar-vuelta: 8s;
+
+  display: inline-grid;
+  justify-items: center;
+  gap: 0.5rem;
+}
+
+.bazar-radar--morado {
+  --radar-tinta: var(--bazar-morado);
+  --radar-texto: var(--bazar-morado-soft);
+}
+
+.bazar-radar__disco {
+  position: relative;
+  display: block;
+  width: var(--radar-size);
+  height: var(--radar-size);
+  border: var(--bazar-linea) solid rgb(from var(--radar-tinta) r g b / 45%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgb(from var(--radar-tinta) r g b / 12%) 0%,
+    rgb(23 21 26 / 55%) 70%
+  );
+  overflow: hidden;
+}
+
+// Los anillos concéntricos, dibujados con un gradiente repetido: cero nodos
+// extra y escalan con el disco.
+.bazar-radar__anillos {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at 50% 50%,
+    transparent 0 calc(var(--radar-size) / 6 - 1px),
+    rgb(from var(--radar-tinta) r g b / 22%) calc(var(--radar-size) / 6 - 1px)
+      calc(var(--radar-size) / 6)
+  );
+}
+
+.bazar-radar__cruz {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, transparent calc(50% - 0.5px), rgb(from var(--radar-tinta) r g b / 22%) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(50% - 0.5px), rgb(from var(--radar-tinta) r g b / 22%) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+}
+
+// La aguja: un sector cónico que se desvanece por detrás, como la estela de
+// un barrido de verdad.
+.bazar-radar__aguja {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgb(from var(--radar-tinta) r g b / 55%) 0deg,
+    rgb(from var(--radar-tinta) r g b / 16%) 26deg,
+    transparent 70deg 360deg
+  );
+}
+
+.bazar-radar__eco {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--radar-tinta);
+  // En reposo el eco está ahí, tenue: sin movimiento el radar sigue siendo
+  // un instrumento con tres contactos, no un disco vacío.
+  opacity: 0.5;
+}
+
+.bazar-radar__pie {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin: 0;
+  text-align: center;
+}
+
+.bazar-radar__label {
+  @include bz.micro(0.72rem, 700);
+  color: var(--bazar-label-soft);
+}
+
+.bazar-radar__readout {
+  @include bz.micro(0.72rem, 500);
+  color: var(--radar-texto);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bazar-radar__aguja {
+    animation: bazar-radar-barre var(--radar-vuelta) linear infinite;
+  }
+
+  // Cada eco se enciende cuando la aguja le pasa por encima. El retardo lo
+  // pone el TSX a partir de su posición en la vuelta, así que el latido va
+  // sincronizado con la aguja en vez de a su aire.
+  .bazar-radar__eco {
+    animation: bazar-radar-eco var(--radar-vuelta) ease-out infinite;
+    animation-delay: var(--eco-retardo, 0s);
+  }
+}
+
+@keyframes bazar-radar-barre {
+  to {
+    rotate: 360deg;
+  }
+}
+
+// Sube y baja, nunca se apaga del todo: un punto que desaparece se lee como
+// un contacto que se perdió.
+@keyframes bazar-radar-eco {
+  0% {
+    opacity: 1;
+    scale: 1.5;
+  }
+  22%,
+  100% {
+    opacity: 0.35;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bazar-radar__aguja,
+  .bazar-radar__eco {
+    animation: none;
+  }
+}

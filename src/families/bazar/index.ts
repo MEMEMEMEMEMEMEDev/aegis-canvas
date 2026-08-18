@@ -86,3 +86,23 @@ export type { BazarInventarioProps } from "./BazarInventario/BazarInventario";
 
 export { default as BazarFondo } from "./BazarFondo/BazarFondo";
 export type { BazarFondoProps } from "./BazarFondo/BazarFondo";
+
+// --- El chasis ---------------------------------------------------------------
+//
+// La familia tenía las piezas de la pantalla pero no el MUEBLE que las
+// sostiene, y por eso una vista de BAZAR que no scrollea se quedaba con
+// medio viewport en blanco y un telón congelado. Estas cuatro son el mueble:
+// el marco que encuadra la consola, la cinta de telemetría del canto, el
+// radar que dice que esto está encendido y la cifra a cuerpo de cartel.
+
+export { default as BazarMarco } from "./BazarMarco/BazarMarco";
+export type { BazarMarcoProps } from "./BazarMarco/BazarMarco";
+
+export { default as BazarTira } from "./BazarTira/BazarTira";
+export type { BazarTiraProps } from "./BazarTira/BazarTira";
+
+export { default as BazarRadar } from "./BazarRadar/BazarRadar";
+export type { BazarRadarProps } from "./BazarRadar/BazarRadar";
+
+export { default as BazarNivel } from "./BazarNivel/BazarNivel";
+export type { BazarNivelProps } from "./BazarNivel/BazarNivel";

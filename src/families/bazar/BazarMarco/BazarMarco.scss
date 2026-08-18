@@ -1,0 +1,117 @@
+@use "../bazar-tools" as bz;
+
+.bazar-marco {
+  // Dos variables y no una, y es la regla de contraste de la familia: sobre
+  // el chrome, el acento de MARCA vale para rellenos y bordes (umbral 3:1) y
+  // el "soft" es el único que vale para TEXTO. El pie iba en el de marca al
+  // 85 % y medía 3,55:1 — un rótulo de once píxeles y medio que no llegaba.
+  --marco-tinta: var(--bazar-rosa);
+  --marco-texto: var(--bazar-rosa-soft);
+  --marco-esq: 22px;
+  --marco-grosor: 2px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  padding: 0.9rem;
+  border-radius: var(--bazar-radio-lg);
+  // El filete de fondo es apenas visible: el que dibuja el chasis son las
+  // escuadras. Un borde completo del grosor de la familia convertía la
+  // pantalla en una tarjeta y el mundo entero en un recuadro.
+  border: 1px solid rgb(244 240 230 / 10%);
+}
+
+.bazar-marco--morado {
+  --marco-tinta: var(--bazar-morado);
+  --marco-texto: var(--bazar-morado-soft);
+}
+
+.bazar-marco--linea {
+  --marco-tinta: var(--bazar-label-soft);
+  --marco-texto: var(--bazar-label-soft);
+}
+
+// Las cuatro escuadras, con OCHO gradientes sobre un solo elemento: dos
+// líneas por esquina, ancladas cada una a su canto. Es la forma de tener el
+// chasis completo sin meter cuatro nodos dentro de algo que envuelve una
+// vista entera.
+.bazar-marco__escuadras {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background-image:
+    // Superior izquierda: horizontal + vertical.
+    linear-gradient(var(--marco-tinta), var(--marco-tinta)),
+    linear-gradient(var(--marco-tinta), var(--marco-tinta)),
+    // Superior derecha.
+    linear-gradient(var(--marco-tinta), var(--marco-tinta)),
+    linear-gradient(var(--marco-tinta), var(--marco-tinta)),
+    // Inferior izquierda.
+    linear-gradient(var(--marco-tinta), var(--marco-tinta)),
+    linear-gradient(var(--marco-tinta), var(--marco-tinta)),
+    // Inferior derecha.
+    linear-gradient(var(--marco-tinta), var(--marco-tinta)),
+    linear-gradient(var(--marco-tinta), var(--marco-tinta));
+
+  background-size:
+    var(--marco-esq) var(--marco-grosor),
+    var(--marco-grosor) var(--marco-esq),
+    var(--marco-esq) var(--marco-grosor),
+    var(--marco-grosor) var(--marco-esq),
+    var(--marco-esq) var(--marco-grosor),
+    var(--marco-grosor) var(--marco-esq),
+    var(--marco-esq) var(--marco-grosor),
+    var(--marco-grosor) var(--marco-esq);
+
+  background-position:
+    left top,
+    left top,
+    right top,
+    right top,
+    left bottom,
+    left bottom,
+    right bottom,
+    right bottom;
+
+  background-repeat: no-repeat;
+}
+
+// El rótulo serigrafiado del canto: se sienta SOBRE el filete, con el fondo
+// del chrome detrás para que la línea no lo cruce.
+.bazar-marco__rotulo,
+.bazar-marco__pie {
+  position: absolute;
+  padding-inline: 0.5rem;
+  background: var(--bazar-chrome);
+  color: var(--bazar-label-soft);
+  white-space: nowrap;
+  pointer-events: none;
+  @include bz.micro(0.72rem, 700);
+}
+
+.bazar-marco__rotulo {
+  top: 0;
+  left: calc(var(--marco-esq) + 0.75rem);
+  translate: 0 -50%;
+}
+
+.bazar-marco__pie {
+  bottom: 0;
+  right: calc(var(--marco-esq) + 0.75rem);
+  translate: 0 50%;
+  color: var(--marco-texto);
+}
+
+.bazar-marco__cuerpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  // Sin esto, un hijo que scrollea por dentro no puede encogerse por debajo
+  // de su contenido y el marco crece hasta reventar la consola.
+  min-height: 0;
+}

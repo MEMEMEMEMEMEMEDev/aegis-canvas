@@ -37,6 +37,36 @@
   );
 }
 
+// Motas en suspensión: el polvo que se ve en el haz de un proyector. Dos
+// tamaños de punto en rejillas grandes y primas entre sí, para que no se
+// lea la retícula que las coloca.
+.bazar-fondo__motas {
+  position: absolute;
+  inset: -25%;
+  background-image:
+    radial-gradient(circle, rgb(244 240 230 / 22%) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgb(from var(--fondo-tinta) r g b / 30%) 0 1.4px, transparent 2px);
+  background-size:
+    137px 191px,
+    223px 149px;
+  background-position:
+    0 0,
+    61px 83px;
+}
+
+// La segunda capa va más chica, más tenue y deriva al revés (ver keyframes):
+// una sola se lee como una textura que resbala; dos, como aire con cosas
+// dentro.
+.bazar-fondo__motas--alta {
+  background-size:
+    97px 131px,
+    179px 211px;
+  background-position:
+    23px 47px,
+    0 0;
+  opacity: 0.55;
+}
+
 .bazar-fondo__kana {
   position: absolute;
   top: 4%;
@@ -62,7 +92,27 @@
   -webkit-text-stroke: 1.5px rgb(244 240 230 / 7%);
 }
 
-// --- Parallax sin JavaScript -------------------------------------------------
+// El barrido: una franja de luz diagonal que cruza cada tanto, como el
+// reflejo que pasa por el cristal de una máquina recreativa. Es lo único del
+// telón que se ve MOVERSE de verdad, y por eso pasa una vez cada veintitantos
+// segundos y tarda tres en cruzar.
+.bazar-fondo__barrido {
+  position: absolute;
+  inset: -40% -60%;
+  background: linear-gradient(
+    104deg,
+    transparent 0 42%,
+    rgb(244 240 230 / 4%) 47%,
+    rgb(from var(--fondo-tinta) r g b / 7%) 50%,
+    rgb(244 240 230 / 4%) 53%,
+    transparent 58% 100%
+  );
+  // Fuera de cuadro mientras espera su turno.
+  translate: -60% 0;
+}
+
+// =============================================================================
+// MOTOR 1 — parallax de scroll (por defecto)
 //
 // `animation-timeline: scroll()` engancha la animación al scroll en vez de
 // al reloj: cada capa recorre su rango completo mientras la página baja, y
@@ -74,29 +124,33 @@
 // uno que NUNCA scrollea — ahí la timeline nace muerta y el fondo se queda
 // clavado sin que nada avise. El telón sigue al documento, que es lo que de
 // verdad se está moviendo.
+// =============================================================================
+
 @media (prefers-reduced-motion: no-preference) {
-  .bazar-fondo__trama,
-  .bazar-fondo__bandas,
-  .bazar-fondo__kana,
-  .bazar-fondo__cenefa {
-    animation: linear both;
-    animation-timeline: scroll(root);
-  }
+  .bazar-fondo--scroll {
+    .bazar-fondo__trama,
+    .bazar-fondo__bandas,
+    .bazar-fondo__kana,
+    .bazar-fondo__cenefa {
+      animation: linear both;
+      animation-timeline: scroll(root);
+    }
 
-  .bazar-fondo__trama {
-    animation-name: bazar-fondo-lento;
-  }
+    .bazar-fondo__trama {
+      animation-name: bazar-fondo-lento;
+    }
 
-  .bazar-fondo__bandas {
-    animation-name: bazar-fondo-medio;
-  }
+    .bazar-fondo__bandas {
+      animation-name: bazar-fondo-medio;
+    }
 
-  .bazar-fondo__kana {
-    animation-name: bazar-fondo-kana;
-  }
+    .bazar-fondo__kana {
+      animation-name: bazar-fondo-kana;
+    }
 
-  .bazar-fondo__cenefa {
-    animation-name: bazar-fondo-cenefa;
+    .bazar-fondo__cenefa {
+      animation-name: bazar-fondo-cenefa;
+    }
   }
 }
 
@@ -128,11 +182,136 @@
   }
 }
 
+// =============================================================================
+// MOTOR 2 — el reloj
+//
+// Para pantallas que no scrollean. Las mismas capas, movidas por el tiempo:
+// ciclos largos (44–90 s), amplitudes del 2 al 4 % y `alternate` en casi
+// todas, para que la deriva vaya y vuelva en vez de dar un salto al reiniciar.
+//
+// NADA parpadea y NADA cambia de brillo de golpe. El elemento de ciclo más
+// corto es el barrido, y "corto" son 26 segundos de los que se ve tres. Esto
+// es un fondo respirando, no un cartel de neón.
+// =============================================================================
+
+@media (prefers-reduced-motion: no-preference) {
+  .bazar-fondo--reloj {
+    .bazar-fondo__trama {
+      animation: bazar-fondo-vaiven-lento 90s ease-in-out infinite alternate;
+    }
+
+    .bazar-fondo__bandas {
+      animation: bazar-fondo-vaiven-medio 62s ease-in-out infinite alternate;
+    }
+
+    .bazar-fondo__kana {
+      animation: bazar-fondo-respira 44s ease-in-out infinite alternate;
+    }
+
+    // La cenefa sí gira entera y en bucle: es la única capa con forma de
+    // cinta, y una cinta que va y vuelve se lee como un error.
+    .bazar-fondo__cenefa {
+      animation: bazar-fondo-cinta 80s linear infinite;
+    }
+  }
+}
+
+// Estas dos capas viven del reloj con LOS DOS motores: no son parallax, son
+// atmósfera — el polvo del aire y el reflejo del cristal están ahí igual esté
+// la página quieta o bajando.
+@media (prefers-reduced-motion: no-preference) {
+  .bazar-fondo__motas {
+    animation: bazar-fondo-flota 74s linear infinite;
+  }
+
+  .bazar-fondo__motas--alta {
+    animation: bazar-fondo-flota-alta 53s linear infinite;
+  }
+
+  .bazar-fondo__barrido {
+    animation: bazar-fondo-barrido 26s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes bazar-fondo-vaiven-lento {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -1% -3%;
+  }
+}
+
+@keyframes bazar-fondo-vaiven-medio {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 2% -4%;
+  }
+}
+
+// El kana respira: crece un 3 % y se inclina grado y medio. A cuerpo de 26rem
+// eso son unos ocho píxeles de recorrido en tres cuartos de minuto.
+@keyframes bazar-fondo-respira {
+  from {
+    translate: 0 0;
+    rotate: 0deg;
+    scale: 1;
+  }
+  to {
+    translate: -1.5% 2%;
+    rotate: -1.5deg;
+    scale: 1.03;
+  }
+}
+
+// Un tercio exacto del ancho: la cenefa lleva la palabra tres veces, así que
+// al recorrer un tercio vuelve a estar donde empezó y el bucle no se ve.
+@keyframes bazar-fondo-cinta {
+  to {
+    translate: -33.333% 0;
+  }
+}
+
+// El desplazamiento coincide con el tamaño de una de las rejillas, así que el
+// patrón cae sobre sí mismo y no hay salto al reiniciar.
+@keyframes bazar-fondo-flota {
+  to {
+    translate: 223px -149px;
+  }
+}
+
+@keyframes bazar-fondo-flota-alta {
+  to {
+    translate: -179px -211px;
+  }
+}
+
+// Espera larga, cruce corto: el barrido está fuera de cuadro el 88 % del
+// ciclo. Si cruzara sin descanso sería un fondo animado; así es un reflejo.
+@keyframes bazar-fondo-barrido {
+  0%,
+  88% {
+    translate: -60% 0;
+  }
+  100% {
+    translate: 60% 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bazar-fondo__trama,
   .bazar-fondo__bandas,
+  .bazar-fondo__motas,
   .bazar-fondo__kana,
   .bazar-fondo__cenefa {
     animation: none;
+  }
+
+  // Sin movimiento el barrido no llega a cruzar nunca: se retira entero en
+  // vez de dejar una franja de luz clavada en un canto.
+  .bazar-fondo__barrido {
+    display: none;
   }
 }

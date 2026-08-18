@@ -1,0 +1,106 @@
+@use "../bazar-tools" as bz;
+
+.bazar-nivel {
+  --nivel-tinta: var(--bazar-rosa);
+
+  display: grid;
+  justify-items: start;
+  gap: 0.3rem;
+  margin: 0;
+  // El bloque se mide contra SU columna: esta cifra vive en una rejilla de
+  // consola y con `vw` se salía del cajón en cuanto la ventana era ancha.
+  container-type: inline-size;
+  min-width: 0;
+  // Ocupa la celda ENTERA, y esto es la mitad de lo anterior: un contenedor
+  // de consulta que se encoge hasta su contenido mide lo que mide la placa
+  // del rango —unos cien píxeles— y entonces `38cqi` deja la cifra del
+  // tamaño de la letra pequeña. La caja se estira; la cifra se mide contra
+  // ella.
+  inline-size: 100%;
+}
+
+.bazar-nivel--morado {
+  --nivel-tinta: var(--bazar-morado);
+}
+
+// La placa del rango: el paralelogramo de la familia, con el sesgo del
+// contrato. El texto va sesgado CON la placa, como una calcomanía torcida.
+.bazar-nivel__rango {
+  @include bz.placa(var(--nivel-tinta), var(--bazar-tinta));
+  @include bz.micro(0.72rem, 700);
+  @include bz.calco(2px, 3px);
+}
+
+.bazar-nivel--holo .bazar-nivel__rango {
+  background: var(--bazar-holo);
+  color: var(--bazar-tinta);
+}
+
+.bazar-nivel__cifra {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25em;
+  min-width: 0;
+}
+
+// La cifra: Anybody condensada y enorme, troquelada. El relleno es casi
+// nulo y el contorno lo dibuja todo — así puede pisar el telón sin taparlo.
+.bazar-nivel__valor {
+  @include bz.display(clamp(3rem, 38cqi, 8rem), 78%, 900);
+  color: transparent;
+  -webkit-text-stroke: 2.5px var(--nivel-tinta);
+  line-height: 0.8;
+
+  // Sin `text-stroke` la cifra sería invisible: el respaldo es maciza, que
+  // dice exactamente lo mismo con otra piel.
+  @supports not (-webkit-text-stroke: 1px black) {
+    color: var(--nivel-tinta);
+  }
+}
+
+.bazar-nivel--holo .bazar-nivel__valor {
+  -webkit-text-stroke: 2.5px var(--bazar-label);
+}
+
+.bazar-nivel__kana {
+  font-family: var(--bazar-font-display);
+  font-style: normal;
+  font-weight: 900;
+  font-size: clamp(1rem, 10cqi, 2.2rem);
+  line-height: 1;
+  color: rgb(from var(--nivel-tinta) r g b / 55%);
+}
+
+.bazar-nivel__unidad {
+  @include bz.micro(0.72rem, 500);
+  color: var(--bazar-label-soft);
+  // El texto se parte si hace falta: la unidad es lo que da sentido a la
+  // cifra y recortarla con puntos suspensivos sería quitarle el sentido.
+  overflow-wrap: break-word;
+}
+
+// La cifra late una vez cada trece segundos: el contorno se aclara y vuelve.
+// No hay cambio de posición ni de tamaño — solo el grosor de la tinta, que
+// es el pulso de un instrumento encendido y no un destello.
+@media (prefers-reduced-motion: no-preference) {
+  .bazar-nivel__valor {
+    animation: bazar-nivel-pulso 13s ease-in-out infinite;
+  }
+}
+
+@keyframes bazar-nivel-pulso {
+  0%,
+  82%,
+  100% {
+    -webkit-text-stroke-color: var(--nivel-tinta);
+  }
+  91% {
+    -webkit-text-stroke-color: rgb(from var(--nivel-tinta) r g b / 55%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bazar-nivel__valor {
+    animation: none;
+  }
+}
