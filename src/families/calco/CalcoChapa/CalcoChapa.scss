@@ -1,0 +1,69 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-chapa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.35em 0.75em;
+  border-radius: var(--calco-radio-pill);
+  background: var(--calco-fondo, var(--calco-crema));
+  color: var(--calco-tinta);
+  @include ca.micro;
+  @include ca.micro-size(0.7rem);
+  border: 2px solid var(--calco-tinta);
+  white-space: nowrap;
+}
+
+.calco-chapa--sm {
+  padding: 0.25em 0.6em;
+  @include ca.micro-size(0.64rem);
+  letter-spacing: 0.1em;
+}
+
+.calco-chapa--lima {
+  --calco-fondo: var(--calco-lima);
+}
+.calco-chapa--sol {
+  --calco-fondo: var(--calco-sol);
+}
+.calco-chapa--crema {
+  --calco-fondo: var(--calco-crema);
+}
+.calco-chapa--cielo {
+  --calco-fondo: var(--calco-cielo);
+}
+.calco-chapa--rosa {
+  --calco-fondo: var(--calco-rosa);
+}
+.calco-chapa--naranja {
+  --calco-fondo: var(--calco-naranja);
+}
+.calco-chapa--coral {
+  --calco-fondo: var(--calco-coral);
+}
+.calco-chapa--tinta {
+  --calco-fondo: var(--calco-tinta);
+  color: var(--calco-crema);
+}
+
+.calco-chapa__punto {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: currentcolor;
+  flex: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .calco-chapa__punto--viva {
+    animation: calco-titila 1.6s ease-in-out infinite;
+  }
+}
+
+.calco-chapa__icono {
+  display: inline-grid;
+  place-items: center;
+  font-size: 1.1em;
+  line-height: 1;
+}

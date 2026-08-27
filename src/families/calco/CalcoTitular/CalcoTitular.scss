@@ -1,0 +1,98 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-titular {
+  display: grid;
+  gap: 0.35em;
+  min-width: 0;
+  @include ca.pegado;
+  --calco-relleno: var(--calco-crema);
+}
+
+.calco-titular__sobre {
+  margin: 0;
+  @include ca.micro;
+  color: var(--calco-tinta);
+}
+
+.calco-titular__texto {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.2em 0.35em;
+  @include ca.display(900);
+  text-transform: uppercase;
+  color: var(--calco-relleno);
+  @include ca.contorno(var(--calco-tinta), 2px);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.calco-titular__kana {
+  font-family: var(--calco-font-kana);
+  font-weight: 900;
+  font-size: 0.6em;
+  color: var(--calco-tinta);
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+
+// --- Relleno ------------------------------------------------------------------
+
+.calco-titular--lima {
+  --calco-relleno: var(--calco-lima);
+}
+.calco-titular--sol {
+  --calco-relleno: var(--calco-sol);
+}
+.calco-titular--crema {
+  --calco-relleno: var(--calco-crema);
+}
+.calco-titular--cielo {
+  --calco-relleno: var(--calco-cielo);
+}
+.calco-titular--rosa {
+  --calco-relleno: var(--calco-rosa);
+}
+.calco-titular--naranja {
+  --calco-relleno: var(--calco-naranja);
+}
+.calco-titular--coral {
+  --calco-relleno: var(--calco-coral);
+}
+.calco-titular--tinta {
+  --calco-relleno: var(--calco-tinta);
+
+  .calco-titular__texto {
+    -webkit-text-stroke: 0;
+  }
+}
+
+// --- Volumen ------------------------------------------------------------------
+
+.calco-titular--extruido .calco-titular__texto {
+  @include ca.extrusion(var(--calco-tinta), 5);
+}
+
+// --- Tamaños ------------------------------------------------------------------
+
+.calco-titular--hero .calco-titular__texto {
+  font-size: clamp(2.2rem, 7.5vw, 5rem);
+  letter-spacing: -0.03em;
+}
+.calco-titular--hero.calco-titular--extruido .calco-titular__texto {
+  @include ca.extrusion(var(--calco-tinta), 8);
+}
+
+.calco-titular--seccion .calco-titular__texto {
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+}
+
+.calco-titular--card .calco-titular__texto {
+  font-size: clamp(1rem, 2.6vw, 1.35rem);
+  @include ca.contorno(var(--calco-tinta), 1.5px);
+}
+.calco-titular--card.calco-titular--extruido .calco-titular__texto {
+  @include ca.extrusion(var(--calco-tinta), 3);
+}

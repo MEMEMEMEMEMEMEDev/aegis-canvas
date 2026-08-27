@@ -1,0 +1,112 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-globo {
+  position: relative;
+  display: inline-block;
+  max-width: 36ch;
+  padding: ds.space("sm") ds.space("md");
+  font-family: var(--calco-font-cuerpo);
+  font-weight: 500;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.4;
+  --calco-fondo: var(--calco-crema);
+  @include ca.bloque(var(--calco-fondo), var(--calco-radio-lg));
+  @include ca.pegado;
+
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+// El rabo. Un cuadrado con borde en dos lados, girado. La posición y qué dos
+// lados llevan borde dependen de hacia dónde apunta.
+.calco-globo::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--calco-fondo);
+  border: var(--calco-linea) solid var(--calco-tinta);
+  border-color: transparent;
+}
+
+.calco-globo--cola-abajo-izq::after {
+  left: 22px;
+  bottom: -11px;
+  rotate: 45deg;
+  border-right-color: var(--calco-tinta);
+  border-bottom-color: var(--calco-tinta);
+}
+.calco-globo--cola-abajo-der::after {
+  right: 22px;
+  bottom: -11px;
+  rotate: 45deg;
+  border-right-color: var(--calco-tinta);
+  border-bottom-color: var(--calco-tinta);
+}
+.calco-globo--cola-arriba-izq::after {
+  left: 22px;
+  top: -11px;
+  rotate: 45deg;
+  border-left-color: var(--calco-tinta);
+  border-top-color: var(--calco-tinta);
+}
+.calco-globo--cola-arriba-der::after {
+  right: 22px;
+  top: -11px;
+  rotate: 45deg;
+  border-left-color: var(--calco-tinta);
+  border-top-color: var(--calco-tinta);
+}
+.calco-globo--cola-izq::after {
+  left: -11px;
+  top: 50%;
+  translate: 0 -50%;
+  rotate: 45deg;
+  border-left-color: var(--calco-tinta);
+  border-bottom-color: var(--calco-tinta);
+}
+.calco-globo--cola-der::after {
+  right: -11px;
+  top: 50%;
+  translate: 0 -50%;
+  rotate: 45deg;
+  border-right-color: var(--calco-tinta);
+  border-top-color: var(--calco-tinta);
+}
+
+// --- Los colores --------------------------------------------------------------
+
+.calco-globo--lima {
+  --calco-fondo: var(--calco-lima);
+}
+.calco-globo--sol {
+  --calco-fondo: var(--calco-sol);
+}
+.calco-globo--cielo {
+  --calco-fondo: var(--calco-cielo);
+}
+.calco-globo--rosa {
+  --calco-fondo: var(--calco-rosa);
+}
+.calco-globo--naranja {
+  --calco-fondo: var(--calco-naranja);
+}
+.calco-globo--coral {
+  --calco-fondo: var(--calco-coral);
+}
+
+// --- El grito -----------------------------------------------------------------
+
+.calco-globo--grito {
+  padding: ds.space("sm") ds.space("lg");
+  @include ca.display(900);
+  font-size: clamp(1.3rem, 3.5vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 1;
+}

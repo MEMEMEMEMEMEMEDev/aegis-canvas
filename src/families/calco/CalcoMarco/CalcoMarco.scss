@@ -1,0 +1,90 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-marco {
+  position: relative;
+  margin: 0;
+  display: grid;
+  gap: ds.space("xs");
+  padding: ds.space("xs");
+  padding-bottom: ds.space("sm");
+  --calco-fondo: var(--calco-sol);
+  @include ca.bloque(var(--calco-crema), 6px);
+  @include ca.pegado;
+}
+
+.calco-marco__hueco {
+  position: relative;
+  aspect-ratio: var(--calco-ratio, 4 / 3);
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--calco-cielo);
+  border: 2px solid var(--calco-tinta);
+
+  > img,
+  > video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.calco-marco__hueco--semitono {
+  @include ca.semitono(rgb(23 21 15 / 0.22), 9px, 1.6px);
+}
+
+.calco-marco__pie {
+  @include ca.micro;
+  @include ca.micro-size(0.68rem);
+  text-align: center;
+  color: var(--calco-tinta-suave);
+}
+
+// --- La cinta -----------------------------------------------------------------
+
+.calco-marco--cinta::before,
+.calco-marco--cinta::after {
+  content: "";
+  position: absolute;
+  top: -9px;
+  width: 58px;
+  height: 18px;
+  background-color: var(--calco-fondo);
+  @include ca.rayas(rgb(23 21 15 / 0.18), transparent, 4px);
+  border: 2px solid var(--calco-tinta);
+  opacity: 0.92;
+}
+
+.calco-marco--cinta::before {
+  left: -14px;
+  rotate: -32deg;
+}
+.calco-marco--cinta::after {
+  right: -14px;
+  rotate: 32deg;
+}
+
+// --- Colores de la cinta ------------------------------------------------------
+
+.calco-marco--lima {
+  --calco-fondo: var(--calco-lima);
+}
+.calco-marco--sol {
+  --calco-fondo: var(--calco-sol);
+}
+.calco-marco--crema {
+  --calco-fondo: var(--calco-crema);
+}
+.calco-marco--cielo {
+  --calco-fondo: var(--calco-cielo);
+}
+.calco-marco--rosa {
+  --calco-fondo: var(--calco-rosa);
+}
+.calco-marco--naranja {
+  --calco-fondo: var(--calco-naranja);
+}
+.calco-marco--coral {
+  --calco-fondo: var(--calco-coral);
+}

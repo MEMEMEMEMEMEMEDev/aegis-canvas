@@ -55,6 +55,7 @@ fonts/
 | `silkscreen/` | OFL 1.1 | BEIGE (cromo: títulos, botones) — 400 y 700 reales |
 | `vt323/` | OFL 1.1 | BEIGE (terminal/consola) — digitalización del DEC VT320 |
 | `inter-tight/` | OFL 1.1 | PLIEGO (voz única) — **variable**, wght 100–900 en un archivo |
+| `unbounded/` | OFL 1.1 | CALCO (display) — **variable**, wght 200–900 en un archivo; el cuerpo lo presta `space-grotesk/` |
 
 Los glifos CJK (katakana de DENKI, kanji de KOI) usan el stack del sistema —
 no se autoaloja ninguna fuente japonesa completa.

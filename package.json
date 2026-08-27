@@ -25,6 +25,7 @@
     "./disquete": "./src/families/disquete/index.ts",
     "./pliego": "./src/families/pliego/index.ts",
     "./bazar": "./src/families/bazar/index.ts",
+    "./calco": "./src/families/calco/index.ts",
     "./beige": "./src/families/beige/index.ts",
     "./obsidiana": "./src/families/obsidiana/index.ts",
     "./proto": "./src/families/proto/index.ts",

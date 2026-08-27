@@ -1,0 +1,105 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-contador {
+  position: relative;
+  display: grid;
+  gap: 0.2em;
+  padding: ds.space("sm") ds.space("md");
+  min-width: 0;
+  --calco-fondo: var(--calco-sol);
+  @include ca.bloque(var(--calco-fondo));
+  @include ca.pegado;
+}
+
+.calco-contador__cifra {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.1em;
+  min-width: 0;
+  @include ca.display(900);
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  color: var(--calco-crema);
+  @include ca.contorno(var(--calco-tinta), 2px);
+  @include ca.extrusion(var(--calco-tinta), 4);
+  font-variant-numeric: tabular-nums;
+}
+
+.calco-contador__sufijo {
+  font-size: 0.45em;
+  font-weight: 800;
+}
+
+.calco-contador__etiqueta {
+  margin: 0;
+  @include ca.micro;
+  @include ca.micro-size(0.7rem);
+  color: var(--calco-tinta);
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+// El "+1" flotante: pegatina chica en la esquina, torcida al revés que el
+// bloque para que se lea como algo que cayó encima.
+.calco-contador__delta {
+  position: absolute;
+  top: -0.7em;
+  right: -0.5em;
+  padding: 0.3em 0.55em;
+  border-radius: var(--calco-radio-pill);
+  background: var(--calco-cielo);
+  color: var(--calco-tinta);
+  @include ca.display(800);
+  font-size: 0.85rem;
+  letter-spacing: 0;
+  line-height: 1;
+  border: 2px solid var(--calco-tinta);
+  rotate: 10deg;
+  @include ca.sombra(0.4);
+}
+
+// --- Colores ------------------------------------------------------------------
+
+.calco-contador--lima {
+  --calco-fondo: var(--calco-lima);
+}
+.calco-contador--sol {
+  --calco-fondo: var(--calco-sol);
+}
+.calco-contador--crema {
+  --calco-fondo: var(--calco-crema);
+}
+.calco-contador--cielo {
+  --calco-fondo: var(--calco-cielo);
+}
+.calco-contador--rosa {
+  --calco-fondo: var(--calco-rosa);
+}
+.calco-contador--naranja {
+  --calco-fondo: var(--calco-naranja);
+}
+.calco-contador--coral {
+  --calco-fondo: var(--calco-coral);
+}
+
+// --- Tamaños ------------------------------------------------------------------
+
+.calco-contador--sm {
+  padding: ds.space("xs") ds.space("sm");
+
+  .calco-contador__cifra {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    @include ca.extrusion(var(--calco-tinta), 3);
+  }
+}
+
+.calco-contador--lg {
+  padding: ds.space("md") ds.space("lg");
+
+  .calco-contador__cifra {
+    font-size: clamp(2.8rem, 8vw, 4.6rem);
+    @include ca.extrusion(var(--calco-tinta), 6);
+  }
+}

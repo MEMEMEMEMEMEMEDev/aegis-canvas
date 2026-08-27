@@ -1,0 +1,126 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("xs");
+  padding: 0.7em 1.3em;
+  min-height: 44px;
+  border-radius: var(--calco-radio);
+  @include ca.micro;
+  @include ca.micro-size(0.8rem);
+  cursor: pointer;
+  --calco-fondo: var(--calco-crema);
+  @include ca.prensa;
+  @include ds.focus-ring;
+}
+
+.calco-boton__icono {
+  display: inline-grid;
+  place-items: center;
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+.calco-boton--ancho {
+  width: 100%;
+}
+
+// --- Los rellenos -------------------------------------------------------------
+
+.calco-boton--lima {
+  --calco-fondo: var(--calco-lima);
+}
+.calco-boton--sol {
+  --calco-fondo: var(--calco-sol);
+}
+.calco-boton--crema {
+  --calco-fondo: var(--calco-crema);
+}
+.calco-boton--cielo {
+  --calco-fondo: var(--calco-cielo);
+}
+.calco-boton--rosa {
+  --calco-fondo: var(--calco-rosa);
+}
+.calco-boton--naranja {
+  --calco-fondo: var(--calco-naranja);
+}
+.calco-boton--coral {
+  --calco-fondo: var(--calco-coral);
+}
+
+.calco-boton.ds-button--solid {
+  background: var(--calco-fondo);
+  color: var(--calco-tinta);
+  @include ca.borde;
+  @include ca.sombra;
+}
+
+// La tinta invierte: es el botón principal, el que hay uno por pantalla.
+.calco-boton--tinta.ds-button--solid {
+  background: var(--calco-tinta);
+  color: var(--calco-crema);
+  @include ca.borde;
+  @include ca.sombra(1, var(--calco-tinta-suave));
+}
+
+// --- Las variantes de línea ---------------------------------------------------
+
+.calco-boton.ds-button--outline {
+  background: transparent;
+  color: var(--calco-tinta);
+  @include ca.borde;
+  @include ca.sombra;
+}
+
+.calco-boton.ds-button--ghost {
+  background: transparent;
+  color: var(--calco-tinta);
+  border: var(--calco-linea) solid transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+
+  // El fantasma no tiene sombra que prensar: se subraya más fuerte.
+  @media (hover: hover) and (pointer: fine) {
+    &:not(:disabled):hover {
+      translate: 0 0;
+      box-shadow: none;
+      text-decoration-thickness: 3px;
+    }
+  }
+  &:not(:disabled):active {
+    translate: 0 0;
+    box-shadow: none;
+  }
+}
+
+// --- Tamaños ------------------------------------------------------------------
+
+.calco-boton.ds-button--sm {
+  padding: 0.5em 0.95em;
+  min-height: 36px;
+  @include ca.micro-size(0.7rem);
+}
+
+.calco-boton.ds-button--lg {
+  padding: 0.95em 1.8em;
+  min-height: 56px;
+  @include ca.micro-size(0.95rem);
+  border-radius: var(--calco-radio-lg);
+}
+
+// --- Deshabilitado ------------------------------------------------------------
+
+.calco-boton:disabled {
+  cursor: not-allowed;
+  color: var(--calco-tinta-suave);
+  background: var(--calco-crema);
+  @include ca.rayas(rgb(23 21 15 / 0.08), transparent, 5px);
+  box-shadow: none;
+  translate: 0 0;
+}

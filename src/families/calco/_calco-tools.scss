@@ -1,0 +1,175 @@
+// Herramientas SCSS de la familia CALCO (no emiten CSS por sí solas).
+//
+// Todo lo que hace que una pieza se lea como CALCO está aquí y no repetido
+// en cada componente: el borde de tinta, la sombra dura, la prensa al pulsar,
+// el semitono y la letra extruida. Un componente que no pase por estos
+// mixins es un componente que se va a desafinar el día que se ajuste el
+// grosor de la tinta.
+
+@use "sass:math";
+
+// -----------------------------------------------------------------------------
+// La tinta y la sombra
+// -----------------------------------------------------------------------------
+
+// El borde de la familia: tinta, gordo, siempre del mismo grosor. En las
+// referencias no hay un solo trazo fino — hasta los globos de texto llevan
+// el mismo contorno que las ventanas.
+@mixin borde($color: var(--calco-tinta)) {
+  border: var(--calco-linea) solid #{$color};
+}
+
+// La sombra DURA: desplazada y sin desenfoque. Es la firma del
+// neobrutalismo y lo que hace que un bloque parezca una calcomanía con
+// relieve y no una tarjeta de interfaz. `$n` multiplica el desplazamiento:
+// 1 en reposo, 1.5 levantado, 0.3 hundido.
+@mixin sombra($n: 1, $color: var(--calco-tinta)) {
+  box-shadow: calc(var(--calco-sombra) * #{$n}) calc(var(--calco-sombra) * #{$n}) 0 0 #{$color};
+}
+
+// El bloque completo: fondo, borde, radio y sombra. Es la unidad mínima de
+// la familia; casi todo lo demás es un bloque con algo dentro.
+@mixin bloque($fondo: var(--calco-crema), $radio: var(--calco-radio)) {
+  background: #{$fondo};
+  border-radius: #{$radio};
+  @include borde;
+  @include sombra;
+}
+
+// La PRENSA: la mecánica de pulsar de toda la familia. Señalar levanta la
+// pieza (la sombra crece), pulsar la hunde contra el papel (la sombra casi
+// desaparece). Es el único feedback que hay y por eso es tan exagerado —
+// una calcomanía no cambia de color al tocarla, se mueve.
+//
+// Solo se aplica con puntero fino: en táctil el "hover" se queda pegado y
+// la pieza se vería levantada para siempre después del primer toque.
+@mixin prensa {
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      translate var(--ds-duration-fast) var(--ds-ease-out),
+      box-shadow var(--ds-duration-fast) var(--ds-ease-out),
+      rotate var(--ds-duration-base) var(--ds-ease-out);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:not(:disabled):not([aria-disabled="true"]):hover {
+      translate: -2px -2px;
+      @include sombra(1.5);
+    }
+  }
+
+  &:not(:disabled):not([aria-disabled="true"]):active {
+    translate: 3px 3px;
+    @include sombra(0.3);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Texturas
+// -----------------------------------------------------------------------------
+
+// Semitono: la trama de puntos de las referencias (el fondo de la
+// furgoneta, la cortina rosa). Decorativa siempre. Se dibuja con un gradiente
+// radial repetido para no meter ni una imagen ni un nodo.
+@mixin semitono($color: rgb(23 21 15 / 0.14), $paso: 11px, $punto: 1.5px) {
+  background-image: radial-gradient(circle, #{$color} #{$punto}, transparent calc(#{$punto} + 0.4px));
+  background-size: #{$paso} #{$paso};
+}
+
+// Rayas diagonales: la pelota de playa, el toldo, la cinta de embalar.
+@mixin rayas($a: var(--calco-tinta), $b: transparent, $ancho: 7px) {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #{$a} 0 #{$ancho},
+    #{$b} #{$ancho} calc(#{$ancho} * 2)
+  );
+}
+
+// Cuadrícula de pantalla vieja: la trama de las ventanas de la referencia 3.
+@mixin reja($color: rgb(23 21 15 / 0.08), $paso: 18px) {
+  background-image:
+    linear-gradient(to right, #{$color} 0 1px, transparent 1px),
+    linear-gradient(to bottom, #{$color} 0 1px, transparent 1px);
+  background-size: #{$paso} #{$paso};
+}
+
+// -----------------------------------------------------------------------------
+// Letra
+// -----------------------------------------------------------------------------
+
+// El suelo de la letra pequeña. Por debajo de esto una etiqueta deja de ser
+// etiqueta y pasa a ser letra que nadie lee — y en esta familia las
+// etiquetas llevan información (el periodo, el estado, la cuenta).
+$micro-suelo: 0.74rem;
+
+// La voz pequeña: cuerpo en mayúsculas, gorda y con el prosado abierto. Es
+// el rotulado de los stickers y de las barras de título.
+@mixin micro {
+  font-family: var(--calco-font-cuerpo);
+  font-size: max(#{$micro-suelo}, var(--ds-font-size-xs));
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+@mixin micro-size($size) {
+  font-size: max(#{$micro-suelo}, #{$size});
+}
+
+// La voz grande: Unbounded a peso máximo, apretada. Es la letra de los
+// carteles de las referencias — ancha, redonda, con todo el peso del mundo.
+@mixin display($peso: 800) {
+  font-family: var(--calco-font-display);
+  font-weight: #{$peso};
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+// Letra EXTRUIDA: el titular con volumen de la referencia 3 ("HAPPINESS").
+// Se apilan sombras de texto de un píxel, una detrás de otra, en el color
+// que se pida — y la última capa lleva tinta para que el bloque tenga
+// contorno. Sin desenfoque, como todo en la familia.
+@mixin extrusion($color: var(--calco-tinta), $capas: 6) {
+  $sombras: ();
+  @for $i from 1 through $capas {
+    $sombras: append($sombras, #{$i}px #{$i}px 0 #{$color}, comma);
+  }
+  text-shadow: $sombras;
+}
+
+// Contorno de tinta alrededor de la letra (para texto de color sobre
+// fondo de color, que sin el contorno se pierde).
+@mixin contorno($color: var(--calco-tinta), $grosor: 2px) {
+  -webkit-text-stroke: #{$grosor} #{$color};
+  paint-order: stroke fill;
+}
+
+// -----------------------------------------------------------------------------
+// Utilidades
+// -----------------------------------------------------------------------------
+
+// El giro de una calcomanía pegada a mano. Cada pieza declara el suyo con
+// --calco-giro; esto solo lo aplica.
+@mixin pegado {
+  rotate: var(--calco-giro, 0deg);
+  transform-origin: center;
+}
+
+// Los tres puntos de la barra de título: el cromo de las ventanas de la
+// referencia 3. Se dibujan con gradientes para no gastar tres nodos.
+@mixin tres-puntos($d: 9px, $hueco: 5px) {
+  width: calc(#{$d} * 3 + #{$hueco} * 2);
+  height: #{$d};
+  background-image:
+    radial-gradient(circle, var(--calco-coral) 45%, var(--calco-tinta) 50%, var(--calco-tinta) 62%, transparent 66%),
+    radial-gradient(circle, var(--calco-sol) 45%, var(--calco-tinta) 50%, var(--calco-tinta) 62%, transparent 66%),
+    radial-gradient(circle, var(--calco-lima) 45%, var(--calco-tinta) 50%, var(--calco-tinta) 62%, transparent 66%);
+  background-size: #{$d} #{$d};
+  background-repeat: no-repeat;
+  background-position:
+    0 0,
+    calc(#{$d} + #{$hueco}) 0,
+    calc(#{$d} * 2 + #{$hueco} * 2) 0;
+}

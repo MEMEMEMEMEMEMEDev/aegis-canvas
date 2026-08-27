@@ -1,0 +1,187 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+// La estrella de 16 puntas de "¡OMG!". Calculada una vez: radio 50 en las
+// puntas y 40 en los valles, empezando arriba.
+$estrella: polygon(
+  50% 0%,
+  57.8% 10.8%,
+  69.1% 3.8%,
+  72.2% 16.7%,
+  85.4% 14.6%,
+  83.3% 27.8%,
+  96.2% 30.9%,
+  89.2% 42.2%,
+  100% 50%,
+  89.2% 57.8%,
+  96.2% 69.1%,
+  83.3% 72.2%,
+  85.4% 85.4%,
+  72.2% 83.3%,
+  69.1% 96.2%,
+  57.8% 89.2%,
+  50% 100%,
+  42.2% 89.2%,
+  30.9% 96.2%,
+  27.8% 83.3%,
+  14.6% 85.4%,
+  16.7% 72.2%,
+  3.8% 69.1%,
+  10.8% 57.8%,
+  0% 50%,
+  10.8% 42.2%,
+  3.8% 30.9%,
+  16.7% 27.8%,
+  14.6% 14.6%,
+  27.8% 16.7%,
+  30.9% 3.8%,
+  42.2% 10.8%
+);
+
+.calco-pegatina {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  text-align: center;
+  color: var(--calco-tinta);
+  background: none;
+  border: none;
+  padding: 0;
+  @include ca.micro;
+  @include ca.pegado;
+  --calco-fondo: var(--calco-sol);
+}
+
+.calco-pegatina__texto {
+  position: relative;
+  z-index: 1;
+}
+
+// --- Los colores --------------------------------------------------------------
+
+.calco-pegatina--lima {
+  --calco-fondo: var(--calco-lima);
+}
+.calco-pegatina--sol {
+  --calco-fondo: var(--calco-sol);
+}
+.calco-pegatina--crema {
+  --calco-fondo: var(--calco-crema);
+}
+.calco-pegatina--cielo {
+  --calco-fondo: var(--calco-cielo);
+}
+.calco-pegatina--rosa {
+  --calco-fondo: var(--calco-rosa);
+}
+.calco-pegatina--naranja {
+  --calco-fondo: var(--calco-naranja);
+}
+.calco-pegatina--coral {
+  --calco-fondo: var(--calco-coral);
+}
+
+// --- Las formas ---------------------------------------------------------------
+
+.calco-pegatina--pildora {
+  padding: 0.55em 1em;
+  border-radius: var(--calco-radio-pill);
+  background: var(--calco-fondo);
+  @include ca.borde;
+  @include ca.sombra(0.6);
+}
+
+.calco-pegatina--circulo {
+  aspect-ratio: 1;
+  padding: 0.9em;
+  min-width: 4.4em;
+  border-radius: 50%;
+  background: var(--calco-fondo);
+  line-height: 1.05;
+  @include ca.borde;
+  @include ca.sombra(0.6);
+}
+
+// La etiqueta de precio: rectángulo con la esquina cortada y un agujero.
+.calco-pegatina--etiqueta {
+  padding: 0.55em 1em 0.55em 1.5em;
+  background: var(--calco-fondo);
+  border-radius: 4px var(--calco-radio) var(--calco-radio) 4px;
+  clip-path: polygon(0 50%, 12% 0, 100% 0, 100% 100%, 12% 100%);
+  @include ca.borde;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0.55em;
+    top: 50%;
+    width: 0.4em;
+    height: 0.4em;
+    border-radius: 50%;
+    background: var(--calco-tinta);
+    translate: 0 -50%;
+  }
+}
+
+// La estrella: dos capas recortadas y la sombra en el envoltorio.
+.calco-pegatina--estrella {
+  aspect-ratio: 1;
+  min-width: 5.2em;
+  padding: 1.1em;
+  line-height: 1;
+  filter: drop-shadow(calc(var(--calco-sombra) * 0.6) calc(var(--calco-sombra) * 0.6) 0 var(--calco-tinta));
+
+  .calco-pegatina__fondo,
+  .calco-pegatina__cara {
+    position: absolute;
+    clip-path: $estrella;
+  }
+  .calco-pegatina__fondo {
+    inset: 0;
+    background: var(--calco-tinta);
+  }
+  .calco-pegatina__cara {
+    inset: var(--calco-linea);
+    background: var(--calco-fondo);
+  }
+  .calco-pegatina__texto {
+    // Un pelín girado al revés que la pegatina, para que el texto quede
+    // casi derecho y la estrella torcida — así se pegan de verdad.
+    rotate: calc(var(--calco-giro, 0deg) * -0.5);
+  }
+}
+
+// --- Tamaños ------------------------------------------------------------------
+
+.calco-pegatina--sm {
+  @include ca.micro-size(0.66rem);
+}
+.calco-pegatina--lg {
+  @include ca.micro-size(0.95rem);
+  letter-spacing: 0.1em;
+}
+.calco-pegatina--lg.calco-pegatina--estrella {
+  min-width: 6.4em;
+}
+
+// --- Pulsable -----------------------------------------------------------------
+
+.calco-pegatina--pulsable {
+  cursor: pointer;
+  @include ds.focus-ring;
+
+  &:not(.calco-pegatina--estrella) {
+    @include ca.prensa;
+  }
+
+  // La estrella no tiene box-shadow que prensar; se menea.
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    &:hover {
+      animation: calco-menea 520ms ease-in-out;
+    }
+  }
+
+  &:active {
+    scale: 0.94;
+  }
+}

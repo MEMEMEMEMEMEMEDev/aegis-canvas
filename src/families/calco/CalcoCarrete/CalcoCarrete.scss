@@ -1,0 +1,68 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-carrete {
+  position: relative;
+  display: grid;
+  gap: ds.space("xs");
+  min-width: 0;
+}
+
+.calco-carrete__flechas {
+  display: none;
+  justify-content: end;
+  gap: ds.space("2xs");
+
+  // Solo con puntero fino: en táctil se desliza con el dedo.
+  @media (hover: hover) and (pointer: fine) {
+    display: flex;
+  }
+}
+
+.calco-carrete__flecha {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: var(--calco-radio);
+  background: var(--calco-crema);
+  color: var(--calco-tinta);
+  font-size: 0.75rem;
+  cursor: pointer;
+  @include ca.borde;
+  @include ca.sombra(0.6);
+  @include ca.prensa;
+  @include ds.focus-ring;
+}
+
+.calco-carrete__pista {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  // Aire para que la sombra dura de las tarjetas no se recorte.
+  padding-right: 12px;
+  padding-bottom: 12px;
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 6px;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.calco-carrete__tarjeta {
+  flex: 0 0 var(--calco-tarjeta, 16rem);
+  min-width: 0;
+  scroll-snap-align: start;
+
+  > * {
+    height: 100%;
+  }
+}

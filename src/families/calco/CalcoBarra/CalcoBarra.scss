@@ -1,0 +1,80 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-barra {
+  display: grid;
+  gap: ds.space("xs");
+  min-width: 0;
+  --calco-fondo: var(--calco-lima);
+}
+
+.calco-barra__cabeza {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: ds.space("sm");
+  @include ca.micro;
+  @include ca.micro-size(0.7rem);
+}
+
+.calco-barra__readout {
+  font-variant-numeric: tabular-nums;
+  color: var(--calco-tinta-suave);
+}
+
+.calco-barra__pista {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 3px;
+  padding: 4px;
+  border-radius: 8px;
+  background: var(--calco-crema);
+  @include ca.borde;
+  @include ca.sombra(0.6);
+}
+
+.calco-barra__bloque {
+  height: 14px;
+  border-radius: 3px;
+  background: rgb(23 21 15 / 0.1);
+}
+
+.calco-barra__bloque.is-lleno {
+  background: var(--calco-fondo);
+  box-shadow: inset 0 0 0 2px var(--calco-tinta);
+}
+
+// --- Colores ------------------------------------------------------------------
+
+.calco-barra--lima {
+  --calco-fondo: var(--calco-lima);
+}
+.calco-barra--sol {
+  --calco-fondo: var(--calco-sol);
+}
+.calco-barra--crema {
+  --calco-fondo: var(--calco-crema);
+}
+.calco-barra--cielo {
+  --calco-fondo: var(--calco-cielo);
+}
+.calco-barra--rosa {
+  --calco-fondo: var(--calco-rosa);
+}
+.calco-barra--naranja {
+  --calco-fondo: var(--calco-naranja);
+}
+.calco-barra--coral {
+  --calco-fondo: var(--calco-coral);
+}
+
+// --- La carga -----------------------------------------------------------------
+// Los bloques llenos aparecen uno detrás de otro, de izquierda a derecha.
+
+@media (prefers-reduced-motion: no-preference) {
+  .calco-barra--animada .calco-barra__bloque.is-lleno {
+    animation: calco-pega 260ms ease-out both;
+    animation-delay: calc(var(--calco-i, 0) * 70ms);
+  }
+}

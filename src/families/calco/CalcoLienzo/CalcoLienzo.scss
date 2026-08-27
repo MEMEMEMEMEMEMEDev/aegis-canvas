@@ -1,0 +1,109 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-lienzo {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: ds.space("md");
+  // El aire del borde, sumado al área segura del aparato: en un teléfono
+  // con notch o barra de gestos, nada queda debajo del cromo del sistema.
+  padding: calc(ds.space("md") + env(safe-area-inset-top, 0px))
+    calc(ds.space("md") + env(safe-area-inset-right, 0px))
+    calc(ds.space("md") + env(safe-area-inset-bottom, 0px))
+    calc(ds.space("md") + env(safe-area-inset-left, 0px));
+  color: var(--calco-tinta);
+  background: var(--calco-campo);
+  min-height: 100%;
+
+  @include ds.up("md") {
+    gap: ds.space("lg");
+    padding: calc(ds.space("lg") + env(safe-area-inset-top, 0px))
+      calc(ds.space("lg") + env(safe-area-inset-right, 0px))
+      calc(ds.space("lg") + env(safe-area-inset-bottom, 0px))
+      calc(ds.space("lg") + env(safe-area-inset-left, 0px));
+  }
+}
+
+// --- Los campos -------------------------------------------------------------
+
+.calco-lienzo--lima {
+  --calco-campo: var(--calco-lima);
+}
+.calco-lienzo--sol {
+  --calco-campo: var(--calco-sol);
+}
+.calco-lienzo--crema {
+  --calco-campo: var(--calco-crema);
+}
+.calco-lienzo--cielo {
+  --calco-campo: var(--calco-cielo);
+}
+.calco-lienzo--rosa {
+  --calco-campo: var(--calco-rosa);
+}
+.calco-lienzo--naranja {
+  --calco-campo: var(--calco-naranja);
+}
+.calco-lienzo--coral {
+  --calco-campo: var(--calco-coral);
+}
+
+.calco-lienzo--semitono::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  @include ca.semitono;
+  // Más denso en las esquinas y limpio en el centro, donde está lo que se
+  // lee. Una trama uniforme compite con el contenido; una que se retira
+  // del medio lo enmarca.
+  mask-image: radial-gradient(ellipse at center, transparent 30%, #000 85%);
+}
+
+// --- La consola: viewport exacto, sin scroll de página ------------------------
+
+.calco-lienzo--fijo {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.calco-lienzo__escena {
+  min-height: 0;
+  min-width: 0;
+  display: grid;
+}
+
+.calco-lienzo__cabecera,
+.calco-lienzo__pie {
+  min-width: 0;
+}
+
+// --- Las chispas --------------------------------------------------------------
+
+.calco-lienzo__chispas {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.calco-lienzo__chispa {
+  position: absolute;
+  font-size: calc(1.1rem * var(--calco-chispa-escala, 1));
+  line-height: 1;
+  color: var(--calco-crema);
+  @include ca.contorno(var(--calco-tinta), 1.5px);
+  translate: -50% -50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .calco-lienzo__chispa {
+    animation: calco-flota 5s ease-in-out infinite;
+    animation-delay: calc(var(--calco-i, 0) * -420ms);
+  }
+}

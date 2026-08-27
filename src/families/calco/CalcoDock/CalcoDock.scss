@@ -1,0 +1,122 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-dock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: ds.space("sm");
+  min-width: 0;
+}
+
+.calco-dock__teclas {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 4px;
+  padding: 5px;
+  @include ca.bloque(var(--calco-crema), var(--calco-radio-lg));
+}
+
+.calco-dock__tecla {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: ds.space("xs") 2px;
+  min-width: 0;
+  min-height: 56px;
+  border: 2px solid transparent;
+  border-radius: var(--calco-radio);
+  background: transparent;
+  color: var(--calco-tinta);
+  cursor: pointer;
+  @include ds.focus-ring;
+
+  @include ds.up("md") {
+    grid-auto-flow: column;
+    align-items: center;
+    gap: ds.space("xs");
+    padding: ds.space("xs") ds.space("md");
+    min-height: 48px;
+  }
+}
+
+.calco-dock__icono {
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.calco-dock__label {
+  @include ca.micro;
+  // Por DEBAJO del suelo de la letra pequeña, y a propósito: el suelo
+  // protege etiquetas que llevan información; esto es el rótulo de una
+  // barra de pestañas de teléfono, que en iOS y Android va a 10 px y se
+  // apoya en el icono de arriba. Con el suelo (0,74 rem) "expediente" no
+  // cabía en su cuarto de pantalla a 390 px.
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include ds.up("md") {
+    @include ca.micro-size(0.72rem);
+    letter-spacing: 0.12em;
+  }
+}
+
+.calco-dock__kana {
+  display: none;
+  white-space: nowrap;
+  font-family: var(--calco-font-kana);
+  font-weight: 900;
+  font-size: 0.72rem;
+  opacity: 0.6;
+
+  @include ds.up("md") {
+    display: inline;
+  }
+}
+
+// --- Estados ------------------------------------------------------------------
+
+@media (hover: hover) and (pointer: fine) {
+  .calco-dock__tecla:not(.is-activa):not([aria-disabled="true"]):hover {
+    background: rgb(23 21 15 / 0.07);
+  }
+}
+
+// La tecla activa es un bloque de tinta con la sombra de la familia: el
+// indicador no es una rayita, es la pestaña entera pegada encima.
+.calco-dock__tecla.is-activa {
+  background: var(--calco-tinta);
+  color: var(--calco-crema);
+  border-color: var(--calco-tinta);
+  @include ca.sombra(0.5, var(--calco-tinta-suave));
+  translate: 0 -2px;
+}
+
+.calco-dock__tecla[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.calco-dock__extra {
+  display: flex;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .calco-dock__tecla {
+    transition:
+      background var(--ds-duration-fast) var(--ds-ease-out),
+      color var(--ds-duration-fast) var(--ds-ease-out),
+      translate var(--ds-duration-fast) var(--ds-ease-out),
+      box-shadow var(--ds-duration-fast) var(--ds-ease-out);
+  }
+  .calco-dock__tecla.is-activa .calco-dock__icono {
+    animation: calco-pega 380ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+}

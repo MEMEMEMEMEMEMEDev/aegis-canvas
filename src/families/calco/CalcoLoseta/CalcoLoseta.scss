@@ -1,0 +1,191 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-loseta {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-items: end;
+  gap: ds.space("xs");
+  min-height: 0;
+  min-width: 0;
+  padding: ds.space("sm");
+  text-align: left;
+  text-decoration: none;
+  color: var(--calco-tinta);
+  cursor: pointer;
+  overflow: hidden;
+  @include ca.bloque(var(--calco-fondo, var(--calco-crema)));
+  @include ca.prensa;
+  @include ds.focus-ring;
+
+  // Blanco táctil generoso: es una loseta, no un botón de formulario.
+  min-block-size: 96px;
+
+  @include ds.up("md") {
+    padding: ds.space("md");
+  }
+}
+
+.calco-loseta--ancha {
+  grid-column: span 2;
+}
+
+// --- Los colores --------------------------------------------------------------
+
+.calco-loseta--lima {
+  --calco-fondo: var(--calco-lima);
+}
+.calco-loseta--sol {
+  --calco-fondo: var(--calco-sol);
+}
+.calco-loseta--cielo {
+  --calco-fondo: var(--calco-cielo);
+}
+.calco-loseta--rosa {
+  --calco-fondo: var(--calco-rosa);
+}
+.calco-loseta--naranja {
+  --calco-fondo: var(--calco-naranja);
+}
+.calco-loseta--coral {
+  --calco-fondo: var(--calco-coral);
+}
+.calco-loseta--crema {
+  --calco-fondo: var(--calco-crema);
+}
+
+// --- Lo de dentro -------------------------------------------------------------
+
+.calco-loseta__indice {
+  justify-self: start;
+  @include ca.micro;
+  @include ca.micro-size(0.7rem);
+  padding: 0.2em 0.55em;
+  border-radius: var(--calco-radio-pill);
+  background: var(--calco-tinta);
+  color: var(--calco-crema);
+}
+
+.calco-loseta__pegatina {
+  position: absolute;
+  top: ds.space("xs");
+  right: ds.space("xs");
+  --calco-giro: 8deg;
+  @include ca.pegado;
+}
+
+// El kanji ocupa el hueco del medio y se sale por la derecha a propósito,
+// como un sello que no cupo entero. `end` en la fila y `overflow: hidden` en
+// la loseta hacen el corte.
+.calco-loseta__kana {
+  justify-self: end;
+  align-self: center;
+  font-family: var(--calco-font-kana);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 9vw, 4.6rem);
+  line-height: 1;
+  margin-right: -0.22em;
+  color: var(--calco-tinta);
+  opacity: 0.16;
+  pointer-events: none;
+  user-select: none;
+}
+
+.calco-loseta__texto {
+  display: grid;
+  gap: 0.15em;
+  min-width: 0;
+}
+
+.calco-loseta__titulo {
+  @include ca.display(800);
+  font-size: clamp(1rem, 2.6vw, 1.35rem);
+  text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calco-loseta__meta {
+  @include ca.micro;
+  @include ca.micro-size(0.7rem);
+  color: var(--calco-tinta-suave);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calco-loseta__flecha {
+  position: absolute;
+  right: ds.space("sm");
+  bottom: ds.space("sm");
+  font-size: 0.75rem;
+  opacity: 0;
+  translate: -6px 0;
+}
+
+// --- Estados ------------------------------------------------------------------
+
+// Señalar: el kanji se enciende y la flecha entra. Se suma a la prensa.
+@media (hover: hover) and (pointer: fine) {
+  .calco-loseta:not(:disabled):hover {
+    .calco-loseta__kana {
+      opacity: 0.32;
+    }
+    .calco-loseta__flecha {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+}
+
+.calco-loseta:focus-visible .calco-loseta__flecha {
+  opacity: 1;
+  translate: 0 0;
+}
+
+// La activa se invierte: fondo de tinta, letra de crema. Es lo que dice
+// "estás aquí" sin necesidad de un indicador aparte. La sombra se queda
+// —una loseta hundida no se lee como elegida, se lee como rota.
+.calco-loseta.is-activa {
+  background: var(--calco-tinta);
+  color: var(--calco-crema);
+
+  .calco-loseta__indice {
+    background: var(--calco-fondo);
+    color: var(--calco-tinta);
+  }
+  .calco-loseta__kana {
+    color: var(--calco-fondo);
+    opacity: 0.5;
+  }
+  .calco-loseta__meta {
+    color: var(--calco-crema);
+    opacity: 0.75;
+  }
+  .calco-loseta__flecha {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.calco-loseta:disabled {
+  cursor: not-allowed;
+  @include ca.rayas(rgb(23 21 15 / 0.08), transparent, 6px);
+  color: var(--calco-tinta-suave);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .calco-loseta__kana,
+  .calco-loseta__flecha {
+    transition:
+      opacity var(--ds-duration-base) var(--ds-ease-out),
+      translate var(--ds-duration-base) var(--ds-ease-out);
+  }
+  .calco-loseta.is-activa {
+    transition:
+      background var(--ds-duration-base) var(--ds-ease-out),
+      color var(--ds-duration-base) var(--ds-ease-out);
+  }
+}

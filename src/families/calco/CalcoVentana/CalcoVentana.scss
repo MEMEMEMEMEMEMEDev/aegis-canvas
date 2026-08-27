@@ -1,0 +1,119 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-ventana {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  @include ca.bloque(var(--calco-crema), var(--calco-radio-lg));
+}
+
+// --- La barra de título ------------------------------------------------------
+
+.calco-ventana__barra {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  padding: ds.space("xs") ds.space("sm");
+  min-height: 42px;
+  border-bottom: var(--calco-linea) solid var(--calco-tinta);
+  background: var(--calco-barra, var(--calco-crema));
+}
+
+.calco-ventana__puntos {
+  flex: none;
+  @include ca.tres-puntos;
+}
+
+.calco-ventana__titulo {
+  flex: 1 1 auto;
+  min-width: 0;
+  @include ca.micro;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calco-ventana__kana {
+  flex: none;
+  font-family: var(--calco-font-kana);
+  font-weight: 900;
+  font-size: 0.95rem;
+  opacity: 0.7;
+  // Entero o nada: con un título largo al lado, "登山" se partía en dos
+  // líneas y la barra crecía.
+  white-space: nowrap;
+}
+
+.calco-ventana__acciones {
+  display: flex;
+  align-items: center;
+  gap: ds.space("2xs");
+}
+
+.calco-ventana__cerrar {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  @include ca.borde;
+  background: var(--calco-coral);
+  color: var(--calco-tinta);
+  font-size: 0.8rem;
+  font-weight: 900;
+  cursor: pointer;
+  @include ca.sombra(0.5);
+  @include ca.prensa;
+  @include ds.focus-ring;
+}
+
+// --- Las barras de color ------------------------------------------------------
+
+.calco-ventana--lima {
+  --calco-barra: var(--calco-lima);
+}
+.calco-ventana--sol {
+  --calco-barra: var(--calco-sol);
+}
+.calco-ventana--cielo {
+  --calco-barra: var(--calco-cielo);
+}
+.calco-ventana--rosa {
+  --calco-barra: var(--calco-rosa);
+}
+.calco-ventana--naranja {
+  --calco-barra: var(--calco-naranja);
+}
+.calco-ventana--coral {
+  --calco-barra: var(--calco-coral);
+}
+
+// --- El cuerpo: lo único que scrollea -----------------------------------------
+
+.calco-ventana__cuerpo {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: ds.space("md");
+  font-family: var(--calco-font-cuerpo);
+  line-height: 1.5;
+  scrollbar-width: thin;
+  scrollbar-color: var(--calco-tinta) transparent;
+
+  @include ds.up("md") {
+    padding: ds.space("lg");
+  }
+}
+
+.calco-ventana__cuerpo--reja {
+  @include ca.reja;
+}
+
+.calco-ventana__cuerpo--pegado {
+  padding: 0;
+}

@@ -1,0 +1,169 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+// El <dialog> ocupa el viewport entero y es transparente: es el telón. La
+// hoja de verdad es el panel de dentro, pegado abajo.
+.calco-hoja {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: none;
+  align-items: end;
+  justify-content: center;
+  overflow: hidden;
+  color: var(--calco-tinta);
+
+  &[open] {
+    display: flex;
+  }
+
+  &::backdrop {
+    background: rgb(23 21 15 / 0.55);
+    // Semitono también en el telón: lo de detrás se ve, pero rasterizado.
+    @include ca.semitono(rgb(23 21 15 / 0.5), 6px, 1px);
+  }
+}
+
+.calco-hoja__panel {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  width: 100%;
+  max-height: 62dvh;
+  --calco-barra: var(--calco-crema);
+  background: var(--calco-crema);
+  border: var(--calco-linea) solid var(--calco-tinta);
+  border-bottom: none;
+  border-radius: var(--calco-radio-lg) var(--calco-radio-lg) 0 0;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 calc(var(--calco-sombra) * -1) 0 0 var(--calco-tinta-suave);
+
+  @include ds.up("md") {
+    max-width: 40rem;
+    max-height: 72dvh;
+    margin-inline: ds.space("lg");
+  }
+}
+
+.calco-hoja--alto .calco-hoja__panel {
+  max-height: 88dvh;
+
+  @include ds.up("md") {
+    max-height: 86dvh;
+  }
+}
+
+// El asa: la barrita que en una app se arrastra. Aquí no se arrastra —
+// es la señal de que esto vino de abajo y se puede mandar de vuelta.
+.calco-hoja__asa {
+  justify-self: center;
+  width: 48px;
+  height: 6px;
+  margin-top: ds.space("xs");
+  border-radius: 3px;
+  background: var(--calco-tinta);
+}
+
+.calco-hoja__barra {
+  display: flex;
+  align-items: center;
+  gap: ds.space("sm");
+  padding: ds.space("xs") ds.space("md");
+  min-height: 44px;
+  border-bottom: var(--calco-linea) solid var(--calco-tinta);
+  background: var(--calco-barra);
+}
+
+.calco-hoja__puntos {
+  flex: none;
+  @include ca.tres-puntos;
+}
+
+.calco-hoja__titulo {
+  flex: 1 1 auto;
+  margin: 0;
+  min-width: 0;
+  @include ca.display(800);
+  font-size: 1rem;
+  text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calco-hoja__kana {
+  font-family: var(--calco-font-kana);
+  font-weight: 900;
+  opacity: 0.7;
+}
+
+.calco-hoja__cerrar {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  @include ca.borde;
+  background: var(--calco-coral);
+  color: var(--calco-tinta);
+  font-weight: 900;
+  cursor: pointer;
+  @include ca.sombra(0.5);
+  @include ca.prensa;
+  @include ds.focus-ring;
+}
+
+.calco-hoja__cuerpo {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: ds.space("md");
+  font-family: var(--calco-font-cuerpo);
+  line-height: 1.5;
+  scrollbar-width: thin;
+
+  @include ds.up("md") {
+    padding: ds.space("lg");
+  }
+}
+
+// --- Las barras de color ------------------------------------------------------
+
+.calco-hoja--lima .calco-hoja__panel {
+  --calco-barra: var(--calco-lima);
+}
+.calco-hoja--sol .calco-hoja__panel {
+  --calco-barra: var(--calco-sol);
+}
+.calco-hoja--cielo .calco-hoja__panel {
+  --calco-barra: var(--calco-cielo);
+}
+.calco-hoja--rosa .calco-hoja__panel {
+  --calco-barra: var(--calco-rosa);
+}
+.calco-hoja--naranja .calco-hoja__panel {
+  --calco-barra: var(--calco-naranja);
+}
+.calco-hoja--coral .calco-hoja__panel {
+  --calco-barra: var(--calco-coral);
+}
+
+// --- La subida ----------------------------------------------------------------
+
+@media (prefers-reduced-motion: no-preference) {
+  .calco-hoja[open] .calco-hoja__panel {
+    animation: calco-sube 380ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .calco-hoja[open]::backdrop {
+    animation: calco-telon 260ms ease-out both;
+  }
+}

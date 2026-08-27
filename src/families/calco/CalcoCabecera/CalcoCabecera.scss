@@ -1,0 +1,80 @@
+@use "../../../abstracts" as ds;
+@use "../calco-tools" as ca;
+
+.calco-cabecera {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: ds.space("sm");
+  padding: ds.space("xs") ds.space("sm");
+  min-height: 48px;
+  @include ca.bloque(var(--calco-crema), var(--calco-radio-pill));
+
+  @include ds.up("md") {
+    padding: ds.space("xs") ds.space("md");
+    gap: ds.space("md");
+  }
+}
+
+.calco-cabecera__marca {
+  display: flex;
+  align-items: center;
+  gap: ds.space("xs");
+  @include ca.micro;
+}
+
+.calco-cabecera__titulo {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: ds.space("xs");
+  min-width: 0;
+}
+
+.calco-cabecera__nombre {
+  @include ca.display(800);
+  font-size: clamp(0.95rem, 2.4vw, 1.2rem);
+  text-transform: lowercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calco-cabecera__kana {
+  flex: none;
+  font-family: var(--calco-font-kana);
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: var(--calco-tinta-suave);
+  white-space: nowrap;
+}
+
+.calco-cabecera__derecha {
+  display: flex;
+  align-items: center;
+  gap: ds.space("xs");
+}
+
+// Con poco ancho, la marca desaparece y el título se pega a la izquierda:
+// una barra de teléfono no tiene sitio para tres cosas.
+@include ds.down("sm") {
+  .calco-cabecera {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .calco-cabecera__marca {
+    display: none;
+  }
+  .calco-cabecera__titulo {
+    justify-content: start;
+  }
+  // El título no cede por debajo de esto: la derecha es la que se aprieta.
+  .calco-cabecera__nombre {
+    min-width: 6ch;
+  }
+  // En un teléfono, de lo que va a la derecha solo sobrevive lo último —el
+  // estado—. Con dos chapas y un semáforo, el título se quedaba con una
+  // letra ("s 経歴", medido a 390px).
+  .calco-cabecera__derecha > :not(:last-child) {
+    display: none;
+  }
+}
