@@ -77,4 +77,13 @@
   .calco-cabecera__derecha > :not(:last-child) {
     display: none;
   }
+  // Y lo último tampoco trae su texto: un semáforo con "self-hosted · en
+  // producción" al lado mide más que el título. Quedan las luces, que con
+  // su aria-label siguen diciendo el estado a quien no las ve.
+  .calco-cabecera__derecha {
+    min-width: 0;
+  }
+  .calco-cabecera__derecha .calco-semaforo__texto {
+    display: none;
+  }
 }
