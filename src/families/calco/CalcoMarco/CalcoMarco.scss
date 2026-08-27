@@ -21,12 +21,22 @@
   background: var(--calco-cielo);
   border: 2px solid var(--calco-tinta);
 
-  > img,
-  > video {
+  > img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  // Un vídeo no se recorta: se enseña entero, y lo que sobre del hueco se
+  // rellena de tinta como en una sala. Con `cover` un clip vertical dentro
+  // de un hueco apaisado salía ampliado al doble y sin sus bordes.
+  > video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: var(--calco-tinta);
   }
 }
 

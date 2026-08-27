@@ -82,7 +82,7 @@ const TRAYECTORIA = [
     periodo: "BASE",
     cargo: "Ingeniería Civil Informática · U. San Sebastián",
     texto:
-      "Dos años cursados y ~2 años de formación autodidacta intensiva desde un homelab propio: redes, Kubernetes, GitOps y LLMs locales. Inglés técnico: lectura C1, general B2 (EF SET).",
+      "Dos años cursados y ~2 años de formación autodidacta intensiva desde un homelab propio: redes, Kubernetes, GitOps y LLMs locales. Inglés: lectura B2 avanzado, conversación B1 avanzado.",
     tono: "lima" as CalcoTono,
   },
 ];
