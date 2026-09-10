@@ -1,0 +1,43 @@
+// Herramientas SCSS de la familia ATALAYA (no emiten CSS por sí solas).
+
+// Rótulo: mayúsculas chicas y espaciadas, el encabezado de columna de todo
+// tablero denso.
+//
+// El suelo lo impone `max()` en el navegador. Un tablero de operación se
+// lee bajo presión, y por debajo de esto el rótulo deja de ser información
+// y pasa a ser textura. La familia DENKI aprendió esto por las malas y la
+// regla se copia con su porqué.
+$rotulo-suelo: 0.6875rem;
+
+@mixin rotulo {
+  font-size: max(#{$rotulo-suelo}, 0.6875rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--atalaya-tenue);
+}
+
+// Superficie: el panel base. Borde de un pelo y una sombra que casi no
+// está — lo que separa los bloques es el espacio, no el cromo.
+@mixin superficie {
+  background: var(--atalaya-panel);
+  border: var(--atalaya-linea) solid var(--atalaya-borde);
+  border-radius: var(--atalaya-radio-lg);
+  box-shadow: var(--atalaya-sombra);
+}
+
+// Dato: cifras y nombres técnicos en monoespaciada, para que una lista de
+// digests o de dominios se pueda comparar de un vistazo.
+@mixin dato {
+  font-family: var(--atalaya-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+// Foco visible SIEMPRE, y del color del acento. Un tablero se opera con
+// teclado más de lo que la gente cree.
+@mixin foco {
+  &:focus-visible {
+    outline: 2px solid var(--atalaya-acento);
+    outline-offset: 2px;
+  }
+}

@@ -29,6 +29,7 @@
     "./beige": "./src/families/beige/index.ts",
     "./obsidiana": "./src/families/obsidiana/index.ts",
     "./vitrina": "./src/families/vitrina/index.ts",
+    "./atalaya": "./src/families/atalaya/index.ts",
     "./proto": "./src/families/proto/index.ts",
     "./css": "./dist/foundation.css",
     "./abstracts": "./src/_abstracts.scss",

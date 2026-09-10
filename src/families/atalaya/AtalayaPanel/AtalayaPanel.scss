@@ -1,0 +1,68 @@
+@use "../atalaya-tools" as at;
+
+.atalaya-panel {
+  @include at.superficie;
+
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.atalaya-panel--desnudo {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.atalaya-panel__cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.875rem 1rem;
+  border-bottom: var(--atalaya-linea) solid var(--atalaya-borde);
+}
+
+.atalaya-panel--desnudo .atalaya-panel__cabeza {
+  padding-inline: 0;
+  border-bottom: 0;
+  padding-bottom: 0.5rem;
+}
+
+.atalaya-panel__titulos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.atalaya-panel__titulo {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  text-wrap: balance;
+}
+
+.atalaya-panel__sub {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--atalaya-tenue);
+}
+
+.atalaya-panel__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-inline-start: auto;
+}
+
+.atalaya-panel__cuerpo {
+  padding: 1rem;
+  min-width: 0;
+}
+
+.atalaya-panel--desnudo .atalaya-panel__cuerpo { padding-inline: 0; }
+.atalaya-panel__cuerpo--sin-relleno { padding: 0; }

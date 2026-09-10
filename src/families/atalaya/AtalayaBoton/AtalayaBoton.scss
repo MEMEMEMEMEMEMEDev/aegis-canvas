@@ -1,0 +1,64 @@
+@use "../atalaya-tools" as at;
+
+.atalaya-boton {
+  @include at.foco;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  // 36px de alto: por debajo de esto un dedo falla, y este tablero se abre
+  // desde el teléfono cuando algo se cayó y no hay computador cerca.
+  min-height: 36px;
+  padding: 0.4rem 0.85rem;
+  border: var(--atalaya-linea) solid var(--atalaya-borde-firme);
+  border-radius: var(--atalaya-radio);
+  background: var(--atalaya-panel);
+  color: var(--atalaya-tinta);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+
+  &:hover:not(:disabled) { background: var(--atalaya-hundido); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.atalaya-boton--chico {
+  min-height: 28px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.75rem;
+}
+
+.atalaya-boton--firme {
+  background: var(--atalaya-tinta);
+  border-color: var(--atalaya-tinta);
+  color: var(--atalaya-lienzo);
+
+  &:hover:not(:disabled) { opacity: 0.88; background: var(--atalaya-tinta); }
+}
+
+.atalaya-boton--fantasma {
+  background: none;
+  border-color: transparent;
+  color: var(--atalaya-tenue);
+
+  &:hover:not(:disabled) {
+    background: var(--atalaya-hundido);
+    color: var(--atalaya-tinta);
+  }
+}
+
+// Rojo de ESTADO y no acento: acá el color no dice «se puede tocar», dice
+// «esto no se deshace».
+.atalaya-boton--peligro {
+  background: none;
+  border-color: var(--atalaya-mal);
+  color: var(--atalaya-mal);
+
+  &:hover:not(:disabled) {
+    background: var(--atalaya-mal);
+    color: var(--atalaya-panel);
+  }
+}

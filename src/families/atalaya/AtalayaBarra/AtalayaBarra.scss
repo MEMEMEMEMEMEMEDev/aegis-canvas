@@ -1,0 +1,44 @@
+@use "../atalaya-tools" as at;
+
+.atalaya-barra {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.atalaya-barra__rotulo { @include at.rotulo; }
+
+.atalaya-barra__riel {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--atalaya-hundido);
+  overflow: hidden;
+}
+
+.atalaya-barra__lleno {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--atalaya-tenue);
+  transition: inline-size 160ms ease, background-color 160ms ease;
+}
+
+.atalaya-barra--cerca .atalaya-barra__lleno { background: var(--atalaya-aviso); }
+.atalaya-barra--pasado .atalaya-barra__lleno { background: var(--atalaya-mal); }
+
+.atalaya-barra__pie {
+  @include at.dato;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--atalaya-tenue);
+}
+
+.atalaya-barra--cerca .atalaya-barra__pct { color: var(--atalaya-aviso); }
+.atalaya-barra--pasado .atalaya-barra__pct {
+  color: var(--atalaya-mal);
+  font-weight: 600;
+}
