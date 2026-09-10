@@ -1,0 +1,31 @@
+@use "../vitrina-tools" as vi;
+
+.vitrina-lamina {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: var(--vitrina-radio);
+  overflow: hidden;
+  // La sombra interna que hace que la placa parezca una cosa apoyada.
+  box-shadow: inset 0 0 0 1px rgb(20 20 19 / 0.05), inset 0 -18px 30px -20px rgb(20 20 19 / 0.18);
+
+  &--mini {
+    border-radius: var(--vitrina-radio-sm);
+  }
+  &--galeria {
+    border-radius: var(--vitrina-radio-lg);
+  }
+
+  &__etiqueta {
+    @include vi.chica(600);
+    position: absolute;
+    left: 0.6rem;
+    bottom: 0.6rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--vitrina-radio-pill);
+    background: rgb(255 255 255 / 0.85);
+    color: #141413;
+  }
+}

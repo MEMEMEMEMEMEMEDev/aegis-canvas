@@ -1,0 +1,74 @@
+@use "../../../../abstracts" as ds;
+@use "../../vitrina-tools" as vi;
+
+.tienda-catalogo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: ds.space("xl");
+  align-items: start;
+
+  @include ds.up("lg") {
+    grid-template-columns: 15rem minmax(0, 1fr);
+  }
+
+  &__cabecera {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: ds.space("md");
+    flex-wrap: wrap;
+  }
+
+  &__orden {
+    display: flex;
+    align-items: center;
+    gap: ds.space("xs");
+
+    .vitrina-entrada {
+      width: auto;
+      min-width: 13rem;
+    }
+  }
+
+  &__filtros-boton {
+    @include ds.up("lg") {
+      display: none !important;
+    }
+  }
+
+  &__lateral {
+    display: none;
+    position: sticky;
+    top: calc(68px + 32px + 1rem);
+
+    @include ds.up("lg") {
+      display: block;
+    }
+  }
+
+  &__resultados {
+    display: flex;
+    flex-direction: column;
+    gap: ds.space("lg");
+    min-width: 0;
+  }
+
+  &__mas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: ds.space("md") 0;
+  }
+
+  &__cuenta {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+  }
+}
+
+.tienda-filtros {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+}

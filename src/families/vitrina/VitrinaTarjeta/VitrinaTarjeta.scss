@@ -1,0 +1,226 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-tarjeta {
+  @include vi.tarjeta;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  transition:
+    box-shadow 160ms var(--ds-ease-standard),
+    translate 160ms var(--ds-ease-standard);
+
+  @include ds.hover {
+    box-shadow: var(--vitrina-sombra-alta);
+    translate: 0 -2px;
+  }
+
+  &.is-agotado .vitrina-lamina {
+    opacity: 0.55;
+  }
+
+  // --- La parte visual ---
+  &__visual {
+    position: relative;
+    padding: 0.6rem 0.6rem 0;
+  }
+
+  &__abrir {
+    @include vi.desnudo;
+    display: block;
+    width: 100%;
+    line-height: 0;
+  }
+
+  &__sellos {
+    position: absolute;
+    top: 1.1rem;
+    left: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  &__corazon {
+    @include vi.desnudo;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--vitrina-fondo);
+    color: var(--vitrina-tinta);
+    box-shadow: var(--vitrina-sombra);
+
+    @include ds.focus-ring;
+
+    &.is-favorito {
+      color: var(--vitrina-coral-tinta);
+      @media (prefers-reduced-motion: no-preference) {
+        animation: vitrina-latido 360ms var(--ds-ease-standard);
+      }
+    }
+  }
+
+  // --- El cuerpo ---
+  &__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.75rem 3.2rem 0.85rem 0.85rem;
+    min-width: 0;
+  }
+
+  &__vendedor {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__nombre {
+    margin: 0;
+    font-size: var(--ds-font-size-sm);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+  }
+
+  &__enlace {
+    @include vi.desnudo;
+    @include vi.lineas(2);
+    text-align: left;
+    color: var(--vitrina-tinta);
+    border-radius: 3px;
+
+    @include ds.focus-ring;
+
+    // El enlace es todo el nombre; el área de clic es toda la tarjeta
+    // gracias a este pseudo que cubre el article.
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+  }
+
+  &__resumen {
+    @include vi.chica;
+    @include vi.lineas(2);
+    margin: 0;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__precio {
+    margin-top: 0.15rem;
+  }
+
+  &__estrellas {
+    margin-top: 0.1rem;
+  }
+
+  // Por encima del ::after del enlace: corazón, carrito y añadir rápido.
+  &__corazon,
+  &__carrito,
+  &__acciones,
+  &__abrir {
+    position: relative;
+    z-index: 1;
+  }
+  &__corazon,
+  &__carrito {
+    position: absolute;
+  }
+
+  &__carrito {
+    @include vi.desnudo;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--vitrina-tinta);
+    color: var(--vitrina-fondo);
+    transition: background-color 140ms var(--ds-ease-standard);
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      background: var(--vitrina-coral);
+      color: var(--vitrina-tinta);
+    }
+
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  &__acciones {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+
+  &__rapido {
+    @include vi.desnudo;
+    @include vi.chica(700);
+    min-height: 36px;
+    padding: 0 0.85rem;
+    border-radius: var(--vitrina-radio-sm);
+    background: var(--vitrina-tinta);
+    color: var(--vitrina-fondo);
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      background: var(--vitrina-coral);
+      color: var(--vitrina-tinta);
+    }
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
+
+  // --- Horizontal: lámina a la izquierda, cuerpo a la derecha ---
+  &--horizontal {
+    flex-direction: row;
+    align-items: stretch;
+    background: var(--vitrina-superficie);
+    box-shadow: none;
+
+    .vitrina-tarjeta__visual {
+      flex: 0 0 38%;
+      padding: 0.6rem 0 0.6rem 0.6rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .vitrina-tarjeta__cuerpo {
+      flex: 1;
+      padding: 0.85rem;
+      justify-content: center;
+    }
+
+    .vitrina-tarjeta__sellos {
+      top: 0.9rem;
+      left: 0.9rem;
+    }
+    .vitrina-tarjeta__corazon {
+      top: auto;
+      bottom: 0.85rem;
+      right: 0.85rem;
+      box-shadow: none;
+    }
+  }
+}

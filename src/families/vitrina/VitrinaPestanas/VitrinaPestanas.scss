@@ -1,0 +1,103 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-pestanas {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--ds-z-raised);
+  background: var(--vitrina-fondo);
+  border-top: var(--vitrina-borde) solid var(--vitrina-filete);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -8px 24px rgb(20 20 19 / 0.06);
+
+  &__fila {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    height: 64px;
+  }
+
+  &__tecla {
+    @include vi.desnudo;
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    color: var(--vitrina-tinta-suave);
+
+    @include ds.focus-ring;
+    &:focus-visible {
+      outline-offset: -3px;
+      border-radius: var(--vitrina-radio-sm);
+    }
+
+    &.is-activa {
+      color: var(--vitrina-tinta);
+
+      .vitrina-pestanas__label::after {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+  }
+
+  &__icono {
+    position: relative;
+    display: inline-flex;
+    line-height: 0;
+  }
+
+  &__badge {
+    @include vi.tabular;
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--vitrina-coral);
+    color: var(--vitrina-tinta);
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 18px;
+    text-align: center;
+
+    [data-pulso="1"] & {
+      @media (prefers-reduced-motion: no-preference) {
+        animation: vitrina-pulso 380ms var(--ds-ease-standard);
+      }
+    }
+  }
+
+  &__label {
+    @include vi.chica(600);
+    position: relative;
+    font-size: 0.7rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -6px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--vitrina-coral);
+      translate: -50% 0;
+      opacity: 0;
+      scale: 0;
+      transition:
+        opacity 160ms var(--ds-ease-standard),
+        scale 160ms var(--ds-ease-standard);
+    }
+  }
+
+  &__sr {
+    @include ds.visually-hidden;
+  }
+}

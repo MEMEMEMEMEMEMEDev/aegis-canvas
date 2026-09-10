@@ -1,0 +1,222 @@
+@use "../../../../abstracts" as ds;
+@use "../../vitrina-tools" as vi;
+@use "inicio";
+@use "catalogo";
+@use "producto";
+@use "transaccion";
+@use "cuenta";
+@use "pedidos";
+
+// =============================================================================
+// La tienda: lo compartido por todas las pantallas. Cada pantalla trae su
+// parcial; aquí van el chasis, las rejillas, la transición de ruta y las
+// piezas de texto que se repiten (nota, chica, enlace, error).
+// =============================================================================
+
+.tienda-pantalla {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  min-width: 0;
+}
+
+.tienda-seccion {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+}
+
+.tienda-rejilla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ds.space("sm");
+
+  @include ds.up("sm") {
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  }
+  @include ds.up("lg") {
+    gap: ds.space("md");
+  }
+
+  &--losetas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    @include ds.up("sm") {
+      grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    }
+  }
+
+  &--banners {
+    grid-template-columns: 1fr;
+    gap: ds.space("md");
+    @include ds.up("lg") {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+.tienda-fila {
+  display: flex;
+  align-items: center;
+  gap: ds.space("xs");
+  flex-wrap: wrap;
+}
+
+.tienda-columna {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+}
+
+// Solo para lectores de pantalla: un h2 que ordena el esquema de una
+// rejilla de resultados sin pintarse.
+.tienda-sr {
+  @include ds.visually-hidden;
+}
+
+// --- Texto que se repite ---
+.tienda-nota {
+  margin: 0;
+  font-size: var(--ds-font-size-sm);
+  line-height: 1.55;
+  color: var(--vitrina-tinta);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tienda-chica {
+  @include vi.chica;
+  margin: 0;
+  color: var(--vitrina-tinta-suave);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tienda-error {
+  @include vi.chica(600);
+  margin: 0;
+  color: var(--vitrina-error);
+}
+
+.tienda-ok {
+  font-weight: 700;
+  color: var(--vitrina-ok);
+}
+
+.tienda-enlace {
+  @include vi.desnudo;
+  @include vi.chica(600);
+  color: var(--vitrina-tinta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border-radius: 3px;
+  text-align: left;
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    color: var(--vitrina-coral-tinta);
+  }
+}
+
+// --- Formularios ---
+.tienda-form {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+  width: 100%;
+
+  &--estrecho {
+    max-width: 34rem;
+  }
+
+  &__rejilla {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: ds.space("md");
+
+    @include ds.up("sm") {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__ancho {
+    @include ds.up("sm") {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__acciones {
+    display: flex;
+    gap: ds.space("xs");
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+}
+
+// --- Líneas de cesta/pedido ---
+.tienda-lineas {
+  display: flex;
+  flex-direction: column;
+
+  &--compactas {
+    border-bottom: var(--vitrina-borde) solid var(--vitrina-filete);
+    margin-bottom: ds.space("sm");
+  }
+}
+
+// --- Menú del teléfono (cajón) ---
+.tienda-menu {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+
+  &__losetas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: ds.space("xs");
+  }
+
+  &__acciones {
+    display: flex;
+    flex-direction: column;
+    gap: ds.space("xs");
+  }
+}
+
+// --- El cajón de la cesta ---
+.tienda-cajon-cesta {
+  &__pie {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    font-size: var(--ds-font-size-sm);
+    font-weight: 600;
+  }
+
+  &__nota {
+    @include vi.chica;
+    margin: 0 0 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: var(--vitrina-radio-sm);
+    background: var(--vitrina-coral-velo);
+    color: var(--vitrina-tinta);
+  }
+}
+
+// --- Huesos de página ---
+.tienda-hueso-hero {
+  border-radius: var(--vitrina-radio-lg);
+}
+.tienda-hueso-galeria {
+  border-radius: var(--vitrina-radio-lg);
+}

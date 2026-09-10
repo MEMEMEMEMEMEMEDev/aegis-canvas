@@ -1,0 +1,46 @@
+@use "../../../abstracts" as ds;
+
+.vitrina-marco {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+
+  &__cabecera {
+    position: sticky;
+    top: 0;
+    z-index: var(--ds-z-raised);
+  }
+
+  &__cuerpo {
+    flex: 1;
+    width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 4vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 4vw, 3rem);
+
+    .vitrina-marco--estrecho & {
+      max-width: 44rem;
+    }
+  }
+
+  &__pie {
+    margin-top: auto;
+  }
+
+  // El hueco para las pestañas: en el teléfono el contenido no debe morir
+  // debajo de la barra fija.
+  &--con-pestanas {
+    @include ds.down("md") {
+      padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+  &__pestanas {
+    @include ds.up("md") {
+      display: none;
+    }
+  }
+}

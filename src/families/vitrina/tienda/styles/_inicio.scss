@@ -1,0 +1,22 @@
+@use "../../../../abstracts" as ds;
+@use "../../vitrina-tools" as vi;
+
+// Las tarjetas que flotan en el hero.
+.tienda-flotante {
+  @include vi.desnudo;
+  display: grid;
+  gap: 0.35rem;
+  width: 100%;
+  text-align: left;
+  color: var(--vitrina-tinta);
+
+  &__nombre {
+    @include vi.chica(600);
+    @include vi.lineas(1);
+  }
+}
+
+.tienda-banner-lamina {
+  max-width: 14rem;
+  box-shadow: var(--vitrina-sombra-alta);
+}

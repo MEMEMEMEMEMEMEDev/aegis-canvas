@@ -1,0 +1,277 @@
+// =============================================================================
+// VITRINA — familia "marketplace de barrio grande"
+// (ver referencias-portafolio/10-familia-idea/01.png y 02.png).
+//
+// 01 es el escaparate de una tienda que vende de todo: blanco de vitrina
+// recién limpiada, gris cálido donde se apoyan las cosas, esquinas de
+// etiqueta de precio, una sombra que solo se nota al quitarla y UN
+// coral-naranja que se gasta únicamente en lo que pide que lo toques — el
+// botón de comprar, el sello de oferta, la cuenta atrás. Nada de fotos:
+// cada producto es una lámina de color plano con su pictograma de línea,
+// como el cartel de una sección de supermercado. Es la mitad que NAVEGA.
+//
+// 02 es la otra mitad, la que TRANSACCIONA, y cambia de voz sin cambiar de
+// contrato: al pagar, registrarse o revisar un pedido el fondo pasa al gris
+// de papel de boleta, el titular es una palabra gigante en mayúsculas
+// condensadas, los inputs se reducen a una línea inferior y el botón
+// principal es un bloque negro a todo ancho. El coral casi desaparece: en
+// una transacción lo único que debe brillar es el total.
+//
+// Fuentes self-hosted (src/fonts/README.md):
+//   Onest · OFL 1.1 — variable wght 100–900, un archivo de 34 KB: todo lo
+//   que se lee (nombres, precios, formularios, letra chica).
+//   Instrument Sans · OFL 1.1 — variable wght 400–700 + wdth 75–100, 57 KB:
+//   solo el titular gigante, condensado a 75 %.
+//
+// REGLA DE CONTRASTE (medida, no estimada — cada par en el comentario):
+//   (a) tinta sobre todo lo claro (fondo, superficie, campo, velos);
+//   (b) blanco solo sobre bloque, coral-hondo, ok y error;
+//   (c) el coral de RELLENO lleva tinta encima (blanco s/coral = 3,3:1, falla);
+//   (d) el coral como TEXTO es --vitrina-coral-tinta, nunca --vitrina-coral.
+//
+// Isla CLARA dentro de la marca dark → mini-contrato en .vitrina-scope.
+// Los componentes lo importan vía TSX (import "../vitrina.scss") — Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Onest";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../../fonts/onest/onest-vf-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+// `font-stretch: 75% 100%` es lo que le dice al navegador que el archivo
+// trae el eje wdth y puede interpolarlo.
+@font-face {
+  font-family: "Instrument Sans";
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  src: url("../../fonts/instrument-sans/instrument-sans-vf-latin-wdth-normal.woff2")
+    format("woff2-variations");
+}
+
+.vitrina-scope {
+  // --- Superficies ---
+  --vitrina-fondo: #ffffff; // la vitrina: página de NAVEGAR
+  --vitrina-superficie: #f5f5f4; // gris cálido: tiles, láminas, franjas
+  --vitrina-campo: #efeeec; // gris papel de boleta: página de TRANSACCIONAR
+  --vitrina-tinta: #141413; // 18,4:1 s/fondo · 16,9:1 s/superficie · 15,9:1 s/campo
+  --vitrina-tinta-suave: #5f5e5a; // 6,5:1 s/fondo · 5,95:1 s/superficie · 5,6:1 s/campo
+  --vitrina-filete: #dedcd7; // bordes y divisores. DECORATIVO: nunca lleva información
+  --vitrina-filete-fuerte: var(--vitrina-tinta); // la línea inferior de los inputs de línea
+
+  // --- El coral: una sola regla, ver cabecera ---
+  --vitrina-coral: #ff4d1a; // RELLENO: CTA de compra, sello de oferta, badge del carrito. Tinta encima: 5,56:1
+  --vitrina-coral-tinta: #c93a0c; // el coral cuando ES texto: 5,1:1 s/fondo · 4,7:1 s/superficie
+  --vitrina-coral-hondo: #a52f0a; // pulsado/hover del CTA; blanco encima 7,0:1
+  --vitrina-coral-velo: #ffe4da; // fondo de sello suave; tinta encima 13:1
+
+  // --- El bloque negro: banner, footer, CTA de transacción ---
+  --vitrina-bloque: #141413;
+  --vitrina-bloque-texto: #ffffff; // 18,4:1
+  --vitrina-bloque-suave: #a3a29d; // 7,2:1 s/bloque — letra secundaria dentro del negro
+  --vitrina-bloque-coral: #ff6a3d; // coral sobre negro como texto grande: 6,5:1
+
+  // --- Semáforo ---
+  --vitrina-ok: #1b7a3e; // 5,4:1 s/fondo · 4,9:1 s/superficie; blanco encima 5,4:1
+  --vitrina-ok-velo: #e3f3e8;
+  --vitrina-aviso: #9a5b00; // 5,4:1 s/fondo · 5,0:1 s/velo
+  --vitrina-aviso-velo: #fff4e5;
+  --vitrina-error: #b42318; // 6,6:1 s/fondo; blanco encima 6,6:1
+  --vitrina-error-velo: #fdecea;
+
+  // --- Forma ---
+  --vitrina-radio-sm: 8px; // chips, inputs de caja, sellos
+  --vitrina-radio: 12px; // tarjetas, botones
+  --vitrina-radio-lg: 16px; // cajón, hero, banners
+  --vitrina-radio-pill: 999px;
+  --vitrina-borde: 1px;
+  --vitrina-sombra: 0 1px 2px rgb(20 20 19 / 0.04), 0 8px 24px rgb(20 20 19 / 0.06);
+  --vitrina-sombra-alta: 0 12px 40px rgb(20 20 19 / 0.16);
+
+  // --- Voz ---
+  --vitrina-font: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --vitrina-font-display: "Instrument Sans", "Arial Narrow", system-ui, sans-serif;
+
+  // El anillo de foco en el coral de TEXTO: 5,1:1 sobre fondo (necesita 3:1).
+  --ds-focus-ring: var(--vitrina-coral-tinta);
+
+  background: var(--vitrina-fondo);
+  color: var(--vitrina-tinta);
+  font-family: var(--vitrina-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+// La página de transacción: mismo contrato, otro fondo.
+.vitrina-scope--transaccion {
+  background: var(--vitrina-campo);
+}
+
+// =============================================================================
+// El vocabulario de movimiento de la familia.
+//
+// Vive aquí y no en cada componente porque la coreografía es COMPARTIDA: una
+// pantalla de VITRINA entra entera con la misma subida corta, los huesos
+// brillan al mismo ritmo y el carrito late igual desde cualquier tarjeta.
+// Cada `animation` de cada componente va dentro de `no-preference`; en
+// reposo lo que se mueve se queda quieto y la información sigue ahí.
+// =============================================================================
+
+// Subida corta: la entrada de pantallas, tarjetas y avisos.
+@keyframes vitrina-sube {
+  from {
+    translate: 0 10px;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+@keyframes vitrina-aparece {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// El cajón lateral (cesta en escritorio).
+@keyframes vitrina-desliza-der {
+  from {
+    translate: 100% 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+// El cajón de abajo (cesta/filtros en el teléfono) y el diálogo en móvil.
+@keyframes vitrina-desliza-arriba {
+  from {
+    translate: 0 100%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+// El telón detrás de cajón y diálogo.
+@keyframes vitrina-telon {
+  from {
+    background: rgb(20 20 19 / 0);
+  }
+  to {
+    background: rgb(20 20 19 / 0.45);
+  }
+}
+
+// El brillo del hueso (skeleton): una banda clara que cruza.
+@keyframes vitrina-brillo {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+// La barra de carga indeterminada: un hilo coral que corre arriba.
+@keyframes vitrina-corre {
+  from {
+    translate: -100% 0;
+  }
+  to {
+    translate: 400% 0;
+  }
+}
+
+// Trazado: la bolsa de carga y el check de confirmación se dibujan solos.
+@keyframes vitrina-traza {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+// Llenado: la bolsa se llena de coral desde abajo.
+@keyframes vitrina-llena {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+// El badge del carrito late cuando entra algo.
+@keyframes vitrina-pulso {
+  0%,
+  100% {
+    scale: 1;
+  }
+  40% {
+    scale: 1.35;
+  }
+}
+
+// El corazón al marcar y el hito actual de un pedido.
+@keyframes vitrina-latido {
+  0%,
+  100% {
+    scale: 1;
+  }
+  30% {
+    scale: 1.25;
+  }
+  60% {
+    scale: 0.95;
+  }
+}
+
+// Las tarjetas flotantes del hero.
+@keyframes vitrina-flota {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+// Un dígito de la cuenta atrás que cambia: entra desde arriba.
+@keyframes vitrina-tic {
+  from {
+    translate: 0 -100%;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+// Pulsar: el botón se aprieta un pelo.
+@keyframes vitrina-prensa {
+  50% {
+    scale: 0.97;
+  }
+}
+
+// Entrada escalonada: cada pieza declara su turno con --vitrina-i.
+.vitrina-entra {
+  --vitrina-i: 0;
+  --vitrina-paso: 45ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .vitrina-entra {
+    animation: vitrina-sube 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(var(--vitrina-i) * var(--vitrina-paso));
+  }
+}

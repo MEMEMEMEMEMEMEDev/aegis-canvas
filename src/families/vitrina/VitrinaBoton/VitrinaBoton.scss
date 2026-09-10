@@ -1,0 +1,152 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-boton {
+  @include vi.tocable;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1.1rem;
+  border: var(--vitrina-borde) solid transparent;
+  border-radius: var(--vitrina-radio);
+  font-family: var(--vitrina-font);
+  font-size: var(--ds-font-size-sm);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 140ms var(--ds-ease-standard),
+    color 140ms var(--ds-ease-standard),
+    border-color 140ms var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &:active:not(:disabled) {
+      animation: vitrina-prensa 160ms var(--ds-ease-standard);
+    }
+  }
+
+  // --- Tamaños (clases del núcleo) ---
+  &.ds-button--sm {
+    min-height: 36px;
+    padding: 0 0.85rem;
+    font-size: max(#{vi.$micro-suelo}, var(--ds-font-size-xs));
+  }
+  &.ds-button--lg {
+    min-height: 52px;
+    padding: 0 1.5rem;
+    font-size: var(--ds-font-size-md);
+  }
+  &.ds-button--icon-only {
+    padding: 0;
+    width: 44px;
+    &.ds-button--sm {
+      width: 36px;
+    }
+  }
+
+  // --- Rellenos ---
+  &--tinta.ds-button--solid {
+    background: var(--vitrina-tinta);
+    color: var(--vitrina-fondo);
+    @include ds.hover {
+      background: #2c2c2a;
+    }
+  }
+
+  &--coral.ds-button--solid {
+    background: var(--vitrina-coral);
+    color: var(--vitrina-tinta);
+    @include ds.hover {
+      background: var(--vitrina-coral-hondo);
+      color: var(--vitrina-bloque-texto);
+    }
+    &:active:not(:disabled) {
+      background: var(--vitrina-coral-hondo);
+      color: var(--vitrina-bloque-texto);
+    }
+  }
+
+  &--bloque.ds-button--solid {
+    @include vi.boton-bloque;
+    @include ds.hover {
+      background: #2c2c2a;
+    }
+  }
+
+  // --- Variantes del núcleo, vestidas ---
+  &.ds-button--outline {
+    background: transparent;
+    border-color: var(--vitrina-tinta);
+    color: var(--vitrina-tinta);
+    @include ds.hover {
+      background: var(--vitrina-superficie);
+    }
+  }
+  &--coral.ds-button--outline {
+    border-color: var(--vitrina-coral-tinta);
+    color: var(--vitrina-coral-tinta);
+    @include ds.hover {
+      background: var(--vitrina-coral-velo);
+    }
+  }
+
+  &.ds-button--ghost {
+    background: transparent;
+    color: var(--vitrina-tinta);
+    @include ds.hover {
+      background: var(--vitrina-superficie);
+    }
+  }
+  &--coral.ds-button--ghost {
+    color: var(--vitrina-coral-tinta);
+  }
+
+  &.ds-button--danger {
+    background: var(--vitrina-error);
+    color: var(--vitrina-bloque-texto);
+    @include ds.hover {
+      background: #8f1c12;
+    }
+  }
+
+  &--ancho {
+    width: 100%;
+  }
+
+  // --- Piezas ---
+  &__icono {
+    display: inline-flex;
+    line-height: 0;
+    svg {
+      width: 1.2em;
+      height: 1.2em;
+    }
+  }
+
+  &__giro {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    @media (prefers-reduced-motion: no-preference) {
+      animation: vitrina-gira 0.8s linear infinite;
+    }
+  }
+}
+
+@keyframes vitrina-gira {
+  to {
+    rotate: 360deg;
+  }
+}

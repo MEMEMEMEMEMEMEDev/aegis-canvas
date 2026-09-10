@@ -1,0 +1,108 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-carrusel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+  // La pista no debe empujar a su contenedor: su ancho intrínseco es
+  // asunto suyo (así puede vivir dentro de cualquier rejilla).
+  contain: inline-size;
+  min-width: 0;
+
+  &__pista {
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__tarjeta {
+    flex: 0 0 var(--vitrina-tarjeta, 16rem);
+    max-width: 88vw;
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+
+  // Las flechas, a los lados de la pista (como en la referencia), solo
+  // donde hay ratón: en táctil se desliza con el dedo.
+  &__flechas {
+    display: contents;
+  }
+
+  &__flecha {
+    @include vi.desnudo;
+    display: none;
+    position: absolute;
+    top: calc(50% - 1.25rem - 20px);
+    z-index: 2;
+    box-shadow: var(--vitrina-sombra);
+
+    @include ds.up("md") {
+      display: inline-flex;
+    }
+
+    &--izq {
+      left: -0.5rem;
+    }
+    &--der {
+      right: -0.5rem;
+    }
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+    border-radius: 50%;
+    background: var(--vitrina-fondo);
+    color: var(--vitrina-tinta);
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      border-color: var(--vitrina-tinta);
+    }
+  }
+
+  &__puntos {
+    display: flex;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  &__punto {
+    @include vi.desnudo;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    @include ds.focus-ring;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--vitrina-filete);
+      transition: all 160ms var(--ds-ease-standard);
+    }
+
+    &.is-activo::before {
+      width: 18px;
+      border-radius: 3px;
+      background: var(--vitrina-tinta);
+    }
+  }
+}

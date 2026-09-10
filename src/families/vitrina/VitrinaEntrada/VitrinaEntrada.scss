@@ -1,0 +1,142 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-entrada {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  color: var(--vitrina-tinta);
+
+  &__control {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0 0.85rem;
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+    border-radius: var(--vitrina-radio-sm);
+    background: var(--vitrina-fondo);
+    color: var(--vitrina-tinta);
+    font: inherit;
+    font-size: var(--ds-font-size-md);
+    appearance: none;
+    transition: border-color 140ms var(--ds-ease-standard);
+
+    &::placeholder {
+      color: var(--vitrina-tinta-suave);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ds-focus-ring);
+      outline-offset: 1px;
+      border-color: var(--vitrina-tinta);
+    }
+
+    &:disabled {
+      background: var(--vitrina-superficie);
+      cursor: not-allowed;
+    }
+
+    &--area {
+      min-height: 0;
+      padding: 0.7rem 0.85rem;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    &--select {
+      padding-right: 2.4rem;
+      cursor: pointer;
+    }
+  }
+
+  &--con-icono .vitrina-entrada__control {
+    padding-left: 2.6rem;
+  }
+  &--con-accion .vitrina-entrada__control {
+    padding-right: 2.9rem;
+  }
+
+  &.is-invalid .vitrina-entrada__control {
+    border-color: var(--vitrina-error);
+  }
+
+  // --- La voz del checkout ---
+  &--linea .vitrina-entrada__control {
+    @include vi.linea;
+    min-height: 40px;
+    font-size: var(--ds-font-size-sm);
+  }
+  &--linea.vitrina-entrada--con-icono .vitrina-entrada__control {
+    padding-left: 1.8rem;
+  }
+  &--linea.vitrina-entrada--con-accion .vitrina-entrada__control {
+    padding-right: 2.4rem;
+  }
+  &--linea.is-invalid .vitrina-entrada__control {
+    border-bottom-color: var(--vitrina-error);
+  }
+  &--linea .vitrina-entrada__icono {
+    left: 0;
+  }
+  &--linea .vitrina-entrada__accion {
+    right: 0;
+  }
+  &--linea .vitrina-entrada__chevron {
+    right: 0;
+  }
+  &--linea .vitrina-entrada__control:disabled {
+    background: transparent;
+    border-bottom-style: dashed;
+  }
+
+  // --- Adornos ---
+  &__icono {
+    position: absolute;
+    left: 0.85rem;
+    display: inline-flex;
+    color: var(--vitrina-tinta-suave);
+    pointer-events: none;
+    line-height: 0;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__accion {
+    @include vi.desnudo;
+    position: absolute;
+    right: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--vitrina-tinta-suave);
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      background: var(--vitrina-superficie);
+      color: var(--vitrina-tinta);
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  &__chevron {
+    position: absolute;
+    right: 0.85rem;
+    display: inline-flex;
+    color: var(--vitrina-tinta-suave);
+    pointer-events: none;
+    line-height: 0;
+  }
+}

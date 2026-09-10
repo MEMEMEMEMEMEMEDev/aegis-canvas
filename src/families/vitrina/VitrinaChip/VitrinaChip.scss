@@ -1,0 +1,99 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-chip {
+  @include vi.desnudo;
+  @include vi.chica(600);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 36px;
+  padding: 0 0.85rem;
+  border: var(--vitrina-borde) solid var(--vitrina-filete);
+  border-radius: var(--vitrina-radio-pill);
+  background: var(--vitrina-fondo);
+  color: var(--vitrina-tinta);
+  white-space: nowrap;
+  transition:
+    background-color 140ms var(--ds-ease-standard),
+    border-color 140ms var(--ds-ease-standard);
+
+  @include ds.focus-ring;
+
+  @include ds.hover {
+    border-color: var(--vitrina-tinta);
+  }
+
+  &.is-activo {
+    background: var(--vitrina-tinta);
+    border-color: var(--vitrina-tinta);
+    color: var(--vitrina-fondo);
+  }
+
+  &.is-disabled,
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  &--quitable {
+    cursor: default;
+    padding-right: 0.25rem;
+    background: var(--vitrina-superficie);
+  }
+
+  &__icono {
+    display: inline-flex;
+    line-height: 0;
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+
+  &__contador {
+    @include vi.tabular;
+    color: var(--vitrina-tinta-suave);
+    .is-activo & {
+      color: var(--vitrina-bloque-suave);
+    }
+  }
+
+  &__quitar {
+    @include vi.desnudo;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: var(--vitrina-tinta);
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      background: var(--vitrina-filete);
+    }
+  }
+}
+
+.vitrina-chip-fila {
+  display: flex;
+  gap: ds.space("xs");
+  overflow-x: auto;
+  contain: inline-size;
+  min-width: 0;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+  // Que el anillo de foco no se recorte por el overflow.
+  padding-top: 2px;
+  margin-top: -2px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    flex-shrink: 0;
+  }
+}

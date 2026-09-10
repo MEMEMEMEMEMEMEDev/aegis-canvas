@@ -1,0 +1,83 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-cantidad {
+  display: inline-flex;
+  align-items: stretch;
+  height: 44px;
+  border: var(--vitrina-borde) solid var(--vitrina-filete);
+  border-radius: var(--vitrina-radio-sm);
+  background: var(--vitrina-fondo);
+  overflow: hidden;
+
+  &--sm {
+    height: 36px;
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+  }
+
+  &__boton {
+    @include vi.desnudo;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    color: var(--vitrina-tinta);
+
+    .vitrina-cantidad--sm & {
+      width: 36px;
+    }
+
+    @include ds.focus-ring;
+    &:focus-visible {
+      outline-offset: -3px;
+      border-radius: var(--vitrina-radio-sm);
+    }
+
+    @include ds.hover {
+      background: var(--vitrina-superficie);
+    }
+
+    &:disabled {
+      color: var(--vitrina-filete);
+      cursor: not-allowed;
+    }
+  }
+
+  &__input {
+    @include vi.tabular;
+    width: 3rem;
+    border: 0;
+    border-left: var(--vitrina-borde) solid var(--vitrina-filete);
+    border-right: var(--vitrina-borde) solid var(--vitrina-filete);
+    background: transparent;
+    color: var(--vitrina-tinta);
+    text-align: center;
+    font: inherit;
+    font-weight: 700;
+    font-size: var(--ds-font-size-sm);
+    appearance: textfield;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ds-focus-ring);
+      outline-offset: -2px;
+    }
+
+    .vitrina-cantidad--sm & {
+      width: 2.5rem;
+    }
+  }
+
+  &__sr {
+    @include ds.visually-hidden;
+  }
+}

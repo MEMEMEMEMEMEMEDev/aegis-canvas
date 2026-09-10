@@ -1,0 +1,195 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-cartel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: ds.space("lg");
+  padding: clamp(1.25rem, 4vw, 3rem);
+  border-radius: var(--vitrina-radio-lg);
+  overflow: hidden;
+  background: var(--vitrina-superficie);
+  color: var(--vitrina-tinta);
+
+  @include ds.up("md") {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  &--hero {
+    min-height: min(34rem, 80vh);
+  }
+
+  &--bloque {
+    background: var(--vitrina-bloque);
+    color: var(--vitrina-bloque-texto);
+  }
+  &--coral {
+    background: var(--vitrina-coral);
+    color: var(--vitrina-tinta);
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: ds.space("md");
+    position: relative;
+    z-index: 1;
+  }
+
+  &__sobre {
+    @include vi.micro;
+    color: var(--vitrina-coral-tinta);
+    .vitrina-cartel--bloque & {
+      color: var(--vitrina-bloque-coral);
+    }
+    .vitrina-cartel--coral & {
+      color: var(--vitrina-tinta);
+    }
+  }
+
+  &__titulo {
+    margin: 0;
+    font-family: var(--vitrina-font);
+    font-size: clamp(2rem, 5.5vw, 3.6rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    max-width: 14ch;
+  }
+
+  &__texto {
+    margin: 0;
+    max-width: 38ch;
+    font-size: var(--ds-font-size-md);
+    line-height: 1.55;
+    color: var(--vitrina-tinta-suave);
+    .vitrina-cartel--bloque & {
+      color: var(--vitrina-bloque-suave);
+    }
+    .vitrina-cartel--coral & {
+      color: var(--vitrina-tinta);
+    }
+  }
+
+  &__acciones {
+    display: flex;
+    gap: ds.space("xs");
+    flex-wrap: wrap;
+  }
+
+  // En el bloque negro, los botones se invierten: claro sólido, borde claro.
+  &__boton-claro.vitrina-boton {
+    background: var(--vitrina-bloque-texto);
+    color: var(--vitrina-bloque);
+    @include ds.hover {
+      background: #e7e6e2;
+    }
+  }
+  &__boton-borde.vitrina-boton {
+    border-color: var(--vitrina-bloque-texto);
+    color: var(--vitrina-bloque-texto);
+    @include ds.hover {
+      background: rgb(255 255 255 / 0.1);
+    }
+  }
+
+  &__pie {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+    .vitrina-cartel--bloque & {
+      color: var(--vitrina-bloque-suave);
+    }
+  }
+
+  // --- La derecha: flotantes o lo que venga ---
+  &__derecha {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__flotantes {
+    position: relative;
+    min-height: 14rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: ds.space("md");
+    align-content: center;
+
+    @include ds.up("md") {
+      min-height: 22rem;
+    }
+  }
+
+  &__flotante {
+    @include vi.tarjeta;
+    padding: 0.75rem;
+    box-shadow: var(--vitrina-sombra-alta);
+
+    &:nth-child(2n) {
+      translate: 0 1.5rem;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: vitrina-flota 6s ease-in-out infinite;
+      animation-delay: calc(var(--vitrina-i) * -1.3s);
+    }
+  }
+}
+
+// --- La franja de confianza ---
+.vitrina-franja {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ds.space("md");
+  margin: 0;
+  padding: ds.space("md") 0;
+  list-style: none;
+  border-top: var(--vitrina-borde) solid var(--vitrina-filete);
+  border-bottom: var(--vitrina-borde) solid var(--vitrina-filete);
+
+  @include ds.up("md") {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  &__picto {
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--vitrina-radio);
+    background: var(--vitrina-superficie);
+    color: var(--vitrina-tinta);
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  &__titulo {
+    font-size: var(--ds-font-size-sm);
+    font-weight: 700;
+  }
+
+  &__texto {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+  }
+}

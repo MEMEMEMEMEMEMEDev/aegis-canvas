@@ -1,0 +1,131 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+
+  &__cabecera {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  &__label {
+    @include vi.micro;
+    color: var(--vitrina-tinta);
+  }
+
+  &__elegido {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__accion {
+    @include vi.desnudo;
+    @include vi.chica(600);
+    color: var(--vitrina-tinta);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    border-radius: 3px;
+
+    @include ds.focus-ring;
+  }
+
+  &__fila {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__opcion {
+    @include vi.desnudo;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 40px;
+    padding: 0 0.85rem;
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+    border-radius: var(--vitrina-radio-sm);
+    background: var(--vitrina-fondo);
+    color: var(--vitrina-tinta);
+    font-size: var(--ds-font-size-sm);
+    font-weight: 600;
+    transition:
+      border-color 120ms var(--ds-ease-standard),
+      background-color 120ms var(--ds-ease-standard);
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      border-color: var(--vitrina-tinta);
+    }
+
+    &.is-elegida {
+      background: var(--vitrina-tinta);
+      border-color: var(--vitrina-tinta);
+      color: var(--vitrina-fondo);
+    }
+
+    &.is-agotada {
+      color: var(--vitrina-tinta-suave);
+      cursor: not-allowed;
+      text-decoration: line-through;
+      background: var(--vitrina-superficie);
+    }
+  }
+
+  &__sr {
+    @include ds.visually-hidden;
+  }
+
+  // --- Colores: círculos con la placa ---
+  &--color .vitrina-selector__opcion {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    border-width: 2px;
+
+    &.is-elegida {
+      background: var(--vitrina-fondo);
+      border-color: var(--vitrina-tinta);
+    }
+
+    &.is-agotada {
+      text-decoration: none;
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 50% auto auto 50%;
+        width: 2px;
+        height: 130%;
+        background: var(--vitrina-tinta-suave);
+        translate: -50% -50%;
+        rotate: 45deg;
+      }
+    }
+  }
+
+  &__placa {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgb(20 20 19 / 0.12);
+  }
+
+  &__error {
+    @include vi.chica(600);
+    margin: 0;
+    color: var(--vitrina-error);
+  }
+}

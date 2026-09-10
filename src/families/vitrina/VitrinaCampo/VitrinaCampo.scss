@@ -1,0 +1,44 @@
+@use "../vitrina-tools" as vi;
+
+.vitrina-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+
+  .ds-field__label {
+    @include vi.micro;
+    color: var(--vitrina-tinta);
+  }
+
+  .ds-field__required {
+    color: var(--vitrina-coral-tinta);
+  }
+
+  .ds-field__hint,
+  .ds-field__error {
+    @include vi.chica;
+    margin: 0;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  .ds-field__error {
+    color: var(--vitrina-error);
+    font-weight: 600;
+  }
+
+  &.is-disabled {
+    opacity: 0.55;
+  }
+
+  &--linea {
+    gap: 0.15rem;
+
+    .ds-field__label {
+      @include vi.chica(600);
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--vitrina-tinta-suave);
+    }
+  }
+}

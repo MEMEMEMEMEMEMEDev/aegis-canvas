@@ -1,0 +1,55 @@
+@use "../vitrina-tools" as vi;
+
+.vitrina-sello {
+  @include vi.micro(700);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--vitrina-radio-sm);
+  line-height: 1;
+  white-space: nowrap;
+  background: var(--vitrina-superficie);
+  color: var(--vitrina-tinta);
+
+  &--pequeno {
+    padding: 0.2rem 0.45rem;
+    letter-spacing: 0.08em;
+  }
+
+  &--nuevo,
+  &--vendido {
+    background: var(--vitrina-bloque);
+    color: var(--vitrina-bloque-texto);
+  }
+  &--oferta,
+  &--flash {
+    background: var(--vitrina-coral);
+    color: var(--vitrina-tinta);
+  }
+  &--agotado {
+    background: var(--vitrina-superficie);
+    color: var(--vitrina-tinta-suave);
+  }
+  &--ok {
+    background: var(--vitrina-ok-velo);
+    color: var(--vitrina-ok);
+  }
+  &--aviso {
+    background: var(--vitrina-aviso-velo);
+    color: var(--vitrina-aviso);
+  }
+  &--error {
+    background: var(--vitrina-error-velo);
+    color: var(--vitrina-error);
+  }
+
+  &__icono {
+    display: inline-flex;
+    line-height: 0;
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+}

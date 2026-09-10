@@ -1,0 +1,114 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-cronologia {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  color: var(--vitrina-tinta);
+
+  &__hito {
+    position: relative;
+    display: grid;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 0.85rem;
+    padding-bottom: 1.35rem;
+
+    // La línea que une los puntos.
+    &:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 11px;
+      top: 24px;
+      bottom: 0;
+      width: 2px;
+      background: var(--vitrina-filete);
+    }
+    &.is-hecho:not(:last-child)::before {
+      background: var(--vitrina-tinta);
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  &__punto {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--vitrina-filete);
+    background: var(--vitrina-fondo);
+    color: var(--vitrina-fondo);
+
+    .is-hecho & {
+      background: var(--vitrina-tinta);
+      border-color: var(--vitrina-tinta);
+    }
+
+    .is-actual & {
+      border-color: var(--vitrina-coral-tinta);
+      box-shadow: 0 0 0 4px var(--vitrina-coral-velo);
+
+      &::after {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--vitrina-coral);
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        animation: vitrina-latido 1.6s ease-in-out infinite;
+      }
+    }
+
+    .is-cancelada .is-actual & {
+      border-color: var(--vitrina-error);
+      background: var(--vitrina-error);
+      color: var(--vitrina-fondo);
+      box-shadow: 0 0 0 4px var(--vitrina-error-velo);
+      animation: none;
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  &__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-top: 0.15rem;
+    min-width: 0;
+  }
+
+  &__label {
+    font-size: var(--ds-font-size-sm);
+    font-weight: 600;
+
+    .is-pendiente & {
+      color: var(--vitrina-tinta-suave);
+      font-weight: 500;
+    }
+    .is-actual & {
+      font-weight: 700;
+    }
+  }
+
+  &__fecha,
+  &__nota {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__sr {
+    @include ds.visually-hidden;
+  }
+}

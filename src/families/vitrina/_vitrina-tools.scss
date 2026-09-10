@@ -1,0 +1,124 @@
+// Herramientas SCSS de la familia VITRINA (no emiten CSS por sí solas).
+
+// El suelo de la letra pequeña: el mismo de PLIEGO tras el fix de a11y.
+// Precio tachado, nº de reseñas, letra legal del footer, sellos, chips y
+// cuenta atrás — todo pasa por aquí y nada baja de esto.
+$micro-suelo: 0.78rem;
+
+// La voz pequeña: mayúsculas cortas, prosado abierto, cifras de tabla.
+@mixin micro($weight: 600) {
+  font-family: var(--vitrina-font);
+  font-size: max(#{$micro-suelo}, var(--ds-font-size-xs));
+  font-weight: $weight;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+// Letra chica que NO grita (no mayúsculas): meta de tarjeta, hint de campo.
+@mixin chica($weight: 500) {
+  font-family: var(--vitrina-font);
+  font-size: max(#{$micro-suelo}, var(--ds-font-size-xs));
+  font-weight: $weight;
+  line-height: 1.4;
+}
+
+// Tamaño propio CON suelo.
+@mixin micro-size($size) {
+  font-size: max(#{$micro-suelo}, #{$size});
+}
+
+// La voz display: Instrument Sans condensada. $wdth 75 es el titular que
+// grita; 100 es la misma letra relajada para subtítulos.
+@mixin display($peso: 700, $wdth: 75%) {
+  font-family: var(--vitrina-font-display);
+  font-weight: $peso;
+  font-stretch: $wdth;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.92;
+}
+
+// Cifras de tabla: precios, totales, cuenta atrás.
+@mixin tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+// La tarjeta: superficie, radio, borde de un pelo y la sombra que solo se
+// nota al quitarla.
+@mixin tarjeta($fondo: var(--vitrina-fondo)) {
+  background: $fondo;
+  border: var(--vitrina-borde) solid var(--vitrina-filete);
+  border-radius: var(--vitrina-radio);
+  box-shadow: var(--vitrina-sombra);
+}
+
+// El input de UNA línea (la voz de la referencia 02): sin caja, solo el
+// filete fuerte abajo, y el foco lo engorda.
+@mixin linea {
+  border: 0;
+  border-bottom: var(--vitrina-borde) solid var(--vitrina-filete-fuerte);
+  border-radius: 0;
+  background: transparent;
+  padding: 0.7rem 0;
+
+  &:focus-visible {
+    outline: none;
+    border-bottom-width: 2px;
+  }
+}
+
+// El bloque negro a todo ancho del checkout.
+@mixin boton-bloque {
+  @include micro(700);
+  width: 100%;
+  min-height: 52px;
+  background: var(--vitrina-bloque);
+  color: var(--vitrina-bloque-texto);
+  border: 0;
+  border-radius: var(--vitrina-radio-sm);
+}
+
+// El hueso: gris cálido con una banda de brillo que cruza (solo si hay
+// movimiento; en reposo es un bloque plano).
+@mixin hueso {
+  background: var(--vitrina-superficie);
+  border-radius: var(--vitrina-radio-sm);
+
+  @media (prefers-reduced-motion: no-preference) {
+    background-image: linear-gradient(
+      100deg,
+      var(--vitrina-superficie) 20%,
+      #fbfbfa 50%,
+      var(--vitrina-superficie) 80%
+    );
+    background-size: 200% 100%;
+    animation: vitrina-brillo 1.6s linear infinite;
+  }
+}
+
+// Recorte a N líneas.
+@mixin lineas($n: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $n;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Botón desnudo: lo que hay que quitarle a un <button> antes de vestirlo.
+@mixin desnudo {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+// Área táctil mínima.
+@mixin tocable {
+  min-width: 44px;
+  min-height: 44px;
+}

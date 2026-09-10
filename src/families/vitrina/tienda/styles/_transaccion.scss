@@ -1,0 +1,259 @@
+@use "../../../../abstracts" as ds;
+@use "../../vitrina-tools" as vi;
+
+// La mitad que transacciona: cesta, checkout, confirmación y acceso.
+
+.tienda-transaccion {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: ds.space("xl");
+  align-items: start;
+
+  @include ds.up("lg") {
+    grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 1fr);
+  }
+
+  &__principal {
+    display: flex;
+    flex-direction: column;
+    gap: ds.space("lg");
+    min-width: 0;
+  }
+
+  &__lateral {
+    display: flex;
+    flex-direction: column;
+    gap: ds.space("md");
+    padding: ds.space("lg");
+    border-radius: var(--vitrina-radio-lg);
+    background: var(--vitrina-fondo);
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+
+    &--fijo {
+      display: none;
+      @include ds.up("lg") {
+        display: flex;
+        position: sticky;
+        top: calc(68px + 32px + 1rem);
+      }
+    }
+  }
+}
+
+.tienda-lateral__titulo {
+  margin: 0;
+  font-size: var(--ds-font-size-md);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.tienda-guardados {
+  padding-top: ds.space("lg");
+}
+
+.tienda-cupon {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  .vitrina-entrada {
+    flex: 1;
+    min-width: 10rem;
+  }
+
+  &--aplicado {
+    align-items: center;
+  }
+
+  &__error {
+    @include vi.chica(600);
+    flex-basis: 100%;
+    color: var(--vitrina-error);
+  }
+}
+
+// El resumen colapsable del checkout en el teléfono.
+.tienda-resumen-movil {
+  border: var(--vitrina-borde) solid var(--vitrina-filete);
+  border-radius: var(--vitrina-radio);
+  background: var(--vitrina-fondo);
+
+  @include ds.up("lg") {
+    display: none;
+  }
+
+  summary {
+    @include vi.tocable;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: var(--ds-font-size-sm);
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+    &::after {
+      content: "▾";
+      margin-left: auto;
+      color: var(--vitrina-tinta-suave);
+    }
+  }
+
+  &[open] summary::after {
+    content: "▴";
+  }
+
+  &__cuerpo {
+    padding: 0 1rem 1rem;
+  }
+}
+
+// Los pasos del checkout.
+.tienda-paso {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("xl");
+
+  &__bloque {
+    display: flex;
+    flex-direction: column;
+    gap: ds.space("md");
+  }
+
+  &__acciones {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: ds.space("xs");
+    align-items: stretch;
+  }
+}
+
+.tienda-datos {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: ds.space("md");
+  font-size: var(--ds-font-size-sm);
+
+  dt {
+    @include vi.micro;
+    color: var(--vitrina-tinta-suave);
+    margin-bottom: 0.3rem;
+  }
+  dd {
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+// --- Acceso ---
+.tienda-acceso {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+
+  &__caja {
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border-radius: var(--vitrina-radio-lg);
+    background: var(--vitrina-fondo);
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+  }
+
+  &__olvide {
+    align-self: flex-end;
+    margin-top: -0.5rem;
+  }
+
+  &__pie {
+    @include vi.chica;
+    margin: 0;
+    text-align: center;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__salir {
+    align-self: center;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__codigo .vitrina-entrada__control,
+  &__codigo.vitrina-entrada__control {
+    @include vi.tabular;
+    font-size: 1.5rem;
+    letter-spacing: 0.4em;
+  }
+}
+
+// --- Confirmación ---
+.tienda-confirmacion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: ds.space("lg");
+  padding-top: ds.space("lg");
+
+  .vitrina-titular {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .vitrina-titular__col {
+    align-items: center;
+  }
+
+  &__check {
+    display: inline-flex;
+    color: var(--vitrina-ok);
+  }
+
+  &__circulo,
+  &__tick {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+
+    @media (prefers-reduced-motion: no-preference) {
+      animation: vitrina-traza 700ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      stroke-dashoffset: 0;
+    }
+  }
+  &__tick {
+    animation-delay: 500ms;
+  }
+
+  &__texto {
+    margin: 0;
+    max-width: 40ch;
+    font-size: var(--ds-font-size-md);
+    line-height: 1.55;
+    color: var(--vitrina-tinta-suave);
+
+    strong {
+      color: var(--vitrina-tinta);
+    }
+  }
+
+  &__acciones {
+    display: flex;
+    gap: ds.space("xs");
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  &__resumen {
+    width: 100%;
+    max-width: 30rem;
+    text-align: left;
+    padding: ds.space("lg");
+    border-radius: var(--vitrina-radio-lg);
+    background: var(--vitrina-fondo);
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+  }
+}

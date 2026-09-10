@@ -1,0 +1,83 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-titular {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: ds.space("md");
+  color: var(--vitrina-tinta);
+
+  &--bloque {
+    color: var(--vitrina-bloque-texto);
+  }
+  &--coral {
+    color: var(--vitrina-coral-tinta);
+  }
+
+  &__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  &__sobre {
+    @include vi.micro;
+    color: var(--vitrina-tinta-suave);
+
+    .vitrina-titular--bloque & {
+      color: var(--vitrina-bloque-suave);
+    }
+    .vitrina-titular--coral & {
+      color: var(--vitrina-coral-tinta);
+    }
+  }
+
+  &__texto {
+    margin: 0;
+    font-family: var(--vitrina-font);
+    color: inherit;
+
+    &--seccion {
+      font-size: var(--ds-font-size-xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    &--pagina {
+      font-size: clamp(1.75rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    // La palabra que grita: mayúsculas condensadas, sin que las letras se
+    // toquen, y del ancho de la pantalla en el teléfono.
+    &--gigante {
+      @include vi.display(700, 75%);
+      font-size: clamp(2.6rem, 12vw, 7rem);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__accion {
+    @include vi.desnudo;
+    @include vi.micro;
+    flex-shrink: 0;
+    padding: 0.5rem 0;
+    color: var(--vitrina-tinta);
+    border-bottom: var(--vitrina-borde) solid transparent;
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      border-bottom-color: currentColor;
+    }
+
+    .vitrina-titular--bloque & {
+      color: var(--vitrina-bloque-texto);
+    }
+  }
+}

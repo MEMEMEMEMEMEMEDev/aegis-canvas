@@ -1,0 +1,61 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: ds.space("sm");
+  padding: clamp(2rem, 6vw, 4rem) 1rem;
+  text-align: center;
+  color: var(--vitrina-tinta);
+
+  &--pantalla {
+    min-height: 60dvh;
+  }
+
+  &__placa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 96px;
+    border-radius: var(--vitrina-radio-lg);
+    background: var(--vitrina-superficie);
+    color: var(--vitrina-tinta);
+    margin-bottom: 0.5rem;
+
+    .vitrina-vacio--error & {
+      background: var(--vitrina-error-velo);
+      color: var(--vitrina-error);
+    }
+  }
+
+  &__404 {
+    @include vi.display(700, 75%);
+    font-size: 2.6rem;
+  }
+
+  &__titulo {
+    margin: 0;
+    font-size: var(--ds-font-size-xl);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  &__texto {
+    margin: 0;
+    max-width: 34ch;
+    color: var(--vitrina-tinta-suave);
+    line-height: 1.55;
+  }
+
+  &__acciones {
+    display: flex;
+    gap: ds.space("xs");
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
+}

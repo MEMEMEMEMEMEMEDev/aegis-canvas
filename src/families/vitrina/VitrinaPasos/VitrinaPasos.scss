@@ -1,0 +1,143 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-pasos {
+  color: var(--vitrina-tinta);
+
+  // --- Teléfono: cifra + nombre + barra ---
+  &__compacto {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+
+    @include ds.up("md") {
+      display: none;
+    }
+  }
+
+  &__cifra {
+    @include vi.micro;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__nombre {
+    font-size: var(--ds-font-size-sm);
+    font-weight: 700;
+    text-align: right;
+  }
+
+  &__barra {
+    grid-column: 1 / -1;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--vitrina-filete);
+    overflow: hidden;
+  }
+
+  &__progreso {
+    display: block;
+    width: var(--p, 0%);
+    height: 100%;
+    background: var(--vitrina-tinta);
+    transition: width 320ms var(--ds-ease-standard);
+  }
+
+  // --- Escritorio: la lista ---
+  &__lista {
+    display: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 0;
+
+    @include ds.up("md") {
+      display: flex;
+    }
+  }
+
+  &__paso {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+
+    // La línea entre pasos.
+    &:not(:last-child)::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      margin: 0 0.75rem;
+      background: var(--vitrina-filete);
+    }
+    &.is-hecho:not(:last-child)::after {
+      background: var(--vitrina-tinta);
+    }
+    &:last-child {
+      flex: 0 0 auto;
+    }
+  }
+
+  &__quieto,
+  &__volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  &__volver {
+    @include vi.desnudo;
+    color: inherit;
+    border-radius: var(--vitrina-radio-pill);
+    padding: 0.2rem 0.4rem 0.2rem 0.2rem;
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      background: var(--vitrina-superficie);
+    }
+  }
+
+  &__num {
+    @include vi.tabular;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--vitrina-tinta-suave);
+    color: var(--vitrina-tinta-suave);
+    font-size: 0.78rem;
+    font-weight: 700;
+
+    .is-hecho & {
+      background: var(--vitrina-tinta);
+      border-color: var(--vitrina-tinta);
+      color: var(--vitrina-fondo);
+    }
+    .is-actual & {
+      border-color: var(--vitrina-tinta);
+      color: var(--vitrina-tinta);
+      box-shadow: 0 0 0 3px var(--vitrina-coral-velo);
+    }
+  }
+
+  &__label {
+    @include vi.chica(600);
+    color: var(--vitrina-tinta-suave);
+
+    .is-actual &,
+    .is-hecho & {
+      color: var(--vitrina-tinta);
+    }
+    .is-actual & {
+      font-weight: 700;
+    }
+  }
+
+  &__sr {
+    @include ds.visually-hidden;
+  }
+}

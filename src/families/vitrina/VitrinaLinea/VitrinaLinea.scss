@@ -1,0 +1,96 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-linea {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.85rem 0;
+  border-bottom: var(--vitrina-borde) solid var(--vitrina-filete);
+  color: var(--vitrina-tinta);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &--compacta {
+    grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+    gap: 0.65rem;
+    padding: 0.6rem 0;
+  }
+
+  &.is-agotada .vitrina-lamina {
+    opacity: 0.5;
+  }
+
+  &__lamina {
+    @include vi.desnudo;
+    display: block;
+    line-height: 0;
+    border-radius: var(--vitrina-radio-sm);
+
+    @include ds.focus-ring;
+  }
+
+  &__cuerpo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+    min-width: 0;
+  }
+
+  &__nombre {
+    @include vi.lineas(2);
+    font-size: var(--ds-font-size-sm);
+    font-weight: 600;
+    line-height: 1.3;
+
+    .vitrina-linea--compacta & {
+      font-size: max(#{vi.$micro-suelo}, var(--ds-font-size-xs));
+    }
+  }
+
+  &__meta {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__cantidad {
+    @include vi.chica;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__controles {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.35rem;
+  }
+
+  &__accion {
+    @include vi.desnudo;
+    @include vi.chica(600);
+    color: var(--vitrina-tinta-suave);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    border-radius: 3px;
+
+    @include ds.focus-ring;
+
+    @include ds.hover {
+      color: var(--vitrina-tinta);
+    }
+  }
+
+  &__precio {
+    text-align: right;
+    white-space: nowrap;
+    padding-top: 0.1rem;
+  }
+}

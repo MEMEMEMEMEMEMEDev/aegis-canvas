@@ -1,0 +1,53 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-precio {
+  @include vi.tabular;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  font-family: var(--vitrina-font);
+  line-height: 1;
+
+  // El precio se lee entero y una sola vez ("12.990 pesos, antes…");
+  // las piezas visuales van aria-hidden.
+  &__sr {
+    @include ds.visually-hidden;
+  }
+
+  &__valor {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--vitrina-tinta);
+
+    .vitrina-precio--coral & {
+      color: var(--vitrina-coral-tinta);
+    }
+  }
+
+  &__antes {
+    @include vi.chica(500);
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__desc {
+    @include vi.chica(700);
+    color: var(--vitrina-coral-tinta);
+  }
+
+  &--sm .vitrina-precio__valor {
+    font-size: var(--ds-font-size-sm);
+  }
+  &--md .vitrina-precio__valor {
+    font-size: var(--ds-font-size-md);
+  }
+  &--lg .vitrina-precio__valor {
+    font-size: var(--ds-font-size-xl);
+  }
+  &--total .vitrina-precio__valor {
+    font-size: var(--ds-font-size-2xl);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+}

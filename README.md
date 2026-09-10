@@ -60,6 +60,7 @@ radios, tipografías y componentes firma. Flujo: `refs/` → incubadora
 | **OBSIDIANA** | galería de esquirlas: vitrina oscura, un solo acento cian, todo corta en diagonal — la familia del ESQUELETO del portafolio | refs/3 | Space Grotesk + Spline Sans Mono |
 | **PLIEGO** | lámina de imprenta japonesa: papel casi blanco, filetes de un pelo, UN rojo-rosa como bloque plano, minúsculas gigantes — y encima la mecánica de un menú de videojuego | refs/10 | Inter Tight (única) |
 | **CALCO** | álbum de calcomanías: neobrutalismo de cartel —tinta gorda, colores planos, sombra dura, stickers, ventanas de OS viejo— manejado como la pantalla de inicio de una consola: losetas, ventana, dock, hoja, SIN scroll de página | refs/11 | Unbounded + Space Grotesk |
+| **VITRINA** | marketplace de barrio grande: blanco de vitrina, gris cálido, UN coral para lo que se toca, láminas de color con pictograma en vez de fotos — y al pagar cambia de voz: titular gigante condensado, inputs de una línea, CTA negro a todo ancho. Trae la tienda completa (`tienda/`) | referencias-portafolio/10-familia-idea | Onest + Instrument Sans (wdth) |
 | *proto* | incubadora vacía (nombre siempre provisional) | — | — |
 
 Imports: `@ahroi/foundation/<familia>` (ver `exports` en package.json).

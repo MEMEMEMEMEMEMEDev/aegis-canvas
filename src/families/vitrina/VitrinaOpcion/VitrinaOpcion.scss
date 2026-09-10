@@ -1,0 +1,237 @@
+@use "../../../abstracts" as ds;
+@use "../vitrina-tools" as vi;
+
+.vitrina-opcion {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 0.6rem 0;
+  cursor: pointer;
+  color: var(--vitrina-tinta);
+
+  &--marco {
+    padding: 0.8rem 0.9rem;
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+    border-radius: var(--vitrina-radio-sm);
+    background: var(--vitrina-fondo);
+    transition: border-color 140ms var(--ds-ease-standard);
+
+    &.is-on {
+      border-color: var(--vitrina-tinta);
+    }
+
+    @include ds.hover {
+      border-color: var(--vitrina-tinta-suave);
+    }
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // El nativo, oculto pero vivo (foco, teclado, formularios).
+  &__nativo {
+    @include ds.visually-hidden;
+  }
+
+  &:has(.vitrina-opcion__nativo:focus-visible) {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--vitrina-radio-sm);
+  }
+
+  // --- El control dibujado ---
+  &__control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--vitrina-tinta-suave);
+    background: var(--vitrina-fondo);
+    color: var(--vitrina-fondo);
+    transition:
+      background-color 120ms var(--ds-ease-standard),
+      border-color 120ms var(--ds-ease-standard);
+
+    svg {
+      opacity: 0;
+      scale: 0.6;
+      transition:
+        opacity 120ms var(--ds-ease-standard),
+        scale 120ms var(--ds-ease-standard);
+    }
+  }
+
+  &--casilla .vitrina-opcion__control {
+    border-radius: 5px;
+  }
+
+  &--radio .vitrina-opcion__control {
+    border-radius: 50%;
+
+    svg {
+      display: none;
+    }
+
+    &::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vitrina-fondo);
+      scale: 0;
+      transition: scale 120ms var(--ds-ease-standard);
+    }
+  }
+
+  &.is-on .vitrina-opcion__control {
+    background: var(--vitrina-tinta);
+    border-color: var(--vitrina-tinta);
+
+    svg {
+      opacity: 1;
+      scale: 1;
+    }
+    &::after {
+      scale: 1;
+    }
+  }
+
+  // --- Texto y adornos ---
+  &__icono {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: var(--vitrina-tinta);
+    line-height: 0;
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  &__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__label {
+    font-size: var(--ds-font-size-sm);
+    font-weight: 600;
+  }
+
+  &__detalle {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__derecha {
+    @include vi.tabular;
+    flex-shrink: 0;
+    font-size: var(--ds-font-size-sm);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  // --- El interruptor ---
+  &__perilla {
+    position: relative;
+    flex-shrink: 0;
+    width: 44px;
+    height: 26px;
+    border-radius: 13px;
+    background: var(--vitrina-filete);
+    transition: background-color 160ms var(--ds-ease-standard);
+  }
+
+  &__perilla-bola {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--vitrina-fondo);
+    box-shadow: 0 1px 3px rgb(20 20 19 / 0.25);
+    transition: translate 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &.is-on .vitrina-opcion__perilla {
+    background: var(--vitrina-tinta);
+  }
+  &.is-on .vitrina-opcion__perilla-bola {
+    translate: 18px 0;
+  }
+}
+
+// --- El grupo ---
+.vitrina-opcion-grupo {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  &__leyenda {
+    @include vi.micro;
+    padding: 0;
+    margin-bottom: 0.2rem;
+    color: var(--vitrina-tinta);
+  }
+
+  &__hint,
+  &__error {
+    @include vi.chica;
+    margin: 0;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__error {
+    color: var(--vitrina-error);
+    font-weight: 600;
+  }
+
+  &__filas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  // Pegadas: una lista de filas con un solo marco.
+  &--pegadas .vitrina-opcion-grupo__filas {
+    gap: 0;
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+    border-radius: var(--vitrina-radio-sm);
+    overflow: hidden;
+
+    .vitrina-opcion--marco {
+      border: 0;
+      border-radius: 0;
+      border-bottom: var(--vitrina-borde) solid var(--vitrina-filete);
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      &.is-on {
+        background: var(--vitrina-superficie);
+      }
+    }
+  }
+
+  &.is-invalid.vitrina-opcion-grupo--pegadas .vitrina-opcion-grupo__filas {
+    border-color: var(--vitrina-error);
+  }
+}

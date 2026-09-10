@@ -1,0 +1,88 @@
+@use "../vitrina-tools" as vi;
+
+.vitrina-hueso {
+  @include vi.hueso;
+  display: block;
+
+  &--linea {
+    height: 0.8rem;
+    width: 100%;
+  }
+
+  &--bloque {
+    height: 44px;
+    width: 100%;
+  }
+
+  &--circulo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  &--lamina {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--vitrina-radio);
+  }
+}
+
+.vitrina-hueso-lineas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.vitrina-hueso-grupo {
+  display: contents;
+}
+
+.vitrina-hueso-tarjeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.6rem;
+  border: var(--vitrina-borde) solid var(--vitrina-filete);
+  border-radius: var(--vitrina-radio);
+  background: var(--vitrina-fondo);
+
+  &__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 0.25rem 0.25rem;
+  }
+
+  &--horizontal {
+    flex-direction: row;
+    align-items: center;
+
+    .vitrina-hueso--lamina {
+      flex: 0 0 38%;
+      aspect-ratio: 1;
+    }
+    .vitrina-hueso-tarjeta__cuerpo {
+      flex: 1;
+    }
+  }
+}
+
+.vitrina-hueso-linea {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+  gap: 0.85rem;
+  align-items: start;
+  padding: 0.85rem 0;
+  border-bottom: var(--vitrina-borde) solid var(--vitrina-filete);
+
+  .vitrina-hueso--lamina {
+    aspect-ratio: 1;
+  }
+
+  &__cuerpo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+}

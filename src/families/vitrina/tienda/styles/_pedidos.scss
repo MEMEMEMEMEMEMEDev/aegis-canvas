@@ -1,0 +1,185 @@
+@use "../../../../abstracts" as ds;
+@use "../../vitrina-tools" as vi;
+
+// Mis compras, un pedido, direcciones, medios de pago y preferencias.
+
+// --- Mis compras ---
+.tienda-compras {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("md");
+}
+
+.tienda-pedidos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("sm");
+}
+
+.tienda-pedido-item {
+  @include vi.tarjeta;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+
+  &__cab {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+  }
+  &__numero {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  &__fecha {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+  }
+  &__laminas {
+    display: flex;
+    gap: 0.4rem;
+
+    .vitrina-lamina {
+      width: 3.5rem;
+    }
+  }
+  &__pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  &__resumen {
+    @include vi.chica;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    color: var(--vitrina-tinta-suave);
+  }
+}
+
+// --- Un pedido ---
+.tienda-pedido {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("lg");
+
+  &__cab {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: ds.space("xl");
+    align-items: start;
+
+    @include ds.up("lg") {
+      grid-template-columns: minmax(16rem, 1fr) minmax(0, 1.6fr);
+    }
+  }
+
+  &__bloque {
+    display: flex;
+    flex-direction: column;
+    gap: ds.space("md");
+    padding: ds.space("lg");
+    border-radius: var(--vitrina-radio-lg);
+    background: var(--vitrina-fondo);
+    border: var(--vitrina-borde) solid var(--vitrina-filete);
+  }
+
+  &__acciones {
+    display: flex;
+    gap: ds.space("xs");
+    flex-wrap: wrap;
+  }
+}
+
+// --- Direcciones y pagos ---
+.tienda-lista {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: ds.space("md");
+
+  &__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: ds.space("sm");
+    width: 100%;
+
+    @include ds.up("md") {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+.tienda-card-datos {
+  @include vi.tarjeta;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+
+  &__cab {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  &__titulo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+  }
+  &__texto {
+    @include vi.chica;
+    margin: 0;
+    line-height: 1.55;
+    color: var(--vitrina-tinta-suave);
+  }
+  &__acciones {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+  }
+
+  &--tarjeta {
+    background: var(--vitrina-superficie);
+    border-left: 4px solid var(--vitrina-tinta);
+  }
+  &--mastercard {
+    border-left-color: var(--vitrina-coral);
+  }
+  &--amex {
+    border-left-color: var(--vitrina-ok);
+  }
+}
+
+.tienda-preferencias {
+  display: flex;
+  flex-direction: column;
+  gap: ds.space("xl");
+  max-width: 40rem;
+}

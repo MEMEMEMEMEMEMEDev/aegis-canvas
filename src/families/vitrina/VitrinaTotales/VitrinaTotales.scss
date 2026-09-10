@@ -1,0 +1,71 @@
+@use "../vitrina-tools" as vi;
+
+.vitrina-totales {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--vitrina-tinta);
+
+  &__cupon {
+    padding-bottom: 0.75rem;
+    border-bottom: var(--vitrina-borde) solid var(--vitrina-filete);
+  }
+
+  &__lista {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__fila {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: var(--vitrina-borde) solid var(--vitrina-filete);
+    font-size: var(--ds-font-size-sm);
+
+    dt {
+      color: var(--vitrina-tinta-suave);
+    }
+    dd {
+      @include vi.tabular;
+      margin: 0;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.2rem;
+    }
+
+    &--descuento dd,
+    &--descuento .vitrina-precio__valor {
+      color: var(--vitrina-ok);
+    }
+
+    &--total {
+      border-bottom: 0;
+      padding-top: 0.9rem;
+      dt {
+        font-size: var(--ds-font-size-md);
+        font-weight: 700;
+        color: var(--vitrina-tinta);
+      }
+    }
+  }
+
+  &__gratis {
+    font-weight: 700;
+    color: var(--vitrina-ok);
+  }
+
+  &__pendiente {
+    @include vi.chica;
+    color: var(--vitrina-tinta-suave);
+  }
+
+  &__nota {
+    @include vi.chica;
+    margin: 0;
+    color: var(--vitrina-tinta-suave);
+  }
+}
