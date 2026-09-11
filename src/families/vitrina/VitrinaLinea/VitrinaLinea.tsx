@@ -15,7 +15,8 @@ export interface VitrinaLineaDatos {
   vendedor?: string;
   precioUnitario: number;
   cantidad: number;
-  lamina: { picto: PictoCategoriaName; matiz: string };
+  /** `foto` es opcional: sin ella, la lámina de siempre (picto+color). */
+  lamina: { picto: PictoCategoriaName; matiz: string; foto?: string };
   /** Stock: tope de la cantidad. */
   max?: number;
   agotado?: boolean;
@@ -47,7 +48,7 @@ export default function VitrinaLinea({ linea, modo = "editable", onCantidad, onQ
   return (
     <div className={cx("vitrina-linea", `vitrina-linea--${modo}`, l.agotado && "is-agotada", className)}>
       <button type="button" className="vitrina-linea__lamina" onClick={() => onAbrir?.(l.id)} tabIndex={onAbrir ? 0 : -1} aria-label={onAbrir ? `Ver ${l.nombre}` : undefined} aria-hidden={onAbrir ? undefined : true}>
-        <VitrinaLamina picto={l.lamina.picto} matiz={l.lamina.matiz} tamano="mini" />
+        <VitrinaLamina picto={l.lamina.picto} matiz={l.lamina.matiz} foto={l.lamina.foto} tamano="mini" />
       </button>
 
       <div className="vitrina-linea__cuerpo">
