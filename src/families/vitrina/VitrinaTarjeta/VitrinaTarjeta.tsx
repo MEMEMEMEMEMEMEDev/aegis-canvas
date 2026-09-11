@@ -23,7 +23,8 @@ export interface VitrinaTarjetaProducto {
   /** Texto corto bajo el nombre en la horizontal ("Cancelación de ruido líder"). */
   resumen?: string;
   sellos?: Array<{ tono: VitrinaSelloTono; texto: string }>;
-  lamina: { picto: PictoCategoriaName; matiz: string };
+  /** `foto` es opcional: sin ella, la lámina de siempre (picto+color). */
+  lamina: { picto: PictoCategoriaName; matiz: string; foto?: string };
   agotado?: boolean;
 }
 
@@ -63,7 +64,7 @@ export default function VitrinaTarjeta({ producto, favorito = false, onFavorito,
     >
       <div className="vitrina-tarjeta__visual">
         <button type="button" className="vitrina-tarjeta__abrir" onClick={() => onAbrir?.(p.id)} tabIndex={-1} aria-hidden="true">
-          <VitrinaLamina ref={lamina} picto={p.lamina.picto} matiz={p.lamina.matiz} ratio={variante === "horizontal" ? "1" : "4/5"} />
+          <VitrinaLamina ref={lamina} picto={p.lamina.picto} matiz={p.lamina.matiz} foto={p.lamina.foto} ratio={variante === "horizontal" ? "1" : "4/5"} />
         </button>
 
         {(p.sellos?.length || agotado) && (

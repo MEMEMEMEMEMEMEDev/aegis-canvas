@@ -18,6 +18,14 @@
     border-radius: var(--vitrina-radio-lg);
   }
 
+  &__foto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   &__etiqueta {
     @include vi.chica(600);
     position: absolute;
