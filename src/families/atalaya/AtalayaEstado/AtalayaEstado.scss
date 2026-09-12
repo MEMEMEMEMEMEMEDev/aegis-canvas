@@ -1,0 +1,69 @@
+@use "../atalaya-tools" as at;
+
+.atalaya-estado {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.atalaya-estado__marca {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  translate: 0 -1px;
+  background: currentColor;
+}
+
+// Sólo para lectores de pantalla: la marca es color y textura, y ninguna
+// de las dos cosas se lee en voz alta.
+.atalaya-estado__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.atalaya-estado__texto {
+  color: var(--atalaya-tinta);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.atalaya-estado--bien { color: var(--atalaya-bien); }
+.atalaya-estado--mal { color: var(--atalaya-mal); }
+.atalaya-estado--aviso { color: var(--atalaya-aviso); }
+
+// El cuarto: neutro apagado y TRAMA. Cuadrado y no círculo, para que se
+// distinga de los otros tres incluso en blanco y negro.
+.atalaya-estado--sinver {
+  color: var(--atalaya-sinver);
+
+  .atalaya-estado__marca {
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--atalaya-trama);
+    box-shadow: inset 0 0 0 1px currentColor;
+  }
+}
+
+// La pastilla: cuando la marca va sola, sin fila alrededor que le dé
+// contexto, el estado se dice con la palabra además del color.
+.atalaya-estado--pastilla {
+  align-items: center;
+  gap: 0.4rem;
+  border: var(--atalaya-linea) solid currentColor;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  .atalaya-estado__texto { color: currentColor; }
+  .atalaya-estado__marca { translate: 0; }
+}

@@ -1,0 +1,84 @@
+@use "../atalaya-tools" as at;
+
+.atalaya-fila {
+  @include at.foco;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.2rem 1rem;
+  align-items: baseline;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-bottom: var(--atalaya-linea) solid var(--atalaya-borde);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  text-decoration: none;
+
+  &:last-child { border-bottom: 0; }
+}
+
+.atalaya-fila--toca {
+  cursor: pointer;
+  transition: background-color 120ms ease;
+
+  &:hover { background: var(--atalaya-hundido); }
+}
+
+.atalaya-fila__cabeza {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.atalaya-fila__titulo {
+  font-weight: 500;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.atalaya-fila__fin {
+  @include at.dato;
+
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.8125rem;
+  color: var(--atalaya-tenue);
+  text-align: end;
+  white-space: nowrap;
+}
+
+.atalaya-fila__sub {
+  @include at.dato;
+
+  grid-column: 1;
+  font-size: 0.8125rem;
+  color: var(--atalaya-tenue);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+// El porqué, a ancho completo y sangrado hasta debajo del título: cuelga
+// visiblemente de la fila a la que pertenece.
+.atalaya-fila__porque {
+  grid-column: 1 / -1;
+  padding-inline-start: 1rem;
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--atalaya-tenue);
+  text-wrap: pretty;
+}
+
+// En pantalla angosta la columna de la derecha no se aprieta: baja.
+@media (max-width: 30rem) {
+  .atalaya-fila { grid-template-columns: minmax(0, 1fr); }
+
+  .atalaya-fila__fin {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: start;
+  }
+}

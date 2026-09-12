@@ -1,0 +1,108 @@
+// =============================================================================
+// ATALAYA — familia "consola de operación": la piel neutra del producto.
+//
+// Es la primera familia de este repo que NO busca una estética. Las otras
+// doce visten un portafolio y compiten por ser recordadas; ésta viste un
+// tablero que alguien mira a las tres de la mañana para saber si algo se
+// cayó. El mérito acá es que no se note.
+//
+// Referencia declarada: los tableros de operación modernos (Vercel para la
+// forma —lista de proyectos, detalle con pestañas— y la densidad de Linear
+// para las filas). Neutros casi sin color, un acento usado poco, escala
+// tipográfica corta, bordes de un pelo, cero decoración.
+//
+// ── LA LEY DE LA FAMILIA ────────────────────────────────────────────────
+// El acento NUNCA significa estado, y ningún estado usa el acento.
+//
+// Es la única regla rara de acá y tiene un porqué medido: aegis reporta
+// CUATRO salidas (hecho / mal / no pude mirar / uso inválido), y un tablero
+// donde el azul de "clic acá" convive con el verde de "esto está bien"
+// enseña a leer el color como decoración. Acá el acento vive sólo en lo que
+// se toca, y el estado vive sólo en los cuatro colores semánticos.
+//
+// ── Y EL CUARTO ESTADO NO TIENE COLOR ───────────────────────────────────
+// «No pude mirar» es la salida que casi ninguna herramienta tiene, y por eso
+// termina disfrazada de verde: nadie investiga un verde. Acá no pide prestado
+// ningún color — se dibuja con TRAMA sobre el neutro apagado. Un ojo que
+// recorre la pantalla lo encuentra por la textura, no por el tono, que es
+// exactamente lo que hace falta cuando el rojo y el verde ya están tomados.
+//
+// Fuentes: Geist + Geist Mono (OFL), con caída a la pila del sistema. Si no
+// cargan, la familia sigue siendo legible: no hay ninguna decisión de diseño
+// colgando de la tipografía.
+//
+// Isla propia → mini-contrato en .atalaya-scope (no toca :root).
+// =============================================================================
+
+.atalaya-scope {
+  // --- Mini-contrato de la familia ---
+  // Neutros con sesgo frío-verde apenas perceptible: un gris puro se lee
+  // como gris sin elegir, y este producto es infraestructura, no papel.
+  --atalaya-lienzo: #fbfbfa;      // el fondo de la página
+  --atalaya-panel: #ffffff;       // superficie elevada
+  --atalaya-hundido: #f4f5f4;     // pozos: inputs, celdas de código
+  --atalaya-tinta: #16181a;       // texto principal
+  --atalaya-tenue: #6a736e;       // texto secundario, rótulos
+  --atalaya-borde: rgb(22 24 26 / 0.11);
+  --atalaya-borde-firme: rgb(22 24 26 / 0.22);
+
+  // El acento: SÓLO lo que se toca. Violeta-índigo y no azul, porque el
+  // azul de tablero ya es el color de "info" en media industria y volvería
+  // a confundir acento con estado.
+  --atalaya-acento: #4f46e5;
+  --atalaya-acento-suave: rgb(79 70 229 / 0.10);
+
+  // Los cuatro. Ninguno es el acento, y el cuarto no es un color.
+  --atalaya-bien: #17794c;
+  --atalaya-mal: #c4362b;
+  --atalaya-aviso: #9a6a10;
+  --atalaya-sinver: var(--atalaya-tenue);
+  --atalaya-trama: repeating-linear-gradient(
+    -45deg,
+    currentColor 0 1.5px,
+    transparent 1.5px 5px
+  );
+
+  --atalaya-radio: 8px;
+  --atalaya-radio-lg: 12px;
+  --atalaya-linea: 1px;
+  // Sombra de un pelo, casi invisible: separa el panel del lienzo sin
+  // convertir cada bloque en una tarjeta flotante.
+  --atalaya-sombra: 0 1px 2px rgb(22 24 26 / 0.05);
+
+  --atalaya-font: "Geist", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --atalaya-font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo,
+    "Cascadia Mono", monospace;
+
+  --ds-focus-ring: var(--atalaya-acento);
+
+  background: var(--atalaya-lienzo);
+  color: var(--atalaya-tinta);
+  font-family: var(--atalaya-font);
+  font-size: 14px;
+  line-height: 1.5;
+  // Los números de un tablero se leen en columna: si no se alinean, el ojo
+  // tiene que leerlos de a uno.
+  font-variant-numeric: tabular-nums;
+}
+
+// Retema oscuro: se redefinen los MISMOS tokens, nunca un color suelto
+// dentro del bloque. El neutro oscuro conserva el sesgo frío-verde y los
+// cuatro estados suben de luminosidad para seguir contrastando.
+.atalaya-scope--oscuro,
+.atalaya-scope[data-tema="oscuro"] {
+  --atalaya-lienzo: #0c0d0c;
+  --atalaya-panel: #151716;
+  --atalaya-hundido: #1c1f1d;
+  --atalaya-tinta: #e8eae9;
+  --atalaya-tenue: #949c97;
+  --atalaya-borde: rgb(232 234 233 / 0.12);
+  --atalaya-borde-firme: rgb(232 234 233 / 0.24);
+  --atalaya-acento: #8b83ff;
+  --atalaya-acento-suave: rgb(139 131 255 / 0.14);
+  --atalaya-bien: #3fae78;
+  --atalaya-mal: #e8695c;
+  --atalaya-aviso: #d3a13c;
+  --atalaya-sombra: 0 1px 2px rgb(0 0 0 / 0.4);
+}

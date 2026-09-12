@@ -1,0 +1,68 @@
+@use "../atalaya-tools" as at;
+
+.atalaya-metrica {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.atalaya-metrica__rotulo { @include at.rotulo; }
+
+.atalaya-metrica__cifra {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.atalaya-metrica__valor {
+  @include at.dato;
+
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.atalaya-metrica__unidad {
+  font-size: 0.8125rem;
+  color: var(--atalaya-tenue);
+}
+
+.atalaya-metrica__delta {
+  @include at.dato;
+
+  font-size: 0.75rem;
+  color: var(--atalaya-tenue);
+}
+
+// El sentido lo declara quien usa la pieza, porque no se deduce: más
+// peticiones es una cosa y más errores es otra.
+.atalaya-metrica__delta--mejor { color: var(--atalaya-bien); }
+.atalaya-metrica__delta--peor { color: var(--atalaya-mal); }
+
+.atalaya-metrica__chispa {
+  display: block;
+  height: 32px;
+  margin-top: 0.15rem;
+}
+
+// La ausencia de medida se dibuja como el cuarto estado: trama, nunca un
+// cero y nunca un guion que se pueda leer como «vacío».
+.atalaya-metrica__nada {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9375rem;
+  color: var(--atalaya-sinver);
+
+  &::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--atalaya-trama);
+    box-shadow: inset 0 0 0 1px currentColor;
+  }
+}

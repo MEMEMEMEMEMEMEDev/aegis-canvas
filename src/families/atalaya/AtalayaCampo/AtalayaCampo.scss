@@ -1,0 +1,68 @@
+@use "../atalaya-tools" as at;
+
+.atalaya-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.atalaya-campo__etiqueta {
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.atalaya-campo__caja {
+  display: flex;
+  align-items: stretch;
+  border: var(--atalaya-linea) solid var(--atalaya-borde-firme);
+  border-radius: var(--atalaya-radio);
+  background: var(--atalaya-panel);
+  overflow: hidden;
+
+  &:focus-within {
+    border-color: var(--atalaya-acento);
+    box-shadow: 0 0 0 3px var(--atalaya-acento-suave);
+  }
+}
+
+.atalaya-campo__input {
+  @include at.dato;
+
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 38px;
+  padding: 0.45rem 0.7rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 0.875rem;
+
+  &:focus { outline: none; }
+}
+
+.atalaya-campo__sufijo {
+  @include at.dato;
+
+  display: flex;
+  align-items: center;
+  padding-inline: 0.7rem;
+  border-inline-start: var(--atalaya-linea) solid var(--atalaya-borde);
+  background: var(--atalaya-hundido);
+  font-size: 0.8125rem;
+  color: var(--atalaya-tenue);
+  white-space: nowrap;
+}
+
+.atalaya-campo__pie {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--atalaya-tenue);
+  text-wrap: pretty;
+}
+
+.atalaya-campo--mal {
+  .atalaya-campo__caja { border-color: var(--atalaya-mal); }
+  .atalaya-campo__caja:focus-within { box-shadow: 0 0 0 3px rgb(196 54 43 / 0.14); }
+  .atalaya-campo__pie { color: var(--atalaya-mal); }
+}

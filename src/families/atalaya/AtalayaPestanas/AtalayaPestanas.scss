@@ -1,0 +1,68 @@
+@use "../atalaya-tools" as at;
+
+.atalaya-pestanas {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: var(--atalaya-linea) solid var(--atalaya-borde);
+  // En angosto el juego de pestañas se desliza en vez de apilarse: apiladas
+  // empujan el contenido fuera de la primera pantalla, que es justo lo que
+  // alguien mirando desde el teléfono necesita ver.
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.atalaya-pestanas__una {
+  @include at.foco;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: none;
+  min-height: 38px;
+  padding: 0.4rem 0.7rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  color: var(--atalaya-tenue);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease;
+
+  &:hover { color: var(--atalaya-tinta); }
+}
+
+// El subrayado va del color del ACENTO, no de un estado: dice «acá estás»,
+// que es una propiedad de la navegación y no del sistema.
+.atalaya-pestanas__una--activa {
+  color: var(--atalaya-tinta);
+  border-bottom-color: var(--atalaya-acento);
+}
+
+.atalaya-pestanas__cuenta {
+  @include at.dato;
+
+  padding: 0.05rem 0.35rem;
+  border-radius: 999px;
+  background: var(--atalaya-hundido);
+  font-size: 0.6875rem;
+  color: var(--atalaya-tenue);
+}
+
+.atalaya-pestanas__alerta {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.atalaya-pestanas__alerta--mal { background: var(--atalaya-mal); }
+.atalaya-pestanas__alerta--aviso { background: var(--atalaya-aviso); }
+.atalaya-pestanas__alerta--sinver {
+  border-radius: 1px;
+  color: var(--atalaya-sinver);
+  background: var(--atalaya-trama);
+  box-shadow: inset 0 0 0 1px currentColor;
+}
