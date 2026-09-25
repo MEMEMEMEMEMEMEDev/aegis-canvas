@@ -1,0 +1,92 @@
+@use "../pliego-tools" as pl;
+
+.pliego-subtitulos {
+  --sub-tinta: var(--pliego-tinta);
+  --sub-suave: var(--pliego-tinta-suave);
+  --sub-fondo: var(--pliego-hoja);
+  --sub-tam: clamp(1.35rem, 2.6vw, 2rem);
+
+  display: grid;
+  align-content: end;
+  gap: 0.35em;
+  padding: 1rem 1.25rem;
+  background: var(--sub-fondo);
+  border-left: 6px solid var(--pliego-rosa);
+  color: var(--sub-tinta);
+  font-family: var(--pliego-font);
+  font-size: var(--sub-tam);
+  font-weight: 600;
+  line-height: 1.28;
+  // Las palabras largas del alemán técnico o una URL dicha en voz alta no
+  // pueden romper la caja de una pantalla de teléfono.
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.pliego-subtitulos--normal {
+  --sub-tam: clamp(1.05rem, 1.8vw, 1.35rem);
+}
+.pliego-subtitulos--enorme {
+  --sub-tam: clamp(1.8rem, 4.4vw, 3.4rem);
+}
+
+.pliego-subtitulos__registro {
+  display: grid;
+  gap: 0.35em;
+}
+
+.pliego-subtitulos__linea {
+  margin: 0;
+  color: var(--sub-suave);
+  max-width: 42ch;
+}
+
+.pliego-subtitulos__linea--ultima {
+  color: var(--sub-tinta);
+}
+
+// La frase que todavía se está diciendo: el mismo cuerpo, sin peso, con la
+// marca del rosa a la izquierda. Se lee como "esto puede cambiar".
+.pliego-subtitulos__linea--provisional {
+  color: var(--sub-tinta);
+  font-weight: 400;
+  padding-left: 0.5em;
+  border-left: 2px dashed var(--pliego-rosa);
+}
+
+.pliego-subtitulos__vacio {
+  @include pl.micro;
+  margin: 0;
+  color: var(--sub-suave);
+}
+
+.pliego-subtitulos--tinta {
+  --sub-tinta: #ffffff;
+  --sub-suave: #c9c9cf; // 11:1 sobre la tinta
+  --sub-fondo: var(--pliego-tinta);
+}
+
+// El overlay de OBS: sin fondo propio (el video es el fondo), letra blanca
+// con contorno y sombra oscura, que es lo único que se lee sobre cualquier
+// imagen. Sin la barra rosa: en un stream ajeno, la marca sobra.
+.pliego-subtitulos--transparente {
+  --sub-tinta: #ffffff;
+  --sub-suave: #f1f1f1;
+  --sub-fondo: transparent;
+  border-left: 0;
+  text-shadow:
+    0 0 3px #000,
+    0 0 3px #000,
+    0 2px 6px rgb(0 0 0 / 0.8);
+  -webkit-text-stroke: 0.6px rgb(0 0 0 / 0.7);
+
+  .pliego-subtitulos__linea {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-subtitulos__linea--ultima {
+    animation: pliego-sube 0.28s ease-out both;
+  }
+}

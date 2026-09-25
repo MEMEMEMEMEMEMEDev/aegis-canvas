@@ -69,3 +69,22 @@ export type { PliegoCargaProps } from "./PliegoCarga/PliegoCarga";
 
 export { default as PliegoAviso } from "./PliegoAviso/PliegoAviso";
 export type { PliegoAvisoProps } from "./PliegoAviso/PliegoAviso";
+
+// --- La sala en vivo (conf, 2026-09-25) -------------------------------------
+//
+// Cuatro piezas que nacieron para conf.aaroidev.com —subtítulos y traducción
+// en vivo para conferencias— y que valen fuera de ella: una región de texto
+// que se lee en voz alta sin ruido, un campo, una tabla de operación y la
+// marca de estado con su cuarto estado sin color.
+
+export { default as PliegoSubtitulos } from "./PliegoSubtitulos/PliegoSubtitulos";
+export type { PliegoSubtitulosProps, PliegoSubtituloLinea } from "./PliegoSubtitulos/PliegoSubtitulos";
+
+export { default as PliegoCampo } from "./PliegoCampo/PliegoCampo";
+export type { PliegoCampoProps } from "./PliegoCampo/PliegoCampo";
+
+export { default as PliegoEstado } from "./PliegoEstado/PliegoEstado";
+export type { PliegoEstadoProps, PliegoEstadoTipo } from "./PliegoEstado/PliegoEstado";
+
+export { default as PliegoTabla } from "./PliegoTabla/PliegoTabla";
+export type { PliegoTablaProps, PliegoTablaColumna, PliegoTablaFila } from "./PliegoTabla/PliegoTabla";

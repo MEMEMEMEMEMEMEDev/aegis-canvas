@@ -1,0 +1,54 @@
+@use "../pliego-tools" as pl;
+
+.pliego-campo {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.pliego-campo__etiqueta {
+  @include pl.micro;
+  color: var(--pliego-tinta);
+}
+
+.pliego-campo__input {
+  font: inherit;
+  font-family: var(--pliego-font);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--pliego-tinta);
+  background: var(--pliego-hoja);
+  border: 0;
+  border-bottom: 2px solid var(--pliego-tinta);
+  border-radius: var(--pliego-radio);
+  padding: 0.6rem 0.7rem;
+  min-height: 2.75rem; // 44 px: blanco táctil
+  width: 100%;
+
+  &::placeholder {
+    color: var(--pliego-tinta-suave);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+// En tinta y no en tinta suave: el campo vive sobre el PAPEL (#ececea),
+// donde la suave da 4,47:1 —axe lo midió— y queda bajo el mínimo de 4,5.
+.pliego-campo__pie {
+  margin: 0;
+  font-size: max(#{pl.$micro-suelo}, 0.85rem);
+  color: var(--pliego-tinta);
+}
+
+.pliego-campo--mal {
+  .pliego-campo__input {
+    border-bottom-color: var(--pliego-rosa-tinta);
+  }
+  .pliego-campo__pie {
+    color: var(--pliego-rosa-tinta);
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,11 @@
+@ahroi/foundation (aegis-canvas)
+Copyright 2026 Marcelo Huenchupan
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The fonts under src/fonts/ are NOT covered by that license: each folder
+carries its own (SIL Open Font License 1.1 or Apache 2.0) next to the
+WOFF2 files, and they travel with them.
+
+refs/ holds third-party visual references and is not part of this
+repository (only its README is tracked).

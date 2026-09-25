@@ -1,0 +1,64 @@
+@use "../pliego-tools" as pl;
+
+.pliego-tabla {
+  overflow-x: auto;
+  background: var(--pliego-hoja);
+  border-top: 2px solid var(--pliego-tinta);
+
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.pliego-tabla__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--pliego-font);
+  font-size: 0.95rem;
+  color: var(--pliego-tinta);
+}
+
+.pliego-tabla__titulo {
+  @include pl.micro;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  color: var(--pliego-tinta);
+}
+
+.pliego-tabla thead th {
+  @include pl.micro;
+  color: var(--pliego-tinta-suave);
+  text-align: left;
+  font-weight: 600;
+  padding: 0.45rem 0.75rem;
+  border-bottom: var(--pliego-filete) solid var(--pliego-tinta);
+  white-space: nowrap;
+}
+
+.pliego-tabla tbody th,
+.pliego-tabla tbody td {
+  padding: 0.7rem 0.75rem;
+  border-bottom: var(--pliego-filete) solid rgb(22 22 26 / 0.18);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.pliego-tabla tbody th {
+  font-weight: 700;
+}
+
+.pliego-tabla .pliego-tabla__der {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pliego-tabla__fila--marcada {
+  background: rgb(253 53 100 / 0.08);
+  box-shadow: inset 4px 0 0 var(--pliego-rosa);
+}
+
+.pliego-tabla__vacio {
+  color: var(--pliego-tinta-suave);
+  text-align: center;
+}

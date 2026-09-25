@@ -1,0 +1,46 @@
+@use "../pliego-tools" as pl;
+
+.pliego-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--pliego-tinta);
+}
+
+.pliego-estado__marca {
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1.5px solid var(--pliego-tinta);
+}
+
+.pliego-estado--bien .pliego-estado__marca {
+  background: var(--pliego-tinta);
+}
+.pliego-estado--mal .pliego-estado__marca {
+  background: var(--pliego-rosa);
+  border-color: var(--pliego-rosa-hondo);
+}
+.pliego-estado--mal .pliego-estado__texto {
+  color: var(--pliego-rosa-tinta);
+  font-weight: 600;
+}
+.pliego-estado--aviso .pliego-estado__marca {
+  background: var(--pliego-hoja);
+}
+.pliego-estado--sinver .pliego-estado__marca {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--pliego-tinta) 0 1.5px,
+    var(--pliego-hoja) 1.5px 4px
+  );
+}
+
+.pliego-estado__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
