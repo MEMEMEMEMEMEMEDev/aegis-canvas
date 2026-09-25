@@ -34,7 +34,9 @@
   --pliego-papel: #ececea; // el campo del pliego (fondo de página)
   --pliego-hoja: #ffffff; // la hoja blanca: paneles, tarjetas, cajas
   --pliego-tinta: #16161a; // negro de imprenta, apenas azulado
-  --pliego-tinta-suave: #6b6b72; // 5,3:1 sobre hoja — letra pequeña legal
+  // 5,7:1 sobre hoja y 4,8:1 sobre el papel. Era #6b6b72: 5,3 sobre hoja
+  // pero 4,47 sobre el papel, bajo el mínimo — axe lo midió en conf (25-09).
+  --pliego-tinta-suave: #66666d;
   --pliego-rosa: #fd3564; // el rojo-rosa: RELLENO, nunca texto pequeño
   --pliego-rosa-tinta: #d20f42; // el mismo rojo cuando ES texto (5,4:1)
   --pliego-rosa-hondo: #b60c38; // hundido: pulsado, sombra de bloque
