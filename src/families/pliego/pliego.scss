@@ -122,6 +122,22 @@
   }
 }
 
+// Una cifra que cambia salta: sube desde abajo, se pasa un poco y se asienta.
+// La usan el voto de una pregunta y la cuenta de una pestaña.
+@keyframes pliego-cifra-salta {
+  0% {
+    translate: 0 0.5rem;
+    opacity: 0;
+  }
+  60% {
+    translate: 0 -0.15rem;
+    opacity: 1;
+  }
+  100% {
+    translate: 0 0;
+  }
+}
+
 .pliego-entra {
   --pliego-i: 0;
   --pliego-paso: 55ms;

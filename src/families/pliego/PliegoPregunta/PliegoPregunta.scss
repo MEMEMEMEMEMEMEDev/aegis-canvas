@@ -49,19 +49,6 @@
   letter-spacing: 0;
 }
 
-@keyframes pliego-cifra-salta {
-  0% {
-    translate: 0 0.5rem;
-    opacity: 0;
-  }
-  60% {
-    translate: 0 -0.15rem;
-    opacity: 1;
-  }
-  100% {
-    translate: 0 0;
-  }
-}
 
 @media (prefers-reduced-motion: no-preference) {
   .pliego-pregunta__cifra {

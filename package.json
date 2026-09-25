@@ -1,6 +1,6 @@
 {
   "name": "@ahroi/foundation",
-  "version": "0.12.2",
+  "version": "0.13.0",
   "description": "Design system v2 (reconstrucción desde cero): tokens SCSS + theming por CSS vars (--ds-*), primitivos universales y familias de componentes. Consumible por cualquier app.",
   "license": "Apache-2.0",
   "publishConfig": {

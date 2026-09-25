@@ -117,3 +117,6 @@ export type {
 
 export { default as PliegoPregunta } from "./PliegoPregunta/PliegoPregunta";
 export type { PliegoPreguntaProps } from "./PliegoPregunta/PliegoPregunta";
+
+export { default as PliegoPestanas, idsPestana } from "./PliegoPestanas/PliegoPestanas";
+export type { PliegoPestanasProps, PliegoPestana } from "./PliegoPestanas/PliegoPestanas";

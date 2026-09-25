@@ -1,0 +1,72 @@
+@use "../pliego-tools" as pl;
+
+.pliego-pestanas {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  border-bottom: var(--pliego-filete) solid var(--pliego-tinta);
+}
+
+.pliego-pestanas__una {
+  @include pl.micro;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.4rem 0.1rem;
+  border: 0;
+  background: none;
+  color: var(--pliego-tinta-suave);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--pliego-tinta);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.pliego-pestanas__una--activa {
+  color: var(--pliego-tinta);
+}
+
+// La raya: un bloque rosa de 4 px bajo la activa, que viaja de una a otra.
+.pliego-pestanas__raya {
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 4px;
+  width: var(--pliego-raya-w, 0);
+  translate: var(--pliego-raya-x, 0) 0;
+  background: var(--pliego-rosa);
+}
+
+.pliego-pestanas__cuenta {
+  min-width: 1.5rem;
+  padding: 0.05rem 0.35rem;
+  background: var(--pliego-tinta);
+  color: var(--pliego-hoja);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+.pliego-pestanas__cuenta--urgente {
+  background: var(--pliego-rosa);
+  color: var(--pliego-tinta);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-pestanas__raya {
+    transition:
+      translate 320ms cubic-bezier(0.16, 1, 0.3, 1),
+      width 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  // La cuenta salta al cambiar (su key es el número: React la remonta).
+  .pliego-pestanas__cuenta {
+    animation: pliego-cifra-salta 260ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  }
+}

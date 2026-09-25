@@ -12,6 +12,7 @@ import type { PliegoReaccionFlotante } from "./PliegoReacciones/PliegoReacciones
 import PliegoSubtitulos from "./PliegoSubtitulos/PliegoSubtitulos";
 import PliegoTicker from "./PliegoTicker/PliegoTicker";
 import PliegoBoton from "./PliegoBoton/PliegoBoton";
+import PliegoPestanas, { idsPestana } from "./PliegoPestanas/PliegoPestanas";
 
 // La sala viva de conf: lo que se mueve sin que nadie toque nada, y lo que la
 // audiencia toca. Cada animación se apaga con prefers-reduced-motion.
@@ -164,4 +165,28 @@ export const QR: StoryObj = {
       <PliegoQR matriz={matriz("https://conf.aaroidev.com/sala/?s=demo-a&l=es")} label="QR a los subtítulos de la sala demo" />
     </div>
   ),
+};
+
+export const Pestanas: StoryObj = {
+  render: function Render() {
+    const [activa, setActiva] = useState("salas");
+    const [n, setN] = useState(3);
+    return (
+      <div className="pliego-scope" style={lamina}>
+        <PliegoPestanas etiqueta="Secciones del panel" activa={activa} onCambio={setActiva} prefijo="historia"
+          pestanas={[
+            { id: "salas", nombre: "salas", cuenta: 4 },
+            { id: "bandeja", nombre: "bandeja", cuenta: n, urgente: true },
+            { id: "glosario", nombre: "glosario" },
+          ]} />
+        {["salas", "bandeja", "glosario"].map((id) => (
+          <div key={id} role="tabpanel" id={idsPestana(id, "historia").panel}
+            aria-labelledby={idsPestana(id, "historia").pestana} hidden={activa !== id}>
+            <p style={{ margin: 0 }}>Panel «{id}».</p>
+            {id === "bandeja" && <PliegoBoton size="sm" onClick={() => setN((x) => x + 1)}>llega una pregunta</PliegoBoton>}
+          </div>
+        ))}
+      </div>
+    );
+  },
 };
