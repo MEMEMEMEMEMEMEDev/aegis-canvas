@@ -20,7 +20,9 @@
   // Las palabras largas del alemán técnico o una URL dicha en voz alta no
   // pueden romper la caja de una pantalla de teléfono.
   overflow-wrap: anywhere;
-  hyphens: auto;
+  // SIN guiones de corte: en un subtítulo «lí-neas» se lee peor que una
+  // palabra entera en la línea de abajo (visto en conf, 25-09).
+  hyphens: manual;
 }
 
 .pliego-subtitulos--normal {
