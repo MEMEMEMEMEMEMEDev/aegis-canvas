@@ -1,0 +1,103 @@
+@use "../pliego-tools" as pl;
+
+.pliego-reacciones {
+  position: relative;
+  display: grid;
+}
+
+.pliego-reacciones__cielo {
+  position: absolute;
+  inset: auto 0 100% 0;
+  height: 14rem;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pliego-reacciones__flota {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--pliego-x, 0.5) * 90% + 2%);
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--pliego-rosa);
+  opacity: 0;
+}
+
+// Sube, se ladea un poco y se apaga: 1,8 s. Un aplauso que se queda en
+// pantalla tapa el subtítulo.
+@keyframes pliego-flota {
+  0% {
+    translate: 0 0;
+    scale: 0.6;
+    opacity: 0;
+  }
+  12% {
+    scale: 1.15;
+    opacity: 1;
+  }
+  100% {
+    translate: 0 -12rem;
+    rotate: var(--pliego-giro, 0deg);
+    scale: 0.9;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-reacciones__flota {
+    animation: pliego-flota 1.8s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  }
+}
+
+.pliego-reacciones__botonera {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pliego-reacciones__boton {
+  @include pl.micro;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.75rem; // 44 px
+  padding: 0.4rem 0.8rem;
+  border: var(--pliego-filete) solid var(--pliego-tinta);
+  border-radius: var(--pliego-radio);
+  background: var(--pliego-hoja);
+  color: var(--pliego-tinta);
+  cursor: pointer;
+  transition: background 120ms, translate 120ms;
+
+  &:hover:not(:disabled) {
+    background: var(--pliego-papel);
+  }
+  &:active:not(:disabled) {
+    translate: 0 2px;
+    background: var(--pliego-rosa);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.55;
+  }
+}
+
+.pliego-reacciones__glifo {
+  font-size: 1.15rem;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.pliego-reacciones__conteo {
+  min-width: 2ch;
+  padding: 0.05rem 0.35rem;
+  background: var(--pliego-tinta);
+  color: var(--pliego-hoja);
+  font-variant-numeric: tabular-nums;
+}

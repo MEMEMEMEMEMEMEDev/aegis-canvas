@@ -1,0 +1,45 @@
+.pliego-onda {
+  --pliego-onda-n: 0;
+  --pliego-onda-color: var(--pliego-tinta);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 1.75rem;
+}
+
+.pliego-onda--rosa {
+  --pliego-onda-color: var(--pliego-rosa);
+}
+
+.pliego-onda__barra {
+  width: 3px;
+  height: 100%;
+  background: var(--pliego-onda-color);
+  transform-origin: center;
+  // Sin movimiento: la altura dice el nivel, quieta.
+  scale: 1 calc(0.12 + var(--pliego-onda-n) * 0.88);
+  transition: scale 180ms ease-out;
+}
+
+.pliego-onda--calla .pliego-onda__barra {
+  opacity: 0.35;
+}
+
+@keyframes pliego-onda {
+  0%,
+  100% {
+    scale: 1 calc(0.12 + var(--pliego-onda-n) * 0.25);
+  }
+  50% {
+    scale: 1 calc(0.12 + var(--pliego-onda-n) * 0.88);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pliego-onda:not(.pliego-onda--calla) .pliego-onda__barra {
+    // Duraciones y retardos distintos por barra: sin eso la onda sube y baja
+    // en bloque y parece un ecualizador de juguete.
+    animation: pliego-onda calc(620ms + var(--pliego-onda-d, 0) * 1ms) ease-in-out infinite;
+    animation-delay: calc(var(--pliego-i) * -93ms);
+  }
+}

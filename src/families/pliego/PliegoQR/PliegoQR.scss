@@ -1,0 +1,38 @@
+@use "../pliego-tools" as pl;
+
+.pliego-qr {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+  padding: 10px;
+  background: var(--pliego-hoja);
+  color: var(--pliego-tinta);
+  // Las escuadras de corte: la lámina lista para recortar y pegar en la puerta.
+  @include pl.registro(var(--pliego-tinta), 12px, 1px);
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: var(--pliego-tinta);
+  }
+}
+
+@keyframes pliego-qr-imprime {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  // Fila a fila, como un cabezal de impresión: 18 ms por fila, ~0,6 s en
+  // total para un QR de versión 3. Rápido: es un código para escanear, no
+  // una atracción.
+  .pliego-qr__fila {
+    animation: pliego-qr-imprime 120ms linear both;
+    animation-delay: calc(var(--pliego-i) * 18ms);
+  }
+}

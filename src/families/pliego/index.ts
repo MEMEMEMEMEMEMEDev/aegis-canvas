@@ -88,3 +88,32 @@ export type { PliegoEstadoProps, PliegoEstadoTipo } from "./PliegoEstado/PliegoE
 
 export { default as PliegoTabla } from "./PliegoTabla/PliegoTabla";
 export type { PliegoTablaProps, PliegoTablaColumna, PliegoTablaFila } from "./PliegoTabla/PliegoTabla";
+
+// --- La sala viva (conf, segunda tanda) --------------------------------------
+//
+// Lo que hace que una sala se lea VIVA sin tocar nada: el sello al aire, la
+// onda de la voz, el cartel del proyector con su QR, la cinta de salas, y
+// las dos interacciones de la audiencia (reaccionar y preguntar).
+
+export { default as PliegoEnVivo } from "./PliegoEnVivo/PliegoEnVivo";
+export type { PliegoEnVivoProps } from "./PliegoEnVivo/PliegoEnVivo";
+
+export { default as PliegoOnda, nivelANorma } from "./PliegoOnda/PliegoOnda";
+export type { PliegoOndaProps } from "./PliegoOnda/PliegoOnda";
+
+export { default as PliegoQR } from "./PliegoQR/PliegoQR";
+export type { PliegoQRProps } from "./PliegoQR/PliegoQR";
+
+export { default as PliegoCartel } from "./PliegoCartel/PliegoCartel";
+export type { PliegoCartelProps } from "./PliegoCartel/PliegoCartel";
+
+export { default as PliegoTicker } from "./PliegoTicker/PliegoTicker";
+export type { PliegoTickerProps, PliegoTickerItem } from "./PliegoTicker/PliegoTicker";
+
+export { default as PliegoReacciones } from "./PliegoReacciones/PliegoReacciones";
+export type {
+  PliegoReaccionesProps, PliegoReaccionOpcion, PliegoReaccionFlotante,
+} from "./PliegoReacciones/PliegoReacciones";
+
+export { default as PliegoPregunta } from "./PliegoPregunta/PliegoPregunta";
+export type { PliegoPreguntaProps } from "./PliegoPregunta/PliegoPregunta";

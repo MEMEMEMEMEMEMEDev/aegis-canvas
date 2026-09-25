@@ -1,0 +1,97 @@
+@use "../pliego-tools" as pl;
+
+.pliego-cartel {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(1rem, 3vh, 2.5rem);
+  padding: clamp(1.25rem, 4vw, 4rem);
+  overflow: hidden;
+  background: var(--pliego-papel);
+  color: var(--pliego-tinta);
+  @include pl.reticula;
+}
+
+// El kanji enorme al fondo, cortado por el borde: la lámina de la referencia.
+.pliego-cartel__kana {
+  position: absolute;
+  right: -0.08em;
+  top: -0.12em;
+  font-family: var(--pliego-font-kana);
+  font-weight: 900;
+  font-size: clamp(10rem, 34vw, 32rem);
+  line-height: 1;
+  color: rgb(22 22 26 / 0.06);
+  pointer-events: none;
+  user-select: none;
+}
+
+.pliego-cartel__cabeza {
+  position: relative;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.pliego-cartel__sobre {
+  @include pl.micro;
+  margin: 0;
+  color: var(--pliego-rosa-tinta);
+}
+
+.pliego-cartel__titulo {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 8.5vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  overflow-wrap: break-word;
+  // Con interlineado 0,92 las colas (g, p, y) salen de la caja, y el barrido
+  // de entrada recorta con clip-path justo en el borde: se comía la «g».
+  padding-bottom: 0.12em;
+}
+
+.pliego-cartel__linea {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.pliego-cartel__idiomas {
+  @include pl.micro;
+  font-size: max(#{pl.$micro-suelo}, 1rem);
+}
+
+.pliego-cartel__sub {
+  align-self: end;
+  position: relative;
+}
+
+.pliego-cartel__pie {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding-top: 1rem;
+  border-top: 2px solid var(--pliego-tinta);
+}
+
+.pliego-cartel__entrar {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.pliego-cartel__rotulo {
+  @include pl.micro;
+  margin: 0;
+}
+
+.pliego-cartel__url {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(1.4rem, 3.6vw, 3.2rem);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}

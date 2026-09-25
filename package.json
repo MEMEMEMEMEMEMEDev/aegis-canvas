@@ -1,9 +1,9 @@
 {
   "name": "@ahroi/foundation",
-  "version": "0.11.1",
+  "version": "0.12.0",
   "description": "Design system v2 (reconstrucción desde cero): tokens SCSS + theming por CSS vars (--ds-*), primitivos universales y familias de componentes. Consumible por cualquier app.",
   "license": "Apache-2.0",
-    "publishConfig": {
+  "publishConfig": {
     "types": "dist/types/_ds-entry.d.ts"
   },
   "type": "module",
@@ -65,6 +65,7 @@
     "@vitest/coverage-v8": "^4.1.9",
     "playwright": "^1.61.0",
     "prop-types": "^15.8.1",
+    "qrcode-generator": "^2.0.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "sass": "^1.90.0",
