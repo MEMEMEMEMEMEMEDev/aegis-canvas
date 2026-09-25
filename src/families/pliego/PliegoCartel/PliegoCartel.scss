@@ -75,6 +75,9 @@
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
+  // Lo que no cabe se va por arriba DESVANECIÉNDOSE, no rebanado a media
+  // letra (se veía como un error, 25-09). El fundido ocupa ~1,5 líneas.
+  mask-image: linear-gradient(to bottom, transparent 0, #000 min(4.5rem, 30%));
 }
 
 .pliego-cartel__pie {
