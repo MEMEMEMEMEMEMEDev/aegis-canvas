@@ -59,8 +59,12 @@ export default function PliegoSubtitulos({
   vacio,
   className,
 }: PliegoSubtitulosProps) {
-  const visibles = lineas.slice(-maxLineas);
-  const sinNada = visibles.length === 0 && !provisional;
+  // Una línea MÁS de las visibles: la que se va. No desaparece de golpe
+  // (el bloque saltaba): queda una vuelta más, tenue, y recién en la
+  // siguiente se retira.
+  const enPantalla = lineas.slice(-(maxLineas + 1));
+  const saliente = enPantalla.length > maxLineas ? enPantalla[0]?.id : undefined;
+  const sinNada = enPantalla.length === 0 && !provisional;
   return (
     <div
       className={cx(
@@ -72,16 +76,24 @@ export default function PliegoSubtitulos({
       lang={idioma}
     >
       <div className="pliego-subtitulos__registro" role="log" aria-label={label}>
-        {visibles.map((l, i) => (
-          <p
+        {enPantalla.map((l, i) => (
+          // La fila crece desde altura 0 (grid 0fr → 1fr): las de arriba se
+          // desplazan con suavidad en vez de saltar, y el texto nunca se
+          // recorta mientras entra (antes: barrido con clip-path).
+          <div
             key={l.id}
-            className={cx(
-              "pliego-subtitulos__linea",
-              i === visibles.length - 1 && !provisional && "pliego-subtitulos__linea--ultima",
-            )}
+            className={cx("pliego-subtitulos__fila", l.id === saliente && "pliego-subtitulos__fila--saliente")}
+            aria-hidden={l.id === saliente || undefined}
           >
-            {l.texto}
-          </p>
+            <p
+              className={cx(
+                "pliego-subtitulos__linea",
+                i === enPantalla.length - 1 && !provisional && "pliego-subtitulos__linea--ultima",
+              )}
+            >
+              {l.texto}
+            </p>
+          </div>
         ))}
       </div>
       {provisional && (

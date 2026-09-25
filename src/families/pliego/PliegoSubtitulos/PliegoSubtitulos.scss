@@ -87,11 +87,40 @@
   }
 }
 
-// La línea nueva entra con la cuchilla de la familia (barrido de izquierda
-// a derecha) y la anterior baja un escalón de tinta con una transición: se
-// lee como una hoja que se imprime, no como texto que salta.
-// La provisional lleva un cursor de bloque que parpadea: "esto se está
-// escribiendo ahora".
+// ENTRAR SIN CORTES (25-09). Antes la línea nueva entraba con el barrido de
+// la familia (clip-path): el texto se veía recortado mientras aparecía, y la
+// línea vieja se iba de golpe haciendo saltar el bloque. Ahora:
+//   - cada línea vive en una fila de grilla que crece de 0fr a 1fr al
+//     aparecer (@starting-style): lo de arriba se desplaza con suavidad;
+//   - el texto sube 0,35em y aparece con opacidad, sin recorte;
+//   - la que se va queda una vuelta más, tenue, antes de retirarse.
+// La provisional lleva un cursor de bloque que parpadea: "se está diciendo".
+.pliego-subtitulos__fila {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  translate: 0 0;
+}
+
+.pliego-subtitulos__fila > .pliego-subtitulos__linea {
+  min-height: 0;
+  overflow: hidden;
+  // Aire para las colas (g, p, y) mientras la fila crece.
+  padding-bottom: 0.06em;
+}
+
+// La que se va: tenue A PROPÓSITO y aria-hidden. Ya se leyó (fue la línea
+// de más arriba un momento antes) y se está retirando: es texto decorativo,
+// exceptuado del contraste por WCAG 1.4.3. El chequeo de axe la excluye con
+// el mismo argumento; toda línea que se LEE sigue pasando 4,5:1.
+.pliego-subtitulos__fila--saliente {
+  opacity: 0.28;
+}
+
+.pliego-subtitulos__linea {
+  transition: color 400ms ease;
+}
+
 @keyframes pliego-subtitulo-cursor {
   0%,
   49% {
@@ -103,13 +132,18 @@
   }
 }
 
-.pliego-subtitulos__linea {
-  transition: color 400ms ease;
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .pliego-subtitulos__linea--ultima {
-    animation: pliego-barrido 460ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  .pliego-subtitulos__fila {
+    transition:
+      grid-template-rows 420ms cubic-bezier(0.2, 0.7, 0.2, 1),
+      opacity 420ms ease,
+      translate 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+
+    @starting-style {
+      grid-template-rows: 0fr;
+      opacity: 0;
+      translate: 0 0.35em;
+    }
   }
 
   .pliego-subtitulos__linea--provisional::after {
