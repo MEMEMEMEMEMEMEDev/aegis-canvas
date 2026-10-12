@@ -1,0 +1,53 @@
+.baliza-linea {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.baliza-linea__hito {
+  --hito: var(--baliza-apagado);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: 5.2rem 1fr;
+  gap: 1rem;
+  padding: 0 0 1.1rem;
+
+  // El punto y la línea que baja al siguiente.
+  &::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 5.85rem;
+    top: 0.4em;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--hito);
+    box-shadow: 0 0 0 4px var(--baliza-panel);
+  }
+
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    inset-inline-start: calc(5.85rem + 4px);
+    top: 1.2em;
+    bottom: 0;
+    border-inline-start: 2px solid var(--baliza-panel-alto);
+  }
+}
+
+.baliza-linea__hito--sos { --hito: var(--baliza-sos); }
+.baliza-linea__hito--clave { --hito: #7fb2e5; }
+.baliza-linea__hito--cierre { --hito: var(--baliza-bien); }
+
+.baliza-linea__hora { color: var(--baliza-apagado); font-size: 0.8125rem; font-weight: 600; }
+
+.baliza-linea__texto {
+  display: grid;
+  gap: 0.1rem;
+  padding-inline-start: 1.6rem;
+  font-weight: 600;
+}
+
+.baliza-linea__quien { color: var(--baliza-apagado); font-size: 0.75rem; font-weight: 500; }

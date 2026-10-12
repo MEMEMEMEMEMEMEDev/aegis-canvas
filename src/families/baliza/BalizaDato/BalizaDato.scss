@@ -1,0 +1,12 @@
+@use "../baliza-tools" as pt;
+
+.baliza-dato { display: grid; gap: 0.35rem; min-width: 0; }
+
+.baliza-dato--caja {
+  padding: 0.75rem 0.85rem;
+  border: var(--baliza-linea) solid var(--baliza-borde-campo);
+  border-radius: 5px;
+}
+
+.baliza-dato__rotulo { @include pt.rotulo; font-weight: 500; }
+.baliza-dato__valor { font-weight: 500; overflow-wrap: anywhere; }

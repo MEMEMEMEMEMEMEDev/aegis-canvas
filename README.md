@@ -62,6 +62,7 @@ radios, tipografías y componentes firma. Flujo: `refs/` → incubadora
 | **CALCO** | álbum de calcomanías: neobrutalismo de cartel —tinta gorda, colores planos, sombra dura, stickers, ventanas de OS viejo— manejado como la pantalla de inicio de una consola: losetas, ventana, dock, hoja, SIN scroll de página | refs/11 | Unbounded + Space Grotesk |
 | **VITRINA** | marketplace de barrio grande: blanco de vitrina, gris cálido, UN coral para lo que se toca, láminas de color con pictograma en vez de fotos — y al pagar cambia de voz: titular gigante condensado, inputs de una línea, CTA negro a todo ancho. Trae la tienda completa (`tienda/`) | referencias-portafolio/10-familia-idea | Onest + Instrument Sans (wdth) |
 | **ATALAYA** | consola de operación: la piel NEUTRA del producto (aegis), no del portafolio. Referencia declarada: la forma de Vercel (lista de proyectos → detalle con pestañas) con la densidad de filas de Linear. Dos leyes: el acento nunca significa estado, y el cuarto estado —«no pude mirar»— no tiene color, tiene TRAMA | tableros de operación | Geist + Geist Mono |
+| **BALIZA** | respuesta en terreno (SOS Ruta): noche azul marino, paneles un escalón más claros y UN rojo que solo significa «alguien necesita ayuda»; lo que se toca es azul, lo protegido ámbar. Trae las cinco superficies: ficha del QR, app del trabajador, consola, panel y landing (`demo/`) | Figma del cliente (refs/12) | Manrope |
 | *proto* | incubadora vacía (nombre siempre provisional) | — | — |
 
 Imports: `@ahroi/foundation/<familia>` (ver `exports` en package.json).

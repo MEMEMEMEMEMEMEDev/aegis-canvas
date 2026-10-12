@@ -1,0 +1,28 @@
+.baliza-avatar {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  font-weight: 700;
+
+  img { width: 100%; height: 100%; object-fit: cover; }
+}
+
+.baliza-avatar--circulo {
+  border-radius: 50%;
+  background: var(--baliza-noche);
+  border: var(--baliza-linea) solid var(--baliza-borde);
+  color: var(--baliza-tinta);
+}
+
+// El recuadro gris-azulado claro de la ficha: tinta #16212c sobre #c7d3de.
+.baliza-avatar--ficha {
+  border-radius: 4px;
+  background: #c7d3de;
+  color: #16212c;
+}
+
+.baliza-avatar--chico { width: 32px; height: 32px; font-size: 0.75rem; }
+.baliza-avatar--normal { width: 40px; height: 40px; font-size: 0.9rem; }
+.baliza-avatar--grande { width: 96px; height: 80px; font-size: 1.85rem; }
+.baliza-avatar--circulo.baliza-avatar--grande { width: 80px; height: 80px; }

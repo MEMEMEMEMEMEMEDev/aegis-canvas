@@ -1,0 +1,44 @@
+@use "../baliza-tools" as pt;
+
+.baliza-pestanas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.baliza-pestanas__pestana {
+  @include pt.foco;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 40px;
+  padding: 0.5rem 1.4rem;
+  border: var(--baliza-linea) solid var(--baliza-borde-campo);
+  border-radius: 10px;
+  background: var(--baliza-panel);
+  color: var(--baliza-tinta);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+
+  &:hover:not(.is-activa) { background: var(--baliza-panel-alto); }
+
+  &.is-activa {
+    background: var(--baliza-accion);
+    border-color: var(--baliza-accion);
+  }
+}
+
+.baliza-pestanas__cuenta {
+  min-width: 1.4em;
+  padding: 0 0.4em;
+  border-radius: var(--baliza-radio-pill);
+  background: rgb(255 255 255 / 0.12);
+  font-size: 0.75rem;
+  font-weight: 800;
+
+  &.is-urgente { background: var(--baliza-sos-firme); }
+}

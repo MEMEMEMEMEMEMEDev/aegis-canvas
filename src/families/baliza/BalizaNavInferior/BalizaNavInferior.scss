@@ -1,0 +1,52 @@
+@use "../baliza-tools" as pt;
+
+.baliza-nav {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  padding: 0.35rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--baliza-borde);
+  background: rgb(4 9 18 / 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.baliza-nav__destino {
+  @include pt.foco;
+
+  display: grid;
+  justify-items: center;
+  gap: 0.15rem;
+  min-height: 56px;
+  padding: 0.35rem;
+  border: 0;
+  border-radius: 12px;
+  background: none;
+  color: var(--baliza-apagado);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &.is-activo { color: var(--baliza-tinta); }
+  &.is-activo .baliza-nav__icono { background: var(--baliza-accion); }
+}
+
+.baliza-nav__icono {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 30px;
+  border-radius: var(--baliza-radio-pill);
+}
+
+.baliza-nav__punto {
+  position: absolute;
+  top: 2px;
+  right: 14px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--baliza-noche);
+  border-radius: 50%;
+  background: var(--baliza-reservado);
+}

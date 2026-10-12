@@ -1,0 +1,31 @@
+@use "../baliza-tools" as pt;
+
+.baliza-contacto {
+  @include pt.foco;
+
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.1rem;
+  min-height: 56px;
+  padding: 0.6rem 0.75rem;
+  border-radius: 5px;
+  background: var(--baliza-accion-suave);
+  color: var(--baliza-tinta);
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 2px rgb(0 0 0 / 0.25);
+}
+
+a.baliza-contacto:hover { filter: brightness(1.15); }
+
+.baliza-contacto__rol { font-weight: 700; }
+.baliza-contacto__nombre { font-size: 0.75rem; color: var(--baliza-tenue); }
+
+.baliza-contacto--chico {
+  min-height: 40px;
+  padding: 0.35rem 0.6rem;
+
+  .baliza-contacto__rol { font-size: 0.75rem; }
+  .baliza-contacto__nombre { font-size: 0.75rem; }
+}

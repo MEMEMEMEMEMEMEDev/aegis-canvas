@@ -1,0 +1,42 @@
+@use "../baliza-tools" as pt;
+
+.baliza-panel {
+  @include pt.superficie;
+
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding: 1.25rem;
+  min-width: 0;
+}
+
+.baliza-panel--sin-relleno {
+  padding: 0;
+  overflow: hidden;
+
+  .baliza-panel__cabeza { padding: 1rem 1.25rem 0; }
+}
+
+.baliza-panel__cabeza {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.baliza-panel__titulo {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h3.baliza-panel__titulo { font-size: 1rem; }
+
+.baliza-panel__sub {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  color: var(--baliza-tenue);
+}
+
+.baliza-panel__acciones { display: flex; gap: 0.5rem; flex-shrink: 0; }

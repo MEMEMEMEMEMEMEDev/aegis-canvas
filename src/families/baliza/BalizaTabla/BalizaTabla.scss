@@ -1,0 +1,27 @@
+@use "../baliza-tools" as pt;
+
+.baliza-tabla {
+  @include pt.foco;
+  overflow-x: auto;
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+
+  th {
+    padding: 0.75rem 0.85rem;
+    font-weight: 500;
+    color: var(--baliza-apagado);
+    text-align: start;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 0.95rem 0.85rem;
+    border-bottom: var(--baliza-linea) solid var(--baliza-borde-campo);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .is-derecha { text-align: end; }
+}
+
+.baliza-tabla__vacio { color: var(--baliza-apagado); text-align: center; font-weight: 500; }

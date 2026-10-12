@@ -1,0 +1,84 @@
+// La tarjeta escala con su ancho (container queries): la misma pieza sirve
+// para la vista previa del panel y para el archivo de imprenta.
+.baliza-credencial {
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: 100%;
+  max-width: 428px;
+  aspect-ratio: 85.6 / 54;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 12px 24px rgb(0 0 0 / 0.33);
+  font-size: 14px;
+}
+
+.baliza-credencial__cabeza {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2.6cqi 5cqi;
+  background: var(--baliza-cabecera);
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.baliza-credencial__empresa { font-size: 3.8cqi; font-weight: 700; letter-spacing: 0.06em; }
+.baliza-credencial__tipo { font-size: 2.6cqi; letter-spacing: 0.08em; opacity: 0.9; b { font-weight: 700; } }
+
+.baliza-credencial__cuerpo {
+  display: grid;
+  grid-template-columns: 22cqi 1fr;
+  align-items: center;
+  gap: 4.5cqi;
+  padding: 2.4cqi 5cqi;
+  min-height: 0;
+}
+
+.baliza-credencial__foto.baliza-avatar--ficha {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  border-radius: 3cqi;
+  font-size: 8cqi;
+}
+
+.baliza-credencial__datos {
+  display: grid;
+  gap: 1.2cqi;
+  min-width: 0;
+  letter-spacing: 0.04em;
+
+  dl { display: grid; gap: 1.2cqi; margin: 0; }
+  dt { font-size: 2.6cqi; color: var(--baliza-apagado); }
+  dd { margin: 0; font-size: 3.3cqi; font-weight: 500; white-space: nowrap; }
+}
+
+.baliza-credencial__nombre { margin: 0; font-size: 4.4cqi; font-weight: 700; line-height: 1.2; }
+.baliza-credencial__datos .baliza-credencial__par { display: flex; gap: 6cqi; dd { font-weight: 700; } }
+
+.baliza-credencial__pie {
+  padding: 1.1cqi;
+  background: var(--baliza-panel);
+  white-space: nowrap;
+  border-top: var(--baliza-linea) solid var(--baliza-borde);
+  color: var(--baliza-tenue);
+  font-size: 2.5cqi;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.baliza-credencial--reverso { grid-template-rows: auto 1fr; }
+
+.baliza-credencial__qr-zona {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 2cqi;
+  padding: 3cqi 5cqi;
+}
+
+.baliza-credencial__aviso { margin: 0; color: var(--baliza-sos); font-size: 3.6cqi; font-weight: 600; letter-spacing: 0.06em; }
+.baliza-credencial__qr { width: 26cqi; aspect-ratio: 1; display: grid; > * { width: 100%; height: 100%; } }
+.baliza-credencial__legal { margin: 0; color: var(--baliza-tenue); font-size: 2.6cqi; letter-spacing: 0.04em; }

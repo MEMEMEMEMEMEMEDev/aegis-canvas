@@ -1,0 +1,21 @@
+.baliza-reservado {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 1rem 1rem;
+  border: 1.5px dashed var(--baliza-reservado);
+  border-radius: 10px;
+  background: var(--baliza-reservado-fondo);
+}
+
+.baliza-reservado__titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  color: var(--baliza-reservado);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.baliza-reservado__texto { font-size: 0.8125rem; color: var(--baliza-tenue); }
+.baliza-reservado__accion { margin-top: 0.5rem; }

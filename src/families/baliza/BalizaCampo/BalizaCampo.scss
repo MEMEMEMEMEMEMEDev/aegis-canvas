@@ -1,0 +1,42 @@
+@use "../baliza-tools" as pt;
+
+.baliza-campo { display: grid; gap: 0.4rem; min-width: 0; }
+
+.baliza-campo__etiqueta { font-size: 0.875rem; font-weight: 700; }
+
+.baliza-campo__caja { position: relative; display: block; }
+
+.baliza-campo__icono {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0.85rem;
+  display: grid;
+  place-items: center;
+  color: var(--baliza-apagado);
+  pointer-events: none;
+}
+
+.baliza-campo__input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.6rem 0.9rem;
+  border: var(--baliza-linea) solid var(--baliza-borde-campo);
+  border-radius: var(--baliza-radio);
+  background: var(--baliza-hundido);
+  color: var(--baliza-tinta);
+  font: inherit;
+  font-size: 0.875rem;
+
+  &::placeholder { color: var(--baliza-apagado); }
+  &:focus-visible { outline: 2px solid var(--ds-focus-ring); outline-offset: 1px; border-color: transparent; }
+  &:disabled, &:read-only { color: var(--baliza-tenue); }
+}
+
+.baliza-campo__caja--icono .baliza-campo__input { padding-inline-start: 2.5rem; }
+
+.baliza-campo__pie { font-size: 0.75rem; color: var(--baliza-apagado); }
+
+.baliza-campo--error {
+  .baliza-campo__input { border-color: var(--baliza-sos); }
+  .baliza-campo__pie { color: var(--baliza-sos); }
+}

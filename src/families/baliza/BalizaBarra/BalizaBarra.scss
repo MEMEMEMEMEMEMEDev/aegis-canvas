@@ -1,0 +1,15 @@
+.baliza-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  background: linear-gradient(180deg, var(--baliza-cabecera), #0b2136);
+  border-bottom: var(--baliza-linea) solid var(--baliza-borde);
+}
+
+.baliza-barra__marca { display: grid; }
+.baliza-barra__nombre { font-size: 1.15rem; font-weight: 700; }
+.baliza-barra__sub { font-size: 0.875rem; font-weight: 600; color: var(--baliza-tenue); }
+.baliza-barra__fin { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }

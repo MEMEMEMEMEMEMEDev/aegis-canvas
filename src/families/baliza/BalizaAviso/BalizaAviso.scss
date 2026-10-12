@@ -1,0 +1,23 @@
+.baliza-aviso {
+  --aviso: #7fb2e5;
+  --aviso-fondo: rgb(24 87 145 / 0.18);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--aviso) 45%, transparent);
+  border-radius: 10px;
+  background: var(--aviso-fondo);
+  font-size: 0.875rem;
+}
+
+.baliza-aviso--bien { --aviso: var(--baliza-bien); --aviso-fondo: var(--baliza-bien-fondo); }
+.baliza-aviso--cuidado { --aviso: var(--baliza-reservado); --aviso-fondo: var(--baliza-reservado-fondo); }
+.baliza-aviso--grave { --aviso: var(--baliza-sos); --aviso-fondo: var(--baliza-sos-fondo); }
+
+.baliza-aviso__icono { display: inline-flex; color: var(--aviso); flex-shrink: 0; }
+.baliza-aviso__texto { display: grid; gap: 0.1rem; flex: 1 1 14rem; min-width: 0; color: var(--baliza-tenue); }
+.baliza-aviso__titulo { color: var(--baliza-tinta); font-weight: 700; }
+.baliza-aviso__accion { flex-shrink: 0; }

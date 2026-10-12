@@ -1,0 +1,42 @@
+// Herramientas SCSS de la familia BALIZA (no emiten CSS por sí solas).
+
+// Rótulo: la etiqueta de un dato ("Grupo sanguíneo", "RUT"). Con suelo: esta
+// pantalla se lee de pie, al costado de un camión, con el sol encima.
+$rotulo-suelo: 0.75rem;
+
+@mixin rotulo {
+  font-size: max(#{$rotulo-suelo}, 0.75rem);
+  font-weight: 600;
+  color: var(--baliza-tenue);
+}
+
+// Superficie: el panel base del Figma (relleno un escalón sobre la noche,
+// borde de pelo azulado, esquinas de 14).
+@mixin superficie {
+  background: var(--baliza-panel);
+  border: var(--baliza-linea) solid var(--baliza-borde);
+  border-radius: var(--baliza-radio-lg);
+}
+
+// Las etiquetas de botón del Figma llevan +2 % de interletra.
+@mixin voz-boton {
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+// Foco visible siempre: la consola se opera con teclado en la base.
+@mixin foco {
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+// Lo que pulsa (alerta viva) se queda quieto si la persona lo pidió.
+@mixin quieto {
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    transition: none !important;
+  }
+}

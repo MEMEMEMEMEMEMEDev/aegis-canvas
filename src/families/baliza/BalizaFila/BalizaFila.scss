@@ -1,0 +1,44 @@
+@use "../baliza-tools" as pt;
+
+.baliza-fila {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 60px;
+  padding: 0.6rem 0.75rem;
+  border: var(--baliza-linea) solid var(--baliza-panel-alto);
+  border-radius: var(--baliza-radio-lg);
+  background: var(--baliza-panel);
+  color: inherit;
+  font: inherit;
+  text-align: start;
+}
+
+.baliza-fila--toca {
+  @include pt.foco;
+  cursor: pointer;
+
+  &:hover { background: var(--baliza-panel-alto); }
+}
+
+.baliza-fila--elegida,
+.baliza-fila--elegida:hover {
+  background: var(--baliza-accion);
+  border-color: var(--baliza-accion);
+
+  .baliza-fila__sub { color: var(--baliza-tinta); }
+  .baliza-avatar--circulo { border-color: rgb(255 255 255 / 0.3); }
+}
+
+.baliza-fila__texto { display: grid; flex: 1; min-width: 0; }
+
+.baliza-fila__titulo {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.baliza-fila__sub { font-size: 0.75rem; color: var(--baliza-apagado); }
+.baliza-fila__fin { flex-shrink: 0; }

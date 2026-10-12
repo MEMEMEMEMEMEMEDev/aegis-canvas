@@ -1,0 +1,49 @@
+@use "../baliza-tools" as pt;
+
+.baliza-interruptor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1rem 0;
+
+  & + & { border-top: 1px solid var(--baliza-borde); }
+
+  &.is-deshabilitado .baliza-interruptor__etiqueta { color: var(--baliza-tenue); }
+}
+
+.baliza-interruptor__texto { display: grid; gap: 0.2rem; }
+.baliza-interruptor__etiqueta { font-weight: 700; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.baliza-interruptor__descripcion { color: var(--baliza-apagado); font-size: 0.8125rem; max-width: 60ch; }
+
+.baliza-interruptor__pista {
+  @include pt.foco;
+
+  position: relative;
+  flex-shrink: 0;
+  width: 52px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--baliza-borde-campo);
+  border-radius: var(--baliza-radio-pill);
+  background: var(--baliza-hundido);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+
+  &[aria-checked="true"] { background: var(--baliza-accion); border-color: var(--baliza-accion); }
+  &:disabled { cursor: not-allowed; opacity: 0.5; }
+}
+
+.baliza-interruptor__perilla {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 150ms ease;
+  @include pt.quieto;
+
+  [aria-checked="true"] > & { transform: translateX(22px); }
+}

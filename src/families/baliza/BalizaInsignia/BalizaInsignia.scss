@@ -1,0 +1,34 @@
+@use "../baliza-tools" as pt;
+
+.baliza-insignia {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--baliza-radio-pill);
+  font-size: max(#{pt.$rotulo-suelo}, 0.75rem);
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.baliza-insignia--activa,
+.baliza-insignia--atendida { background: var(--baliza-bien-fondo); color: var(--baliza-bien); }
+.baliza-insignia--bloqueada { background: var(--baliza-sos-fondo); color: var(--baliza-sos); }
+.baliza-insignia--sinAtender { background: var(--baliza-sos-fondo); color: var(--baliza-sos); }
+.baliza-insignia--reservado { background: var(--baliza-reservado-fondo); color: var(--baliza-reservado); }
+.baliza-insignia--neutro { background: var(--baliza-panel-alto); color: var(--baliza-tenue); }
+
+.baliza-insignia__latido {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: baliza-latido 1.2s ease-out infinite;
+  @include pt.quieto;
+}
+
+@keyframes baliza-latido {
+  0% { box-shadow: 0 0 0 0 rgb(255 90 90 / 0.7); }
+  100% { box-shadow: 0 0 0 7px rgb(255 90 90 / 0); }
+}

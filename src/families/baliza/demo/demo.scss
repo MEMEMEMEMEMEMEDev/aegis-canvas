@@ -1,0 +1,416 @@
+// Composición de las pantallas de muestra (no es parte de la API pública:
+// las apps arman su propio layout con los componentes).
+
+// ── Ficha móvil ──────────────────────────────────────────────────────────
+.demo-movil {
+  max-width: 390px;
+  min-height: 100%;
+  margin: 0 auto;
+
+  p { margin: 0; }
+}
+
+.demo-ficha__cabeza {
+  padding: 3.5rem 1.25rem 1rem;
+  background: var(--baliza-sos-firme);
+
+  p { font-size: 0.875rem; font-weight: 600; }
+  h1 { margin: 0.1rem 0 0; font-size: 1.15rem; font-weight: 800; }
+}
+
+.demo-ficha__cuerpo { display: grid; gap: 1rem; padding: 1.25rem 1.25rem 2rem; }
+
+.demo-ficha__quien {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  > div { display: grid; gap: 0.15rem; }
+  .baliza-insignia { justify-self: start; margin-top: 0.25rem; }
+}
+
+.demo-ficha__nombre { font-size: 1.1rem; font-weight: 700; }
+.demo-ficha__tenue { color: var(--baliza-tenue); font-size: 0.8125rem; }
+.demo-ficha__vehiculo { font-size: 1rem; }
+.demo-ficha__contactos { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.demo-ficha__privacidad { font-size: 0.8125rem; text-align: center; color: var(--baliza-tenue); }
+
+// ── Escritorio ───────────────────────────────────────────────────────────
+.demo-escritorio { min-height: 100vh; }
+
+.demo-demo {
+  padding: 0.2rem 0.6rem;
+  border: 1px dashed var(--baliza-reservado);
+  border-radius: var(--baliza-radio-pill);
+  color: var(--baliza-reservado);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.demo-panel {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.demo-metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.demo-dos {
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: 1.25rem;
+  align-items: start;
+
+  @media (max-width: 860px) { grid-template-columns: 1fr; }
+}
+
+.demo-lista { display: grid; gap: 0.5rem; }
+
+.demo-formulario__quien {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--baliza-borde-campo);
+}
+
+.demo-grupo {
+  display: grid;
+  gap: 0.85rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  legend { margin-bottom: 0.85rem; padding: 0; font-size: 1.05rem; font-weight: 700; }
+}
+
+.demo-rejilla { display: grid; gap: 0.85rem; }
+.demo-rejilla--3 { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.demo-rejilla--2 { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.demo-rejilla--cobertura { grid-template-columns: 1fr minmax(100px, 140px); }
+
+.demo-formulario__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.demo-formulario__pie { padding-top: 0.85rem; border-top: 1px solid var(--baliza-borde-campo); }
+
+// ── Alerta ───────────────────────────────────────────────────────────────
+.demo-alerta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.demo-alerta__quien { display: flex; gap: 1rem; align-items: center; p { margin: 0; } }
+.demo-alerta__acciones { display: grid; gap: 0.75rem; grid-column: 1 / -1; }
+
+@media (min-width: 1000px) {
+  .demo-alerta__acciones { grid-template-columns: 1fr 1fr; align-items: stretch; }
+}
+
+.demo-enlace {
+  color: var(--baliza-bien);
+  font-weight: 700;
+  &:focus-visible { outline: 2px solid var(--ds-focus-ring); outline-offset: 2px; }
+}
+
+// ── Teléfono (maqueta de la app del trabajador) ──────────────────────────
+.demo-mesa {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px 12px;
+  background: radial-gradient(circle at 30% 20%, #0f2a43, #02050a 70%);
+}
+
+.demo-telefono {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: min(390px, 100%);
+  height: min(844px, calc(100vh - 48px));
+  overflow: hidden;
+  border: 1px solid #2a3a4a;
+  border-radius: 44px;
+  box-shadow: 0 0 0 10px #0a0f16, 0 30px 80px rgb(0 0 0 / 0.6);
+
+  @media (max-width: 420px) { border-radius: 0; box-shadow: none; height: 100vh; border: 0; }
+}
+
+.demo-telefono__estado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.6rem 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.demo-telefono__isla { width: 96px; height: 26px; border-radius: 99px; background: #000; }
+
+.demo-telefono__pantalla { overflow-y: auto; overscroll-behavior: contain; }
+
+// ── App del trabajador ───────────────────────────────────────────────────
+.demo-app__pagina {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem 1.5rem;
+
+  p { margin: 0; }
+}
+
+.demo-app__pagina--centro { justify-items: center; text-align: center; padding-top: 2.5rem; }
+
+.demo-app__saludo { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; }
+.demo-app__hola { font-size: 1.35rem; font-weight: 800; }
+.demo-app__titulo { margin: 0.25rem 0 0; font-size: 1.5rem; font-weight: 800; }
+.demo-app__bajada { max-width: 30ch; }
+.demo-app__letra-chica { font-size: 0.75rem; max-width: 34ch; }
+
+.demo-app__marca {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: var(--baliza-sos-firme);
+}
+
+.demo-app__o {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  color: var(--baliza-apagado);
+  font-size: 0.8125rem;
+
+  &::before, &::after { content: ""; flex: 1; border-top: 1px solid var(--baliza-borde); }
+}
+
+.demo-app__sos { display: grid; place-items: center; padding: 2rem 0 1.25rem; }
+
+.demo-app__tarjeta {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--baliza-borde);
+  border-radius: var(--baliza-radio-lg);
+  background: var(--baliza-panel);
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+
+  > svg { flex-shrink: 0; color: #7fb2e5; }
+  > span { display: grid; gap: 0.15rem; }
+  &:hover { background: var(--baliza-panel-alto); }
+  &:focus-visible { outline: 2px solid var(--ds-focus-ring); outline-offset: 2px; }
+}
+
+.demo-app__ayuda { display: grid; justify-items: center; gap: 0.35rem; padding: 1.5rem 0 0.5rem; text-align: center; }
+
+.demo-app__ayuda-icono {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--baliza-accion);
+  box-shadow: 0 0 0 10px rgb(24 87 145 / 0.2);
+}
+
+.demo-app__acciones { display: grid; gap: 0.6rem; }
+.demo-app__linea { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+.demo-app__pregunta { gap: 1.1rem; min-height: 100%; align-content: center; padding-top: 1rem; }
+.demo-app__pregunta-titulo { margin: 0; font-size: 2rem; font-weight: 800; line-height: 1.15; }
+.demo-app__cuenta { color: var(--baliza-reservado); font-variant-numeric: tabular-nums; }
+
+// ── Consola de la base ───────────────────────────────────────────────────
+.demo-dos--consola {
+  grid-template-columns: 1fr minmax(300px, 420px);
+
+  @media (max-width: 860px) { grid-template-columns: 1fr; }
+}
+
+.demo-calma {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 0.75rem;
+  min-height: 420px;
+  padding: 2rem;
+  border: 1px dashed var(--baliza-borde-campo);
+  border-radius: var(--baliza-radio-lg);
+  text-align: center;
+
+  h1 { margin: 0; font-size: 1.6rem; }
+  p { margin: 0; max-width: 46ch; }
+  .baliza-aviso { margin-top: 1rem; text-align: start; }
+}
+
+.demo-calma__icono {
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: var(--baliza-bien-fondo);
+  color: var(--baliza-bien);
+}
+
+.demo-calma__acciones { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; }
+
+.demo-aviso-llegada { display: grid; gap: 0.9rem; p { margin: 0; } }
+.demo-aviso-llegada__acciones { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+.demo-caso {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(300px, 1fr);
+  gap: 1.5rem;
+  p { margin: 0; }
+
+  @media (max-width: 860px) { grid-template-columns: 1fr; }
+}
+
+.demo-caso__ficha, .demo-caso__bitacora { display: grid; gap: 0.9rem; align-content: start; }
+.demo-caso__subtitulo { margin: 0; font-size: 1rem; }
+.demo-caso__nota { display: grid; grid-template-columns: 1fr auto; gap: 0.6rem; align-items: end; }
+
+.demo-codigo-grande {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1.2rem;
+  padding: 1rem 0;
+
+  span { font-family: ui-monospace, "Cascadia Mono", Menlo, monospace; font-size: 3rem; font-weight: 800; letter-spacing: 0.12em; }
+  p { flex-basis: 100%; margin: 0; text-align: center; }
+}
+
+.demo-calma__icono--cuidado { background: var(--baliza-reservado-fondo); color: var(--baliza-reservado); }
+.demo-seccion > .baliza-insignia { justify-self: start; }
+
+// ── Ficha: extras ───────────────────────────────────────────────────────
+.demo-ficha__cabeza--neutra { background: var(--baliza-cabecera); }
+
+.demo-pasos {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.25rem 0 0.5rem;
+  padding-inline-start: 1.2rem;
+  color: var(--baliza-tinta);
+}
+
+.demo-pasos__accion { margin-bottom: 0.5rem; }
+.demo-pasos__botones { display: flex; justify-content: space-between; gap: 0.5rem; margin-top: 0.5rem; }
+
+// ── Administración ──────────────────────────────────────────────────────
+.demo-seccion { display: grid; gap: 1.25rem; }
+
+.demo-bases { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+
+.demo-bases__datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1rem;
+  margin: 0;
+
+  dt { color: var(--baliza-apagado); font-size: 0.75rem; }
+  dd { margin: 0; font-weight: 700; }
+}
+
+.demo-nueva {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.4rem;
+  min-height: 160px;
+  border: 1px dashed var(--baliza-borde-campo);
+  border-radius: var(--baliza-radio-lg);
+  background: none;
+  color: var(--baliza-tenue);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover { background: var(--baliza-panel); color: var(--baliza-tinta); }
+  &:focus-visible { outline: 2px solid var(--ds-focus-ring); outline-offset: 2px; }
+}
+
+.demo-roles {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+
+  div { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; }
+  dt { font-weight: 700; }
+  dd { margin: 0; color: var(--baliza-tenue); }
+}
+
+.demo-modulo-ajustes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.85rem;
+  padding: 0 0 1rem 1rem;
+  border-inline-start: 2px solid var(--baliza-accion);
+}
+
+.demo-vincular {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  p { margin: 0; }
+}
+
+.demo-vincular__qr { width: 140px; padding: 8px; border-radius: 10px; background: #fff; flex-shrink: 0; }
+.demo-vincular__codigo { font-family: ui-monospace, "Cascadia Mono", Menlo, monospace; font-size: 2rem; font-weight: 800; letter-spacing: 0.1em; }
+
+.demo-login {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px 16px;
+  background: radial-gradient(circle at 50% 0%, #0f2a43, var(--baliza-noche) 60%);
+}
+
+.demo-login__caja {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  width: min(400px, 100%);
+  text-align: center;
+
+  h1 { margin: 0.5rem 0 0; font-size: 1.6rem; }
+  p { margin: 0; }
+}
+
+.demo-login__form {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  margin: 1.25rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--baliza-borde);
+  border-radius: var(--baliza-radio-lg);
+  background: var(--baliza-panel);
+  text-align: start;
+}
+
+.demo-login__olvido { justify-self: center; font-size: 0.875rem; color: #7fb2e5; }

@@ -1,0 +1,67 @@
+@use "../baliza-tools" as pt;
+
+.baliza-sos { display: grid; justify-items: center; gap: 0.85rem; }
+
+.baliza-sos__boton {
+  --avance: 0;
+
+  position: relative;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.15rem;
+  width: min(62vw, 224px);
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #e84a4a, var(--baliza-sos-firme) 70%);
+  color: #ffffff;
+  font: inherit;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  box-shadow: 0 0 0 10px rgb(255 90 90 / 0.12), 0 0 0 22px rgb(255 90 90 / 0.06), 0 12px 40px rgb(217 54 54 / 0.45);
+  transition: transform 120ms ease;
+
+  &:active { transform: scale(0.97); }
+
+  &:focus-visible { outline: 3px solid var(--ds-focus-ring); outline-offset: 26px; }
+}
+
+// El anillo de avance: un conic-gradient que llena el borde mientras se
+// mantiene. Es información (cuánto falta), no adorno: NO se apaga con
+// reduced-motion.
+.baliza-sos__anillo {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: conic-gradient(#ffffff calc(var(--avance) * 360deg), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
+  pointer-events: none;
+}
+
+.baliza-sos__grande { font-size: 2.6rem; font-weight: 800; letter-spacing: 0.06em; line-height: 1; }
+.baliza-sos__chico { font-size: 0.875rem; font-weight: 600; }
+
+.baliza-sos__ayuda { margin: 0; color: var(--baliza-tenue); font-size: 0.875rem; text-align: center; min-height: 1.5em; }
+
+.baliza-sos--enviando .baliza-sos__boton {
+  cursor: default;
+  animation: baliza-sos-espera 1.4s ease-in-out infinite;
+  @include pt.quieto;
+}
+
+.baliza-sos--enviado .baliza-sos__boton {
+  cursor: default;
+  background: radial-gradient(circle at 50% 35%, #2a6db0, var(--baliza-accion) 70%);
+  box-shadow: 0 0 0 10px rgb(24 87 145 / 0.18), 0 12px 40px rgb(24 87 145 / 0.4);
+
+  .baliza-sos__grande { font-size: 1.8rem; }
+}
+
+@keyframes baliza-sos-espera {
+  50% { box-shadow: 0 0 0 18px rgb(255 90 90 / 0.18), 0 0 0 34px rgb(255 90 90 / 0.08), 0 12px 40px rgb(217 54 54 / 0.45); }
+}

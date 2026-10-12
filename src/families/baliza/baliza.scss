@@ -1,0 +1,112 @@
+// =============================================================================
+// BALIZA — familia "respuesta en terreno": la piel de SOS Ruta.
+//
+// Nace del Figma del cliente (refs/12-sosruta): una credencial con QR, una
+// ficha de emergencia que abre quien encuentra al trabajador, un panel en
+// vivo para la base, una app para el trabajador y una landing que lo vende.
+// Cinco superficies, una sola voz.
+//
+// Noche azul marino, paneles un escalón más claros, UN rojo que significa
+// emergencia y nada más. El rojo no decora: si aparece, alguien necesita
+// ayuda (o la pantalla te pide algo que no se deshace).
+//
+// ── LO QUE SE CORRIGIÓ DEL FIGMA (medido, ver comentarios) ──────────────
+//   · Blanco sobre #ff5a5a da 3,06:1. El rojo de marca queda para bordes,
+//     halos y texto rojo sobre la noche (6,5:1); los RELLENOS con texto
+//     blanco usan --baliza-sos-firme #d93636 (4,63:1).
+//   · El borde de los campos (#425f78 sobre el panel) daba 2,44:1 y un campo
+//     tiene que verse como campo (WCAG 1.4.11 pide 3:1) → #5a7a96, 3,62:1.
+//   · Manrope en todo. El Figma mezcla Inter en las pantallas móviles; dos
+//     grotescas casi iguales sólo suman peso de descarga.
+//
+// Isla propia → mini-contrato en .baliza-scope (no toca :root). Los
+// componentes la importan desde su TSX; Vite dedupe.
+// =============================================================================
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../../fonts/manrope/manrope-vf-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+.baliza-scope {
+  // --- Superficies (de la más honda a la más alta) ---
+  --baliza-noche: #040912;        // el fondo: página, ficha móvil, consola
+  --baliza-hundido: #0b1520;      // pozos: campos, celdas
+  --baliza-panel: #16212c;        // tarjetas, métricas, listas
+  --baliza-panel-alto: #1e293b;   // hover, fila elegida en reposo
+  --baliza-cabecera: #0f2a43;     // la barra de arriba del panel
+
+  // --- Tinta ---
+  --baliza-tinta: #ffffff;
+  --baliza-tenue: rgb(255 255 255 / 0.75); // 9,7:1 sobre el panel
+  --baliza-apagado: #94a3b8;               // 6,36:1 sobre el panel
+
+  // --- Líneas ---
+  --baliza-borde: rgb(66 95 120 / 0.55);   // separa paneles: decorativo
+  --baliza-borde-campo: #5a7a96;           // 3,62:1 — lo que se toca se ve
+
+  // --- Acción (azul): lo que se toca y no es una emergencia ---
+  --baliza-accion: #185791;       // pestaña activa, fila elegida: 7,47:1
+  --baliza-accion-suave: #1d4468; // botones secundarios, contactos: 10,1:1
+  --baliza-accion-hondo: #1a3651; // "Guardar cambios": 12,4:1
+
+  // --- Emergencia (rojo) ---
+  --baliza-sos: #ff5a5a;          // borde, halo, texto rojo sobre noche/panel
+  --baliza-sos-firme: #d93636;    // relleno con texto blanco: 4,63:1
+  --baliza-sos-fondo: #3a1a1c;    // pozo rojo: chip "sin atender" (5,1:1)
+  --baliza-sos-vital: #2b1e27;    // tarjeta de datos vitales
+
+  // --- Estados que no son emergencia ---
+  --baliza-bien: #4cc58a;         // 7,5:1 sobre panel
+  --baliza-bien-vivo: #32f48b;    // el check de la landing, la cobertura
+  --baliza-bien-fondo: #14301f;
+  --baliza-reservado: #ffbe30;    // lo protegido: datos médicos bajo llave
+  --baliza-reservado-fondo: #2a2210;
+
+  // --- Forma ---
+  --baliza-radio: 8px;            // campos, botones
+  --baliza-radio-lg: 14px;        // paneles, métricas
+  --baliza-radio-pill: 999px;     // insignias, CTA de landing
+  --baliza-linea: 1px;
+  --baliza-sombra: 0 8px 24px rgb(0 0 0 / 0.25);
+  --baliza-halo-accion: 0 4px 47px rgb(25 87 146 / 0.48);
+
+  --baliza-font: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", sans-serif;
+
+  --ds-focus-ring: #7fb2e5;
+
+  background: var(--baliza-noche);
+  color: var(--baliza-tinta);
+  font-family: var(--baliza-font);
+  font-size: 14px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+// La credencial impresa vive en papel: misma familia, otra luz. Se retiñen
+// los MISMOS tokens; nunca un color suelto dentro de un componente.
+.baliza-scope--papel,
+.baliza-scope[data-tema="papel"] {
+  --baliza-noche: #ffffff;
+  --baliza-panel: #eeeeec;
+  --baliza-cabecera: #131311;
+  --baliza-tinta: #131311;
+  --baliza-tenue: rgb(19 19 17 / 0.70);   // 6,4:1 sobre #eeeeec
+  --baliza-apagado: rgb(19 19 17 / 0.66); // 6,0:1 sobre blanco
+  --baliza-sos: #c92f2f;         // rojo sobre papel: 5,3:1
+  --baliza-borde: rgb(19 19 17 / 0.12);
+}
+
+// Sólo para lectores de pantalla (etiquetas ocultas, caption de tablas).
+.baliza-oculto {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

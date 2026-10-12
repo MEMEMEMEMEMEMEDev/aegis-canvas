@@ -1,0 +1,55 @@
+@use "../baliza-tools" as pt;
+
+.baliza-dialogo {
+  // El reset de la fundación pone margin: 0 a todo; <dialog> se centra con auto.
+  margin: auto;
+  width: min(520px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--baliza-borde-campo);
+  border-radius: var(--baliza-radio-lg);
+  background: var(--baliza-panel);
+  color: var(--baliza-tinta);
+  box-shadow: 0 24px 64px rgb(0 0 0 / 0.55);
+
+  &::backdrop { background: rgb(4 9 18 / 0.72); backdrop-filter: blur(3px); }
+}
+
+.baliza-dialogo--sos { border: 2px solid var(--baliza-sos); }
+
+.baliza-dialogo__caja { position: relative; display: grid; gap: 1rem; padding: 1.25rem; }
+
+.baliza-dialogo__cabeza { padding-inline-end: 2.75rem; }
+.baliza-dialogo__titulo { margin: 0; font-size: 1.2rem; font-weight: 800; }
+.baliza-dialogo__sub { margin: 0.2rem 0 0; color: var(--baliza-tenue); font-size: 0.875rem; }
+
+.baliza-dialogo__cerrar {
+  @include pt.foco;
+
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--baliza-tenue);
+  cursor: pointer;
+
+  &:hover { background: var(--baliza-panel-alto); color: var(--baliza-tinta); }
+}
+
+.baliza-dialogo__cuerpo { display: grid; gap: 0.9rem; }
+
+.baliza-dialogo__pie {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  padding-top: 0.25rem;
+}

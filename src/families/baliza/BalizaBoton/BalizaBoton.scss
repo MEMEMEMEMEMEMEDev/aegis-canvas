@@ -1,0 +1,64 @@
+@use "../baliza-tools" as pt;
+
+.baliza-boton {
+  @include pt.foco;
+  @include pt.voz-boton;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  // 44px: se toca con guantes y con el pulso alto.
+  min-height: 44px;
+  padding: 0.6rem 1.5rem;
+  border: var(--baliza-linea) solid var(--baliza-borde-campo);
+  border-radius: var(--baliza-radio);
+  background: var(--baliza-panel);
+  color: var(--baliza-tinta);
+  font-size: 0.875rem;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none; // también vale para <a class="baliza-boton"> (tel:)
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, filter 120ms ease;
+
+  &:hover:not(:disabled) { filter: brightness(1.15); }
+  &:active:not(:disabled) { filter: brightness(0.95); }
+  &:disabled { opacity: 0.45; cursor: not-allowed; }
+}
+
+.baliza-boton__icono { display: inline-flex; }
+
+.baliza-boton--chico { min-height: 32px; padding: 0.3rem 0.85rem; font-size: 0.8125rem; }
+.baliza-boton--grande { min-height: 56px; padding: 0.9rem 1.75rem; font-size: 1rem; }
+.baliza-boton--pastilla { border-radius: var(--baliza-radio-pill); }
+.baliza-boton--bloque { display: flex; width: 100%; }
+
+.baliza-boton--accion { background: var(--baliza-accion); border-color: var(--baliza-accion); }
+.baliza-boton--suave { background: var(--baliza-accion-suave); border-color: var(--baliza-accion-suave); }
+.baliza-boton--hondo { background: var(--baliza-accion-hondo); }
+
+// Relleno con el rojo FIRME: blanco sobre #d93636 da 4,63:1 (el #ff5a5a del
+// Figma daba 3,06). El halo sí usa el rojo de marca.
+.baliza-boton--sos {
+  background: var(--baliza-sos-firme);
+  border-color: var(--baliza-sos-firme);
+  box-shadow: 0 0 0 0 rgb(255 90 90 / 0);
+
+  &:hover:not(:disabled) { box-shadow: 0 0 24px rgb(255 90 90 / 0.35); }
+}
+
+.baliza-boton--peligro {
+  background: var(--baliza-panel);
+  color: var(--baliza-sos);
+}
+
+.baliza-boton--fantasma {
+  background: none;
+  border-color: transparent;
+  color: var(--baliza-tenue);
+
+  &:hover:not(:disabled) { color: var(--baliza-tinta); filter: none; background: var(--baliza-panel); }
+}
+
+.baliza-boton { @include pt.quieto; }

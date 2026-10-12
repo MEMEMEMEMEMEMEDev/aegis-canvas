@@ -1,0 +1,51 @@
+.baliza-vital {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "sangre alergias"
+    "peso   alergias";
+  gap: 0.25rem 1rem;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border: 2px solid var(--baliza-sos);
+  border-radius: 10px;
+  background: var(--baliza-sos-vital);
+
+  dt { font-size: 0.875rem; color: var(--baliza-tenue); }
+  dd { margin: 0; }
+}
+
+.baliza-vital__sangre {
+  grid-area: sangre;
+
+  dd {
+    // 5,18:1 sobre el fondo vital, y a este tamaño basta con 3.
+    color: var(--baliza-sos);
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.05;
+  }
+}
+
+.baliza-vital__alergias {
+  grid-area: alergias;
+  align-self: center;
+  text-align: end;
+
+  dt { font-size: 0.8125rem; }
+  dd { font-weight: 800; }
+}
+
+.baliza-vital__peso {
+  grid-area: peso;
+  display: flex;
+  gap: 0.3rem;
+
+  dt, dd { font-size: 0.875rem; color: var(--baliza-tenue); }
+}
+
+.baliza-vital--compacta {
+  padding: 0.6rem 0.85rem;
+
+  .baliza-vital__sangre dd { font-size: 1.8rem; }
+}

@@ -1,6 +1,6 @@
 {
   "name": "@ahroi/foundation",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "description": "Design system v2 (reconstrucción desde cero): tokens SCSS + theming por CSS vars (--ds-*), primitivos universales y familias de componentes. Consumible por cualquier app.",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -29,6 +29,7 @@
     "./obsidiana": "./src/families/obsidiana/index.ts",
     "./vitrina": "./src/families/vitrina/index.ts",
     "./atalaya": "./src/families/atalaya/index.ts",
+    "./baliza": "./src/families/baliza/index.ts",
     "./proto": "./src/families/proto/index.ts",
     "./css": "./dist/foundation.css",
     "./abstracts": "./src/_abstracts.scss",

@@ -1,0 +1,39 @@
+.baliza-codigo { display: grid; gap: 0.5rem; justify-items: start; }
+
+.baliza-codigo__etiqueta { font-weight: 700; }
+
+// Cada dígito ocupa 1ch + 1ch de aire; las cajas se dibujan de fondo con el
+// mismo paso, así el dígito cae siempre al centro de su caja.
+.baliza-codigo__input {
+  --paso: 2.4ch;
+
+  width: calc(var(--paso) * var(--largo) + 0.2ch);
+  height: 3.4rem;
+  padding: 0 0 0 0.7ch;
+  border: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--baliza-hundido) 0 calc(var(--paso) - 0.4ch),
+      transparent calc(var(--paso) - 0.4ch) var(--paso)
+    );
+  color: var(--baliza-tinta);
+  font: inherit;
+  font-family: ui-monospace, "Cascadia Mono", Menlo, monospace;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1.4ch;
+  caret-color: var(--baliza-sos);
+  outline: 1px solid var(--baliza-borde-campo);
+  outline-offset: 0;
+  border-radius: 6px;
+
+  &:focus-visible { outline: 2px solid var(--ds-focus-ring); }
+}
+
+.baliza-codigo__pie { color: var(--baliza-apagado); font-size: 0.8125rem; }
+
+.baliza-codigo--error {
+  .baliza-codigo__input { outline-color: var(--baliza-sos); }
+  .baliza-codigo__pie { color: var(--baliza-sos); }
+}

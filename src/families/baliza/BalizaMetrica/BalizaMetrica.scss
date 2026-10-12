@@ -1,0 +1,29 @@
+@use "../baliza-tools" as pt;
+
+.baliza-metrica {
+  @include pt.superficie;
+
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+  padding: 1rem 1.1rem 1.1rem;
+}
+
+.baliza-metrica__valor {
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.baliza-metrica__rotulo {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--baliza-tenue);
+}
+
+.baliza-metrica--alerta {
+  border-color: rgb(255 90 90 / 0.45);
+
+  .baliza-metrica__valor { color: var(--baliza-sos); }
+}
