@@ -1,0 +1,37 @@
+.proto-segmento { margin: 0; padding: 0; border: 0; min-width: 0; }
+.proto-segmento__leyenda { font-weight: 600; font-size: 0.875rem; margin-bottom: 0.375rem; }
+
+.proto-segmento__fila {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 1.25rem; // si se parte en dos filas, sigue viéndose como una pieza
+  background: var(--proto-arena);
+}
+
+.proto-segmento__opcion {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 36px;
+  padding: 0 0.875rem;
+  border-radius: var(--proto-radio-pill);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--proto-tenue);
+  cursor: pointer;
+
+  &:hover { color: var(--proto-tinta); }
+  &:has(.proto-segmento__radio:focus-visible) { outline: 2px solid var(--ds-focus-ring); outline-offset: 2px; }
+}
+
+.proto-segmento__radio { position: absolute; opacity: 0; pointer-events: none; }
+
+.proto-segmento__opcion--elegida,
+.proto-segmento__opcion--elegida:hover {
+  background: var(--proto-hoja);
+  color: var(--proto-toca-honda);
+  box-shadow: 0 1px 3px rgb(38 35 46 / 0.12);
+}

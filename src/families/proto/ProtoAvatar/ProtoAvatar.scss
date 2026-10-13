@@ -1,0 +1,36 @@
+.proto-avatar {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.875rem;
+  background: var(--proto-gente-pozo);
+  color: var(--proto-gente-honda);
+}
+
+.proto-avatar--chico { width: 2rem; height: 2rem; font-size: 0.75rem; }
+.proto-avatar--grande { width: 4rem; height: 4rem; font-size: 1.25rem; }
+
+// La mascota: forma de guijarro, la huella detrás de su inicial.
+.proto-avatar--mascota {
+  border-radius: 42% 58% 55% 45% / 50% 45% 55% 50%;
+  background: var(--proto-gente);
+  color: #fff;
+}
+
+.proto-avatar__huella {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  padding: 2px;
+  border-radius: 50%;
+  background: var(--proto-hoja);
+  color: var(--proto-gente);
+  box-sizing: content-box;
+}
+
+.proto-avatar__letra { font-family: var(--proto-font-titulo); font-size: 1.15em; }

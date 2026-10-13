@@ -1,0 +1,75 @@
+.proto-mensaje {
+  display: grid;
+  gap: 0.375rem;
+  max-width: min(85%, 26rem);
+}
+
+.proto-mensaje--cliente { justify-self: end; }
+.proto-mensaje--asistente, .proto-mensaje--equipo { justify-self: start; }
+
+.proto-mensaje__globo {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.625rem 0.875rem 0.5rem;
+  border-radius: 16px;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.proto-mensaje--cliente .proto-mensaje__globo {
+  background: var(--proto-toca-pozo);
+  border-bottom-right-radius: 4px;
+}
+
+.proto-mensaje--asistente .proto-mensaje__globo,
+.proto-mensaje--equipo .proto-mensaje__globo {
+  background: var(--proto-hoja);
+  border: 1px solid var(--proto-borde);
+  border-bottom-left-radius: 4px;
+}
+
+// Una persona del equipo firma en celeste (gente): se nota que ya no es la IA.
+.proto-mensaje--equipo .proto-mensaje__globo { box-shadow: inset 3px 0 0 var(--proto-gente); }
+
+.proto-mensaje__firma { font-size: 0.75rem; font-weight: 700; color: var(--proto-toca-honda); }
+.proto-mensaje--equipo .proto-mensaje__firma { color: var(--proto-gente-honda); }
+
+.proto-mensaje__texto { overflow-wrap: anywhere; }
+.proto-mensaje__texto p + p { margin-top: 0.5rem; }
+
+.proto-mensaje__hora { justify-self: end; font-size: 0.6875rem; color: var(--proto-tenue); }
+
+.proto-mensaje__respuestas { display: grid; gap: 0.375rem; }
+
+.proto-mensaje__respuesta {
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--proto-borde);
+  border-radius: 12px;
+  background: var(--proto-hoja);
+  color: var(--proto-toca-honda);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover:not(:disabled) { background: var(--proto-toca-pozo); }
+  &:focus-visible { outline: 2px solid var(--ds-focus-ring); outline-offset: 2px; }
+  &:disabled { cursor: default; color: var(--proto-tenue); }
+}
+
+.proto-mensaje__respuesta--elegida:disabled {
+  background: var(--proto-toca-pozo);
+  color: var(--proto-toca-honda);
+  border-color: var(--proto-toca);
+}
+
+.proto-mensaje-sistema {
+  justify-self: center;
+  max-width: 90%;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--proto-radio-pill);
+  background: var(--proto-arena);
+  color: var(--proto-tenue);
+  font-size: 0.8125rem;
+  text-align: center;
+}

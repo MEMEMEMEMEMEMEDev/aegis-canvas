@@ -1,0 +1,70 @@
+@use "../proto-tools" as pt;
+
+.proto-boton {
+  @include pt.foco;
+  @include pt.quieto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  // 44px: se toca con una mano mientras la otra sujeta una correa.
+  min-height: 44px;
+  padding: 0.6rem 1.25rem;
+  border: var(--proto-linea) solid var(--proto-borde-campo);
+  border-radius: var(--proto-radio-pill);
+  background: var(--proto-hoja);
+  color: var(--proto-tinta);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.proto-boton__icono { display: inline-flex; }
+
+.proto-boton--chico { min-height: 36px; padding: 0.35rem 0.9rem; font-size: 0.875rem; }
+.proto-boton--grande { min-height: 52px; padding: 0.8rem 1.75rem; font-size: 1rem; }
+.proto-boton--bloque { display: flex; width: 100%; }
+
+.proto-boton--suave:hover:not(:disabled) { background: var(--proto-crema-alta); }
+
+.proto-boton--accion {
+  background: var(--proto-toca);
+  border-color: var(--proto-toca);
+  color: #fff;
+  &:hover:not(:disabled) { background: var(--proto-toca-honda); border-color: var(--proto-toca-honda); }
+}
+
+.proto-boton--calido {
+  background: var(--proto-gente);
+  border-color: var(--proto-gente);
+  color: #fff;
+  &:hover:not(:disabled) { background: var(--proto-gente-honda); border-color: var(--proto-gente-honda); }
+}
+
+.proto-boton--urgencia {
+  background: var(--proto-urgencia);
+  border-color: var(--proto-urgencia);
+  color: #fff;
+  &:hover:not(:disabled) { filter: brightness(0.92); }
+}
+
+.proto-boton--peligro {
+  border-color: var(--proto-urgencia);
+  color: var(--proto-urgencia);
+  &:hover:not(:disabled) { background: var(--proto-urgencia-pozo); }
+}
+
+.proto-boton--fantasma {
+  background: none;
+  border-color: transparent;
+  color: var(--proto-toca-honda);
+  &:hover:not(:disabled) { background: var(--proto-toca-pozo); }
+}

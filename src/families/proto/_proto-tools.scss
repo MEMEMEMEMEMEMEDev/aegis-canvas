@@ -1,0 +1,32 @@
+// Herramientas SCSS de la familia PROTO (HUELLA). No emiten CSS por sí solas.
+
+// Rótulo: la etiqueta de un dato ("Dueño", "Próxima vacuna").
+@mixin rotulo {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--proto-tenue);
+}
+
+// Superficie: la hoja sobre el papel.
+@mixin superficie {
+  background: var(--proto-hoja);
+  border: var(--proto-linea) solid var(--proto-borde);
+  border-radius: var(--proto-radio-lg);
+  box-shadow: var(--proto-sombra);
+}
+
+// Foco visible siempre: recepción opera con teclado.
+@mixin foco {
+  &:focus-visible {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+// Lo que se mueve se queda quieto si la persona lo pidió.
+@mixin quieto {
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    transition: none !important;
+  }
+}

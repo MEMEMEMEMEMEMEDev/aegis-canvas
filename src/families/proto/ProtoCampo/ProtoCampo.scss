@@ -1,0 +1,26 @@
+@use "../proto-tools" as pt;
+
+.proto-campo { display: grid; gap: 0.375rem; min-width: 0; }
+
+.proto-campo__etiqueta { font-weight: 600; font-size: 0.875rem; }
+
+.proto-campo__control {
+  @include pt.foco;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.6rem 0.875rem;
+  border: var(--proto-linea) solid var(--proto-borde-campo);
+  border-radius: var(--proto-radio);
+  background: var(--proto-hoja);
+  color: var(--proto-tinta);
+  font: inherit;
+  box-sizing: border-box;
+  resize: vertical;
+
+  &::placeholder { color: var(--proto-apagado); }
+}
+
+.proto-campo__ayuda { font-size: 0.8125rem; color: var(--proto-tenue); }
+
+.proto-campo--error .proto-campo__control { border-color: var(--proto-urgencia); border-width: 2px; }
+.proto-campo__error { font-size: 0.8125rem; font-weight: 600; color: var(--proto-urgencia); }

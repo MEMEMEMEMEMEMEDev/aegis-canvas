@@ -1,0 +1,52 @@
+.proto-horario { margin: 0; padding: 0; border: 0; min-width: 0; }
+
+.proto-horario__dia {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+}
+
+.proto-horario__cuenta { font-weight: 400; font-size: 0.875rem; color: var(--proto-tenue); }
+
+.proto-horario__rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr));
+  gap: 0.5rem;
+}
+
+.proto-horario__bloque {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  border: var(--proto-linea) solid var(--proto-borde-campo);
+  border-radius: var(--proto-radio);
+  background: var(--proto-hoja);
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover { background: var(--proto-crema-alta); }
+  &:has(.proto-horario__radio:focus-visible) { outline: 2px solid var(--ds-focus-ring); outline-offset: 2px; }
+}
+
+.proto-horario__radio { position: absolute; opacity: 0; pointer-events: none; }
+
+.proto-horario__bloque--elegido,
+.proto-horario__bloque--elegido:hover {
+  background: var(--proto-toca);
+  border-color: var(--proto-toca);
+  color: #fff;
+}
+
+// Ocupada: tachada y en arena, sin depender sólo del color.
+.proto-horario__bloque--ocupado {
+  background: var(--proto-arena);
+  border-color: var(--proto-arena);
+  color: var(--proto-apagado);
+  text-decoration: line-through;
+  cursor: not-allowed;
+  &:hover { background: var(--proto-arena); }
+}

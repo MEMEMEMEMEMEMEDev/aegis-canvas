@@ -1,0 +1,68 @@
+.proto-opciones {
+  display: grid;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.proto-opciones__leyenda { font-weight: 700; margin-bottom: 0.5rem; }
+
+.proto-opcion {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border: var(--proto-linea) solid var(--proto-borde-campo);
+  border-radius: var(--proto-radio);
+  background: var(--proto-hoja);
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+
+  &:hover { background: var(--proto-crema-alta); }
+
+  // El foco del radio (oculto) se ve en la tarjeta entera.
+  &:has(.proto-opcion__radio:focus-visible) {
+    outline: 2px solid var(--ds-focus-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) { transition: none; }
+}
+
+.proto-opcion__radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.proto-opcion--elegida {
+  border-color: var(--proto-toca);
+  border-width: 2px;
+  padding: calc(0.875rem - 1px) calc(1rem - 1px);
+  background: var(--proto-toca-pozo);
+
+  &:hover { background: var(--proto-toca-pozo); }
+}
+
+.proto-opcion--apagada { opacity: 0.5; cursor: not-allowed; }
+
+.proto-opcion__icono {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--proto-arena);
+  color: var(--proto-toca-honda);
+}
+
+.proto-opcion--elegida .proto-opcion__icono { background: var(--proto-hoja); }
+
+.proto-opcion__texto { display: grid; gap: 0.125rem; flex: 1; min-width: 0; }
+.proto-opcion__titulo { font-weight: 700; }
+.proto-opcion__detalle { font-size: 0.875rem; color: var(--proto-tenue); }
+.proto-opcion__extra { flex: none; font-size: 0.875rem; font-weight: 600; color: var(--proto-tenue); text-align: right; }

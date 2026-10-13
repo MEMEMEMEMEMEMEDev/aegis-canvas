@@ -1,0 +1,46 @@
+.proto-linea { margin: 0; padding: 0; list-style: none; display: grid; }
+
+.proto-linea__hito {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 0.875rem;
+  padding-bottom: 1.25rem;
+
+  // El hilo que une la historia.
+  &:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: calc(1rem - 1px);
+    top: 2rem;
+    bottom: 0;
+    width: 2px;
+    background: var(--proto-borde);
+  }
+}
+
+.proto-linea__marca {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--proto-gente-pozo);
+  color: var(--proto-gente-honda);
+}
+
+.proto-linea__hito--interna .proto-linea__marca { background: var(--proto-arena); color: var(--proto-tenue); }
+
+.proto-linea__cuerpo { display: grid; gap: 0.25rem; padding-top: 0.25rem; }
+.proto-linea__meta { font-size: 0.75rem; color: var(--proto-tenue); }
+.proto-linea__tipo { font-weight: 700; }
+.proto-linea__interna { font-weight: 700; }
+.proto-linea__titulo { font-weight: 700; }
+.proto-linea__texto { font-size: 0.875rem; color: var(--proto-tinta); }
+
+.proto-linea__hito--interna .proto-linea__texto {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: var(--proto-papel);
+  border: 1px dashed var(--proto-borde-campo);
+}

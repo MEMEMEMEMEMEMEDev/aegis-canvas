@@ -1,0 +1,18 @@
+.proto-huellitas {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  color: var(--proto-lavanda);
+  pointer-events: none;
+}
+
+// Pata izquierda, pata derecha: una arriba, otra abajo, apenas giradas
+// hacia donde camina. De frente se reconocen; acostadas parecían manchas.
+.proto-huellitas__paso { transform: translateY(7px) rotate(14deg); }
+.proto-huellitas__paso--alto { transform: translateY(-7px) rotate(14deg); }
+
+.proto-huellitas--izquierda {
+  flex-direction: row-reverse;
+  .proto-huellitas__paso { transform: translateY(7px) rotate(-14deg); }
+  .proto-huellitas__paso--alto { transform: translateY(-7px) rotate(-14deg); }
+}

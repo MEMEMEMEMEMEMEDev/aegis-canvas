@@ -1,0 +1,39 @@
+.proto-barra {
+  display: flex;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  flex-wrap: wrap;
+  padding: 0.875rem clamp(1rem, 4vw, 2rem);
+  background: var(--proto-papel);
+  border-bottom: 1px solid var(--proto-borde);
+}
+
+.proto-barra__marca { display: inline-flex; align-items: center; gap: 0.625rem; }
+.proto-barra__huella { color: var(--proto-gente); }
+
+.proto-barra__nombre {
+  display: grid;
+  font-family: var(--proto-font-titulo);
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.proto-barra__bajada {
+  font-family: var(--proto-font);
+  font-weight: 600;
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--proto-tenue);
+  margin-top: 0.25rem;
+}
+
+.proto-barra__centro { flex: 1; display: flex; justify-content: center; min-width: 0; }
+.proto-barra__fin { margin-left: auto; display: flex; align-items: center; gap: 0.75rem; }
+
+// En el teléfono la navegación baja a su propia fila: apretada entre la
+// marca y el botón se partía en una columna de palabras sueltas.
+@media (max-width: 720px) {
+  .proto-barra__centro { order: 3; flex-basis: 100%; justify-content: flex-start; }
+}

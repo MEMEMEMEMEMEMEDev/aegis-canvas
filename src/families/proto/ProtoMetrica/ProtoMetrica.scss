@@ -1,0 +1,39 @@
+@use "../proto-tools" as pt;
+
+.proto-metrica {
+  @include pt.superficie;
+  display: grid;
+  gap: 0.375rem;
+  padding: 1rem 1.25rem;
+  min-width: 0;
+}
+
+.proto-metrica__rotulo {
+  @include pt.rotulo;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.proto-metrica__icono { display: inline-flex; color: var(--proto-toca); }
+
+.proto-metrica__valor {
+  font-family: var(--proto-font-titulo);
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.proto-metrica__pie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--proto-tenue);
+}
+
+.proto-metrica__tendencia { font-weight: 700; }
+.proto-metrica__tendencia--buena { color: var(--proto-bien-honda); }
+// Una tendencia mala NO es una urgencia: miel, no rojo.
+.proto-metrica__tendencia--mala { color: var(--proto-miel); }

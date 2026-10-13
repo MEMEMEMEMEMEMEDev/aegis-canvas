@@ -1,0 +1,32 @@
+@use "../proto-tools" as pt;
+
+.proto-panel {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  min-width: 0;
+}
+
+.proto-panel--hoja { @include pt.superficie; }
+
+.proto-panel--pozo {
+  background: var(--proto-arena);
+  border-radius: var(--proto-radio-lg);
+}
+
+.proto-panel__cabeza {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.proto-panel__titulo { font-size: 1.25rem; }
+h3.proto-panel__titulo { font-size: 1.0625rem; }
+
+.proto-panel__sub {
+  margin-top: 0.25rem;
+  color: var(--proto-tenue);
+  font-size: 0.875rem;
+}
