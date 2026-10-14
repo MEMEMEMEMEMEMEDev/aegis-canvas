@@ -4,11 +4,11 @@
 //
 // Sin referencias del cliente todavía (la clínica no ha traído logo ni
 // colores): nace de una idea, la sala de espera que uno quiere. Clara,
-// tranquila, un poco inocente (celeste, lila, huellitas) y sobria. Fraunces
+// cálida, tranquila (crema, verde parque, un guiño de durazno) y sobria. Fraunces
 // para la voz de la clínica, Onest para operar.
 //
 // LA LEY DE LA FAMILIA: el rojo significa urgencia y nada más. Lo que se toca
-// es morado, las personas y las mascotas celeste, lo que está bien verde, lo
+// es verde parque, las personas y las mascotas ciruela, lo que está bien verde hoja, lo
 // que espera una respuesta miel, y la lavanda sólo decora (las huellitas).
 //
 // Flujo probado (así nacieron TEBEO y BALIZA):

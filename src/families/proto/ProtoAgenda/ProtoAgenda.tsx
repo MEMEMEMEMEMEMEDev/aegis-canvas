@@ -11,7 +11,7 @@ export interface ProtoAgendaColumna {
 }
 
 /**
- * `cita` es un paciente (celeste: gente). `porConfirmar` espera respuesta
+ * `cita` es un paciente (ciruela: gente). `porConfirmar` espera respuesta
  * (miel). `urgencia` es lo único rojo. `interno` es tiempo del equipo que no
  * es un paciente: colación, reunión, preparar pabellón.
  */

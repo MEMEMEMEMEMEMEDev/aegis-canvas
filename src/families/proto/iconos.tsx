@@ -56,3 +56,7 @@ export const IconoNota = (p: P) => <Base {...p}><path d="M5 3h10l4 4v14H5z" /><p
 export const IconoChincheta = (p: P) => <Base {...p}><path d="M9 3h6l-1 5 3 3v2H7v-2l3-3zM12 13v8" /></Base>;
 export const IconoOjo = (p: P) => <Base {...p}><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></Base>;
 export const IconoExamen = (p: P) => <Base {...p}><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3" /><path d="M7.5 15h9" /></Base>;
+// «Más»: los tres puntos de la barra del celular.
+export const IconoMas = (p: P) => <Base {...p}><circle cx="5" cy="12" r="1.25" fill="currentColor" /><circle cx="12" cy="12" r="1.25" fill="currentColor" /><circle cx="19" cy="12" r="1.25" fill="currentColor" /></Base>;
+// El blog: un libro abierto (consejos y noticias de la clínica).
+export const IconoLibro = (p: P) => <Base {...p}><path d="M12 6.5c-1.6-1.4-4-1.9-7.5-1.5v13.5c3.5-.4 5.9.1 7.5 1.5 1.6-1.4 4-1.9 7.5-1.5V5c-3.5-.4-5.9.1-7.5 1.5Z" /><path d="M12 6.5V20" /></Base>;

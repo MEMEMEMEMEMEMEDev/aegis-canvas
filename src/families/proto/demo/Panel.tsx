@@ -8,8 +8,8 @@ import ProtoInsignia from "../ProtoInsignia/ProtoInsignia";
 import ProtoMetrica from "../ProtoMetrica/ProtoMetrica";
 import ProtoPanel from "../ProtoPanel/ProtoPanel";
 import {
-  IconoAlerta, IconoBolsa, IconoCalendario, IconoCaja, IconoCama, IconoCandado, IconoCheck, IconoGrafico,
-  IconoEquipo, IconoHuella, IconoMensaje, IconoMicrofono, IconoNota, IconoPersona,
+  IconoAlerta, IconoBolsa, IconoCalendario, IconoCaja, IconoCama, IconoCandado, IconoCerrar, IconoCheck, IconoGrafico,
+  IconoEquipo, IconoHuella, IconoLibro, IconoMas, IconoMensaje, IconoMicrofono, IconoNota, IconoPersona,
 } from "../iconos";
 import { EQUIPO, pesos } from "./datos";
 import Ficticio from "./Ficticio";
@@ -40,6 +40,7 @@ const MENU: Record<Rol, { id: string; texto: string; icono: ReactNode }[]> = {
     { id: "caja", texto: "Caja y pagos", icono: <IconoCaja /> },
     { id: "agenda", texto: "Agenda", icono: <IconoCalendario /> },
     { id: "stock", texto: "Stock", icono: <IconoBolsa /> },
+    { id: "blog", texto: "Blog y consejos", icono: <IconoLibro /> },
     { id: "equipo", texto: "Equipo", icono: <IconoPersona /> },
   ],
   recepcion: [
@@ -57,8 +58,14 @@ const MENU: Record<Rol, { id: string; texto: string; icono: ReactNode }[]> = {
   ],
 };
 
-/** El armazón del panel (React + Vite en la app real): barra, menú por rol y trabajo. */
+/**
+ * El armazón del panel (React + Vite en la app real): barra, menú por rol y
+ * trabajo. En el celular el mismo <nav> es la barra de abajo: las cuatro
+ * primeras secciones del rol como pestañas y «Más» abre la lista entera.
+ */
 export function Armazon({ rol, activo, persona, children }: { rol: Rol; activo: string; persona: string; children: ReactNode }) {
+  const [abierto, setAbierto] = useState(false);
+  const pestanas = MENU[rol].slice(0, 4);
   return (
     <div className="proto-scope demo-pagina">
       <Ficticio texto="Maqueta del panel de la clínica · datos ficticios" />
@@ -74,13 +81,29 @@ export function Armazon({ rol, activo, persona, children }: { rol: Rol; activo: 
         }
       />
       <div className="demo-panel-app">
-        <nav className="demo-menu" aria-label="Secciones">
-          <p className="demo-menu__rol">{SECCION[rol]}</p>
-          {MENU[rol].map((m) => (
-            <a key={m.id} href={`#${m.id}`} className="demo-menu__item" aria-current={m.id === activo ? "page" : undefined}>
-              {m.icono}{m.texto}
-            </a>
-          ))}
+        <nav className={`demo-menu${abierto ? " demo-menu--abierto" : ""}`} aria-label="Secciones">
+          <button type="button" className="demo-menu__fondo" aria-label="Cerrar el menú" tabIndex={-1} onClick={() => setAbierto(false)} />
+          <div className="demo-menu__lista" id="menu-completo">
+            <div className="demo-menu__cerrar">
+              <ProtoBoton tono="fantasma" tamano="chico" icono={<IconoCerrar />} onClick={() => setAbierto(false)}>Cerrar</ProtoBoton>
+            </div>
+            <p className="demo-menu__rol">{SECCION[rol]}</p>
+            {MENU[rol].map((m) => (
+              <a key={m.id} href={`#${m.id}`} className="demo-menu__item" aria-current={m.id === activo ? "page" : undefined}>
+                {m.icono}{m.texto}
+              </a>
+            ))}
+          </div>
+          <div className="demo-pestanas">
+            {pestanas.map((m) => (
+              <a key={m.id} href={`#${m.id}`} className="demo-pestanas__item" aria-current={m.id === activo ? "page" : undefined}>
+                {m.icono}<span>{m.texto.replace(" del equipo", "")}</span>
+              </a>
+            ))}
+            <button type="button" className="demo-pestanas__item" aria-expanded={abierto} aria-controls="menu-completo" onClick={() => setAbierto((v) => !v)}>
+              <IconoMas /><span>Más</span>
+            </button>
+          </div>
         </nav>
         <main className="demo-trabajo">{children}</main>
       </div>

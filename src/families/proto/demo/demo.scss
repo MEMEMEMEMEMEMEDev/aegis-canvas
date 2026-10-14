@@ -292,6 +292,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: 1rem;
+
+  // Un monto nunca se parte en dos líneas («$6.840.0 / 00» con cinco
+  // tarjetas a 1280 px): se achica un poco con el ancho en vez de partirse.
+  .proto-metrica__valor { white-space: nowrap; font-size: clamp(1.5rem, 2.1vw, 2rem); }
 }
 
 .demo-tabla-envoltura { overflow-x: auto; }
@@ -312,7 +316,7 @@
 .demo-barras__fila { display: flex; justify-content: space-between; gap: 1rem; font-weight: 600; }
 .demo-barras__pista { height: 10px; border-radius: 999px; background: var(--proto-arena); overflow: hidden; }
 .demo-barras__relleno { height: 100%; border-radius: 999px; background: var(--proto-gente); }
-.demo-barras__relleno--tienda { background: var(--proto-lavanda); }
+.demo-barras__relleno--tienda { background: var(--proto-decora); }
 
 // ── 5–7 · El equipo ────────────────────────────────────────────────────
 .demo-columnas--agenda { grid-template-columns: minmax(0, 1fr) 16rem; }
@@ -408,18 +412,246 @@
   align-items: end;
 }
 
+// ── 10 · El blog ───────────────────────────────────────────────────────
+.demo-blog__cabeza {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: clamp(1.5rem, 4vw, 3rem) 0 1.25rem;
+
+  h1 { font-size: clamp(2rem, 4.5vw, 2.75rem); }
+  p { margin-top: 0.5rem; color: var(--proto-tenue); max-width: 36rem; }
+}
+
+.demo-blog__filtro { margin-bottom: 1.25rem; }
+
+.demo-blog__grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+  gap: 1.25rem;
+  padding-bottom: 3rem;
+}
+
+.demo-blog__tarjeta {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  border: 1px solid var(--proto-borde);
+  border-radius: var(--proto-radio-lg);
+  background: var(--proto-hoja);
+  box-shadow: var(--proto-sombra);
+  transition: transform 0.15s ease;
+
+  &:hover { transform: translateY(-2px); }
+  &:focus-within { outline: 2px solid var(--ds-focus-ring); outline-offset: 2px; }
+}
+
+// La portada es un color de la familia con el ícono del tipo: no hace falta
+// una foto para que la lista se vea viva (y no hay fotos de pacientes).
+.demo-blog__portada {
+  display: grid;
+  place-items: center;
+  height: 7.5rem;
+  color: var(--proto-tinta);
+  svg { width: 40px; height: 40px; opacity: 0.8; }
+}
+.demo-blog__portada--consejo { background: var(--proto-toca-pozo); color: var(--proto-toca-honda); }
+.demo-blog__portada--noticia { background: var(--proto-bien-pozo); color: var(--proto-bien-honda); }
+.demo-blog__portada--campana { background: var(--proto-miel-pozo); color: var(--proto-miel); }
+.demo-blog__portada--historia { background: var(--proto-gente-pozo); color: var(--proto-gente-honda); }
+.demo-blog__portada--grande { height: 11rem; border-radius: var(--proto-radio-lg); margin: 1.5rem 0; svg { width: 56px; height: 56px; } }
+
+.demo-blog__texto { display: grid; gap: 0.5rem; align-content: start; padding: 1rem 1.125rem 1.25rem; }
+
+.demo-blog__meta { font-size: 0.8125rem; color: var(--proto-tenue); }
+
+.demo-blog__tipo {
+  display: inline-block;
+  padding: 0.0625rem 0.5rem;
+  border-radius: var(--proto-radio-pill);
+  background: var(--proto-arena);
+  color: var(--proto-tenue);
+  font-weight: 600;
+}
+
+.demo-blog__titulo {
+  font-size: 1.25rem;
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  // Toda la tarjeta se puede tocar: el enlace se estira sobre ella.
+  a::after { content: ""; position: absolute; inset: 0; }
+}
+.demo-blog__tarjeta { position: relative; }
+
+.demo-blog__bajada { color: var(--proto-tenue); font-size: 0.9375rem; }
+
+.demo-articulo {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 1.5rem 0 3rem;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+.demo-articulo--vista { padding: 0.5rem 0 0; font-size: 1rem; }
+.demo-articulo__volver { display: inline-flex; align-items: center; gap: 0.375rem; margin-bottom: 1.25rem; font-weight: 600; text-decoration: none; &:hover { text-decoration: underline; } }
+.demo-articulo__titulo { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-top: 0.5rem; }
+.demo-articulo__bajada { margin-top: 0.75rem; font-size: 1.125rem; color: var(--proto-tenue); }
+.demo-articulo__cuerpo {
+  display: grid;
+  gap: 1rem;
+  h2 { font-size: 1.375rem; margin-top: 0.75rem; }
+  ul { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.375rem; }
+}
+.demo-articulo__pie {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border-radius: var(--proto-radio-lg);
+  background: var(--proto-arena);
+}
+
+// El panel de la directora: el editor a la izquierda, la lista a la derecha.
+.demo-columnas--invertida { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+
+.demo-formulario { display: grid; gap: 1rem; }
+.demo-formulario__pie { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+.demo-formulario__nota { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.8125rem; color: var(--proto-tenue); svg { flex: none; margin-top: 0.125rem; } }
+.demo-formulario code { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 0.8125rem; background: var(--proto-arena); padding: 0 0.25rem; border-radius: 4px; }
+
+.demo-blog__lista { display: grid; gap: 0.375rem; margin: 0; padding: 0; list-style: none; }
+.demo-blog__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.25rem 0.25rem 0.25rem 0;
+  border-radius: var(--proto-radio);
+  &--activa { background: var(--proto-toca-pozo); }
+}
+.demo-blog__abrir {
+  display: grid;
+  gap: 0.125rem;
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.375rem 0.625rem;
+  border: 0;
+  border-radius: var(--proto-radio);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  &:hover { background: var(--proto-arena); }
+  &:focus-visible { outline: 2px solid var(--ds-focus-ring); outline-offset: -2px; }
+}
+.demo-blog__fila-titulo { font-weight: 600; }
+
+// ── El panel en el celular ─────────────────────────────────────────────
+// En el escritorio el menú es una columna a la izquierda. En el celular (y
+// con el pulgar) es una BARRA ABAJO con las cuatro secciones de ese rol y
+// «Más», que abre todas las demás como una hoja que sube. Es siempre el
+// mismo <nav> (la lista completa va adentro): lo que cambia es dónde se ve.
+.demo-menu__lista { display: grid; gap: 0.25rem; align-content: start; }
+.demo-pestanas, .demo-menu__fondo, .demo-menu__cerrar { display: none; }
+
 @media (max-width: 900px) {
   .demo-heroe, .demo-columnas { grid-template-columns: 1fr; }
-  .demo-panel-app { grid-template-columns: 1fr; }
+  .demo-blog__grilla { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 700px) and (max-width: 1000px) {
+  .demo-panel-app { grid-template-columns: 12rem minmax(0, 1fr); }
+  .demo-menu { padding: 1rem 0.5rem; }
+  .demo-menu__item { padding: 0 0.625rem; gap: 0.5rem; font-size: 0.875rem; }
+}
+
+@media (max-width: 699px) {
+  .demo-panel-app { grid-template-columns: 1fr; min-height: 0; }
+  .demo-trabajo { padding-bottom: calc(5.5rem + env(safe-area-inset-bottom)); }
+  .demo-trabajo__cabeza { align-items: flex-start; }
+  .demo-metricas { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .demo-metricas .proto-metrica__valor { font-size: 1.375rem; }
+
+  // El <nav> es la barra de abajo.
   .demo-menu {
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    overflow-x: auto;
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 20;
+    display: block;
+    padding: 0;
     border-right: 0;
-    border-bottom: 1px solid var(--proto-borde);
-    padding: 0.5rem 0.75rem;
+    background: transparent;
   }
-  .demo-menu__rol { display: none; }
+
+  // Cuatro pestañas y «Más», cada una ≥ 48 px de alto.
+  .demo-pestanas {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    padding: 0.375rem 0.25rem calc(0.375rem + env(safe-area-inset-bottom));
+    background: var(--proto-hoja);
+    border-top: 1px solid var(--proto-borde);
+    box-shadow: 0 -4px 16px rgb(60 44 30 / 0.06);
+  }
+
+  .demo-pestanas__item {
+    display: grid;
+    justify-items: center;
+    gap: 0.125rem;
+    min-height: 48px;
+    padding: 0.375rem 0.125rem;
+    border: 0;
+    border-radius: var(--proto-radio);
+    background: none;
+    color: var(--proto-tenue);
+    font: inherit;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-decoration: none;
+    line-height: 1.1;
+    cursor: pointer;
+
+    svg { width: 22px; height: 22px; }
+    &:focus-visible { outline: 2px solid var(--ds-focus-ring); outline-offset: -2px; }
+    &[aria-current="page"], &[aria-expanded="true"] { color: var(--proto-toca-honda); background: var(--proto-toca-pozo); }
+  }
+
+  // La lista completa: una hoja que sube desde la barra cuando se abre «Más».
+  .demo-menu__lista {
+    position: absolute;
+    inset: auto 0 100% 0;
+    z-index: 1;
+    display: none;
+    max-height: min(70vh, 32rem);
+    overflow-y: auto;
+    padding: 0.5rem 0.75rem 0.75rem;
+    border-top: 1px solid var(--proto-borde);
+    border-radius: var(--proto-radio-lg) var(--proto-radio-lg) 0 0;
+    background: var(--proto-hoja);
+    box-shadow: 0 -12px 40px rgb(60 44 30 / 0.18);
+  }
+  .demo-menu--abierto .demo-menu__lista { display: grid; }
+  .demo-menu__rol { display: block; margin-top: 0.25rem; }
+  .demo-menu__cerrar { display: flex; justify-content: flex-end; }
+
+  // El fondo que tapa el trabajo mientras la hoja está abierta.
+  .demo-menu--abierto .demo-menu__fondo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    border: 0;
+    padding: 0;
+    background: rgb(42 37 32 / 0.35);
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 560px) {

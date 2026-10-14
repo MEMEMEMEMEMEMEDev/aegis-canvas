@@ -5,8 +5,8 @@ import "./ProtoBoton.scss";
 
 export interface ProtoBotonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
-   * `accion` es la principal de la pantalla (morado). `suave` el resto.
-   * `calido` habla de o con una persona ("Escribirle a Camila"): celeste.
+   * `accion` es la principal de la pantalla (verde parque). `suave` el resto.
+   * `calido` habla de o con una persona ("Escribirle a Camila"): ciruela.
    * `urgencia` es SÓLO para responder a una urgencia ("Atender ahora").
    * `peligro` es lo que no se deshace: borde y texto rojos, nunca relleno,
    * para que no compita con `urgencia`.

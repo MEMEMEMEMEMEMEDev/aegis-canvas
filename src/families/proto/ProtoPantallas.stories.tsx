@@ -4,6 +4,7 @@ import { MiDia, Tablero } from "./demo/Panel";
 import { Meson, Rondas } from "./demo/Roles";
 import WebAgendar, { RESERVA_VACIA } from "./demo/WebAgendar";
 import { ClienteMolesto, Recordatorio } from "./demo/Whatsapp";
+import { BlogDirectora, BlogPublico } from "./demo/Blog";
 
 // LAS CUATRO PANTALLAS PARA CONVERSAR CON LA CLÍNICA. Datos ficticios (la
 // franja de arriba lo dice). Cada una es navegable: se puede agendar,
@@ -84,4 +85,19 @@ export const Recepcion: StoryObj = {
 export const Tecnico: StoryObj = {
   name: "9 · Panel: las rondas del técnico",
   render: () => <Rondas />,
+};
+
+export const BlogWeb: StoryObj = {
+  name: "10 · Web: consejos y noticias (el blog)",
+  render: () => <BlogPublico />,
+};
+
+export const BlogArticulo: StoryObj = {
+  name: "10 · Web · un consejo abierto",
+  render: () => <BlogPublico abierta="calor-en-nunoa" />,
+};
+
+export const BlogPanel: StoryObj = {
+  name: "11 · Panel: la directora escribe un consejo",
+  render: () => <BlogDirectora />,
 };

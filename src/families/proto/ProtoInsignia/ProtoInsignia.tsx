@@ -7,7 +7,7 @@ import "./ProtoInsignia.scss";
  * El estado de una cita o de un paciente. El color sigue la ley de la
  * familia: `urgencia` es rojo y nada más lo es; `espera` (por confirmar, en
  * lista de espera) es miel; `bien` (confirmada, atendida) verde; `persona`
- * celeste; `neutra` lo que ya no pide nada (cancelada, archivado).
+ * ciruela; `neutra` lo que ya no pide nada (cancelada, archivado).
  */
 export type ProtoInsigniaEstado = "bien" | "espera" | "urgencia" | "persona" | "neutra";
 

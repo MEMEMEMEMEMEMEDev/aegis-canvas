@@ -12,7 +12,7 @@ export interface ProtoHuellitasProps {
 }
 
 /**
- * Un rastro de huellitas: el único adorno de la familia. Lavanda, siempre
+ * Un rastro de huellitas: el único adorno de la familia. Durazno, siempre
  * aria-hidden, nunca encima de texto. Si decora todo, deja de ser un guiño.
  */
 export default function ProtoHuellitas({ pasos = 5, rumbo = "derecha", className }: ProtoHuellitasProps) {

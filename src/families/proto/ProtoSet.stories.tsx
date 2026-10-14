@@ -67,16 +67,16 @@ function Catalogo() {
     <Hoja>
       <ProtoPanel
         titulo="La ley de la familia"
-        sub="Rojo = urgencia y nada más. Morado = lo que se toca. Celeste = las personas y las mascotas. Verde = está bien. Miel = espera una respuesta. Lavanda = sólo decora."
+        sub="Rojo = urgencia y nada más. Verde parque = lo que se toca. Ciruela = las personas y las mascotas. Verde hoja = está bien. Miel = espera una respuesta. Durazno = sólo decora."
       >
         <Fila>
           <Muestra nombre="Papel" token="--proto-papel" />
           <Muestra nombre="Arena" token="--proto-arena" />
-          <Muestra nombre="Morado · se toca" token="--proto-toca" texto />
-          <Muestra nombre="Celeste · personas" token="--proto-gente" texto />
-          <Muestra nombre="Celeste inocente" token="--proto-gente-pozo" />
+          <Muestra nombre="Verde parque · se toca" token="--proto-toca" texto />
+          <Muestra nombre="Ciruela · personas" token="--proto-gente" texto />
+          <Muestra nombre="Ciruela suave" token="--proto-gente-pozo" />
           <Muestra nombre="Verde · está bien" token="--proto-bien" texto />
-          <Muestra nombre="Lavanda · decora" token="--proto-lavanda" />
+          <Muestra nombre="Durazno · decora" token="--proto-decora" />
           <Muestra nombre="Miel · espera" token="--proto-miel" texto />
           <Muestra nombre="Urgencia · sólo eso" token="--proto-urgencia" texto />
         </Fila>

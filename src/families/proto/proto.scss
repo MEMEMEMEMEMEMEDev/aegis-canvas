@@ -1,36 +1,41 @@
 // =============================================================================
 // PROTO — incubando HUELLA, la piel de la Veterinaria San Bruno.
 //
-// Una clínica donde se trata con animales y con personas preocupadas por
-// ellos. La familia tiene que sentirse como la sala de espera que uno quiere:
-// clara, tranquila, con algo de inocencia —celeste, lila, huellitas— y a la
-// vez sobria: sirve al equipo en un día de 30 pacientes, legible y densa
-// cuando hace falta.
+// Una clínica de barrio en Ñuñoa, donde se trata con animales y con personas
+// preocupadas por ellos. La familia tiene que sentirse como la sala de espera
+// que uno quiere: cálida, clara, tranquila —crema, verde parque, un guiño de
+// durazno en las huellitas— y a la vez sobria: sirve al equipo en un día de
+// 30 pacientes, legible y densa cuando hace falta.
 //
 // ── LA LEY DE LA FAMILIA ─────────────────────────────────────────────────
 //   · ROJO = urgencia y nada más. Si aparece, un animal necesita a alguien ya.
-//   · MORADO (--proto-toca) = lo que se toca: botones, enlaces, la hora elegida.
-//   · CELESTE (--proto-gente) = las personas y las mascotas: nombres,
-//     avatares, el trato.
-//   · VERDE (--proto-bien) = está bien: confirmada, dada, recuperada.
+//   · VERDE PARQUE (--proto-toca) = lo que se toca: botones, enlaces, la hora
+//     elegida. El verde de las plazas de Ñuñoa.
+//   · CIRUELA (--proto-gente) = las personas y las mascotas: nombres,
+//     avatares, el trato. Cálido y distinto del rojo (otro matiz, otra luz).
+//   · VERDE HOJA (--proto-bien) = está bien: confirmada, dada, recuperada.
+//     Más claro y más amarillo que el verde parque: una insignia nunca
+//     parece un botón.
 //   · MIEL = lo que espera una respuesta (por confirmar, en lista de espera).
-//   · LAVANDA (--proto-lavanda) = sólo decora (las huellitas, una barra de
+//   · DURAZNO (--proto-decora) = sólo decora (las huellitas, una barra de
 //     datos). Nunca lleva texto ni significa nada.
 //   Si el rojo empieza a decorar, deja de avisar.
 //
 // Los tokens se nombran por lo que SIGNIFICAN, no por su color: cambiar la
-// paleta (ya pasó una vez: salvia/terracota → morado/celeste) es cambiar
-// valores aquí y en ningún otro lado.
+// paleta (ya pasó dos veces: salvia/terracota → morado/celeste → crema/verde
+// parque/ciruela, 2026-10-14, «más amistosa») es cambiar valores aquí y en
+// ningún otro lado.
 //
 // ── CONTRASTE (medido, WCAG 2.2) ─────────────────────────────────────────
-//   tinta   #26232e / papel #f8f8fc  14,6:1
-//   tenue   #57536a / papel           7,0:1  (6,1:1 en el pozo más oscuro)
-//   apagado #67637a / arena #eeeef6   5,0:1  (el peor fondo donde va)
-//   blanco / toca #5b4b9a             7,2:1
-//   blanco / gente #2b6a96            5,8:1
+//   tinta   #2a2520 / papel #fbf7f1  14,2:1
+//   tenue   #5a524a / papel           7,2:1  (6,5:1 sobre arena)
+//   apagado #6a6259 / arena #f2ebe0   5,1:1  (el peor fondo donde va)
+//   blanco / toca #1e6b66             6,3:1
+//   blanco / gente #9a4367            6,2:1
+//   blanco / bien #3b7a44             5,2:1
 //   blanco / urgencia #b3261e         6,5:1
-//   toca-honda #47397f / papel        9,2:1  (enlaces)
-//   borde de campo #8a86a0 / hoja     3,5:1  (WCAG 1.4.11 pide 3:1)
+//   toca-honda #154f4b / papel        8,7:1  (enlaces)
+//   borde de campo #908678 / hoja     3,6:1  (WCAG 1.4.11 pide 3:1)
 //
 // Tipografías (OFL, autoalojadas): Fraunces para los títulos — la serif
 // cálida, la voz de la clínica — y Onest para todo lo que se lee o se
@@ -73,34 +78,34 @@
 
 .proto-scope {
   // --- Superficies (de la más honda a la más alta) ---
-  --proto-papel: #f8f8fc;         // el fondo: blanco con un soplo de lila
-  --proto-arena: #eeeef6;         // pozos: campos ocupados, filas alternas
+  --proto-papel: #fbf7f1;         // el fondo: crema, luz de tarde
+  --proto-arena: #f2ebe0;         // pozos: campos ocupados, filas alternas
   --proto-hoja: #ffffff;          // tarjetas, paneles
-  --proto-crema-alta: #f1f0f8;    // hover sobre la hoja
+  --proto-crema-alta: #f7f1e8;    // hover sobre la hoja
 
-  // --- Tinta ---
-  --proto-tinta: #26232e;
-  --proto-tenue: #57536a;
-  --proto-apagado: #67637a;
+  // --- Tinta (cálida: ni gris ni azul) ---
+  --proto-tinta: #2a2520;
+  --proto-tenue: #5a524a;
+  --proto-apagado: #6a6259;
 
   // --- Líneas ---
-  --proto-borde: #e2e0ec;         // separa: decorativo
-  --proto-borde-campo: #8a86a0;   // lo que se toca se ve: 3,5:1
+  --proto-borde: #e6ddd0;         // separa: decorativo
+  --proto-borde-campo: #908678;   // lo que se toca se ve: 3,6:1
 
-  // --- Morado: lo que se toca ---
-  --proto-toca: #5b4b9a;
-  --proto-toca-honda: #47397f;    // hover, enlaces, texto sobre su pozo (8,1:1)
-  --proto-toca-pozo: #ece8f7;
+  // --- Verde parque: lo que se toca ---
+  --proto-toca: #1e6b66;
+  --proto-toca-honda: #154f4b;    // hover, enlaces, texto sobre su pozo (7,8:1)
+  --proto-toca-pozo: #dcefeb;
 
-  // --- Celeste: las personas y las mascotas ---
-  --proto-gente: #2b6a96;
-  --proto-gente-honda: #1f5276;
-  --proto-gente-pozo: #e3f0fa;    // el celeste inocente
+  // --- Ciruela: las personas y las mascotas ---
+  --proto-gente: #9a4367;
+  --proto-gente-honda: #7a3351;
+  --proto-gente-pozo: #f8e4ec;
 
-  // --- Verde: está bien ---
-  --proto-bien: #3f6b55;
-  --proto-bien-honda: #2f5442;    // 7,2:1 sobre su pozo
-  --proto-bien-pozo: #e3eee6;
+  // --- Verde hoja: está bien ---
+  --proto-bien: #3b7a44;
+  --proto-bien-honda: #2b5a32;    // 6,8:1 sobre su pozo
+  --proto-bien-pozo: #e1f0e1;
 
   // --- Rojo: urgencia, y nada más ---
   --proto-urgencia: #b3261e;
@@ -108,23 +113,24 @@
 
   // --- Miel: espera una respuesta ---
   --proto-miel: #7a4f00;
-  --proto-miel-pozo: #fcefd4;
+  --proto-miel-pozo: #fcebd0;
 
-  // --- Lavanda: sólo decora (huellitas), nunca texto ---
-  --proto-lavanda: #c9c0ec;
+  // --- Durazno: sólo decora (huellitas), nunca texto ---
+  --proto-decora: #f3cdb6;
+  --proto-lavanda: var(--proto-decora); // el nombre viejo, por si alguien lo usa
 
   // --- Forma: redonda, como todo lo que se acaricia ---
-  --proto-radio: 12px;
-  --proto-radio-lg: 20px;
+  --proto-radio: 14px;
+  --proto-radio-lg: 22px;
   --proto-radio-pill: 999px;
   --proto-linea: 1px;
-  --proto-sombra: 0 1px 2px rgb(43 38 34 / 0.06), 0 8px 24px rgb(43 38 34 / 0.06);
+  --proto-sombra: 0 1px 2px rgb(60 44 30 / 0.06), 0 8px 24px rgb(60 44 30 / 0.07);
 
   --proto-font-titulo: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
   --proto-font: "Onest", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     Roboto, "Helvetica Neue", sans-serif;
 
-  --ds-focus-ring: #5b4b9a;
+  --ds-focus-ring: #1e6b66;
 
   background: var(--proto-papel);
   color: var(--proto-tinta);
@@ -146,8 +152,8 @@
 
   :where(p) { margin: 0; }
 
-  // Los enlaces son morado (lo que se toca) y van subrayados: no dependen
-  // sólo del color. #47397f sobre papel: 9,2:1.
+  // Los enlaces son verde parque (lo que se toca) y van subrayados: no
+  // dependen sólo del color. #154f4b sobre papel: 8,7:1.
   :where(a) { color: var(--proto-toca-honda); text-underline-offset: 0.15em; }
 }
 
